@@ -14,6 +14,7 @@ import com.sun.jersey.client.apache.ApacheHttpClientHandler;
 import com.sun.jersey.client.apache.config.DefaultApacheHttpClientConfig;
 import com.sun.jersey.multipart.impl.MultiPartWriter;
 import java.net.URI;
+import java.util.concurrent.ForkJoinPool;
 import javax.ws.rs.core.HttpHeaders;
 
 public class PlatformClient {

@@ -332,7 +332,7 @@ public class ServiceConnection {
 
     }
 
-    public Future<DeserializedHttpResponseGen<Document>> putToProcessDocumentActionForDocumentAsync(String fileCabinetId, int docId, DocumentActionInfo data) {
+    public Future<DeserializedHttpResponseGen<Document>> putToProcessDocumentActionForDocumentAsync(String fileCabinetId, int docId, DocumentActionInfo data, CancellationToken ct) {
         class Param {
 
             String fileCabinetId;
@@ -345,23 +345,14 @@ public class ServiceConnection {
         }
         Param parameters = new Param(fileCabinetId, docId);
         URI uri = buildUri(parameters, "processDocumentAction");
-        try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("processDocumentAction", parameters));
-            // /Docuware/Platform/FileCabinets/7eb33bf0-9801-4640-b80f-9a6948bb4a78/Operations/ProcessDocumentAction?docId=20
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }
-        return LinkResolver.<Document, DocumentActionInfo>putAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Document.class, DocumentActionInfo.class, "DocumentActionInfo", data);
-        /*return CompletableFuture.<DeserializedHttpResponseGen<Document>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         JAXBElement jax = new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentActionInfo"), DocumentActionInfo.class, null, data);
-         ClientResponse resp = web.type("application/xml").accept("application/xml").put(ClientResponse.class, jax);
-         return new DeserializedHttpResponseGen<Document>(resp, resp.getEntity(Document.class));
-         });*/
+        Future<DeserializedHttpResponseGen<Document>> fut = LinkResolver.<Document, DocumentActionInfo>putAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Document.class, DocumentActionInfo.class, "DocumentActionInfo", data);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
     }
+
+        public Future<DeserializedHttpResponseGen<Document>> putToProcessDocumentActionForDocumentAsync(String fileCabinetId, int docId, DocumentActionInfo data) {
+            return putToProcessDocumentActionForDocumentAsync(fileCabinetId, docId, data, null);
+        }
 
 
     /*  public Future<DeserializedHttpResponseGen<SequenceResult>> postToRetrieveSequenceElementForSequenceResultAsync(String fileCabinetId, SequenceRequest data)
@@ -387,7 +378,7 @@ public class ServiceConnection {
      return new DeserializedHttpResponseGen<SequenceResult>(resp, resp.getEntity(SequenceResult.class));
      });      
      }*/
-    public Future<DeserializedHttpResponseGen<String>> postToCreatePermanentUrlForStringAsync(MultivaluedMap data, Boolean clientSideChecksum) {
+    public Future<DeserializedHttpResponseGen<String>> postToCreatePermanentUrlForStringAsync(MultivaluedMap data, Boolean clientSideChecksum, CancellationToken ct) {
         class Param {
 
             Boolean clientSideChecksum;
@@ -398,15 +389,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(clientSideChecksum);
         URI uri = buildUri(parameters, "createPermanentUrl");
-        /*try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("createPermanentUrl", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return CompletableFuture.<DeserializedHttpResponseGen<String>>supplyAsync(() -> {
+        Future<DeserializedHttpResponseGen<String>> fut= CompletableFuture.<DeserializedHttpResponseGen<String>>supplyAsync(() -> {
             WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
             ClientResponse resp = web.type("application/x-www-form-urlencoded").accept("text/plain").post(ClientResponse.class, data);
             if (resp.getStatus() < 200 || resp.getStatus() > 399) {
@@ -416,9 +399,16 @@ public class ServiceConnection {
                 return new DeserializedHttpResponseGen<String>(resp, resp.getEntity(String.class));
             }
         });
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
     }
+    
+    public Future<DeserializedHttpResponseGen<String>> postToCreatePermanentUrlForStringAsync(MultivaluedMap data, Boolean clientSideChecksum) {
+        return postToCreatePermanentUrlForStringAsync(data, clientSideChecksum, null);
+    }
+    
 
-    public Future<DeserializedHttpResponseGen<Dialog>> getFromDialogForDialogAsync(String id, String fileCabinetId, DialogTypes[] dialogType) {
+    public Future<DeserializedHttpResponseGen<Dialog>> getFromDialogForDialogAsync(String id, String fileCabinetId, DialogTypes[] dialogType, CancellationToken ct) {
         class Param {
 
             String id;
@@ -433,24 +423,17 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId, dialogType);
         URI uri = buildUri(parameters, "dialog");
-/*
-        try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("dialog", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<Dialog>getAsync(this.getServiceDescription(), uri, "application/xml", Dialog.class);
-        /*return CompletableFuture.<DeserializedHttpResponseGen<Dialog>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         ClientResponse resp = web.accept("application/xml").get(ClientResponse.class);
-         return new DeserializedHttpResponseGen<Dialog>(resp, resp.getEntity(Dialog.class));
-         });*/
+        Future<DeserializedHttpResponseGen<Dialog>> fut= LinkResolver.<Dialog>getAsync(this.getServiceDescription(), uri, "application/xml", Dialog.class);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
+    }
+    
+    public Future<DeserializedHttpResponseGen<Dialog>> getFromDialogForDialogAsync(String id, String fileCabinetId, DialogTypes[] dialogType) {
+        return getFromDialogForDialogAsync(id, fileCabinetId, dialogType, null);
     }
 
-    public Future<DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>> postToBatchDialogUpdateFieldsForBatchUpdateIndexFieldsResultAsync(String fileCabinetId, String id, BatchUpdateProcess data, String[] fields, String[] sortOrder) {
+
+    public Future<DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>> postToBatchDialogUpdateFieldsForBatchUpdateIndexFieldsResultAsync(String fileCabinetId, String id, BatchUpdateProcess data, String[] fields, String[] sortOrder, CancellationToken ct) {
         class Param {
 
             String id;
@@ -467,24 +450,21 @@ public class ServiceConnection {
         }
         Param parameters = new Param(fileCabinetId, id, fields, sortOrder);
         URI uri = buildUri(parameters, "batchDialogUpdateFields");
-      /*  try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("batchDialogUpdateFields", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<BatchUpdateIndexFieldsResult, BatchUpdateProcess>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", BatchUpdateIndexFieldsResult.class, BatchUpdateProcess.class, "BatchUpdateProcess", data);
-        /*return CompletableFuture.<DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         JAXBElement jax = new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "BatchUpdateProcess"), BatchUpdateProcess.class, null, data);
-         ClientResponse resp = web.type("application/xml").accept("application/xml").post(ClientResponse.class, jax);
-         return new DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>(resp, resp.getEntity(BatchUpdateIndexFieldsResult.class));
-         });*/
+        Future<DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>> fut = LinkResolver.<BatchUpdateIndexFieldsResult, BatchUpdateProcess>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", BatchUpdateIndexFieldsResult.class, BatchUpdateProcess.class, "BatchUpdateProcess", data);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
     }
 
     public Future<DeserializedHttpResponseGen<String>> deleteFromDocumentDeleteForStringAsync(int id, String fileCabinetId) {
+        return deleteFromDocumentDeleteForStringAsync(id, fileCabinetId, null);
+    }
+    
+    public Future<DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>> postToBatchDialogUpdateFieldsForBatchUpdateIndexFieldsResultAsync(String fileCabinetId, String id, BatchUpdateProcess data, String[] fields, String[] sortOrder) {
+        return postToBatchDialogUpdateFieldsForBatchUpdateIndexFieldsResultAsync(fileCabinetId, id, data, fields, sortOrder, null);
+    }
+
+    
+    public Future<DeserializedHttpResponseGen<String>> deleteFromDocumentDeleteForStringAsync(int id, String fileCabinetId, CancellationToken ct) {
         class Param {
 
             int id;
@@ -497,23 +477,16 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri = buildUri(parameters, "documentDelete");
-        /*try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("documentDelete", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.deleteAsync(this.getServiceDescription(), uri, "text/plain");
-        /*return CompletableFuture.<DeserializedHttpResponseGen<String>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         ClientResponse resp = web.accept("text/plain").delete(ClientResponse.class);
-         return new DeserializedHttpResponseGen<String>(resp, resp.getEntity(String.class));
-         });*/
+        Future<DeserializedHttpResponseGen<String>> fut= LinkResolver.deleteAsync(this.getServiceDescription(), uri, "text/plain");
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
     }
 
     public Future<DeserializedHttpResponseGen<Document>> getFromDocumentForDocumentAsync(int id, String fileCabinetId) {
+        return getFromDocumentForDocumentAsync(id, fileCabinetId, null);
+    }
+    
+    public Future<DeserializedHttpResponseGen<Document>> getFromDocumentForDocumentAsync(int id, String fileCabinetId, CancellationToken ct) {
         class Param {
 
             int id;
@@ -526,23 +499,12 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri = buildUri(parameters, "document");
-        /*try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("document", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<Document>getAsync(this.getServiceDescription(), uri, "application/xml", Document.class);
-        /*return CompletableFuture.<DeserializedHttpResponseGen<Document>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         ClientResponse resp = web.accept("application/xml").get(ClientResponse.class);
-         return new DeserializedHttpResponseGen<Document>(resp, resp.getEntity(Document.class));
-         });*/
+        Future<DeserializedHttpResponseGen<Document>> fut= LinkResolver.<Document>getAsync(this.getServiceDescription(), uri, "application/xml", Document.class);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
     }
 
-    public Future<DeserializedHttpResponseGen<Document>> postToDocumentAppendFilesForDocumentAsync(int id, String fileCabinetId, MultiPart data) {
+    public Future<DeserializedHttpResponseGen<Document>> postToDocumentAppendFilesForDocumentAsync(int id, String fileCabinetId, MultiPart data, CancellationToken ct) {
         class Param {
 
             int id;
@@ -555,23 +517,20 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri = buildUri(parameters, "documentAppendFiles");
-       /* try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("documentAppendFiles", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<Document>postMultiPartAsync(this.getServiceDescription(), uri, "application/xml", Document.class, data);
-        /*return CompletableFuture.<DeserializedHttpResponseGen<Document>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         ClientResponse resp = web.type(MediaType.MULTIPART_FORM_DATA).accept("application/xml").post(ClientResponse.class, data);
-         return new DeserializedHttpResponseGen<Document>(resp, resp.getEntity(Document.class));
-         });*/
+        Future<DeserializedHttpResponseGen<Document>> fut =  LinkResolver.<Document>postMultiPartAsync(this.getServiceDescription(), uri, "application/xml", Document.class, data);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
+    }
+    
+    public Future<DeserializedHttpResponseGen<Document>> postToDocumentAppendFilesForDocumentAsync(int id, String fileCabinetId, MultiPart data) {
+        return postToDocumentAppendFilesForDocumentAsync( id,  fileCabinetId, data, null);
     }
 
     public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> getFromDocumentsForDocumentsQueryResultAsync(String fileCabinetId, String q, String[] fields, String[] sortOrder, Integer start, Integer msStart, Integer count, String format, Boolean includeSuggestions) {
+        return getFromDocumentsForDocumentsQueryResultAsync(fileCabinetId, q, fields, sortOrder, start, msStart, count, format, includeSuggestions, null);
+    }
+    
+    public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> getFromDocumentsForDocumentsQueryResultAsync(String fileCabinetId, String q, String[] fields, String[] sortOrder, Integer start, Integer msStart, Integer count, String format, Boolean includeSuggestions, CancellationToken ct) {
         class Param {
 
             String fileCabinetId;
@@ -599,23 +558,16 @@ public class ServiceConnection {
         }
         Param parameters = new Param(fileCabinetId, q, fields, sortOrder, start, msStart, count, format, includeSuggestions);
         URI uri = buildUri(parameters, "documents");
-        /*try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("documents", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<DocumentsQueryResult>getAsync(this.getServiceDescription(), uri, "application/xml", DocumentsQueryResult.class);
-        /* return CompletableFuture.<DeserializedHttpResponseGen<DocumentsQueryResult>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         ClientResponse resp = web.accept("application/xml").get(ClientResponse.class);
-         return new DeserializedHttpResponseGen<DocumentsQueryResult>(resp, resp.getEntity(DocumentsQueryResult.class));
-         });*/
+        Future<DeserializedHttpResponseGen<DocumentsQueryResult>> fut= LinkResolver.<DocumentsQueryResult>getAsync(this.getServiceDescription(), uri, "application/xml", DocumentsQueryResult.class);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
     }
 
     public Future<DeserializedHttpResponseGen<Document>> postToUploadDocumentForDocumentAsync(String fileCabinetId, Document data, Boolean processTextshot, Boolean imageProcessing, String redirect, String storeDialogId, Boolean checkFileNameForCheckinInfo) {
+        return postToUploadDocumentForDocumentAsync(fileCabinetId, data, processTextshot, imageProcessing, redirect, storeDialogId, checkFileNameForCheckinInfo, null);
+    }
+    
+    public Future<DeserializedHttpResponseGen<Document>> postToUploadDocumentForDocumentAsync(String fileCabinetId, Document data, Boolean processTextshot, Boolean imageProcessing, String redirect, String storeDialogId, Boolean checkFileNameForCheckinInfo, CancellationToken ct) {
         class Param {
 
             String fileCabinetId;
@@ -637,24 +589,12 @@ public class ServiceConnection {
         }
         Param parameters = new Param(fileCabinetId, processTextshot, imageProcessing, redirect, storeDialogId, checkFileNameForCheckinInfo);
         URI uri = buildUri(parameters, "uploadDocument");
-        /*try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("uploadDocument", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<Document, Document>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Document.class, Document.class, "Document", data);
-        /*  return CompletableFuture.<DeserializedHttpResponseGen<Document>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         JAXBElement jax = new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "Document"), Document.class, null, data);
-         ClientResponse resp = web.type("application/xml").accept("application/xml").post(ClientResponse.class, jax);
-         return new DeserializedHttpResponseGen<Document>(resp, resp.getEntity(Document.class));
-         });*/
+        Future<DeserializedHttpResponseGen<Document>> fut=  LinkResolver.<Document, Document>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Document.class, Document.class, "Document", data);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
     }
 
-    public Future<DeserializedHttpResponseGen<Document>> postToUploadDocumentForDocumentAsync(String fileCabinetId, InputStream data, Boolean processTextshot, Boolean imageProcessing, String redirect, String storeDialogId, Boolean checkFileNameForCheckinInfo) {
+    public Future<DeserializedHttpResponseGen<Document>> postToUploadDocumentForDocumentAsync(String fileCabinetId, InputStream data, Boolean processTextshot, Boolean imageProcessing, String redirect, String storeDialogId, Boolean checkFileNameForCheckinInfo, CancellationToken ct) {
         class Param {
 
             String fileCabinetId;
@@ -676,23 +616,38 @@ public class ServiceConnection {
         }
         Param parameters = new Param(fileCabinetId, processTextshot, imageProcessing, redirect, storeDialogId, checkFileNameForCheckinInfo);
         URI uri = buildUri(parameters, "uploadDocument");
-        /*try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("uploadDocument", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<Document>postAsync(this.getServiceDescription(), uri, "*/*", "application/xml", Document.class, data);
-        //return CompletableFuture.<DeserializedHttpResponseGen<Document>>supplyAsync(() -> {
-        //    WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-        //    ClientResponse resp = web.type("*/*").accept("application/xml").post(ClientResponse.class, data);
-        //    return new DeserializedHttpResponseGen<Document>(resp, resp.getEntity(Document.class));
-        //});
+        Future<DeserializedHttpResponseGen<Document>> fut = LinkResolver.<Document>postAsync(this.getServiceDescription(), uri, "*/*", "application/xml", Document.class, data);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
     }
+    
+    public Future<DeserializedHttpResponseGen<Document>> postToUploadDocumentForDocumentAsync(String fileCabinetId, InputStream data, Boolean processTextshot, Boolean imageProcessing, String redirect, String storeDialogId, Boolean checkFileNameForCheckinInfo) {
+        return postToUploadDocumentForDocumentAsync(fileCabinetId, data, processTextshot, imageProcessing, redirect, storeDialogId, checkFileNameForCheckinInfo, null);
+    }
+    
+    public Future<DeserializedHttpResponseGen<DocumentIndexFields>> getFromDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, CancellationToken ct) {
+        class Param {
 
+            int id;
+            String fileCabinetId;
+
+            public Param(int id, String fileCabinetId) {
+                this.id = id;
+                this.fileCabinetId = fileCabinetId;
+            }
+        }
+        Param parameters = new Param(id, fileCabinetId);
+        URI uri = buildUri(parameters, "documentIndexFields");
+        Future<DeserializedHttpResponseGen<DocumentIndexFields>> fut = LinkResolver.<DocumentIndexFields>getAsync(this.getServiceDescription(), uri, "application/xmml", DocumentIndexFields.class);
+        if(ct!=null)ct.addFuture(fut);
+        return fut;
+    }
+    
     public Future<DeserializedHttpResponseGen<DocumentIndexFields>> getFromDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId) {
+        return getFromDocumentIndexFieldsForDocumentIndexFieldsAsync(id, fileCabinetId, null);
+    }
+
+    public Future<DeserializedHttpResponseGen<DocumentIndexFields>> putToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, DocumentIndexFields data, CancellationToken ct) {
         class Param {
 
             int id;
@@ -705,23 +660,16 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri = buildUri(parameters, "documentIndexFields");
-        /*try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("documentIndexFields", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<DocumentIndexFields>getAsync(this.getServiceDescription(), uri, "application/xmml", DocumentIndexFields.class);
-        /*     return CompletableFuture.<DeserializedHttpResponseGen<DocumentIndexFields>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         ClientResponse resp = web.accept("application/xml").get(ClientResponse.class);
-         return new DeserializedHttpResponseGen<DocumentIndexFields>(resp, resp.getEntity(DocumentIndexFields.class));
-         });*/
+        Future<DeserializedHttpResponseGen<DocumentIndexFields>> fut = LinkResolver.<DocumentIndexFields, DocumentIndexFields>putAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", DocumentIndexFields.class, DocumentIndexFields.class, "DocumentIndexFields", data);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
     }
-
+        
     public Future<DeserializedHttpResponseGen<DocumentIndexFields>> putToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, DocumentIndexFields data) {
+        return putToDocumentIndexFieldsForDocumentIndexFieldsAsync(id, fileCabinetId, data, null);
+    }
+
+    public Future<DeserializedHttpResponseGen<DocumentIndexFields>> putToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, UpdateIndexFieldsInfo data, CancellationToken ct) {
         class Param {
 
             int id;
@@ -734,54 +682,16 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri = buildUri(parameters, "documentIndexFields");
-       /* try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("documentIndexFields", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<DocumentIndexFields, DocumentIndexFields>putAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", DocumentIndexFields.class, DocumentIndexFields.class, "DocumentIndexFields", data);
-        /*return CompletableFuture.<DeserializedHttpResponseGen<DocumentIndexFields>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         JAXBElement jax = new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentIndexFields"), DocumentIndexFields.class, null, data);
-         ClientResponse resp = web.type("application/xml").accept("application/xml").put(ClientResponse.class, jax);
-         return new DeserializedHttpResponseGen<DocumentIndexFields>(resp, resp.getEntity(DocumentIndexFields.class));
-         });*/
+        Future<DeserializedHttpResponseGen<DocumentIndexFields>> fut = LinkResolver.<DocumentIndexFields, UpdateIndexFieldsInfo>putAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", DocumentIndexFields.class, UpdateIndexFieldsInfo.class, "UpdateIndexFieldsInfo", data);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
     }
-
+    
     public Future<DeserializedHttpResponseGen<DocumentIndexFields>> putToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, UpdateIndexFieldsInfo data) {
-        class Param {
-
-            int id;
-            String fileCabinetId;
-
-            public Param(int id, String fileCabinetId) {
-                this.id = id;
-                this.fileCabinetId = fileCabinetId;
-            }
-        }
-        Param parameters = new Param(id, fileCabinetId);
-        URI uri = buildUri(parameters, "documentIndexFields");
-        /*try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("documentIndexFields", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<DocumentIndexFields, UpdateIndexFieldsInfo>putAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", DocumentIndexFields.class, UpdateIndexFieldsInfo.class, "UpdateIndexFieldsInfo", data);
-        /* return CompletableFuture.<DeserializedHttpResponseGen<DocumentIndexFields>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         JAXBElement jax = new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "UpdateIndexFieldsInfo"), UpdateIndexFieldsInfo.class, null, data);
-         ClientResponse resp = web.type("application/xml").accept("application/xml").put(ClientResponse.class, jax);
-         return new DeserializedHttpResponseGen<DocumentIndexFields>(resp, resp.getEntity(DocumentIndexFields.class));
-         });*/
+        return putToDocumentIndexFieldsForDocumentIndexFieldsAsync(id, fileCabinetId, data, null);
     }
 
-    public Future<DeserializedHttpResponseGen<DocumentIndexFields>> postToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, DocumentIndexFields data) {
+    public Future<DeserializedHttpResponseGen<DocumentIndexFields>> postToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, DocumentIndexFields data, CancellationToken ct) {
         class Param {
 
             int id;
@@ -794,24 +704,17 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri  = buildUri(parameters, "documentIndexFields");
-        /*try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("documentIndexFields", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<DocumentIndexFields, DocumentIndexFields>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", DocumentIndexFields.class, DocumentIndexFields.class, "DocumentIndexFields", data);
-        /*return CompletableFuture.<DeserializedHttpResponseGen<DocumentIndexFields>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         JAXBElement jax = new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentIndexFields"), DocumentIndexFields.class, null, data);
-         ClientResponse resp = web.type("application/xml").accept("application/xml").post(ClientResponse.class, jax);
-         return new DeserializedHttpResponseGen<DocumentIndexFields>(resp, resp.getEntity(DocumentIndexFields.class));
-         });*/
+        Future<DeserializedHttpResponseGen<DocumentIndexFields>> fut =  LinkResolver.<DocumentIndexFields, DocumentIndexFields>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", DocumentIndexFields.class, DocumentIndexFields.class, "DocumentIndexFields", data);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
+    }
+    
+    public Future<DeserializedHttpResponseGen<DocumentIndexFields>> postToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, DocumentIndexFields data) {
+        return postToDocumentIndexFieldsForDocumentIndexFieldsAsync(id, fileCabinetId, data, null);
     }
 
-    public Future<DeserializedHttpResponseGen<DocumentIndexFields>> postToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, UpdateIndexFieldsInfo data) {
+
+    public Future<DeserializedHttpResponseGen<DocumentIndexFields>> postToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, UpdateIndexFieldsInfo data, CancellationToken ct) {
         class Param {
 
             int id;
@@ -824,24 +727,17 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri = buildUri(parameters, "documentIndexFields");
-        /*try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("documentIndexFields", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<DocumentIndexFields, UpdateIndexFieldsInfo>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", DocumentIndexFields.class, UpdateIndexFieldsInfo.class, "UpdateIndexFieldsInfo", data);
-        /*return CompletableFuture.<DeserializedHttpResponseGen<DocumentIndexFields>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         JAXBElement jax = new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "UpdateIndexFieldsInfo"), UpdateIndexFieldsInfo.class, null, data);
-         ClientResponse resp = web.type("application/xml").accept("application/xml").post(ClientResponse.class, jax);
-         return new DeserializedHttpResponseGen<DocumentIndexFields>(resp, resp.getEntity(DocumentIndexFields.class));
-         });*/
+        Future<DeserializedHttpResponseGen<DocumentIndexFields>> fut = LinkResolver.<DocumentIndexFields, UpdateIndexFieldsInfo>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", DocumentIndexFields.class, UpdateIndexFieldsInfo.class, "UpdateIndexFieldsInfo", data);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
     }
+    
+    public Future<DeserializedHttpResponseGen<DocumentIndexFields>> postToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, UpdateIndexFieldsInfo data) {
+        return postToDocumentIndexFieldsForDocumentIndexFieldsAsync(id,  fileCabinetId, data, null);
+    }
+    
 
-    public Future<DeserializedHttpResponseGen<SuggestionFields>> getFromIntellixSuggestionsForSuggestionFieldsAsync(int id, String fileCabinetId, Boolean normalizeCoordinates) {
+    public Future<DeserializedHttpResponseGen<SuggestionFields>> getFromIntellixSuggestionsForSuggestionFieldsAsync(int id, String fileCabinetId, Boolean normalizeCoordinates, CancellationToken ct) {
         class Param {
 
             int id;
@@ -857,23 +753,17 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId, normalizeCoordinates);
         URI uri = buildUri(parameters, "intellixSuggestions");
-       /* try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("intellixSuggestions", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<SuggestionFields>getAsync(this.getServiceDescription(), uri, "application/xml", SuggestionFields.class);
-        /*        return CompletableFuture.<DeserializedHttpResponseGen<SuggestionFields>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         ClientResponse resp = web.accept("application/xml").get(ClientResponse.class);
-         return new DeserializedHttpResponseGen<SuggestionFields>(resp, resp.getEntity(SuggestionFields.class));
-         });*/
+        Future<DeserializedHttpResponseGen<SuggestionFields>> fut = LinkResolver.<SuggestionFields>getAsync(this.getServiceDescription(), uri, "application/xml", SuggestionFields.class);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
     }
+    
+    public Future<DeserializedHttpResponseGen<SuggestionFields>> getFromIntellixSuggestionsForSuggestionFieldsAsync(int id, String fileCabinetId, Boolean normalizeCoordinates) {
+        return getFromIntellixSuggestionsForSuggestionFieldsAsync(id, fileCabinetId, normalizeCoordinates, null);
+    }
+    
 
-    public Future<DeserializedHttpResponseGen<InputStream>> getFromDocumentsFileDownloadForStreamAsync(int id, String fileCabinetId, FileDownloadType targetFileType, Boolean keepAnnotations, Boolean downloadFile, Boolean autoPrint, int[] layers, int[] append) {
+    public Future<DeserializedHttpResponseGen<InputStream>> getFromDocumentsFileDownloadForStreamAsync(int id, String fileCabinetId, FileDownloadType targetFileType, Boolean keepAnnotations, Boolean downloadFile, Boolean autoPrint, int[] layers, int[] append, CancellationToken ct) {
         class Param {
 
             int id;
@@ -899,23 +789,17 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId, targetFileType, keepAnnotations, downloadFile, autoPrint, layers, append);
         URI uri = buildUri(parameters, "documentsFileDownload");
-       /* try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("documentsFileDownload", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<InputStream>getAsync(this.getServiceDescription(), uri, "*/*", InputStream.class);
-   //     return CompletableFuture.<DeserializedHttpResponseGen<InputStream>>supplyAsync(() -> {
-        //       WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-        //     ClientResponse resp = web.accept("*/*").get(ClientResponse.class);
-        //   return new DeserializedHttpResponseGen<InputStream>(resp, resp.getEntity(InputStream.class));
-        //});
+        Future<DeserializedHttpResponseGen<InputStream>> fut = LinkResolver.<InputStream>getAsync(this.getServiceDescription(), uri, "*/*", InputStream.class);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
     }
+    
+    public Future<DeserializedHttpResponseGen<InputStream>> getFromDocumentsFileDownloadForStreamAsync(int id, String fileCabinetId, FileDownloadType targetFileType, Boolean keepAnnotations, Boolean downloadFile, Boolean autoPrint, int[] layers, int[] append) {
+        return getFromDocumentsFileDownloadForStreamAsync(id, fileCabinetId, targetFileType, keepAnnotations, downloadFile, autoPrint, layers, append ,null);
+    }
+    
 
-    public Future<DeserializedHttpResponseGen<Rights>> postToDocumentRightsForRightsAsync(int id, String fileCabinetId, Rights data) {
+    public Future<DeserializedHttpResponseGen<Rights>> postToDocumentRightsForRightsAsync(int id, String fileCabinetId, Rights data, CancellationToken ct) {
         class Param {
 
             int id;
@@ -928,24 +812,17 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri = buildUri(parameters, "documentRights");
-       /* try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("documentRights", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<Rights, Rights>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Rights.class, Rights.class, "Rights", data);
-        /*return CompletableFuture.<DeserializedHttpResponseGen<Rights>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         JAXBElement jax = new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "Rights"), Rights.class, null, data);
-         ClientResponse resp = web.type("application/xml").accept("application/xml").post(ClientResponse.class, jax);
-         return new DeserializedHttpResponseGen<Rights>(resp, resp.getEntity(Rights.class));
-         });*/
+        Future<DeserializedHttpResponseGen<Rights>> fut= LinkResolver.<Rights, Rights>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Rights.class, Rights.class, "Rights", data);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
     }
+    
+    public Future<DeserializedHttpResponseGen<Rights>> postToDocumentRightsForRightsAsync(int id, String fileCabinetId, Rights data) {
+        return postToDocumentRightsForRightsAsync(id, fileCabinetId, data, null);
+    }
+   
 
-    public Future<DeserializedHttpResponseGen<DocumentLinks>> getFromDocumentDocumentLinksForDocumentLinksAsync(int id, String fileCabinetId) {
+    public Future<DeserializedHttpResponseGen<DocumentLinks>> getFromDocumentDocumentLinksForDocumentLinksAsync(int id, String fileCabinetId, CancellationToken ct) {
         class Param {
 
             int id;
@@ -958,23 +835,17 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri  = buildUri(parameters, "documentDocumentLinks");
-        /*try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("documentDocumentLinks", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<DocumentLinks>getAsync(this.getServiceDescription(), uri, "application/xml", DocumentLinks.class);
-        /* return CompletableFuture.<DeserializedHttpResponseGen<DocumentLinks>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         ClientResponse resp = web.accept("application/xml").get(ClientResponse.class);
-         return new DeserializedHttpResponseGen<DocumentLinks>(resp, resp.getEntity(DocumentLinks.class));
-         });*/
+        Future<DeserializedHttpResponseGen<DocumentLinks>> fut = LinkResolver.<DocumentLinks>getAsync(this.getServiceDescription(), uri, "application/xml", DocumentLinks.class);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
+    }
+    
+    public Future<DeserializedHttpResponseGen<DocumentLinks>> getFromDocumentDocumentLinksForDocumentLinksAsync(int id, String fileCabinetId) {
+        return getFromDocumentDocumentLinksForDocumentLinksAsync(id,  fileCabinetId, null);
     }
 
-    public Future<DeserializedHttpResponseGen<InputStream>> postToCheckoutForStreamAsync(int id, String fileCabinetId, CheckOutToFileSystemInfo data) {
+
+    public Future<DeserializedHttpResponseGen<InputStream>> postToCheckoutForStreamAsync(int id, String fileCabinetId, CheckOutToFileSystemInfo data, CancellationToken ct) {
         class Param {
 
             int id;
@@ -986,25 +857,18 @@ public class ServiceConnection {
             }
         }
         Param parameters = new Param(id, fileCabinetId);
-        URI uri = buildUri(parameters, "checkout");;
-        /*try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("checkout", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<InputStream, CheckOutToFileSystemInfo>postAsync(this.getServiceDescription(), uri, "application/xml", "*/*", InputStream.class, CheckOutToFileSystemInfo.class, "CheckOutToFileSystemInfo", data);
-       // return CompletableFuture.<DeserializedHttpResponseGen<InputStream>>supplyAsync(() -> {
-        //   WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-        // JAXBElement jax = new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "CheckOutToFileSystemInfo"), CheckOutToFileSystemInfo.class, null, data);
-        //  ClientResponse resp = web.type("application/xml").accept("*/*").post(ClientResponse.class, jax);
-        //return new DeserializedHttpResponseGen<InputStream>(resp, resp.getEntity(InputStream.class));
-        //});
+        URI uri = buildUri(parameters, "checkout");
+        Future<DeserializedHttpResponseGen<InputStream>> fut = LinkResolver.<InputStream, CheckOutToFileSystemInfo>postAsync(this.getServiceDescription(), uri, "application/xml", "*/*", InputStream.class, CheckOutToFileSystemInfo.class, "CheckOutToFileSystemInfo", data);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
     }
+    
+    public Future<DeserializedHttpResponseGen<InputStream>> postToCheckoutForStreamAsync(int id, String fileCabinetId, CheckOutToFileSystemInfo data) {
+        return postToCheckoutForStreamAsync(id, fileCabinetId, data, null);
+    }
+    
 
-    public Future<DeserializedHttpResponseGen<CheckOutResult>> postToCheckoutDocumentForCheckOutResultAsync(int id, String fileCabinetId, CheckOutToFileSystemInfo data) {
+    public Future<DeserializedHttpResponseGen<CheckOutResult>> postToCheckoutDocumentForCheckOutResultAsync(int id, String fileCabinetId, CheckOutToFileSystemInfo data, CancellationToken ct) {
         class Param {
 
             int id;
@@ -1017,24 +881,17 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri = buildUri(parameters, "checkoutDocument");
-        /*try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("checkoutDocument", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<CheckOutResult, CheckOutToFileSystemInfo>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", CheckOutResult.class, CheckOutToFileSystemInfo.class, "CheckOutToFileSystemInfo", data);
-        /* return CompletableFuture.<DeserializedHttpResponseGen<CheckOutResult>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         JAXBElement jax = new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "CheckOutToFileSystemInfo"), CheckOutToFileSystemInfo.class, null, data);
-         ClientResponse resp = web.type("application/xml").accept("application/xml").post(ClientResponse.class, jax);
-         return new DeserializedHttpResponseGen<CheckOutResult>(resp, resp.getEntity(CheckOutResult.class));
-         });*/
+        Future<DeserializedHttpResponseGen<CheckOutResult>> fut= LinkResolver.<CheckOutResult, CheckOutToFileSystemInfo>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", CheckOutResult.class, CheckOutToFileSystemInfo.class, "CheckOutToFileSystemInfo", data);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
+    }
+    
+    public Future<DeserializedHttpResponseGen<CheckOutResult>> postToCheckoutDocumentForCheckOutResultAsync(int id, String fileCabinetId, CheckOutToFileSystemInfo data) {
+        return postToCheckoutDocumentForCheckOutResultAsync(id, fileCabinetId, data, null);
     }
 
-    public Future<DeserializedHttpResponseGen<Document>> postToCheckinForDocumentAsync(int id, String fileCabinetId, MultiPart data) {
+
+    public Future<DeserializedHttpResponseGen<Document>> postToCheckinForDocumentAsync(int id, String fileCabinetId, MultiPart data, CancellationToken ct) {
         class Param {
 
             int id;
@@ -1047,23 +904,40 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri= buildUri(parameters, "checkin");
-        /*try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("checkin", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<Document>postMultiPartAsync(this.getServiceDescription(), uri, "application/xml", Document.class, data);
-        /*   return CompletableFuture.<DeserializedHttpResponseGen<Document>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         ClientResponse resp = web.type(MediaType.MULTIPART_FORM_DATA).accept("application/xml").post(ClientResponse.class, data);
-         return new DeserializedHttpResponseGen<Document>(resp, resp.getEntity(Document.class));
-         });*/
+        Future<DeserializedHttpResponseGen<Document>> fut = LinkResolver.<Document>postMultiPartAsync(this.getServiceDescription(), uri, "application/xml", Document.class, data);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
     }
+    
+    public Future<DeserializedHttpResponseGen<Document>> postToCheckinForDocumentAsync(int id, String fileCabinetId, MultiPart data) {
+        return postToCheckinForDocumentAsync(id, fileCabinetId, data, null);
+    }
+    
 
+    public Future<DeserializedHttpResponseGen<DocumentAnnotations>> getFromDocumentAnnotationsForDocumentAnnotationsAsync(int id, String fileCabinetId, CancellationToken ct) {
+        class Param {
+
+            int id;
+            String fileCabinetId;
+
+            public Param(int id, String fileCabinetId) {
+                this.id = id;
+                this.fileCabinetId = fileCabinetId;
+            }
+        }
+        Param parameters = new Param(id, fileCabinetId);
+        URI uri = buildUri(parameters, "documentAnnotations");
+        Future<DeserializedHttpResponseGen<DocumentAnnotations>> fut = LinkResolver.<DocumentAnnotations>getAsync(this.getServiceDescription(), uri, "application/xml", DocumentAnnotations.class);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
+    }
+    
     public Future<DeserializedHttpResponseGen<DocumentAnnotations>> getFromDocumentAnnotationsForDocumentAnnotationsAsync(int id, String fileCabinetId) {
+        return getFromDocumentAnnotationsForDocumentAnnotationsAsync(id, fileCabinetId, null);
+    }
+
+
+    public Future<DeserializedHttpResponseGen<DocumentAnnotations>> postToDocumentAnnotationsForDocumentAnnotationsAsync(int id, String fileCabinetId, DocumentAnnotationsPlacement data, CancellationToken ct) {
         class Param {
 
             int id;
@@ -1076,53 +950,16 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri = buildUri(parameters, "documentAnnotations");
-        /*try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("documentAnnotations", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<DocumentAnnotations>getAsync(this.getServiceDescription(), uri, "application/xml", DocumentAnnotations.class);
-        /* return CompletableFuture.<DeserializedHttpResponseGen<DocumentAnnotations>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         ClientResponse resp = web.accept("application/xml").get(ClientResponse.class);
-         return new DeserializedHttpResponseGen<DocumentAnnotations>(resp, resp.getEntity(DocumentAnnotations.class));
-         });*/
+        Future<DeserializedHttpResponseGen<DocumentAnnotations>> fut = LinkResolver.<DocumentAnnotations, DocumentAnnotationsPlacement>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", DocumentAnnotations.class, DocumentAnnotationsPlacement.class, "DocumentAnnotationsPlacement", data);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
     }
-
+    
     public Future<DeserializedHttpResponseGen<DocumentAnnotations>> postToDocumentAnnotationsForDocumentAnnotationsAsync(int id, String fileCabinetId, DocumentAnnotationsPlacement data) {
-        class Param {
-
-            int id;
-            String fileCabinetId;
-
-            public Param(int id, String fileCabinetId) {
-                this.id = id;
-                this.fileCabinetId = fileCabinetId;
-            }
-        }
-        Param parameters = new Param(id, fileCabinetId);
-        URI uri = buildUri(parameters, "documentAnnotations");
-        /*try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("documentAnnotations", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<DocumentAnnotations, DocumentAnnotationsPlacement>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", DocumentAnnotations.class, DocumentAnnotationsPlacement.class, "DocumentAnnotationsPlacement", data);
-        /* return CompletableFuture.<DeserializedHttpResponseGen<DocumentAnnotations>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         JAXBElement jax = new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentAnnotationsPlacement"), DocumentAnnotationsPlacement.class, null, data);
-         ClientResponse resp = web.type("application/xml").accept("application/xml").post(ClientResponse.class, jax);
-         return new DeserializedHttpResponseGen<DocumentAnnotations>(resp, resp.getEntity(DocumentAnnotations.class));
-         });*/
+        return postToDocumentAnnotationsForDocumentAnnotationsAsync(id, fileCabinetId, data, null);
     }
 
-    public Future<DeserializedHttpResponseGen<FileCabinet>> getFromFileCabinetForFileCabinetAsync(String fileCabinetId) {
+    public Future<DeserializedHttpResponseGen<FileCabinet>> getFromFileCabinetForFileCabinetAsync(String fileCabinetId, CancellationToken ct) {
         class Param {
 
             String fileCabinetId;
@@ -1132,24 +969,18 @@ public class ServiceConnection {
             }
         }
         Param parameters = new Param(fileCabinetId);
-        URI uri  = buildUri(parameters, "fileCabinet");;
-       /* try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("fileCabinet", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<FileCabinet>getAsync(this.getServiceDescription(), uri, "application/xml", FileCabinet.class);
-        /*   return CompletableFuture.<DeserializedHttpResponseGen<FileCabinet>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         ClientResponse resp = web.accept("application/xml").get(ClientResponse.class);
-         return new DeserializedHttpResponseGen<FileCabinet>(resp, resp.getEntity(FileCabinet.class));
-         });*/
+        URI uri  = buildUri(parameters, "fileCabinet");
+        Future<DeserializedHttpResponseGen<FileCabinet>> fut = LinkResolver.<FileCabinet>getAsync(this.getServiceDescription(), uri, "application/xml", FileCabinet.class);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
+    }
+    
+    public Future<DeserializedHttpResponseGen<FileCabinet>> getFromFileCabinetForFileCabinetAsync(String fileCabinetId) {
+        return getFromFileCabinetForFileCabinetAsync(fileCabinetId, null);
     }
 
-    public Future<DeserializedHttpResponseGen<Pages>> getFromPagesBlockForPagesAsync(String id, String fileCabinetId, Integer start, Integer count, Boolean embedThumbnailData, String thumbnailSize, Boolean thumbnailsOnly) {
+
+    public Future<DeserializedHttpResponseGen<Pages>> getFromPagesBlockForPagesAsync(String id, String fileCabinetId, Integer start, Integer count, Boolean embedThumbnailData, String thumbnailSize, Boolean thumbnailsOnly, CancellationToken ct) {
         class Param {
 
             String id;
@@ -1173,23 +1004,42 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId, start, count, embedThumbnailData, thumbnailSize, thumbnailsOnly);
         URI uri= buildUri(parameters, "pagesBlock");
-       /* try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("pagesBlock", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<Pages>getAsync(this.getServiceDescription(), uri, "application/xml", Pages.class);
-        /*return CompletableFuture.<DeserializedHttpResponseGen<Pages>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         ClientResponse resp = web.accept("application/xml").get(ClientResponse.class);
-         return new DeserializedHttpResponseGen<Pages>(resp, resp.getEntity(Pages.class));
-         });*/
+        Future<DeserializedHttpResponseGen<Pages>> fut = LinkResolver.<Pages>getAsync(this.getServiceDescription(), uri, "application/xml", Pages.class);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
+    }
+    
+    public Future<DeserializedHttpResponseGen<Pages>> getFromPagesBlockForPagesAsync(String id, String fileCabinetId, Integer start, Integer count, Boolean embedThumbnailData, String thumbnailSize, Boolean thumbnailsOnly) {
+        return getFromPagesBlockForPagesAsync(id, fileCabinetId, start, count, embedThumbnailData, thumbnailSize, thumbnailsOnly, null);
     }
 
+
+    public Future<DeserializedHttpResponseGen<Annotation>> getFromAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, CancellationToken ct) {
+        class Param {
+
+            String id;
+            String fileCabinetId;
+            int page;
+
+            public Param(String id, String fileCabinetId, int page) {
+                this.id = id;
+                this.fileCabinetId = fileCabinetId;
+                this.page = page;
+            }
+        }
+        Param parameters = new Param(id, fileCabinetId, page);
+        URI uri = buildUri(parameters, "annotation");
+        Future<DeserializedHttpResponseGen<Annotation>> fut = LinkResolver.<Annotation>getAsync(this.getServiceDescription(), uri, "application/xml", Annotation.class);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
+    }
+    
     public Future<DeserializedHttpResponseGen<Annotation>> getFromAnnotationForAnnotationAsync(String id, String fileCabinetId, int page) {
+        return getFromAnnotationForAnnotationAsync(id, fileCabinetId, page, null);
+    }
+    
+
+    public Future<DeserializedHttpResponseGen<Annotation>> putToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, Annotation data, CancellationToken ct) {
         class Param {
 
             String id;
@@ -1204,23 +1054,16 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId, page);
         URI uri = buildUri(parameters, "annotation");
-        /*try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("annotation", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<Annotation>getAsync(this.getServiceDescription(), uri, "application/xml", Annotation.class);
-        /*return CompletableFuture.<DeserializedHttpResponseGen<Annotation>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         ClientResponse resp = web.accept("application/xml").get(ClientResponse.class);
-         return new DeserializedHttpResponseGen<Annotation>(resp, resp.getEntity(Annotation.class));
-         });*/
+        Future<DeserializedHttpResponseGen<Annotation>> fut = LinkResolver.<Annotation, Annotation>putAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Annotation.class, Annotation.class, "Annotation", data);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
+    }
+    
+    public Future<DeserializedHttpResponseGen<Annotation>> putToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, Annotation data) {
+        return putToAnnotationForAnnotationAsync(id, fileCabinetId, page, data, null);
     }
 
-    public Future<DeserializedHttpResponseGen<Annotation>> putToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, Annotation data) {
+    public Future<DeserializedHttpResponseGen<Annotation>> putToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, AnnotationsPlacement data, CancellationToken ct) {
         class Param {
 
             String id;
@@ -1235,24 +1078,16 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId, page);
         URI uri = buildUri(parameters, "annotation");
-        /*try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("annotation", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<Annotation, Annotation>putAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Annotation.class, Annotation.class, "Annotation", data);
-        /*return CompletableFuture.<DeserializedHttpResponseGen<Annotation>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         JAXBElement jax = new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "Annotation"), Annotation.class, null, data);
-         ClientResponse resp = web.type("application/xml").accept("application/xml").put(ClientResponse.class, jax);
-         return new DeserializedHttpResponseGen<Annotation>(resp, resp.getEntity(Annotation.class));
-         });*/
+        Future<DeserializedHttpResponseGen<Annotation>> fut  = LinkResolver.<Annotation, AnnotationsPlacement>putAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Annotation.class, AnnotationsPlacement.class, "AnnotationsPlacement", data);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
     }
 
     public Future<DeserializedHttpResponseGen<Annotation>> putToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, AnnotationsPlacement data) {
+        return putToAnnotationForAnnotationAsync(id, fileCabinetId, page, data, null);
+    }
+
+    public Future<DeserializedHttpResponseGen<Annotation>> postToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, Annotation data, CancellationToken ct) {
         class Param {
 
             String id;
@@ -1267,24 +1102,16 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId, page);
         URI uri = buildUri(parameters, "annotation");
-        /*try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("annotation", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<Annotation, AnnotationsPlacement>putAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Annotation.class, AnnotationsPlacement.class, "AnnotationsPlacement", data);
-        /*return CompletableFuture.<DeserializedHttpResponseGen<Annotation>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         JAXBElement jax = new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "AnnotationsPlacement"), AnnotationsPlacement.class, null, data);
-         ClientResponse resp = web.type("application/xml").accept("application/xml").put(ClientResponse.class, jax);
-         return new DeserializedHttpResponseGen<Annotation>(resp, resp.getEntity(Annotation.class));
-         });*/
+        Future<DeserializedHttpResponseGen<Annotation>> fut= LinkResolver.<Annotation, Annotation>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Annotation.class, Annotation.class, "Annotation", data);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
     }
 
     public Future<DeserializedHttpResponseGen<Annotation>> postToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, Annotation data) {
+        return postToAnnotationForAnnotationAsync(id, fileCabinetId, page, data, null);
+    }
+    
+    public Future<DeserializedHttpResponseGen<Annotation>> postToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, AnnotationsPlacement data, CancellationToken ct) {
         class Param {
 
             String id;
@@ -1299,56 +1126,17 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId, page);
         URI uri = buildUri(parameters, "annotation");
-        /*try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("annotation", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<Annotation, Annotation>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Annotation.class, Annotation.class, "Annotation", data);
-        /*return CompletableFuture.<DeserializedHttpResponseGen<Annotation>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         JAXBElement jax = new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "Annotation"), Annotation.class, null, data);
-         ClientResponse resp = web.type("application/xml").accept("application/xml").post(ClientResponse.class, jax);
-         return new DeserializedHttpResponseGen<Annotation>(resp, resp.getEntity(Annotation.class));
-         });*/
+        Future<DeserializedHttpResponseGen<Annotation>> fut = LinkResolver.<Annotation, AnnotationsPlacement>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Annotation.class, AnnotationsPlacement.class, "AnnotationsPlaement", data);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
     }
-
+    
     public Future<DeserializedHttpResponseGen<Annotation>> postToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, AnnotationsPlacement data) {
-        class Param {
-
-            String id;
-            String fileCabinetId;
-            int page;
-
-            public Param(String id, String fileCabinetId, int page) {
-                this.id = id;
-                this.fileCabinetId = fileCabinetId;
-                this.page = page;
-            }
-        }
-        Param parameters = new Param(id, fileCabinetId, page);
-        URI uri = buildUri(parameters, "annotation");
-        /*try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("annotation", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<Annotation, AnnotationsPlacement>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Annotation.class, AnnotationsPlacement.class, "AnnotationsPlaement", data);
-        /*return CompletableFuture.<DeserializedHttpResponseGen<Annotation>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         JAXBElement jax = new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "AnnotationsPlacement"), AnnotationsPlacement.class, null, data);
-         ClientResponse resp = web.type("application/xml").accept("application/xml").post(ClientResponse.class, jax);
-         return new DeserializedHttpResponseGen<Annotation>(resp, resp.getEntity(Annotation.class));
-         });*/
+        return postToAnnotationForAnnotationAsync(id, fileCabinetId, page, data, null);
     }
 
-    public Future<DeserializedHttpResponseGen<JAXBElement>> getFromClientSetupDataForXElementAsync(String orgId, String baseAddress, String clientSetupVersion) {
+
+    public Future<DeserializedHttpResponseGen<JAXBElement>> getFromClientSetupDataForXElementAsync(String orgId, String baseAddress, String clientSetupVersion, CancellationToken ct) {
         class Param {
 
             String ordId;
@@ -1363,23 +1151,16 @@ public class ServiceConnection {
         }
         Param parameters = new Param(orgId, baseAddress, clientSetupVersion);
         URI uri = buildUri(parameters, "clientSetupData");
-        /*try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("clientSetupData", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<JAXBElement>getAsync(this.getServiceDescription(), uri, "*/*", JAXBElement.class);
-       // return CompletableFuture.<DeserializedHttpResponseGen<JAXBElement>>supplyAsync(() -> {
-        //   WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-        //ClientResponse resp = web.accept("*/*").get(ClientResponse.class);
-        // return new DeserializedHttpResponseGen<JAXBElement>(resp, resp.getEntity(JAXBElement.class));
-        //});
+        Future<DeserializedHttpResponseGen<JAXBElement>> fut=  LinkResolver.<JAXBElement>getAsync(this.getServiceDescription(), uri, "*/*", JAXBElement.class);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
     }
 
-    public Future<DeserializedHttpResponseGen<String>> postToValidateUserForStringAsync(String id, UserValidation data) {
+    public Future<DeserializedHttpResponseGen<JAXBElement>> getFromClientSetupDataForXElementAsync(String orgId, String baseAddress, String clientSetupVersion) {
+        return getFromClientSetupDataForXElementAsync(orgId, baseAddress, clientSetupVersion, null);
+    }
+    
+    public Future<DeserializedHttpResponseGen<String>> postToValidateUserForStringAsync(String id, UserValidation data, CancellationToken ct) {
         class Param {
 
             String id;
@@ -1390,21 +1171,9 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id);
         URI uri = buildUri(parameters, "validateUser");
-        /*try {
-            uri = new URI(
-                    this.getServiceDescription().getProxy().getBaseAddress().getScheme() + "://"
-                    + this.getServiceDescription().getProxy().getBaseAddress().getHost()
-                    + this.createTemplateUri("validateUser", parameters));
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex.getCause());
-        }*/
-        return LinkResolver.<String, UserValidation>postAsync(this.getServiceDescription(), uri, "application/xml", "text/plain", String.class, UserValidation.class, "UserValidation", data);
-        /* return CompletableFuture.<DeserializedHttpResponseGen<String>>supplyAsync(() -> {
-         WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-         JAXBElement jax = new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "UserValidation"), UserValidation.class, null, data);
-         ClientResponse resp = web.type("application/xml").accept("text/plain").post(ClientResponse.class, jax);
-         return new DeserializedHttpResponseGen<String>(resp, resp.getEntity(String.class));
-         });*/
+        Future<DeserializedHttpResponseGen<String>> fut = LinkResolver.<String, UserValidation>postAsync(this.getServiceDescription(), uri, "application/xml", "text/plain", String.class, UserValidation.class, "UserValidation", data);
+        if(ct!=null) ct.addFuture(fut);
+        return fut;
     }
 
     /// <summary>

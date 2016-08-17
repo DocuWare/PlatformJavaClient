@@ -5,6 +5,8 @@
  */
 package com.docuware.dev.Extensions;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,20 +17,29 @@ import java.util.logging.Logger;
  */
 public class CancellationToken {
     
-    Future fut;
+    List<Future> fut = new LinkedList();
+    Boolean cancellationRequested;
     
     CancellationToken(Future fut) {
-        this.fut = fut;
+        this.fut.add(fut);
     }
     
-    public CancellationToken(){};
+    public boolean isCancellationRequested() {
+        return cancellationRequested;
+    }
+   
+    CancellationToken(){
+            cancellationRequested = false;
+            };
     
-    public void setFuture(Future fut) {
-        this.fut = fut;
+    void addFuture(Future fut) {
+       this.fut.add(fut);
     }
     
-    public void cancel() {
-        fut.cancel(true);
+    void cancel() {
+        cancellationRequested = true;
+        for(Future f: fut)
+        f.cancel(true);
         try {
             this.finalize();
         } catch (Throwable ex) {

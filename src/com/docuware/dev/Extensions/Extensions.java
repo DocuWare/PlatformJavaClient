@@ -105,7 +105,7 @@ public class Extensions {
     public static String documentIndexFieldToString(DocumentIndexField dif) {
         StringBuilder sb = new StringBuilder(dif.getFieldName());
         sb.append(" (")
-                .append(dif.getIntOrDecimalOrString().getClass().getSimpleName())
+                .append(dif.getIntOrDecimalOrString()!=null?dif.getIntOrDecimalOrString().getClass().getSimpleName():"null")
                 .append("): ");
 
         if (dif.isIsNull()) {

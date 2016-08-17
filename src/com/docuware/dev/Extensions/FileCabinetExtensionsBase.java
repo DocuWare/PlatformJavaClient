@@ -21,6 +21,7 @@ import com.sun.jersey.api.client.AsyncWebResource;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.filter.ClientFilter;
 import com.sun.jersey.core.header.ContentDisposition;
@@ -660,9 +661,11 @@ public class FileCabinetExtensionsBase {
                                     .header("X-File-ModifiedDate", file.getLastWriteTimeUtc().toString())
                                     .header("Expect", "100-continue")
                                     .type(MediaType.MULTIPART_FORM_DATA).post(ClientResponse.class, mul);
+                             if (resp.getStatus() < 200 || resp.getStatus() > 399) {
+                                HttpClientRequestException e = HttpClientRequestException.create(resp);
+                                throw e;}
                             doc = resp.getEntity(expectedClass);
                         } else {
-
                             l = link.equals(l) ? LinkResolver.getLink(proxy.getProxy().getBaseAddress(), proxy.getLinks(), rel) : l;
                             WebResource web = proxy.getProxy().getHttpClient().getClient().resource(l);
                             resp = web//.header(HttpHeaders.COOKIE, ".DWPLATFORMAUTH=902EB067D55C421B0D2EA08A58BB9C49B67808A51DF57411AC8E92CA537794FE9FDC4AB2404601B14BF6141E27550C2D1D7146023DA0A638BF30F2AF2219291E8845A5CC3AD57D0F58A823DAD017B92FC23647F790BAFE99A3748D15EE8D829D6C5E383898EFDECA231DC9633FE36B70BEF100A858DDD428D3F699816F87DE020D971776BE4E635701F2788AE9AF30513D577B48E7B4CADB115FD05FE57AE3FDD47B8F6AE55717F0813864CB4BAEF7AA03DEF0201BB9F04392650008A94A620A9787B0A0CFCC967309A74C75472A00687AFC2DC1713A5200D8F0F2E9FE9229FE203CDDCC66C81890183F18F199DF4C9269877E44AC92CC0F7089F693172DCF9B2B85FA6D3E883D5BC495746F01F600F37DE697CF3AFCF6DD8C4297E157319923413FC9FD063212F0DD1291F5E94C1E2E28E2C1BC6931E3495D3EED1A50B3FC1948BD86A5386D2F5C89B142C22CEC62B486D200CCEB81161519937FB7F9D70C928922300C17915355CB2DDB667557762FD669716BAF996539D6B60D5110D87499654C46F66094F68B411F3B6EF31CCA94C29A8B11; DWPLATFORMBROWSERID=DD6D5AE890C4496E3178E4C8AB126750A7CEFC047E579B13E4C79182E794EEBD99AF696FD7C2DB9FDBB0E7354B163AC6441837779D1F65A31B9B765AE22B1F288C2166374EB8C6D99096AF59419ACCA3296C0F682917B6FA77653EB8A710F8F25C93D2E478A780147C4447811EA4E1F9587FF3926053398628AF7064FCC07A456E0794C086E788C0F1A3C540DB5451887D7551567B6E93C8766650A98694C9348AB4CB58606B990AD8A9EE40C6757F21820F7FDE; ARRAffinity=3f69d05b7482b58fab9ae7fcc49c89deb82bd7b72f50fe9f8cc15991525b8441")
@@ -674,6 +677,9 @@ public class FileCabinetExtensionsBase {
                                     .header("Expect", "" + cs + "-continue")
                                     .post(ClientResponse.class, streamContent);
                             doc = resp.getEntity(expectedClass);
+                            if (resp.getStatus() < 200 || resp.getStatus() > 399) {
+                                HttpClientRequestException e = HttpClientRequestException.create(resp);
+                                throw e;}
                             resp.close();
                         }
                         if (doc instanceof IHttpClientProxy) {
@@ -689,10 +695,7 @@ public class FileCabinetExtensionsBase {
                     }
                 }
             }
-        } catch (Exception e) {
-            for (StackTraceElement s : e.getStackTrace()) {
-                System.err.println(s);
-            }
+        } catch (IOException | IllegalArgumentException | UniformInterfaceException | ClientHandlerException e) {
             throw new RuntimeException(e.fillInStackTrace());
         }
         throw new RuntimeException("Chunk upload was not finished even entire file was uploaded.");
@@ -750,6 +753,9 @@ public class FileCabinetExtensionsBase {
                                         .header("X-File-ModifiedDate", file.getLastWriteTimeUtc().toString())
                                         .header("Expect", "100-continue")
                                         .type(MediaType.MULTIPART_FORM_DATA).post(ClientResponse.class, mul);
+                                if (resp.getStatus() < 200 || resp.getStatus() > 399) {
+                                HttpClientRequestException e = HttpClientRequestException.create(resp);
+                                return new DeserializedHttpResponseGen<>(resp, e);}
                                 doc = resp.getEntity(expectedClass);
                             } else {
 
@@ -764,6 +770,9 @@ public class FileCabinetExtensionsBase {
                                         .header("Expect", "100-continue")
                                         .post(ClientResponse.class, streamContent);
                                 doc = resp.getEntity(expectedClass);
+                                if (resp.getStatus() < 200 || resp.getStatus() > 399) {
+                                HttpClientRequestException e = HttpClientRequestException.create(resp);
+                                return new DeserializedHttpResponseGen<>(resp, e);}
                                 resp.close();
                             }
                             if (doc instanceof IHttpClientProxy) {
