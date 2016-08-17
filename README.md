@@ -12,7 +12,7 @@ Clone the sources: `git clone https://github.com/DocuWare/PlatformJavaClient.git
 You need at least a *Java 8* installation of any edition.
 To get started:
 * Clone the source code (see above).
-* Start a new Project in your IDE and copy the scr-folder into it. Also include the JAR-Files from the dist-folder to your library. 
+* Or: Start a new Project in your IDE and just copy all files of the PlatformClientProject into it. Overwrite your files if necessary. The project will be named JavaPlatformClient afterwards.
 
 ### Supported DocuWare versions
 This implementation uses the *DocuWare Platform .NET API* of ***DocuWare 6.8***.  
