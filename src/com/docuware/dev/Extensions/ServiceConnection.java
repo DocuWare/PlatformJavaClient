@@ -27,7 +27,6 @@ import com.docuware.dev.schema._public.services.platform.SuggestionFields;
 import com.docuware.dev.schema._public.services.platform.UpdateIndexFieldsInfo;
 import com.docuware.dev.schema._public.services.platform.UserValidation;
 import com.docuware.dev.settings.interop.DWProductTypes;
-import com.sun.jersey.api.client.AsyncWebResource;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.client.apache.ApacheHttpClientHandler;
@@ -43,13 +42,9 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -62,39 +57,72 @@ import javax.xml.namespace.QName;
  */
 public class ServiceConnection {
 
-    private ServiceDescription serviceDescription;
+    private final ServiceDescription serviceDescription;
     private static PlatformClient client;
 
-    public ServiceConnection(ServiceDescription serviceDescription) {
+    ServiceConnection(ServiceDescription serviceDescription) {
         this.serviceDescription = serviceDescription;
     }
-
+    
+    /**
+     * Gets the service description
+     * @return  The service description
+     */
     public ServiceDescription getServiceDescription() {
         return serviceDescription;
     }
 
+    /**
+     * Gets the Proxy
+     * @return  The Proxy
+     */
     public HttpClientProxy getProxy() {
         return serviceDescription.getProxy();
     }
-
-    public void ReplaceHttpClient(ServiceConnection otherServiceConnection) {
+    
+    /**
+     * Replaces the HTTP client. <p>
+     * 
+     * Remark:
+     * After the function returns, all requests from all objects created by this {@link ServiceConnection} instance 
+     * are sent through the new HttpClient instance. Then both {@link otherServiceConnection} and this {@link ServiceConnection} instance 
+     * share the same HttpClient instance.
+     * 
+     * @param otherServiceConnection    The {@link ServiceConnection} instance whose HttpClient instance is used for further communucation
+     */
+    public void replaceHttpClient(ServiceConnection otherServiceConnection) {
         this.getProxy().ReplaceHttpClient(otherServiceConnection.getProxy().getHttpClient());
     }
 
+    /**
+     * Disconnects the Instance
+     */
     public void disconnect() {
         ClientResponse resp = MethodInvocation.get(serviceDescription, serviceDescription.getLinks(), "logout", ClientResponse.class);
         resp.close();
         client.getClient().getClientHandler().getHttpClient().getHttpConnectionManager().closeIdleConnections(1);
         client.getClient().destroy();
-
     }
 
+    /**
+     * Disconnects the Instance
+     * @return  A Future, which disconnects the ServiceConnection
+     */
     public Future disconnectAsync() {
         return CompletableFuture.runAsync(() -> {
             MethodInvocation.getAsync(serviceDescription, serviceDescription.getLinks(), "logout", null);
         });
     }
 
+    /**
+     * Creates a connection for the specified service URI.
+     * 
+     * @param uri    [necessary] The service URI
+     * @param userName  [necessary] Name of the user
+     * @param password  [necessary] The password
+     * @param orgName  [optional/ can be filled with null] The organization to connect. You do no need to specify this parameter in case there is only a single organization in the system you want to connect to.
+     * @return  A proxy which handles further requests
+     */
     public static ServiceConnection create(String uri, String userName, String password, String orgName) {
         MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
         formData.add("UserName", userName);
@@ -103,50 +131,118 @@ public class ServiceConnection {
         return create(formData, uri, "login", null);
     }
 
+    /**
+     * Creates a connection for the specified service URI.
+     * 
+     * @param serviceUri    [necessary] The service URI
+     * @param userName  [necessary] Name of the user
+     * @param password  [necessary] The password
+     * @param organization  [optional/ can be filled with null] The organization to connect. You do no need to specify this parameter in case there is only a single organization in the system you want to connect to.
+     * @param licenseType   [optional/ can be filled with null] Type of the license
+     * @param httpClientHandler [optional/ can be filled with null] The HTTP client handler.
+     * @param userAgent [optional/ can be filled with null] The parts of the user agent header. You should specify these values in order to identify you application. 
+     * If this parameter is set to null then the process name and version of you application is used as user agent string. If you do not want to submit any user agent, you must set this parameter to an empty array
+     * @return  A proxy which handles further requests
+     */
     static public ServiceConnection create(String serviceUri, String userName, String password, String organization, DWProductTypes licenseType, ApacheHttpClientHandler httpClientHandler,
             String[] userAgent) {
         try {
             return createAsync(serviceUri, userName, password, organization, licenseType, httpClientHandler, userAgent).get();
-        } catch (Exception e) {
+        } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e.getLocalizedMessage());
         }
     }
-
+    
+    /**
+     * Creates a connection for the specified service URI.
+     * 
+     * @param serviceUri    [necessary] The service URI
+     * @param impersonatedUser  [necessary] Name of the impersonated(DW) user
+     * @param trustedUser   [necessary] Name of a trusted user
+     * @param password  [necessary] The password
+     * @param organization  [optional/ can be filled with null] The organization to connect. You do no need to specify this parameter in case there is only a single organization in the system you want to connect to
+     * @param licenseType   [optional/ can be filled with null] Type of the license
+     * @param httpClientHandler [optional/ can be filled with null] The HTTP client handler
+     * @param userAgent [optional/ can be filled with null] The parts of the user agent header. You should specify these values in order to identify you application. 
+     * If this parameter is set to null then the process name and version of you application is used as user agent string. If you do not want to submit any user agent, you must set this parameter to an empty array
+     * @return  A proxy which handles further requests
+     */
     static public ServiceConnection createTrusted(String serviceUri, String impersonatedUser, String trustedUser, String password, String organization, DWProductTypes licenseType, ApacheHttpClientHandler httpClientHandler,
             String[] userAgent) {
         try {
             return createTrustedAsync(serviceUri, impersonatedUser, trustedUser, password, organization, licenseType, httpClientHandler, userAgent).get();
-        } catch (Exception e) {
+        } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e.getLocalizedMessage());
         }
     }
-
+    /**
+     * Creates a connection for the specified service URI
+     * 
+     * @param serviceUri    [necessary] The service URI
+     * @param token [necessary] The login token
+     * @param licenseType   [optional/ can be filled with null] Type of the license
+     * @param httpClientHandler [optional/ can be filled with null] The HTTP client handler
+     * @param userAgent [optional/ can be filled with null] The parts of the user agent header. You should specify these values in order to identify you application. 
+     * If this parameter is set to null then the process name and version of you application is used as user agent string. If you do not want to submit any user agent, you must set this parameter to an empty array
+     * @return  A proxy which handles further requests
+     */
     static public ServiceConnection create(String serviceUri, String token, DWProductTypes licenseType, ApacheHttpClientHandler httpClientHandler,
             String[] userAgent) {
         try {
             return createAsync(serviceUri, token, licenseType, httpClientHandler, userAgent).get();
-        } catch (Exception e) {
+        } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e.getLocalizedMessage());
         }
     }
-
+    
+    /**
+     * CCreates a connection for the specified service URI without a log in.
+     * 
+     * @param serviceUri    [necessary] The service URI
+     * @param httpClientHandler [optional/ can be filled with null] The HTTP message handler
+     * @param userAgent [optional/ can be filled with null] The parts of the user agent header. You should specify these values in order to identify you application. 
+     * If this parameter is set to null then the process name and version of you application is used as user agent string. If you do not want to submit any user agent, you must set this parameter to an empty array
+     * @return  A proxy which handles further requests
+     */
     static public ServiceConnection create(String serviceUri, ApacheHttpClientHandler httpClientHandler,
             String[] userAgent) {
         try {
             return createAsyncNoConnection(serviceUri, httpClientHandler, userAgent).get();
-        } catch (Exception e) {
+        } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e.getLocalizedMessage());
         }
     }
 
-    public static Future<ServiceConnection> createAsync(String uri, String userName, String password, String orgName) {
+    /**
+     * Creates a ServiceConnection and connects it with the specified URI asynchronously
+     * 
+     * @param serviceUri   the targeted URI
+     * @param userName  your Docuware username
+     * @param password  your Docuware password
+     * @param orgName   the name of your Docuware organization
+     * @return  a Future creating the ServiceConnection instance connected with the platform
+     */
+    public static Future<ServiceConnection> createAsync(String serviceUri, String userName, String password, String orgName) {
         MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
         formData.add("UserName", userName);
         formData.add("Password", password);
         formData.add("Organization", orgName);
-        return createAsync(formData, uri, "login", null);
+        return createAsync(formData, serviceUri, "login", null);
     }
-
+    
+    /**
+     * Creates a ServiceConnection and connects it with the specified URI asynchronously
+     * 
+     * @param serviceUri    [necessary] The service URI
+     * @param userName  [necessary] Name of the user
+     * @param password  [necessary] The password
+     * @param organization  [optional/ can be filled with null] The organization to connect. You do no need to specify this parameter in case there is only a single organization in the system you want to connect to.
+     * @param licenseType   [optional/ can be filled with null] Type of the license
+     * @param httpClientHandler [optional/ can be filled with null] The HTTP client handler.
+     * @param userAgent [optional/ can be filled with null] The parts of the user agent header. You should specify these values in order to identify you application. 
+     * If this parameter is set to null then the process name and version of you application is used as user agent string. If you do not want to submit any user agent, you must set this parameter to an empty array
+     * @return  A future which is creating a proxy which handles further requests.
+     */
     static public Future<ServiceConnection> createAsync(String serviceUri, String userName, String password, String organization, DWProductTypes licenseType, ApacheHttpClientHandler httpClientHandler,
             String[] userAgent) {
         MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
@@ -154,7 +250,16 @@ public class ServiceConnection {
         formData.add("Password", password);
         return createAsync(serviceUri, formData, ServiceConnectionLoginData.Create(organization, licenseType, httpClientHandler, userAgent));
     }
-
+    
+    /**
+     * Creates a connection for the specified service URI asynchronously.
+     * 
+     * @param serviceUri    [necessary] The service URI
+     * @param userName  [necessary] Name of the user
+     * @param password  [necessary] The password
+     * @param serviceConnectionData [necessary] The service connection data
+     * @return A future which is creating a proxy which handles further requests.
+     */
     static public Future<ServiceConnection> createAsync(String serviceUri, String userName, String password, ServiceConnectionLoginData serviceConnectionData) {
         MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
         formData.add("UserName", userName);
@@ -164,9 +269,23 @@ public class ServiceConnection {
 
     static private Future<ServiceConnection> createAsync(String serviceUri, MultivaluedMap<String, String> formData, ServiceConnectionLoginData serviceConnectionData) {
         serviceConnectionData.AddLoginFormData(formData);
-        return createAsync(serviceUri, formData, serviceConnectionData);
+        return createAsync(formData, serviceUri, "login", serviceConnectionData.getTransport());
     }
-
+    
+    /**
+     * Creates a connection for the specified service URI asynchronously.
+     * 
+     * @param serviceUri    [necessary] The service URI
+     * @param impersonatedUser  [necessary] Name of the DW user
+     * @param trustedUser   [necessary] Name of a trusted user
+     * @param password  [necessary] The password
+     * @param organization  [optional/ can be filled with null] The organization to connect. You do no need to specify this parameter in case there is only a single organization in the system you want to connect to.
+     * @param licenseType   [optional/ can be filled with null] Type of the license
+     * @param httpClientHandler [optional/ can be filled with null] The HTTP message handler
+     * @param userAgent [optional/ can be filled with null] The parts of the user agent header. You should specify these values in order to identify you application. 
+     * If this parameter is set to null then the process name and version of you application is used as user agent string. If you do not want to submit any user agent, you must set this parameter to an empty array.
+     * @return  A future which is creating a proxy which handles further requests.
+     */
     static public Future<ServiceConnection> createTrustedAsync(String serviceUri, String impersonatedUser, String trustedUser, String password, String organization, DWProductTypes licenseType, ApacheHttpClientHandler httpClientHandler,
             String[] userAgent) {
         MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
@@ -175,7 +294,17 @@ public class ServiceConnection {
         formData.add("Password", password);
         return createTrustedAsync(serviceUri, formData, ServiceConnectionLoginData.Create(organization, licenseType, httpClientHandler, userAgent));
     }
-
+    
+    /**
+     * Creates a connection for the specified service URI asynchronously.
+     * 
+     * @param serviceUri    [necessary] The service URI
+     * @param impersonatedUser  [necessary] Name of the DW user
+     * @param trustedUser   [necessary] Name of a trusted user
+     * @param password  [necessary] The password
+     * @param serviceConnectionData necessary] The service connection data
+     * @return A future which is creating a proxy which handles further requests.
+     */
     static public Future<ServiceConnection> createTrustedAsync(String serviceUri, String impersonatedUser, String trustedUser, String password, ServiceConnectionLoginData serviceConnectionData) {
         MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
         formData.add("ImpersonatedUser", impersonatedUser);
@@ -189,11 +318,30 @@ public class ServiceConnection {
         return createAsync(formData, serviceUri, "trustedLogin", scld.getTransport());
     }
 
+    /**
+     * Creates a connection for the specified service URI asynchronously.
+     * 
+     * @param serviceUri    [necessary] The service URI
+     * @param token [necessary] The login token
+     * @param licenseType   [optional/ can be filled with null] Type of the license
+     * @param httpClientHandler [optional/ can be filled with null] The HTTP message handler
+     * @param userAgent [optional/ can be filled with null] The parts of the user agent header. You should specify these values in order to identify you application. 
+     * If this parameter is set to null then the process name and version of you application is used as user agent string. If you do not want to submit any user agent, you must set this parameter to an empty array.
+     * @return  A future which is creating a proxy which handles further requests.
+     */
     static public Future<ServiceConnection> createAsync(String serviceUri, String token, DWProductTypes licenseType, ApacheHttpClientHandler httpClientHandler,
             String[] userAgent) {
         return createAsync(serviceUri, token, ServiceConnectionTokenLoginData.Create(licenseType, httpClientHandler, userAgent));
     }
 
+    /**
+     * Creates a connection for the specified service URI asynchronously
+     * 
+     * @param serviceUri    [necessary] The service URI
+     * @param token [necessary] The login token
+     * @param serviceConnectionTokenLoginData   [necessary] The service connection token login data
+     * @return  A future which is creating a proxy which handles further requests.
+     */
     static public Future<ServiceConnection> createAsync(String serviceUri, String token, ServiceConnectionTokenLoginData serviceConnectionTokenLoginData) {
         MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
         formData.add("Token", token);
@@ -201,6 +349,15 @@ public class ServiceConnection {
         return createAsync(formData, serviceUri, "tokenLogin", serviceConnectionTokenLoginData.getTransport());
     }
 
+    /**
+     * Creates a connection for the specified service URI without a log in. The connection is created asynchronously
+     * 
+     * @param serviceUri    [necessary] The service URI
+     * @param httpClientHandler [optional/ can be filled with null] The HTTP message handler
+     * @param userAgent [optional/ can be filled with null] The parts of the user agent header. You should specify these values in order to identify you application.
+     * If this parameter is set to null then the process name and version of you application is used as user agent string. If you do not want to submit any user agent, you must set this parameter to an empty array.
+     * @return  A future which is creating a proxy which handles further requests.
+     */
     static public Future<ServiceConnection> createAsyncNoConnection(String serviceUri, ApacheHttpClientHandler httpClientHandler, String[] userAgent) {
         ServiceConnectionTransportData sctd = new ServiceConnectionTransportData();
         sctd.setUserAgent(userAgent);
@@ -208,6 +365,13 @@ public class ServiceConnection {
         return createAsyncNoConnection(serviceUri, sctd);
     }
 
+    /**
+     * Creates a connection for the specified service URI without a log in. The connection is created asynchronously
+     * 
+     * @param serviceUri    [necessary] The service URI
+     * @param serviceConnectionTransportData    [necessary] The service connection transport data
+     * @return  A future which is creating a proxy which handles further requests.
+     */
     static private Future<ServiceConnection> createAsyncNoConnection(String serviceUri, ServiceConnectionTransportData serviceConnectionTransportData) {
         return CompletableFuture.<ServiceConnection>supplyAsync(() -> {
             client = new PlatformClient(serviceUri, serviceConnectionTransportData);
@@ -237,10 +401,18 @@ public class ServiceConnection {
         });
     }
 
+    /**
+     * Gets the Organizations
+     * @return the Organization
+     */
     public Organizations getOrganizations() {
         return serviceDescription.getOrganizationsFromOrganizationsRelation();
     }
 
+    /**
+     * Gets the organizations asynchronous
+     * @return  The list of available organizations
+     */
     public Future<DeserializedHttpResponseGen<Organizations>> getOrganizationsAsync() {
         return serviceDescription.getOrganizationsFromOrganizationsRelationAsync();
     }
@@ -257,52 +429,54 @@ public class ServiceConnection {
         return fc;
     }
 
-    /// <summary>
-    /// Gets all file cabinets.
-    /// </summary>
-    /// <param name="organizations">The organizations.</param>
-    /// <returns>The list of all file cabinets.</returns>
+    /**
+     * Gets all file cabinets
+     * 
+     * @param organizations The organizations
+     * @return  The list of all file cabinets
+     */
     public List<FileCabinet> getAllFileCabinets(Iterable<Organization> organizations) {
         List<FileCabinet> fcs = new LinkedList();
         for (Organization o : organizations) {
-            for (FileCabinet fc : o.getFileCabinetsFromFilecabinetsRelation().getFileCabinet()) {
+            o.getFileCabinetsFromFilecabinetsRelation().getFileCabinet().stream().forEach((fc) -> {
                 fcs.add(fc);
-            }
+            });
         }
         return fcs;
     }
 
-    /// <summary>
-    /// Creates the template URI.
-    /// </summary>
-    /// <param name="serviceConnection">The service connection.</param>
-    /// <param name="templateName">Name of the template.</param>
-    /// <param name="paramaters">The paramaters.</param>
-    /// <returns></returns>
+    /**
+     * Creates the template URI
+     * 
+     * @param templateName  The service connection
+     * @param paramaters    The paramaters
+     * @return 
+     */
     public String createTemplateUri(String templateName, Object paramaters) {
         return UriTemplateExtensions.CreateUrl(serviceDescription.getResources().getTemplate(), templateName, paramaters);
     }
 
-    /// <summary>
-    /// Creates the template URI.
-    /// </summary>
-    /// <param name="serviceConnection">The service connection.</param>
-    /// <param name="templateName">Name of the template.</param>
-    /// <param name="paramaters">The paramaters.</param>
-    /// <returns></returns>
+    /**
+     * Creates the template URI
+     * 
+     * @param templateName  The service connection
+     * @param paramaters    The paramaters
+     * @return 
+     */
     public String createTemplateUri(String templateName, Map<String, Object> paramaters) {
         return UriTemplateExtensions.CreateUrl(serviceDescription.getResources().getTemplate(), templateName, paramaters);
     }
 
-    /// <summary>
-    /// Creates a permanent URL asynchronously.
-    /// </summary>
-    /// <param name="serviceConnection">The service connection.</param>
-    /// <param name="url">The URL.</param>
-    /// <returns>A task which creates a URL with an authenticated user information inside.</returns>
-    /// <remarks>Use this function to take an URL and append some information about the currently authenticated user. The created URL can then be taken to access the ressource without needed to login.</remarks>
+     /**
+     * Creates a permanent URL asynchronously <p>
+     * 
+     * Remarks: Use this function to take an URL and append some information about the currently authenticated user. The created URL can then be taken to access the ressource without needed to login
+     * 
+     * @param url   The URL
+     * @return  A task which creates a URL with an authenticated user information inside
+     */
     public Future<DeserializedHttpResponseGen<String>> createPermanentUrlAsync(String url) {
-        HashMap<String, String> parameters = new HashMap<String, String>();
+        HashMap<String, String> parameters = new HashMap<>();
         parameters.put("url", url);
         return CompletableFuture.<DeserializedHttpResponseGen<String>>supplyAsync(() -> {
             WebResource web = serviceDescription.getProxy().getHttpClient().resource(serviceDescription.getPermanentUrlRelationLink());
@@ -316,22 +490,30 @@ public class ServiceConnection {
         });
     }
 
-    /// <summary>
-    /// Creates a permanent URL.
-    /// </summary>
-    /// <param name="serviceConnection">The service connection.</param>
-    /// <param name="url">The URL.</param>
-    /// <returns>An URL with an authenticated user information inside.</returns>
-    /// <remarks>Use this function to take a URL and append some information about the currently authenticated user. The created URL can then be taken to access the ressource without needed to login.</remarks>
+    /**
+     * Creates a permanent URL <p>
+     * 
+     * Remarks: Use this function to take a URL and append some information about the currently authenticated user. The created URL can then be taken to access the ressource without needed to login
+     * 
+     * @param url   The URL
+     * @return  An URL with an authenticated user information inside
+     */
     public String getPermanentUrl(String url) {
         try {
             return createPermanentUrlAsync(url).get().getContent();
-        } catch (Exception ex) {
+        } catch (InterruptedException | ExecutionException ex) {
             throw new RuntimeException("Error on Resolving Async Process");
         }
 
     }
 
+    /**
+     * @param fileCabinetId [necessary] The Id of the FileCabinet in which the Document is located
+     * @param docId [necessary] The docId of the Document to which the DocumentActionInfo should be put
+     * @param data  [necessary] The DocumentActionInfo
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled when it didn't start
+     * @return A future performing the action
+     */
     public Future<DeserializedHttpResponseGen<Document>> putToProcessDocumentActionForDocumentAsync(String fileCabinetId, int docId, DocumentActionInfo data, CancellationToken ct) {
         class Param {
 
@@ -350,9 +532,15 @@ public class ServiceConnection {
         return fut;
     }
 
-        public Future<DeserializedHttpResponseGen<Document>> putToProcessDocumentActionForDocumentAsync(String fileCabinetId, int docId, DocumentActionInfo data) {
-            return putToProcessDocumentActionForDocumentAsync(fileCabinetId, docId, data, null);
-        }
+     /**
+     * @param fileCabinetId [necessary] The Id of the FileCabinet in which the Document is located
+     * @param docId [necessary] The docId of the Document to which the DocumentActionInfo should be put
+     * @param data  [necessary] The DocumentActionInfo
+     * @return  A future performing the action
+     */
+    public Future<DeserializedHttpResponseGen<Document>> putToProcessDocumentActionForDocumentAsync(String fileCabinetId, int docId, DocumentActionInfo data) {
+        return putToProcessDocumentActionForDocumentAsync(fileCabinetId, docId, data, null);
+    }
 
 
     /*  public Future<DeserializedHttpResponseGen<SequenceResult>> postToRetrieveSequenceElementForSequenceResultAsync(String fileCabinetId, SequenceRequest data)
@@ -378,6 +566,13 @@ public class ServiceConnection {
      return new DeserializedHttpResponseGen<SequenceResult>(resp, resp.getEntity(SequenceResult.class));
      });      
      }*/
+    
+    /**
+     * @param data  [necessary] the data to post
+     * @param clientSideChecksum    [necessary] A Checksum
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled when it didn't start
+     * @return  A future performing the action
+     */
     public Future<DeserializedHttpResponseGen<String>> postToCreatePermanentUrlForStringAsync(MultivaluedMap data, Boolean clientSideChecksum, CancellationToken ct) {
         class Param {
 
@@ -396,18 +591,29 @@ public class ServiceConnection {
                 HttpClientRequestException e = HttpClientRequestException.create(resp);
                 return new DeserializedHttpResponseGen(resp, e);
             } else {
-                return new DeserializedHttpResponseGen<String>(resp, resp.getEntity(String.class));
+                return new DeserializedHttpResponseGen<>(resp, resp.getEntity(String.class));
             }
         });
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
     
+     /**
+     * @param data  [necessary] the data to post
+     * @param clientSideChecksum    [necessary] A Checksum
+     * @return  A future performing the action
+     */
     public Future<DeserializedHttpResponseGen<String>> postToCreatePermanentUrlForStringAsync(MultivaluedMap data, Boolean clientSideChecksum) {
         return postToCreatePermanentUrlForStringAsync(data, clientSideChecksum, null);
     }
     
-
+    /**
+     * @param id    [necessary] The Id of the Dialog
+     * @param fileCabinetId [necessary] The Id of the Filecabinet containing the Dialog
+     * @param dialogType    [optional/ can be filled with null]
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled when it didn't start
+     * @return  A Future performing the Task and returning the Dialog
+     */ 
     public Future<DeserializedHttpResponseGen<Dialog>> getFromDialogForDialogAsync(String id, String fileCabinetId, DialogTypes[] dialogType, CancellationToken ct) {
         class Param {
 
@@ -428,11 +634,25 @@ public class ServiceConnection {
         return fut;
     }
     
+     /**
+     * @param id    [necessary] The Id of the Dialog
+     * @param fileCabinetId [necessary] The Id of the Filecabinet containing the Dialog
+     * @param dialogType    [optional/ can be filled with null]
+     * @return  A Future performing the Task and returning the Dialog
+     */ 
     public Future<DeserializedHttpResponseGen<Dialog>> getFromDialogForDialogAsync(String id, String fileCabinetId, DialogTypes[] dialogType) {
         return getFromDialogForDialogAsync(id, fileCabinetId, dialogType, null);
     }
 
-
+    /**
+     * @param fileCabinetId [necessary] The Id of the Filecabinet
+     * @param id    [necessary] the Id
+     * @param data  [necessary] the data to post
+     * @param fields    [optional/ can be filled with null] 
+     * @param sortOrder [optional/ can be filled with null] 
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled when it didn't start
+     * @return  A Future performing the Task and returning the Result
+     */
     public Future<DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>> postToBatchDialogUpdateFieldsForBatchUpdateIndexFieldsResultAsync(String fileCabinetId, String id, BatchUpdateProcess data, String[] fields, String[] sortOrder, CancellationToken ct) {
         class Param {
 
@@ -454,16 +674,25 @@ public class ServiceConnection {
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
-
-    public Future<DeserializedHttpResponseGen<String>> deleteFromDocumentDeleteForStringAsync(int id, String fileCabinetId) {
-        return deleteFromDocumentDeleteForStringAsync(id, fileCabinetId, null);
-    }
-    
+       
+     /**
+     * @param fileCabinetId [necessary] The Id of the Filecabinet
+     * @param id    [necessary] the Id
+     * @param data  [necessary] the data to post
+     * @param fields    [optional/ can be filled with null] 
+     * @param sortOrder [optional/ can be filled with null] 
+     * @return  A Future performing the Task and returning the Result
+     */
     public Future<DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>> postToBatchDialogUpdateFieldsForBatchUpdateIndexFieldsResultAsync(String fileCabinetId, String id, BatchUpdateProcess data, String[] fields, String[] sortOrder) {
         return postToBatchDialogUpdateFieldsForBatchUpdateIndexFieldsResultAsync(fileCabinetId, id, data, fields, sortOrder, null);
     }
 
-    
+    /**
+     * @param id    [necessary] The Id of the Document
+     * @param fileCabinetId [necessary] The Id of the Filecabinet containing the Document
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled when it didn't start
+     * @return  A Future performing the Task
+     */
     public Future<DeserializedHttpResponseGen<String>> deleteFromDocumentDeleteForStringAsync(int id, String fileCabinetId, CancellationToken ct) {
         class Param {
 
@@ -481,11 +710,22 @@ public class ServiceConnection {
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
-
-    public Future<DeserializedHttpResponseGen<Document>> getFromDocumentForDocumentAsync(int id, String fileCabinetId) {
-        return getFromDocumentForDocumentAsync(id, fileCabinetId, null);
+    
+     /**
+     * @param id    [necessary] The Id of the Document
+     * @param fileCabinetId [necessary] The Id of the Filecabinet containing the Document
+     * @return  A Future performing the Task
+     */
+    public Future<DeserializedHttpResponseGen<String>> deleteFromDocumentDeleteForStringAsync(int id, String fileCabinetId) {
+        return deleteFromDocumentDeleteForStringAsync(id, fileCabinetId, null);
     }
     
+    /**
+     * @param id    [necessary] The Id of the Document
+     * @param fileCabinetId [necessary] The Id of the Filecabinet containing the Document
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task and returning the Document
+     */
     public Future<DeserializedHttpResponseGen<Document>> getFromDocumentForDocumentAsync(int id, String fileCabinetId, CancellationToken ct) {
         class Param {
 
@@ -503,7 +743,23 @@ public class ServiceConnection {
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
+    
+    /**
+     * @param id    [necessary] The Id of the Document
+     * @param fileCabinetId [necessary] The Id of the Filecabinet containing the Document
+     * @return  A Future performing the Task and returning the Document
+     */
+    public Future<DeserializedHttpResponseGen<Document>> getFromDocumentForDocumentAsync(int id, String fileCabinetId) {
+        return getFromDocumentForDocumentAsync(id, fileCabinetId, null);
+    }
 
+    /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @param data  [necessary] The data to post
+     * @return   A Future performing the Task and returning the Document
+     */
     public Future<DeserializedHttpResponseGen<Document>> postToDocumentAppendFilesForDocumentAsync(int id, String fileCabinetId, MultiPart data, CancellationToken ct) {
         class Param {
 
@@ -522,14 +778,29 @@ public class ServiceConnection {
         return fut;
     }
     
+    /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @param data  [necessary] The data to post
+     * @return   A Future performing the Task and returning the Document
+     */
     public Future<DeserializedHttpResponseGen<Document>> postToDocumentAppendFilesForDocumentAsync(int id, String fileCabinetId, MultiPart data) {
         return postToDocumentAppendFilesForDocumentAsync( id,  fileCabinetId, data, null);
     }
 
-    public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> getFromDocumentsForDocumentsQueryResultAsync(String fileCabinetId, String q, String[] fields, String[] sortOrder, Integer start, Integer msStart, Integer count, String format, Boolean includeSuggestions) {
-        return getFromDocumentsForDocumentsQueryResultAsync(fileCabinetId, q, fields, sortOrder, start, msStart, count, format, includeSuggestions, null);
-    }
-    
+    /**
+     * @param fileCabinetId [necessary] The Id of the FileCabinet
+     * @param q [otional/ can be filled with null] 
+     * @param fields    [optional/ can be filled with null]
+     * @param includeSuggestions    [optional/ can be filled with null]
+     * @param format    [optional/ can be filled with null]
+     * @param msStart   [optional/ can be filled with null]
+     * @param count [optional/ can be filled with null]
+     * @param sortOrder [optional/ can be filled with null]
+     * @param start [optional/ can be filled with null]
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task and returning the DocumentsQueryResult
+     */
     public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> getFromDocumentsForDocumentsQueryResultAsync(String fileCabinetId, String q, String[] fields, String[] sortOrder, Integer start, Integer msStart, Integer count, String format, Boolean includeSuggestions, CancellationToken ct) {
         class Param {
 
@@ -562,11 +833,34 @@ public class ServiceConnection {
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
-
-    public Future<DeserializedHttpResponseGen<Document>> postToUploadDocumentForDocumentAsync(String fileCabinetId, Document data, Boolean processTextshot, Boolean imageProcessing, String redirect, String storeDialogId, Boolean checkFileNameForCheckinInfo) {
-        return postToUploadDocumentForDocumentAsync(fileCabinetId, data, processTextshot, imageProcessing, redirect, storeDialogId, checkFileNameForCheckinInfo, null);
-    }
     
+    /**
+     * @param fileCabinetId [necessary] The Id of the FileCabinet
+     * @param q [otional/ can be filled with null] 
+     * @param fields    [optional/ can be filled with null]
+     * @param includeSuggestions    [optional/ can be filled with null]
+     * @param format    [optional/ can be filled with null]
+     * @param msStart   [optional/ can be filled with null]
+     * @param count [optional/ can be filled with null]
+     * @param sortOrder [optional/ can be filled with null]
+     * @param start [optional/ can be filled with null]
+     * @return  A Future performing the Task and returning the DocumentsQueryResult
+     */
+    public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> getFromDocumentsForDocumentsQueryResultAsync(String fileCabinetId, String q, String[] fields, String[] sortOrder, Integer start, Integer msStart, Integer count, String format, Boolean includeSuggestions) {
+        return getFromDocumentsForDocumentsQueryResultAsync(fileCabinetId, q, fields, sortOrder, start, msStart, count, format, includeSuggestions, null);
+    }
+
+    /**
+     * @param fileCabinetId [necessary] the Id of the Filecabinet
+     * @param data  [necessary] the Document to post
+     * @param processTextshot   [optional/ can be filled with null] 
+     * @param imageProcessing   [optional/ can be filled with null] 
+     * @param redirect  [optional/ can be filled with null] 
+     * @param storeDialogId [optional/ can be filled with null] 
+     * @param checkFileNameForCheckinInfo   [optional/ can be filled with null] 
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task and returning the uploaded Document
+     */
     public Future<DeserializedHttpResponseGen<Document>> postToUploadDocumentForDocumentAsync(String fileCabinetId, Document data, Boolean processTextshot, Boolean imageProcessing, String redirect, String storeDialogId, Boolean checkFileNameForCheckinInfo, CancellationToken ct) {
         class Param {
 
@@ -594,6 +888,31 @@ public class ServiceConnection {
         return fut;
     }
 
+    /**
+     * @param fileCabinetId [necessary] the Id of the Filecabinet
+     * @param data  [necessary] the Document to post
+     * @param processTextshot   [optional/ can be filled with null] 
+     * @param imageProcessing   [optional/ can be filled with null] 
+     * @param redirect  [optional/ can be filled with null] 
+     * @param storeDialogId [optional/ can be filled with null] 
+     * @param checkFileNameForCheckinInfo   [optional/ can be filled with null] 
+     * @return  A Future performing the Task and returning the uploaded Document
+     */
+    public Future<DeserializedHttpResponseGen<Document>> postToUploadDocumentForDocumentAsync(String fileCabinetId, Document data, Boolean processTextshot, Boolean imageProcessing, String redirect, String storeDialogId, Boolean checkFileNameForCheckinInfo) {
+        return postToUploadDocumentForDocumentAsync(fileCabinetId, data, processTextshot, imageProcessing, redirect, storeDialogId, checkFileNameForCheckinInfo, null);
+    }
+    
+    /**
+     * @param fileCabinetId [necessary] the Id of the Filecabinet
+     * @param data  [necessary] the data represented as InputStream
+     * @param processTextshot   [optional/ can be filled with null] 
+     * @param imageProcessing   [optional/ can be filled with null] 
+     * @param redirect  [optional/ can be filled with null] 
+     * @param storeDialogId [optional/ can be filled with null] 
+     * @param checkFileNameForCheckinInfo   [optional/ can be filled with null] 
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task and returning the uploaded Document
+     */
     public Future<DeserializedHttpResponseGen<Document>> postToUploadDocumentForDocumentAsync(String fileCabinetId, InputStream data, Boolean processTextshot, Boolean imageProcessing, String redirect, String storeDialogId, Boolean checkFileNameForCheckinInfo, CancellationToken ct) {
         class Param {
 
@@ -621,10 +940,26 @@ public class ServiceConnection {
         return fut;
     }
     
+    /**
+     * @param fileCabinetId [necessary] the Id of the Filecabinet
+     * @param data  [necessary] the data represented as InputStream
+     * @param processTextshot   [optional/ can be filled with null] 
+     * @param imageProcessing   [optional/ can be filled with null] 
+     * @param redirect  [optional/ can be filled with null] 
+     * @param storeDialogId [optional/ can be filled with null] 
+     * @param checkFileNameForCheckinInfo   [optional/ can be filled with null] 
+     * @return  A Future performing the Task and returning the uploaded Document
+     */
     public Future<DeserializedHttpResponseGen<Document>> postToUploadDocumentForDocumentAsync(String fileCabinetId, InputStream data, Boolean processTextshot, Boolean imageProcessing, String redirect, String storeDialogId, Boolean checkFileNameForCheckinInfo) {
         return postToUploadDocumentForDocumentAsync(fileCabinetId, data, processTextshot, imageProcessing, redirect, storeDialogId, checkFileNameForCheckinInfo, null);
     }
     
+    /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task and returning the DocumentIndexFields
+     */
     public Future<DeserializedHttpResponseGen<DocumentIndexFields>> getFromDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, CancellationToken ct) {
         class Param {
 
@@ -643,10 +978,22 @@ public class ServiceConnection {
         return fut;
     }
     
+    /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @return  A Future performing the Task and returning the DocumentIndexFields
+     */
     public Future<DeserializedHttpResponseGen<DocumentIndexFields>> getFromDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId) {
         return getFromDocumentIndexFieldsForDocumentIndexFieldsAsync(id, fileCabinetId, null);
     }
 
+     /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @param data  [necessary] The DocumentIndexFields to append to the Document
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task and returning the uploaded DocumentIndexFields
+     */
     public Future<DeserializedHttpResponseGen<DocumentIndexFields>> putToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, DocumentIndexFields data, CancellationToken ct) {
         class Param {
 
@@ -665,10 +1012,23 @@ public class ServiceConnection {
         return fut;
     }
         
+    /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @param data  [necessary] The DocumentIndexFields to append to the Document
+     * @return  A Future performing the Task and returning the uploaded DocumentIndexFields
+     */
     public Future<DeserializedHttpResponseGen<DocumentIndexFields>> putToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, DocumentIndexFields data) {
         return putToDocumentIndexFieldsForDocumentIndexFieldsAsync(id, fileCabinetId, data, null);
     }
 
+    /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @param data  [necessary] The UpdateIndexFieldsInfo to append to the Document
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task and returning the DocumentIndexFields
+     */
     public Future<DeserializedHttpResponseGen<DocumentIndexFields>> putToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, UpdateIndexFieldsInfo data, CancellationToken ct) {
         class Param {
 
@@ -687,10 +1047,23 @@ public class ServiceConnection {
         return fut;
     }
     
+    /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @param data  [necessary] The UpdateIndexFieldsInfo to append to the Document
+     * @return  A Future performing the Task and returning the DocumentIndexFields
+     */
     public Future<DeserializedHttpResponseGen<DocumentIndexFields>> putToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, UpdateIndexFieldsInfo data) {
         return putToDocumentIndexFieldsForDocumentIndexFieldsAsync(id, fileCabinetId, data, null);
     }
 
+    /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @param data  [necessary] The DocumentIndexFields
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task and returning the DocumentIndexFields
+     */
     public Future<DeserializedHttpResponseGen<DocumentIndexFields>> postToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, DocumentIndexFields data, CancellationToken ct) {
         class Param {
 
@@ -709,11 +1082,23 @@ public class ServiceConnection {
         return fut;
     }
     
+    /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @param data  [necessary] The DocumentIndexFields
+     * @return  A Future performing the Task and returning the DocumentIndexFields
+     */
     public Future<DeserializedHttpResponseGen<DocumentIndexFields>> postToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, DocumentIndexFields data) {
         return postToDocumentIndexFieldsForDocumentIndexFieldsAsync(id, fileCabinetId, data, null);
     }
 
-
+    /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @param data  [necessary] The UpdateIndexFieldsInfo
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task and returning the DocumentIndexFields
+     */
     public Future<DeserializedHttpResponseGen<DocumentIndexFields>> postToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, UpdateIndexFieldsInfo data, CancellationToken ct) {
         class Param {
 
@@ -732,11 +1117,23 @@ public class ServiceConnection {
         return fut;
     }
     
+    /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @param data  [necessary] The DocumentIndexFields
+     * @return  A Future performing the Task and returning the DocumentIndexFields
+     */
     public Future<DeserializedHttpResponseGen<DocumentIndexFields>> postToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, UpdateIndexFieldsInfo data) {
         return postToDocumentIndexFieldsForDocumentIndexFieldsAsync(id,  fileCabinetId, data, null);
     }
     
-
+    /**
+     * @param id    [necessary] The Id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @param normalizeCoordinates  [optional/ can be filled with null]
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task and returning the SuggestionsFields
+     */
     public Future<DeserializedHttpResponseGen<SuggestionFields>> getFromIntellixSuggestionsForSuggestionFieldsAsync(int id, String fileCabinetId, Boolean normalizeCoordinates, CancellationToken ct) {
         class Param {
 
@@ -758,11 +1155,28 @@ public class ServiceConnection {
         return fut;
     }
     
+     /**
+     * @param id    [necessary] The Id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @param normalizeCoordinates  [optional/ can be filled with null]
+     * @return  A Future performing the Task and returning the SuggestionsFields
+     */
     public Future<DeserializedHttpResponseGen<SuggestionFields>> getFromIntellixSuggestionsForSuggestionFieldsAsync(int id, String fileCabinetId, Boolean normalizeCoordinates) {
         return getFromIntellixSuggestionsForSuggestionFieldsAsync(id, fileCabinetId, normalizeCoordinates, null);
     }
     
-
+    /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @param targetFileType    [optional/ can be filled with null] The file type
+     * @param keepAnnotations   [optional/ can be filled with null] boolean determing to keep the Annotations or not
+     * @param downloadFile  [optional/ can be filled with null] Boolean determing if file is downloaded
+     * @param layers    [optional/ can be filled with null]
+     * @param autoPrint [optional/ can be filled with null]
+     * @param append    [optional/ can be filled with null]
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task and returning the Document as InputStream
+     */
     public Future<DeserializedHttpResponseGen<InputStream>> getFromDocumentsFileDownloadForStreamAsync(int id, String fileCabinetId, FileDownloadType targetFileType, Boolean keepAnnotations, Boolean downloadFile, Boolean autoPrint, int[] layers, int[] append, CancellationToken ct) {
         class Param {
 
@@ -794,11 +1208,28 @@ public class ServiceConnection {
         return fut;
     }
     
+    /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @param targetFileType    [optional/ can be filled with null] The file type
+     * @param keepAnnotations   [optional/ can be filled with null] boolean determing to keep the Annotations or not
+     * @param downloadFile  [optional/ can be filled with null] Boolean determing if file is downloaded
+     * @param layers    [optional/ can be filled with null]
+     * @param autoPrint [optional/ can be filled with null]
+     * @param append    [optional/ can be filled with null]
+     * @return  A Future performing the Task and returning the Document as InputStream
+     */
     public Future<DeserializedHttpResponseGen<InputStream>> getFromDocumentsFileDownloadForStreamAsync(int id, String fileCabinetId, FileDownloadType targetFileType, Boolean keepAnnotations, Boolean downloadFile, Boolean autoPrint, int[] layers, int[] append) {
         return getFromDocumentsFileDownloadForStreamAsync(id, fileCabinetId, targetFileType, keepAnnotations, downloadFile, autoPrint, layers, append ,null);
     }
     
-
+    /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @param data  [necessary] The rights to be posted
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task and returning the uploaded Rights
+     */
     public Future<DeserializedHttpResponseGen<Rights>> postToDocumentRightsForRightsAsync(int id, String fileCabinetId, Rights data, CancellationToken ct) {
         class Param {
 
@@ -817,11 +1248,22 @@ public class ServiceConnection {
         return fut;
     }
     
+    /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @param data  [necessary] The rights to be posted
+     * @return  A Future performing the Task and returning the uploaded Rights
+     */
     public Future<DeserializedHttpResponseGen<Rights>> postToDocumentRightsForRightsAsync(int id, String fileCabinetId, Rights data) {
         return postToDocumentRightsForRightsAsync(id, fileCabinetId, data, null);
     }
    
-
+    /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task and returning DocumentLinks
+     */
     public Future<DeserializedHttpResponseGen<DocumentLinks>> getFromDocumentDocumentLinksForDocumentLinksAsync(int id, String fileCabinetId, CancellationToken ct) {
         class Param {
 
@@ -840,11 +1282,22 @@ public class ServiceConnection {
         return fut;
     }
     
+    /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @return  A Future performing the Task and returning DocumentLinks
+     */
     public Future<DeserializedHttpResponseGen<DocumentLinks>> getFromDocumentDocumentLinksForDocumentLinksAsync(int id, String fileCabinetId) {
         return getFromDocumentDocumentLinksForDocumentLinksAsync(id,  fileCabinetId, null);
     }
 
-
+    /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @param data  [necessary] The data
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task and returning an Inputstream
+     */
     public Future<DeserializedHttpResponseGen<InputStream>> postToCheckoutForStreamAsync(int id, String fileCabinetId, CheckOutToFileSystemInfo data, CancellationToken ct) {
         class Param {
 
@@ -863,11 +1316,23 @@ public class ServiceConnection {
         return fut;
     }
     
+    /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @param data  [necessary] The data
+     * @return  A Future performing the Task and returning an Inputstream
+     */
     public Future<DeserializedHttpResponseGen<InputStream>> postToCheckoutForStreamAsync(int id, String fileCabinetId, CheckOutToFileSystemInfo data) {
         return postToCheckoutForStreamAsync(id, fileCabinetId, data, null);
     }
     
-
+    /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @param data  [necessary] The CheckOutTOFileSysteInfo data
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task and returning the CheckOutResult
+     */
     public Future<DeserializedHttpResponseGen<CheckOutResult>> postToCheckoutDocumentForCheckOutResultAsync(int id, String fileCabinetId, CheckOutToFileSystemInfo data, CancellationToken ct) {
         class Param {
 
@@ -886,11 +1351,23 @@ public class ServiceConnection {
         return fut;
     }
     
+    /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @param data  [necessary] The CheckOutTOFileSysteInfo data
+     * @return  A Future performing the Task and returning the CheckOutResult
+     */
     public Future<DeserializedHttpResponseGen<CheckOutResult>> postToCheckoutDocumentForCheckOutResultAsync(int id, String fileCabinetId, CheckOutToFileSystemInfo data) {
         return postToCheckoutDocumentForCheckOutResultAsync(id, fileCabinetId, data, null);
     }
 
-
+    /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @param data  [necessary] The data to checkin
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task and returning checkin Document
+     */
     public Future<DeserializedHttpResponseGen<Document>> postToCheckinForDocumentAsync(int id, String fileCabinetId, MultiPart data, CancellationToken ct) {
         class Param {
 
@@ -909,11 +1386,22 @@ public class ServiceConnection {
         return fut;
     }
     
+    /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @param data  [necessary] The data to checkin
+     * @return  A Future performing the Task and returning checkin Document
+     */
     public Future<DeserializedHttpResponseGen<Document>> postToCheckinForDocumentAsync(int id, String fileCabinetId, MultiPart data) {
         return postToCheckinForDocumentAsync(id, fileCabinetId, data, null);
     }
     
-
+    /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task and returning the DocumentAnnotations
+     */
     public Future<DeserializedHttpResponseGen<DocumentAnnotations>> getFromDocumentAnnotationsForDocumentAnnotationsAsync(int id, String fileCabinetId, CancellationToken ct) {
         class Param {
 
@@ -932,11 +1420,22 @@ public class ServiceConnection {
         return fut;
     }
     
+    /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @return  A Future performing the Task and returning the DocumentAnnotations
+     */
     public Future<DeserializedHttpResponseGen<DocumentAnnotations>> getFromDocumentAnnotationsForDocumentAnnotationsAsync(int id, String fileCabinetId) {
         return getFromDocumentAnnotationsForDocumentAnnotationsAsync(id, fileCabinetId, null);
     }
 
-
+    /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @param data  [necessary] The DocumentAnnotationsPlacement data to post
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task and returning the DocumentAnnotations
+     */
     public Future<DeserializedHttpResponseGen<DocumentAnnotations>> postToDocumentAnnotationsForDocumentAnnotationsAsync(int id, String fileCabinetId, DocumentAnnotationsPlacement data, CancellationToken ct) {
         class Param {
 
@@ -955,10 +1454,21 @@ public class ServiceConnection {
         return fut;
     }
     
+    /**
+     * @param id    [necessary] The id of the Document
+     * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
+     * @param data  [necessary] The DocumentAnnotationsPlacement data to post
+     * @return  A Future performing the Task and returning the DocumentAnnotations
+     */
     public Future<DeserializedHttpResponseGen<DocumentAnnotations>> postToDocumentAnnotationsForDocumentAnnotationsAsync(int id, String fileCabinetId, DocumentAnnotationsPlacement data) {
         return postToDocumentAnnotationsForDocumentAnnotationsAsync(id, fileCabinetId, data, null);
     }
 
+    /**
+     * @param fileCabinetId [necessary] The id of the Filecabinet to get
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task and returning the FileCabinet
+     */
     public Future<DeserializedHttpResponseGen<FileCabinet>> getFromFileCabinetForFileCabinetAsync(String fileCabinetId, CancellationToken ct) {
         class Param {
 
@@ -975,11 +1485,25 @@ public class ServiceConnection {
         return fut;
     }
     
+    /**
+     * @param fileCabinetId [necessary] The id of the Filecabinet to get
+     * @return  A Future performing the Task and returning the FileCabinet
+     */
     public Future<DeserializedHttpResponseGen<FileCabinet>> getFromFileCabinetForFileCabinetAsync(String fileCabinetId) {
         return getFromFileCabinetForFileCabinetAsync(fileCabinetId, null);
     }
 
-
+    /**
+     * @param id    [necessary] The id
+     * @param fileCabinetId [necessary] The id of the Filecabinet
+     * @param start [optional/ can be filled with null]
+     * @param count [optional/ can be filled with null]
+     * @param embedThumbnailData    [optional/ can be filled with null]
+     * @param thumbnailsOnly    [optional/ can be filled with null]
+     * @param thumbnailSize [optional/ can be filled with null]
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task and returning the Pages
+     */
     public Future<DeserializedHttpResponseGen<Pages>> getFromPagesBlockForPagesAsync(String id, String fileCabinetId, Integer start, Integer count, Boolean embedThumbnailData, String thumbnailSize, Boolean thumbnailsOnly, CancellationToken ct) {
         class Param {
 
@@ -1009,11 +1533,27 @@ public class ServiceConnection {
         return fut;
     }
     
+    /**
+     * @param id    [necessary] The id
+     * @param fileCabinetId [necessary] The id of the Filecabinet
+     * @param start [optional/ can be filled with null]
+     * @param count [optional/ can be filled with null]
+     * @param embedThumbnailData    [optional/ can be filled with null]
+     * @param thumbnailsOnly    [optional/ can be filled with null]
+     * @param thumbnailSize [optional/ can be filled with null]
+     * @return  A Future performing the Task and returning the Pages
+     */
     public Future<DeserializedHttpResponseGen<Pages>> getFromPagesBlockForPagesAsync(String id, String fileCabinetId, Integer start, Integer count, Boolean embedThumbnailData, String thumbnailSize, Boolean thumbnailsOnly) {
         return getFromPagesBlockForPagesAsync(id, fileCabinetId, start, count, embedThumbnailData, thumbnailSize, thumbnailsOnly, null);
     }
 
-
+    /**
+     * @param id    [necessary] The id
+     * @param fileCabinetId [necessary] The id of the Filecabinet
+     * @param page  [necessary] The number of the page
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task and returning the Annotation
+     */
     public Future<DeserializedHttpResponseGen<Annotation>> getFromAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, CancellationToken ct) {
         class Param {
 
@@ -1034,11 +1574,24 @@ public class ServiceConnection {
         return fut;
     }
     
+    /**
+     * @param id    [necessary] The id
+     * @param fileCabinetId [necessary] The id of the Filecabinet
+     * @param page  [necessary] The number of the page
+     * @return  A Future performing the Task and returning the Annotation
+     */
     public Future<DeserializedHttpResponseGen<Annotation>> getFromAnnotationForAnnotationAsync(String id, String fileCabinetId, int page) {
         return getFromAnnotationForAnnotationAsync(id, fileCabinetId, page, null);
     }
     
-
+    /**
+     * @param id    [necessary] The id
+     * @param fileCabinetId [necessary] The id of the Filecabinet
+     * @param page  [necessary] The number of the page
+     * @param data  [necessary] The Annotation data to put
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task and returning the Annotation
+     */
     public Future<DeserializedHttpResponseGen<Annotation>> putToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, Annotation data, CancellationToken ct) {
         class Param {
 
@@ -1059,10 +1612,25 @@ public class ServiceConnection {
         return fut;
     }
     
+    /**
+     * @param id    [necessary] The id
+     * @param fileCabinetId [necessary] The id of the Filecabinet
+     * @param page  [necessary] The number of the page
+     * @param data  [necessary] The Annotation data to put
+     * @return  A Future performing the Task and returning the Annotation
+     */
     public Future<DeserializedHttpResponseGen<Annotation>> putToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, Annotation data) {
         return putToAnnotationForAnnotationAsync(id, fileCabinetId, page, data, null);
     }
 
+    /**
+     * @param id    [necessary] The id
+     * @param fileCabinetId [necessary] The id of the Filecabinet
+     * @param page  [necessary] The number of the page
+     * @param data  [necessary] The AnnotationPlacement data to put
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task and returning the Annotation
+     */
     public Future<DeserializedHttpResponseGen<Annotation>> putToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, AnnotationsPlacement data, CancellationToken ct) {
         class Param {
 
@@ -1082,11 +1650,26 @@ public class ServiceConnection {
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
-
+    
+    /**
+     * @param id    [necessary] The id
+     * @param fileCabinetId [necessary] The id of the Filecabinet
+     * @param page  [necessary] The number of the page
+     * @param data  [necessary] The AnnotationPlacement data to put
+     * @return  A Future performing the Task and returning the Annotation
+     */
     public Future<DeserializedHttpResponseGen<Annotation>> putToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, AnnotationsPlacement data) {
         return putToAnnotationForAnnotationAsync(id, fileCabinetId, page, data, null);
     }
 
+    /**
+     * @param id    [necessary] The id
+     * @param fileCabinetId [necessary] The id of the Filecabinet
+     * @param page  [necessary] The number of the page
+     * @param data  [necessary] The Annotation data to post
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task and returning the Annotation
+     */
     public Future<DeserializedHttpResponseGen<Annotation>> postToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, Annotation data, CancellationToken ct) {
         class Param {
 
@@ -1106,11 +1689,26 @@ public class ServiceConnection {
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
-
+    
+    /**
+     * @param id    [necessary] The id
+     * @param fileCabinetId [necessary] The id of the Filecabinet
+     * @param page  [necessary] The number of the page
+     * @param data  [necessary] The Annotation data to post
+     * @return  A Future performing the Task and returning the Annotation
+     */
     public Future<DeserializedHttpResponseGen<Annotation>> postToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, Annotation data) {
         return postToAnnotationForAnnotationAsync(id, fileCabinetId, page, data, null);
     }
     
+    /**
+     * @param id    [necessary] The id
+     * @param fileCabinetId [necessary] The id of the Filecabinet
+     * @param page  [necessary] The number of the page
+     * @param data  [necessary] The AnnotationPlacement data to post
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task and returning the Annotation
+     */
     public Future<DeserializedHttpResponseGen<Annotation>> postToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, AnnotationsPlacement data, CancellationToken ct) {
         class Param {
 
@@ -1131,20 +1729,33 @@ public class ServiceConnection {
         return fut;
     }
     
+    /**
+     * @param id    [necessary] The id
+     * @param fileCabinetId [necessary] The id of the Filecabinet
+     * @param page  [necessary] The number of the page
+     * @param data  [necessary] The AnnotationPlacement data to post
+     * @return  A Future performing the Task and returning the Annotation
+     */
     public Future<DeserializedHttpResponseGen<Annotation>> postToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, AnnotationsPlacement data) {
         return postToAnnotationForAnnotationAsync(id, fileCabinetId, page, data, null);
     }
 
-
-    public Future<DeserializedHttpResponseGen<JAXBElement>> getFromClientSetupDataForXElementAsync(String orgId, String baseAddress, String clientSetupVersion, CancellationToken ct) {
+    /**
+     * @param orgId [necessary] The id of the organization
+     * @param baseAddress   [optional/ can be replaced with null] The baseAddress
+     * @param clientSetupVersion    [optional/ can be replaced with null] The version of the clientSetup
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task and returning the JAXBElement
+     */
+    Future<DeserializedHttpResponseGen<JAXBElement>> getFromClientSetupDataForXElementAsync(String orgId, String baseAddress, String clientSetupVersion, CancellationToken ct) {
         class Param {
 
-            String ordId;
+            String orgId;
             String baseAddress;
             String clientSetupVersion;
 
             public Param(String ordId, String baseAddress, String clientSetupVersion) {
-                this.ordId = ordId;
+                this.orgId = ordId;
                 this.baseAddress = baseAddress;
                 this.clientSetupVersion = clientSetupVersion;
             }
@@ -1156,10 +1767,22 @@ public class ServiceConnection {
         return fut;
     }
 
-    public Future<DeserializedHttpResponseGen<JAXBElement>> getFromClientSetupDataForXElementAsync(String orgId, String baseAddress, String clientSetupVersion) {
+    /**
+     * @param orgId [necessary] The id of the organization
+     * @param baseAddress   [optional/ can be replaced with null] The baseAddress
+     * @param clientSetupVersion    [optional/ can be replaced with null] The version of the clientSetup
+     * @return  A Future performing the Task and returning the JAXBElement
+     */
+    Future<DeserializedHttpResponseGen<JAXBElement>> getFromClientSetupDataForXElementAsync(String orgId, String baseAddress, String clientSetupVersion) {
         return getFromClientSetupDataForXElementAsync(orgId, baseAddress, clientSetupVersion, null);
     }
     
+    /**
+     * @param id    [necessary] The id
+     * @param data  [necessary] The UserValidation data
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task
+     */
     public Future<DeserializedHttpResponseGen<String>> postToValidateUserForStringAsync(String id, UserValidation data, CancellationToken ct) {
         class Param {
 
@@ -1176,28 +1799,38 @@ public class ServiceConnection {
         return fut;
     }
 
-    /// <summary>
-    /// Checks the specified file in.
-    /// </summary>
-    /// <param name="serviceConnection">The service connection.</param>
-    /// <param name="fileToCheckin">The file to checkin.</param>
-    /// <returns>A task producing the checked-in response of the check-in operation.</returns>
-    /// <remarks>The name of <paramref name="fileToCheckin"/> must be taken from <see cref="EasyCheckoutCheckinExtensionsBase.EasyCheckOutToFileSystemAsync"/>.</remarks>
+    /**
+     * @param id    [necessary] The id
+     * @param data  [necessary] The UserValidation data
+     * @return  A Future performing the Task
+     */
+    public Future<DeserializedHttpResponseGen<String>> postToValidateUserForStringAsync(String id, UserValidation data) {
+        return postToValidateUserForStringAsync(id, data, null);
+    }
+
+     /**
+     * Checks the specified file in <p>
+     * 
+     * Remarks : The name of fileToCheckin must be taken from {@Link #easyCheckOutToFileSystemAsync}"/>
+     * 
+     * @param fileToCheckin [necessary] The file to check in
+     * @return  A future performing the checkin and returning the document
+     */
     public Future<DeserializedHttpResponseGen<Document>> easyCheckInFromFileSystemAsync(java.io.File fileToCheckin) {
         return EasyCheckoutCheckinExtensionsBase.easyCheckInFromFileSystemAsync(this, FileWrapper.toFileInfoWrapper(fileToCheckin));
     }
 
-    /// <summary>
-    /// Checks the specified file in.
-    /// </summary>
-    /// <param name="serviceConnection">The service connection.</param>
-    /// <param name="fileToCheckin">The file to checkin.</param>
-    /// <param name="checkInParams">The check in parameters.</param>
-    /// <returns>A task producing the checked-in response of the check-in operation.</returns>
-    /// <remarks>The name of <paramref name="fileToCheckin"/> must be taken from <see cref="EasyCheckoutCheckinExtensionsBase.EasyCheckOutToFileSystemAsync"/>.</remarks>
+     /**
+     * Checks the specified file in <p>
+     * 
+     * Remarks : The name of fileToCheckin must be taken from {@Link #easyCheckOutToFileSystemAsync}"/>
+     * 
+     * @param fileToCheckin [necessary] The file to check in
+     * @param checkInParams [necessary] The check in parameters
+     * @return  A future performing the checkin and returning the document
+     */
     public Future<DeserializedHttpResponseGen<Document>> easyCheckInFromFileSystemAsync(java.io.File fileToCheckin, CheckInActionParameters checkInParams) {
         return EasyCheckoutCheckinExtensionsBase.easyCheckInFromFileSystemAsync(this, FileWrapper.toFileInfoWrapper(fileToCheckin), checkInParams);
-
     }
 
     /*   public Future<DeserializedHttpResponseGen<SelectListInfo>> GetFromSelectListForSelectListInfoAsync(String id, String selectListId)

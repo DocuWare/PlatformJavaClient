@@ -13,8 +13,8 @@ import java.util.HashMap;
  */
 public class ContentTypeMapping {
 
-    private static HashMap<String, String> fileExtension2MediaType = new HashMap<String, String>();
-    private static HashMap<String, String> mediaType2FileExtension = new HashMap<String, String>();
+    private static final HashMap<String, String> fileExtension2MediaType = new HashMap<>();
+    private static final HashMap<String, String> mediaType2FileExtension = new HashMap<>();
 
     private void build() {
         fileExtension2MediaType.put("ez", "application/andrew-inset");

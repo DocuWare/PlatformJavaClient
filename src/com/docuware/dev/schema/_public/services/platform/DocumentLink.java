@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.16 um 09:04:54 AM CEST 
+// Generiert: 2016.08.18 um 09:47:39 AM CEST 
 //
 
 
@@ -231,12 +231,20 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<DocumentsQueryResult>getAsync(this, links, "result", DocumentsQueryResult.class);
     }
 
+    public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> getDocumentsQueryResultFromResultRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<DocumentsQueryResult>getAsync(this, links, "result", DocumentsQueryResult.class, ct);
+    }
+
     public DocumentsQueryResult postToResultRelationForDocumentsQueryResult(ResultListQuery data) {
         return MethodInvocation.<DocumentsQueryResult,ResultListQuery>post(this, links, "result", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "ResultListQuery"), ResultListQuery.class, null, data));
     }
 
     public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> postToResultRelationForDocumentsQueryResultAsync(ResultListQuery data) {
         return MethodInvocation.<DocumentsQueryResult, ResultListQuery >postAsync(this, links, "result", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "ResultListQuery"), ResultListQuery.class, null, data));
+    }
+
+    public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> postToResultRelationForDocumentsQueryResultAsync(ResultListQuery data, CancellationToken ct) {
+        return MethodInvocation.<DocumentsQueryResult, ResultListQuery >postAsync(this, links, "result", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "ResultListQuery"), ResultListQuery.class, null, data), ct);
     }
 
     public URI getResultDialogRelationLink() {
@@ -249,6 +257,10 @@ private HttpClientProxy proxy;//test
 
     public Future<DeserializedHttpResponseGen<Dialog>> getDialogFromResultDialogRelationAsync() {
         return MethodInvocation.<Dialog>getAsync(this, links, "resultDialog", Dialog.class);
+    }
+
+    public Future<DeserializedHttpResponseGen<Dialog>> getDialogFromResultDialogRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<Dialog>getAsync(this, links, "resultDialog", Dialog.class, ct);
     }
 
 

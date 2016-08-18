@@ -9,13 +9,12 @@ import com.sun.jersey.multipart.MultiPart;
 import com.sun.jersey.multipart.file.FileDataBodyPart;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
@@ -31,23 +30,32 @@ import javax.xml.namespace.QName;
  */
 public class EasyCheckoutCheckinExtensionsBase {
 
+    /**
+     * Creates the name of the easy-checkout file
+     * 
+     * @param checkoutResponse  The checkout operation response
+     * @param fileCabinetId The file cabinet identifier
+     * @param docId The document identifier
+     * @return  The file name which contains all information encoded in order to check in the file again
+     */
     public static String createEasyCheckoutFileName(DeserializedHttpResponseGen<InputStream> checkoutResponse, String fileCabinetId, int docId) {
         return FileNameExtensions.CreateCheckoutFileName(DeserializedHttpResponseGen.getFileName(checkoutResponse), fileCabinetId, docId);
     }
 
-        /// <summary>
-    /// Checks out the specified file and saves it to the file system asynchronously.
-    /// </summary>
-    /// <param name="serviceConnection">The service connection.</param>
-    /// <param name="fileCabinetId">The file cabinet identifier.</param>
-    /// <param name="docId">The document identifier.</param>
-    /// <returns>A task producung an instance of <see cref="EasyCheckoutResult"/>.</returns>
+    /**
+     * Checks out the specified file and saves it to the file system asynchronously
+     * 
+     * @param serviceConnection The service connection
+     * @param fileCabinetId The file cabinet identifier
+     * @param docId The document identifier
+     * @return  A Future producung an instance of EasyCheckoutResult
+     */
     public static Future<EasyCheckoutResult> easyCheckOutToFileSystemAsync(ServiceConnection serviceConnection, String fileCabinetId, int docId) {
         return CompletableFuture.<EasyCheckoutResult>supplyAsync(() -> {
             DeserializedHttpResponseGen<InputStream> t;
             try {
                 t = serviceConnection.postToCheckoutForStreamAsync(docId, fileCabinetId, new CheckOutToFileSystemInfo()).get();
-            } catch (Exception x) {
+            } catch (InterruptedException | ExecutionException x) {
                 throw new RuntimeException(x.getMessage());
             }
 
@@ -68,6 +76,15 @@ public class EasyCheckoutCheckinExtensionsBase {
     /// <param name="fileToCheckin">The file to checkin.</param>
     /// <returns>A task producing the checked-in response of the check-in operation.</returns>
     /// <remarks>The name of <paramref name="fileToCheckin"/> must be taken from <see cref="EasyCheckOutToFileSystemAsync"/>.</remarks>
+    /**
+     * Checks the specified file in <p>
+     * 
+     * Remarks: The name of fileToCheckin must be taken from EasyCheckOutToFileSystemAsync
+     * 
+     * @param serviceConnection The service connection
+     * @param fileToCheckin The file to checkin
+     * @return  A Future producing the checked-in response of the check-in operation
+     */
     public static Future<DeserializedHttpResponseGen<Document>> easyCheckInFromFileSystemAsync(ServiceConnection serviceConnection, IFileUploadInfo fileToCheckin) {
         return easyCheckInFromFileSystemAsync(serviceConnection, fileToCheckin, null);
     }
@@ -80,6 +97,16 @@ public class EasyCheckoutCheckinExtensionsBase {
     /// <param name="checkInParams">The check in parameters.</param>
     /// <returns>A task producing the checked-in response of the check-in operation.</returns>
     /// <remarks>The name of <paramref name="fileToCheckin"/> must be taken from <see cref="EasyCheckOutToFileSystemAsync"/>.</remarks>
+    /**
+     * Checks the specified file in <p>
+     * 
+     * Remarks: The name of fileToCheckin must be taken from EasyCheckOutToFileSystemAsync
+     * 
+     * @param serviceConnection The service connection
+     * @param fileToCheckin The file to checkin
+     * @param checkInParams The check in parameters
+     * @return  A Future producing the checked-in response of the check-in operation
+     */
     public static Future<DeserializedHttpResponseGen<Document>> easyCheckInFromFileSystemAsync(ServiceConnection serviceConnection, IFileUploadInfo fileToCheckin, CheckInActionParameters checkInParams) {
         MultiPart multipartForm = new MultiPart();
 
@@ -119,28 +146,26 @@ public class EasyCheckoutCheckinExtensionsBase {
             byte[] buffer = new byte[1024];
             try {
                 File temp = File.createTempFile("tempfile", null);
-                FileOutputStream fos = new FileOutputStream(temp);
-                int read = 0;
-                while ((read = is.read(buffer)) != -1) {
-                    fos.write(buffer, 0, read);
+                try (FileOutputStream fos = new FileOutputStream(temp)) {
+                    int read;
+                    while ((read = is.read(buffer)) != -1) {
+                        fos.write(buffer, 0, read);
+                    }
+                    FileDataBodyPart f = new FileDataBodyPart("content", temp);
+                    FormDataContentDisposition fdcd = null;
+                    try {
+                        fdcd = new FormDataContentDisposition("form-data; name=\"" + fileToCheckin.getName() + "\"; filename=\"" + fileToCheckin.getName() + "\"");
+                    } catch (ParseException ex) {
+                        throw new RuntimeException(ex.getMessage());
+                    }
+                    f.setContentDisposition(fdcd);
+                    multipartForm.bodyPart(f);
+                    is.close();
                 }
-                FileDataBodyPart f = new FileDataBodyPart("content", temp);
-                FormDataContentDisposition fdcd = null;
-                try {
-                    fdcd = new FormDataContentDisposition("form-data; name=\"" + fileToCheckin.getName() + "\"; filename=\"" + fileToCheckin.getName() + "\"");
-                } catch (ParseException ex) {
-                    throw new RuntimeException(ex.getMessage());
-                }
-                f.setContentDisposition(fdcd);
-                multipartForm.bodyPart(f);
-                is.close();
-                fos.close();
-
-            } catch (Exception e) {
-                throw new RuntimeException(e.getLocalizedMessage() + e.getCause());
+            } catch (IOException | RuntimeException e) {
+                throw new RuntimeException(e.getMessage() + e.getCause());
             }
         }
-
         return serviceConnection.postToCheckinForDocumentAsync(docid, fileCabinetId, multipartForm);
     }
 }

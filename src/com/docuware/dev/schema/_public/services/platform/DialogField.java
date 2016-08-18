@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.16 um 09:04:54 AM CEST 
+// Generiert: 2016.08.18 um 09:47:39 AM CEST 
 //
 
 
@@ -694,7 +694,7 @@ private HttpClientProxy proxy;//test
 
     public void setProxy(HttpClientProxy proxy) {
 	this.proxy = proxy;
-	/*if(this.selectListInfos!=null) { 
+/*	if(this.selectListInfos!=null) { 
         for (int i = 0; (i < this.selectListInfos.size()); i = (i + 1)) {
             this.selectListInfos.get(i).setProxy(proxy);
         }
@@ -733,12 +733,20 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<SelectListResult>getAsync(this, links, "simpleSelectList", SelectListResult.class);
     }
 
+    public Future<DeserializedHttpResponseGen<SelectListResult>> getSelectListResultFromSimpleSelectListRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<SelectListResult>getAsync(this, links, "simpleSelectList", SelectListResult.class, ct);
+    }
+
     public SelectListResult postToSimpleSelectListRelationForSelectListResult(SelectListExpression data) {
         return MethodInvocation.<SelectListResult,SelectListExpression>post(this, links, "simpleSelectList", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data));
     }
 
     public Future<DeserializedHttpResponseGen<SelectListResult>> postToSimpleSelectListRelationForSelectListResultAsync(SelectListExpression data) {
         return MethodInvocation.<SelectListResult, SelectListExpression >postAsync(this, links, "simpleSelectList", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data));
+    }
+
+    public Future<DeserializedHttpResponseGen<SelectListResult>> postToSimpleSelectListRelationForSelectListResultAsync(SelectListExpression data, CancellationToken ct) {
+        return MethodInvocation.<SelectListResult, SelectListExpression >postAsync(this, links, "simpleSelectList", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data), ct);
     }
 
 

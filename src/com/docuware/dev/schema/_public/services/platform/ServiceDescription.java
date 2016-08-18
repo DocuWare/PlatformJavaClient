@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.16 um 09:04:54 AM CEST 
+// Generiert: 2016.08.18 um 09:47:39 AM CEST 
 //
 
 
@@ -271,7 +271,11 @@ private HttpClientProxy proxy;//test
     public Future<DeserializedHttpResponseGen<Organizations>> getOrganizationsFromOrganizationsRelationAsync() {
         return MethodInvocation.<Organizations>getAsync(this, links, "organizations", Organizations.class);
     }
-    
+
+    public Future<DeserializedHttpResponseGen<Organizations>> getOrganizationsFromOrganizationsRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<Organizations>getAsync(this, links, "organizations", Organizations.class, ct);
+    }
+
     public URI getLoginRelationLink() {
         return MethodInvocation.getLink(this, links, "login");
     }
@@ -284,12 +288,20 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<URI>getAsync(this, links, "login", URI.class);
     }
 
+    public Future<DeserializedHttpResponseGen<URI>> getURIFromLoginRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<URI>getAsync(this, links, "login", URI.class, ct);
+    }
+
     public String postToLoginRelationForString(InputStream data, String bodyContentType) {
         return MethodInvocation.<String, InputStream>post(this, links, "login", String.class, data, bodyContentType);
     }
 
     public Future<DeserializedHttpResponseGen<String>> postToLoginRelationForStringAsync(InputStream data, String bodyContentType) { 
         return MethodInvocation.<String, InputStream>postAsync(this, links, "login", String.class, data, bodyContentType);
+}
+
+    public Future<DeserializedHttpResponseGen<String>> postToLoginRelationForStringAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
+        return MethodInvocation.<String, InputStream>postAsync(this, links, "login", String.class, data, bodyContentType, ct);
 }
 
     public URI getGuestLoginRelationLink() {
@@ -304,12 +316,20 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<URI>getAsync(this, links, "guestLogin", URI.class);
     }
 
+    public Future<DeserializedHttpResponseGen<URI>> getURIFromGuestLoginRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<URI>getAsync(this, links, "guestLogin", URI.class, ct);
+    }
+
     public String postToGuestLoginRelationForString(InputStream data, String bodyContentType) {
         return MethodInvocation.<String, InputStream>post(this, links, "guestLogin", String.class, data, bodyContentType);
     }
 
     public Future<DeserializedHttpResponseGen<String>> postToGuestLoginRelationForStringAsync(InputStream data, String bodyContentType) { 
         return MethodInvocation.<String, InputStream>postAsync(this, links, "guestLogin", String.class, data, bodyContentType);
+}
+
+    public Future<DeserializedHttpResponseGen<String>> postToGuestLoginRelationForStringAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
+        return MethodInvocation.<String, InputStream>postAsync(this, links, "guestLogin", String.class, data, bodyContentType, ct);
 }
 
     public URI getWindowsLoginRelationLink() {
@@ -324,12 +344,20 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<URI>getAsync(this, links, "windowsLogin", URI.class);
     }
 
+    public Future<DeserializedHttpResponseGen<URI>> getURIFromWindowsLoginRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<URI>getAsync(this, links, "windowsLogin", URI.class, ct);
+    }
+
     public String postToWindowsLoginRelationForString(InputStream data, String bodyContentType) {
         return MethodInvocation.<String, InputStream>post(this, links, "windowsLogin", String.class, data, bodyContentType);
     }
 
     public Future<DeserializedHttpResponseGen<String>> postToWindowsLoginRelationForStringAsync(InputStream data, String bodyContentType) { 
         return MethodInvocation.<String, InputStream>postAsync(this, links, "windowsLogin", String.class, data, bodyContentType);
+}
+
+    public Future<DeserializedHttpResponseGen<String>> postToWindowsLoginRelationForStringAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
+        return MethodInvocation.<String, InputStream>postAsync(this, links, "windowsLogin", String.class, data, bodyContentType, ct);
 }
 
     public URI getChangePasswordRelationLink() {
@@ -344,12 +372,20 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<URI>getAsync(this, links, "changePassword", URI.class);
     }
 
+    public Future<DeserializedHttpResponseGen<URI>> getURIFromChangePasswordRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<URI>getAsync(this, links, "changePassword", URI.class, ct);
+    }
+
     public String postToChangePasswordRelationForString(InputStream data, String bodyContentType) {
         return MethodInvocation.<String, InputStream>post(this, links, "changePassword", String.class, data, bodyContentType);
     }
 
     public Future<DeserializedHttpResponseGen<String>> postToChangePasswordRelationForStringAsync(InputStream data, String bodyContentType) { 
         return MethodInvocation.<String, InputStream>postAsync(this, links, "changePassword", String.class, data, bodyContentType);
+}
+
+    public Future<DeserializedHttpResponseGen<String>> postToChangePasswordRelationForStringAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
+        return MethodInvocation.<String, InputStream>postAsync(this, links, "changePassword", String.class, data, bodyContentType, ct);
 }
 
     public URI getResetPasswordRelationLink() {
@@ -364,12 +400,20 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<URI>getAsync(this, links, "resetPassword", URI.class);
     }
 
+    public Future<DeserializedHttpResponseGen<URI>> getURIFromResetPasswordRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<URI>getAsync(this, links, "resetPassword", URI.class, ct);
+    }
+
     public String postToResetPasswordRelationForString(InputStream data, String bodyContentType) {
         return MethodInvocation.<String, InputStream>post(this, links, "resetPassword", String.class, data, bodyContentType);
     }
 
     public Future<DeserializedHttpResponseGen<String>> postToResetPasswordRelationForStringAsync(InputStream data, String bodyContentType) { 
         return MethodInvocation.<String, InputStream>postAsync(this, links, "resetPassword", String.class, data, bodyContentType);
+}
+
+    public Future<DeserializedHttpResponseGen<String>> postToResetPasswordRelationForStringAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
+        return MethodInvocation.<String, InputStream>postAsync(this, links, "resetPassword", String.class, data, bodyContentType, ct);
 }
 
     public URI getTokenLoginRelationLink() {
@@ -384,12 +428,20 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<URI>getAsync(this, links, "tokenLogin", URI.class);
     }
 
+    public Future<DeserializedHttpResponseGen<URI>> getURIFromTokenLoginRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<URI>getAsync(this, links, "tokenLogin", URI.class, ct);
+    }
+
     public String postToTokenLoginRelationForString(InputStream data, String bodyContentType) {
         return MethodInvocation.<String, InputStream>post(this, links, "tokenLogin", String.class, data, bodyContentType);
     }
 
     public Future<DeserializedHttpResponseGen<String>> postToTokenLoginRelationForStringAsync(InputStream data, String bodyContentType) { 
         return MethodInvocation.<String, InputStream>postAsync(this, links, "tokenLogin", String.class, data, bodyContentType);
+}
+
+    public Future<DeserializedHttpResponseGen<String>> postToTokenLoginRelationForStringAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
+        return MethodInvocation.<String, InputStream>postAsync(this, links, "tokenLogin", String.class, data, bodyContentType, ct);
 }
 
     public URI getTrustedLoginRelationLink() {
@@ -404,12 +456,20 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<URI>getAsync(this, links, "trustedLogin", URI.class);
     }
 
+    public Future<DeserializedHttpResponseGen<URI>> getURIFromTrustedLoginRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<URI>getAsync(this, links, "trustedLogin", URI.class, ct);
+    }
+
     public String postToTrustedLoginRelationForString(InputStream data, String bodyContentType) {
         return MethodInvocation.<String, InputStream>post(this, links, "trustedLogin", String.class, data, bodyContentType);
     }
 
     public Future<DeserializedHttpResponseGen<String>> postToTrustedLoginRelationForStringAsync(InputStream data, String bodyContentType) { 
         return MethodInvocation.<String, InputStream>postAsync(this, links, "trustedLogin", String.class, data, bodyContentType);
+}
+
+    public Future<DeserializedHttpResponseGen<String>> postToTrustedLoginRelationForStringAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
+        return MethodInvocation.<String, InputStream>postAsync(this, links, "trustedLogin", String.class, data, bodyContentType, ct);
 }
 
     public URI getLogoutRelationLink() {
@@ -424,6 +484,10 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<URI>getAsync(this, links, "logout", URI.class);
     }
 
+    public Future<DeserializedHttpResponseGen<URI>> getURIFromLogoutRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<URI>getAsync(this, links, "logout", URI.class, ct);
+    }
+
     public URI getDisconnectRelationLink() {
         return MethodInvocation.getLink(this, links, "disconnect");
     }
@@ -434,6 +498,10 @@ private HttpClientProxy proxy;//test
 
     public Future<DeserializedHttpResponseGen<URI>> getURIFromDisconnectRelationAsync() {
         return MethodInvocation.<URI>getAsync(this, links, "disconnect", URI.class);
+    }
+
+    public Future<DeserializedHttpResponseGen<URI>> getURIFromDisconnectRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<URI>getAsync(this, links, "disconnect", URI.class, ct);
     }
 
     public URI getLoginCookieRelationLink() {
@@ -448,6 +516,10 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<URI>getAsync(this, links, "loginCookie", URI.class);
     }
 
+    public Future<DeserializedHttpResponseGen<URI>> getURIFromLoginCookieRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<URI>getAsync(this, links, "loginCookie", URI.class, ct);
+    }
+
     public URI getUriTemplatesRelationLink() {
         return MethodInvocation.getLink(this, links, "uriTemplates");
     }
@@ -458,6 +530,10 @@ private HttpClientProxy proxy;//test
 
     public Future<DeserializedHttpResponseGen<UriTemplateDescriptions>> getUriTemplateDescriptionsFromUriTemplatesRelationAsync() {
         return MethodInvocation.<UriTemplateDescriptions>getAsync(this, links, "uriTemplates", UriTemplateDescriptions.class);
+    }
+
+    public Future<DeserializedHttpResponseGen<UriTemplateDescriptions>> getUriTemplateDescriptionsFromUriTemplatesRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<UriTemplateDescriptions>getAsync(this, links, "uriTemplates", UriTemplateDescriptions.class, ct);
     }
 
     public URI getAdhocRenderingRelationLink() {
@@ -472,12 +548,20 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<AdhocRenderingFiles>getAsync(this, links, "adhocRendering", AdhocRenderingFiles.class);
     }
 
+    public Future<DeserializedHttpResponseGen<AdhocRenderingFiles>> getAdhocRenderingFilesFromAdhocRenderingRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<AdhocRenderingFiles>getAsync(this, links, "adhocRendering", AdhocRenderingFiles.class, ct);
+    }
+
     public AdhocRenderingFile postToAdhocRenderingRelationForAdhocRenderingFile(InputStream data, String bodyContentType) {
         return MethodInvocation.<AdhocRenderingFile, InputStream>post(this, links, "adhocRendering", AdhocRenderingFile.class, data, bodyContentType);
     }
 
     public Future<DeserializedHttpResponseGen<AdhocRenderingFile>> postToAdhocRenderingRelationForAdhocRenderingFileAsync(InputStream data, String bodyContentType) { 
         return MethodInvocation.<AdhocRenderingFile, InputStream>postAsync(this, links, "adhocRendering", AdhocRenderingFile.class, data, bodyContentType);
+}
+
+    public Future<DeserializedHttpResponseGen<AdhocRenderingFile>> postToAdhocRenderingRelationForAdhocRenderingFileAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
+        return MethodInvocation.<AdhocRenderingFile, InputStream>postAsync(this, links, "adhocRendering", AdhocRenderingFile.class, data, bodyContentType, ct);
 }
 
     public URI getRootSchemaRelationLink() {
@@ -492,6 +576,10 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<URI>getAsync(this, links, "rootSchema", URI.class);
     }
 
+    public Future<DeserializedHttpResponseGen<URI>> getURIFromRootSchemaRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<URI>getAsync(this, links, "rootSchema", URI.class, ct);
+    }
+
     public URI getLogRelationLink() {
         return MethodInvocation.getLink(this, links, "log");
     }
@@ -504,6 +592,10 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<LogMessages>getAsync(this, links, "log", LogMessages.class);
     }
 
+    public Future<DeserializedHttpResponseGen<LogMessages>> getLogMessagesFromLogRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<LogMessages>getAsync(this, links, "log", LogMessages.class, ct);
+    }
+
     public URI getPermanentUrlRelationLink() {
         return MethodInvocation.getLink(this, links, "permanentUrl");
     }
@@ -514,6 +606,10 @@ private HttpClientProxy proxy;//test
 
     public Future<DeserializedHttpResponseGen<URI>> getURIFromPermanentUrlRelationAsync() {
         return MethodInvocation.<URI>getAsync(this, links, "permanentUrl", URI.class);
+    }
+
+    public Future<DeserializedHttpResponseGen<URI>> getURIFromPermanentUrlRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<URI>getAsync(this, links, "permanentUrl", URI.class, ct);
     }
 
 

@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.16 um 09:04:54 AM CEST 
+// Generiert: 2016.08.18 um 09:47:39 AM CEST 
 //
 
 
@@ -179,6 +179,10 @@ private HttpClientProxy proxy;//test
 
     public Future<DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>> postToNextRelationForBatchUpdateIndexFieldsResultAsync(BatchUpdateProcessData data) {
         return MethodInvocation.<BatchUpdateIndexFieldsResult, BatchUpdateProcessData >postAsync(this, links, "next", BatchUpdateIndexFieldsResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "BatchUpdateProcessData"), BatchUpdateProcessData.class, null, data));
+    }
+
+    public Future<DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>> postToNextRelationForBatchUpdateIndexFieldsResultAsync(BatchUpdateProcessData data, CancellationToken ct) {
+        return MethodInvocation.<BatchUpdateIndexFieldsResult, BatchUpdateProcessData >postAsync(this, links, "next", BatchUpdateIndexFieldsResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "BatchUpdateProcessData"), BatchUpdateProcessData.class, null, data), ct);
     }
 
 

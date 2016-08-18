@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.16 um 09:04:54 AM CEST 
+// Generiert: 2016.08.18 um 09:47:39 AM CEST 
 //
 
 
@@ -116,6 +116,10 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<URI>getAsync(this, links, "linkModelOverview", URI.class);
     }
 
+    public Future<DeserializedHttpResponseGen<URI>> getURIFromLinkModelOverviewRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<URI>getAsync(this, links, "linkModelOverview", URI.class, ct);
+    }
+
     public URI getSchemasRelationLink() {
         return MethodInvocation.getLink(this, links, "schemas");
     }
@@ -126,6 +130,10 @@ private HttpClientProxy proxy;//test
 
     public Future<DeserializedHttpResponseGen<XmlSchemas>> getXmlSchemasFromSchemasRelationAsync() {
         return MethodInvocation.<XmlSchemas>getAsync(this, links, "schemas", XmlSchemas.class);
+    }
+
+    public Future<DeserializedHttpResponseGen<XmlSchemas>> getXmlSchemasFromSchemasRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<XmlSchemas>getAsync(this, links, "schemas", XmlSchemas.class, ct);
     }
 
     public URI getSchemaSearchRelationLink() {
@@ -140,6 +148,10 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<URI>getAsync(this, links, "schemaSearch", URI.class);
     }
 
+    public Future<DeserializedHttpResponseGen<URI>> getURIFromSchemaSearchRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<URI>getAsync(this, links, "schemaSearch", URI.class, ct);
+    }
+
     public URI getUriTemplatesDocumentationRelationLink() {
         return MethodInvocation.getLink(this, links, "uriTemplatesDocumentation");
     }
@@ -150,6 +162,10 @@ private HttpClientProxy proxy;//test
 
     public Future<DeserializedHttpResponseGen<URI>> getURIFromUriTemplatesDocumentationRelationAsync() {
         return MethodInvocation.<URI>getAsync(this, links, "uriTemplatesDocumentation", URI.class);
+    }
+
+    public Future<DeserializedHttpResponseGen<URI>> getURIFromUriTemplatesDocumentationRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<URI>getAsync(this, links, "uriTemplatesDocumentation", URI.class, ct);
     }
 
 

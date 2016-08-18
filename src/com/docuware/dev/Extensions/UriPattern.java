@@ -14,12 +14,10 @@ import java.util.Map;
 public class UriPattern {
 
     public static String Resolve(String pattern, Map<String, Object> parameters) {
-        //System.out.println(pattern);
         UriTemplateResolver resolver = new UriTemplateResolver(pattern);
-        for (String p : parameters.keySet()) {
-            //System.out.println(p + ";" + parameters.get(p));
+        parameters.keySet().stream().forEach((p) -> {
             resolver.SetParameter(p, parameters.get(p));
-        }
+        });
 
         return resolver.Resolve();
     }

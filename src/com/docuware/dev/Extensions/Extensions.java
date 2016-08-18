@@ -105,7 +105,7 @@ public class Extensions {
     public static String documentIndexFieldToString(DocumentIndexField dif) {
         StringBuilder sb = new StringBuilder(dif.getFieldName());
         sb.append(" (")
-                .append(dif.getIntOrDecimalOrString()!=null?dif.getIntOrDecimalOrString().getClass().getSimpleName():"null")
+                .append(dif.getIntOrDecimalOrString() != null ? dif.getIntOrDecimalOrString().getClass().getSimpleName() : "null")
                 .append("): ");
 
         if (dif.isIsNull()) {
@@ -145,11 +145,11 @@ public class Extensions {
                 i = j;
                 break;
             }
-            if (i == -1) {
-                fields.add(value);
-            } else {
-                fields.set(i, value);
-            }
+        }
+        if (i == -1) {
+            fields.add(value);
+        } else {
+            fields.set(i, value);
         }
     }
 
@@ -186,7 +186,7 @@ public class Extensions {
     }
 
     public static String documentToString(Document doc) {
-        return doc.getId() +": "+ doc.getTitle() != null ? doc.getTitle() : doc.getCreatedAt().toString();
+        return doc.getId() + ": " + doc.getTitle() != null ? doc.getTitle() : doc.getCreatedAt().toString();
     }
 
     //SortedField

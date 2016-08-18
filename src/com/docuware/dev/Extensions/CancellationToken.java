@@ -24,6 +24,10 @@ public class CancellationToken {
         this.fut.add(fut);
     }
     
+    /**
+     * Gets cancellationRequested-Attribute
+     * @return cancellationRequested
+     */
     public boolean isCancellationRequested() {
         return cancellationRequested;
     }
@@ -32,14 +36,23 @@ public class CancellationToken {
             cancellationRequested = false;
             };
     
+    /**
+     * Give the token the controll over the Future. Afterwards if the token is cancelled, it will try to cancel the future, too.
+     * 
+     * @param fut   The future which should be controlled 
+     */
     void addFuture(Future fut) {
        this.fut.add(fut);
     }
     
+    /**
+     * Cancel all Futures under the control of the Token and finalize the token
+     */
     void cancel() {
         cancellationRequested = true;
-        for(Future f: fut)
-        f.cancel(true);
+        fut.stream().forEach((f) -> {
+            f.cancel(true);
+        });
         try {
             this.finalize();
         } catch (Throwable ex) {

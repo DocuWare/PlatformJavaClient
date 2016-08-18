@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.16 um 09:04:54 AM CEST 
+// Generiert: 2016.08.18 um 09:47:39 AM CEST 
 //
 
 
@@ -228,6 +228,10 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<AdhocRenderingFile>getAsync(this, links, "self", AdhocRenderingFile.class);
     }
 
+    public Future<DeserializedHttpResponseGen<AdhocRenderingFile>> getAdhocRenderingFileFromSelfRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<AdhocRenderingFile>getAsync(this, links, "self", AdhocRenderingFile.class, ct);
+    }
+
     public URI getRenderingRelationLink() {
         return MethodInvocation.getLink(this, links, "rendering");
     }
@@ -238,6 +242,10 @@ private HttpClientProxy proxy;//test
 
     public Future<DeserializedHttpResponseGen<String>> postToRenderingRelationForStringAsync(AdhocRenderingQuery data) {
         return MethodInvocation.<String, AdhocRenderingQuery >postAsync(this, links, "rendering", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "AdhocRenderingQuery"), AdhocRenderingQuery.class, null, data));
+    }
+
+    public Future<DeserializedHttpResponseGen<String>> postToRenderingRelationForStringAsync(AdhocRenderingQuery data, CancellationToken ct) {
+        return MethodInvocation.<String, AdhocRenderingQuery >postAsync(this, links, "rendering", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "AdhocRenderingQuery"), AdhocRenderingQuery.class, null, data), ct);
     }
 
 

@@ -7,23 +7,17 @@ package com.docuware.dev.Extensions;
 
 import com.docuware.dev.schema._public.services.Link;
 import com.docuware.dev.schema._public.services.Links;
-import com.docuware.dev.schema._public.services.platform.CountExpression;
 import com.docuware.dev.schema._public.services.platform.DialogInfo;
 import com.docuware.dev.schema._public.services.platform.Document;
 import com.docuware.dev.schema._public.services.platform.FileCabinet;
 import com.docuware.dev.schema._public.services.platform.ImportResult;
 import com.docuware.dev.schema._public.services.platform.ImportSettings;
-import com.docuware.dev.schema._public.services.platform.ObjectFactory;
-import com.docuware.dev.schema._public.services.platform.SearchPositionQuery;
 import com.docuware.dev.schema._public.services.platform.Section;
 import com.docuware.dev.schema._public.services.platform.SynchronizationSettings;
-import com.sun.jersey.api.client.AsyncWebResource;
 import com.sun.jersey.api.client.ClientHandlerException;
-import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.filter.ClientFilter;
 import com.sun.jersey.core.header.ContentDisposition;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.BodyPart;
@@ -32,27 +26,19 @@ import com.sun.jersey.multipart.FormDataMultiPart;
 import com.sun.jersey.multipart.MultiPart;
 import com.sun.jersey.multipart.file.FileDataBodyPart;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.StringWriter;
 import java.net.URI;
-import java.nio.file.Files;
 import java.text.ParseException;
-import java.util.LinkedList;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBElement;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.namespace.QName;
 
@@ -60,11 +46,9 @@ import javax.xml.namespace.QName;
  *
  * @author Patrick
  */
-    /// <summary>
-/// Extensions for the file cabinet.
-/// </summary>
 public class FileCabinetExtensionsBase {
 
+    
     private static String findRelFromLink(URI uri, Links links) {
         for (Link l : links.getLink()) {
             if (uri.toString().trim().endsWith(l.getHref())) {
@@ -74,13 +58,13 @@ public class FileCabinetExtensionsBase {
         return null;
     }
 
-        /// <summary>
-    /// Imports asynchronously an archive in Docuware.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet in which the document will be imported.</param>
-    /// <param name="settings">The settings of the import.</param>
-    /// <param name="file">The file which represnets the archive.</param>
-    /// <returns>Returns an import result information.</returns>
+    /**
+     * Imports asynchronously an archive in Docuware
+     * @param fileCabinet   The file cabinet in which the document will be imported
+     * @param settings  The settings of the import
+     * @param file  The file which represnets the archive
+     * @return  Returns an import result information
+     */
     public static Future<DeserializedHttpResponseGen<ImportResult>> importArchiveAsync(FileCabinet fileCabinet, ImportSettings settings, IFileUploadInfo file) {
         String rel = findRelFromLink(fileCabinet.getImportDocumentsRelationLink(), fileCabinet.getLinks());
         MultiPart mul = getMultipart(settings, file);
@@ -88,45 +72,55 @@ public class FileCabinetExtensionsBase {
 
     }
 
+    /**
+     * Imports an archive in Docuware
+     * @param fileCabinet   The file cabinet in which the document will be imported
+     * @param settings  The settings of the import
+     * @param file  The file which represnets the archive
+     * @return  Returns an import result information
+     */
     public static ImportResult importArchive(FileCabinet fileCabinet, ImportSettings settings, IFileUploadInfo file) {
         String rel = findRelFromLink(fileCabinet.getImportDocumentsRelationLink(), fileCabinet.getLinks());
         MultiPart mul = getMultipart(settings, file);
         return MethodInvocation.<ImportResult, MultiPart>postMultipart(fileCabinet, fileCabinet.getLinks(), rel, ImportResult.class, mul);
     }
 
-        /// <summary>
-    /// Synchronizes a document with external version.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet which contains the document that will be synchronized.</param>
-    /// <param name="settings">The settings of the synchronization.</param>
-    /// <param name="file">The file which represnets the archive.</param>
-    /// <returns>Returns an import result information from the synchronization.</returns>
+    /**
+     * Synchronizes a document with external version
+     * 
+     * @param fileCabinet   The file cabinet which contains the document that will be synchronized
+     * @param settings  The settings of the synchronization
+     * @param file  The file which represnets the archive
+     * @return  Returns an import result information from the synchronization
+     */
     public static ImportResult synchronize(FileCabinet fileCabinet, SynchronizationSettings settings, IFileUploadInfo file) {
         String rel = findRelFromLink(fileCabinet.getImportDocumentsRelationLink(), fileCabinet.getLinks());
         MultiPart mul = getMultipart(settings, file);
         return MethodInvocation.<ImportResult, MultiPart>postMultipart(fileCabinet, fileCabinet.getLinks(), rel, ImportResult.class, mul);
     }
 
-        /// <summary>
-    /// Synchronizes a document with external version.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet which contains the document that will be synchronized.</param>
-    /// <param name="settings">The settings of the synchronization.</param>
-    /// <param name="file">The file which represnets the archive.</param>
-    /// <returns>Returns an import result information from the synchronization.</returns>
+    /**
+     * Synchronizes a document with external version
+     * 
+     * @param fileCabinet   The file cabinet which contains the document that will be synchronized
+     * @param settings  The settings of the synchronization
+     * @param file  The file which represnets the archive
+     * @return  Returns an import result information from the synchronization
+     */
     public static Future<DeserializedHttpResponseGen<ImportResult>> synchronizeAsync(FileCabinet fileCabinet, SynchronizationSettings settings, IFileUploadInfo file) {
         String rel = findRelFromLink(fileCabinet.getImportDocumentsRelationLink(), fileCabinet.getLinks());
         MultiPart mul = getMultipart(settings, file);
         return MethodInvocation.<ImportResult, MultiPart>postMultipartAsync(fileCabinet, fileCabinet.getLinks(), rel, ImportResult.class, mul);
     }
 
-        /// <summary>
-    /// Uploads the document asynchronously.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="document">The document.</param>
-    /// <param name="file">The file.</param>
-    /// <returns>A task which uploads the document and returns the uploaded document's metadata.</returns>
+    /**
+     * Uploads the document asynchronously
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param document  The document
+     * @param file  The file
+     * @return  A Future which uploads the document and returns the uploaded document's metadata
+     */
     public static Future<DeserializedHttpResponseGen<Document>> uploadDocumentAsync(FileCabinet fileCabinet, Document document, IFileUploadInfo[] file) {
 
         String rel = findRelFromLink(fileCabinet.getDocumentsRelationLink(), fileCabinet.getLinks());
@@ -134,25 +128,27 @@ public class FileCabinetExtensionsBase {
         return MethodInvocation.<Document, MultiPart>postMultipartAsync(fileCabinet, fileCabinet.getLinks(), rel, Document.class, mul);
     }
 
-        /// <summary>
-    /// Uploads the specified document.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="document">The document.</param>
-    /// <param name="file">The file.</param>
-    /// <returns>The uploaded document's metadata.</returns>
+    /**
+     * Uploads the specified document
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param document  The document
+     * @param file  The file
+     * @return  The uploaded document's metadata
+     */
     public static Document uploadDocument(FileCabinet fileCabinet, Document document, IFileUploadInfo[] file) {
         String rel = findRelFromLink(fileCabinet.getDocumentsRelationLink(), fileCabinet.getLinks());
         MultiPart mul = getMultipart(document, file);
         return MethodInvocation.<Document, MultiPart>postMultipart(fileCabinet, fileCabinet.getLinks(), rel, Document.class, mul);
     }
 
-        /// <summary>
-    /// Uploads the specified document asynchronously.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="file">The file.</param>
-    /// <returns>A task which uploads the document and returns the uploaded document's metadata.</returns>
+   /**
+    * Uploads the specified document asynchronously
+    * 
+     * @param fileCabinet   The file cabinet
+     * @param file  The file
+     * @return  A future which uploads the document and returns the uploaded document's metadata
+    */
     public static Future<DeserializedHttpResponseGen<Document>> uploadDocumentAsync(FileCabinet fileCabinet, IFileUploadInfo[] file) {
         String rel = findRelFromLink(fileCabinet.getDocumentsRelationLink(), fileCabinet.getLinks());
         MultiPart mul = getMultipart(null, file);
@@ -160,12 +156,13 @@ public class FileCabinetExtensionsBase {
 
     }
 
-        /// <summary>
-    /// Uploads the specified document.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="file">The file.</param>
-    /// <returns>The uploaded document's metadata.</returns>
+    /**
+     * Uploads the specified document
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param file  The file
+     * @return  The uploaded document's metadata
+     */
     public static Document uploadDocument(FileCabinet fileCabinet, IFileUploadInfo[] file) {
         String rel = findRelFromLink(fileCabinet.getDocumentsRelationLink(), fileCabinet.getLinks());
         MultiPart mul = getMultipart(null, file);
@@ -173,13 +170,14 @@ public class FileCabinetExtensionsBase {
 
     }
 
-        /// <summary>
-    /// Uploads the document.
-    /// </summary>
-    /// <param name="dialog">The store dialog which is used to fill index data.</param>
-    /// <param name="document">The document.</param>
-    /// <param name="file">The file.</param>
-    /// <returns>The uploaded document's metadata.</returns>
+    /**
+     *  Uploads the document
+     * 
+     * @param dialog    The store dialog which is used to fill index data
+     * @param document  The document
+     * @param file  The uploaded document's metadata
+     * @return  The uploaded document's metadata
+     */
     public static Document uploadDocument(DialogInfo dialog, Document document, IFileUploadInfo[] file) {
         String rel = findRelFromLink(dialog.getStoreDocumentRelationLink(), dialog.getLinks());
         MultiPart mul = getMultipart(document, file);
@@ -187,13 +185,14 @@ public class FileCabinetExtensionsBase {
 
     }
 
-        /// <summary>
-    /// Uploads the document asynchronous.
-    /// </summary>
-    /// <param name="dialog">The store dialog which is used to fill index data.</param>
-    /// <param name="document">The document.</param>
-    /// <param name="file">The file.</param>
-    /// <returns>A task which uploads the document and returns the uploaded document's metadata.</returns>
+    /**
+     * Uploads the document asynchronous
+     * 
+     * @param dialog    The store dialog which is used to fill index data
+     * @param document  The document
+     * @param file  The file
+     * @return  A Future which uploads the document and returns the uploaded document's metadata
+     */
     public static Future<DeserializedHttpResponseGen<Document>> uploadDocumentAsync(DialogInfo dialog, Document document, IFileUploadInfo[] file) {
         String rel = findRelFromLink(dialog.getStoreDocumentRelationLink(), dialog.getLinks());
         MultiPart mul = getMultipart(document, file);
@@ -276,7 +275,6 @@ public class FileCabinetExtensionsBase {
     }
 
     private static void addMultipartFiles(MultiPart multipartForm, IFileUploadInfo[] files) {
-        LinkedList<String> l = new LinkedList();
         if (files.length > 0) {
             multipartForm.getHeaders().putSingle("X-File-ModifiedDate", files[0].getLastWriteTimeUtc().toString());
         }
@@ -288,7 +286,6 @@ public class FileCabinetExtensionsBase {
                 File file = ((FileWrapper) files[i]).getFile();
                 FileDataBodyPart f = new FileDataBodyPart("content", file);
                 FormDataContentDisposition fdcd = null;
-                l.add(files[i].getName());
                 try {
                     fdcd = new FormDataContentDisposition("form-data; name=\"" + files[i].getName() + "\"; filename=\"" + files[i].getName() + "\"");
                 } catch (ParseException ex) {
@@ -306,7 +303,6 @@ public class FileCabinetExtensionsBase {
                     }
                     FileDataBodyPart f = new FileDataBodyPart("content", temp);
                     FormDataContentDisposition fdcd = null;
-                    l.add(files[i].getName());
                     try {
                         fdcd = new FormDataContentDisposition("form-data; name=\"" + files[i].getName() + "\"; filename=\"" + files[i].getName() + "\"");
                     } catch (ParseException ex) {
@@ -315,285 +311,532 @@ public class FileCabinetExtensionsBase {
                     f.setContentDisposition(fdcd);
                     multipartForm.bodyPart(f);
 
-                } catch (Exception e) {
+                } catch (IOException | RuntimeException e) {
                     throw new RuntimeException(e.getLocalizedMessage() + e.getCause());
                 }
             }
         }
     }
 
-        /// <summary>
-    /// Appends one or more new sections to the specified document.
-    /// </summary>
-    /// <param name="document">The document.</param>
-    /// <param name="file">The file.</param>
-    /// <returns>The modified document.</returns>
+    /**
+     * Appends one or more new sections to the specified document
+     * 
+     * @param document  The document
+     * @param file  The file
+     * @return  The modified document
+     */
     public static Document addDocumentSections(Document document, IFileUploadInfo[] file) {
         String rel = findRelFromLink(document.getSelfRelationLink(), document.getLinks());
         MultiPart mul = getMultipart(null, file);
         return MethodInvocation.<Document, MultiPart>postMultipart(document, document.getLinks(), rel, Document.class, mul);
     }
 
-        /// <summary>
-    /// Appends one or more new sections to the specified document asynchronously.
-    /// </summary>
-    /// <param name="document">The document.</param>
-    /// <param name="file">The file.</param>
-    /// <returns>
-    /// A task which uploads the document and returns the uploaded document's metadata.
-    /// </returns>
+    /**
+     * Appends one or more new sections to the specified document asynchronously
+     * 
+     * 
+     * @param document  The document
+     * @param file  The file
+     * @return  A future which uploads the document and returns the uploaded document's metadata
+     */
     public static Future<DeserializedHttpResponseGen<Document>> addDocumentSectionsAsync(Document document, IFileUploadInfo[] file) {
         String rel = findRelFromLink(document.getSelfRelationLink(), document.getLinks());
         MultiPart mul = getMultipart(null, file);
         return MethodInvocation.<Document, MultiPart>postMultipartAsync(document, document.getLinks(), rel, Document.class, mul);
     }
 
-        /// <summary>
-    /// Appends one section to the specified document asynchronously.
-    /// </summary>
-    /// <param name="document">The document.</param>
-    /// <param name="file">The file.</param>
-    /// <returns>
-    /// A task which uploads the document and returns the uploaded section's metadata.
-    /// </returns>
+    /**
+     * Appends one section to the specified document asynchronously
+     * 
+     * @param document  The document
+     * @param file  The file
+     * @return  A future which uploads the document and returns the uploaded section's metadata
+     */
     public static Future<DeserializedHttpResponseGen<Section>> uploadSectionAsync(Document document, IFileUploadInfo file) {
         String rel = findRelFromLink(document.getSectionsRelationLink(), document.getLinks());
         MultiPart mul = getMultipart(null, file);
         return MethodInvocation.<Section, MultiPart>postMultipartAsync(document, document.getLinks(), rel, Section.class, mul);
     }
 
-        /// <summary>
-    /// Uploads the specified document asynchronously in chunks.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="file">The file.</param>
-    /// <param name="chunkSize">Size of the chunk.</param>
-    /// <returns>The uploaded document's metadata.</returns>
+    /**
+     * Uploads the specified document asynchronously in chunks
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param file  The file
+     * @param chunkSize Size of the chunk
+     * @return  The uploaded document's metadata
+     */
     public static Future<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(FileCabinet fileCabinet, IFileUploadInfo file, int chunkSize) {
         return FileCabinetExtensionsBase.<Document>chunkUploadFileAsync(fileCabinet.getDocumentsRelationLink(), ((IRelationsWithProxy) fileCabinet), file, chunkSize, null, Document.class);
     }
+    
+    /**
+     * Uploads the specified document asynchronously in chunks
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param file  The file
+     * @return  The uploaded document's metadata
+     */
+    public static Future<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(FileCabinet fileCabinet, IFileUploadInfo file) {
+        return chunkUploadDocumentAsync(fileCabinet, file, 0);
+    }
 
-        /// <summary>
-    /// Uploads the specified document in chunks.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="file">The file.</param>
-    /// <param name="chunkSize">Size of the chunk.</param>
-    /// <returns>The uploaded document's metadata.</returns>
+    /**
+     * Uploads the specified document in chunks
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param file  The file
+     * @param chunkSize Size of the chunk
+     * @return  The uploaded document's metadata
+     */
     public static Document chunkUploadDocument(FileCabinet fileCabinet, IFileUploadInfo file, int chunkSize) {
         return FileCabinetExtensionsBase.<Document>chunkUploadFile(fileCabinet.getDocumentsRelationLink(), ((IRelationsWithProxy) fileCabinet), file, chunkSize, null, Document.class);
     }
+    
+    /**
+     * Uploads the specified document in chunks
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param file  The file
+     * @return  The uploaded document's metadata
+     */
+   public static Document chunkUploadDocument(FileCabinet fileCabinet, IFileUploadInfo file) {
+       return chunkUploadDocument(fileCabinet, file, 0);
+   }
 
-        /// <summary>
-    /// Uploads the import package asynchronously in chunks.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="file">The file.</param>
-    /// <param name="chunkSize">Size of the chunk.</param>
-    /// <param name="importSettings">The settings of the import.</param>
-    /// <returns>Returns the result of the import operation.</returns>
+   /**
+     * Uploads the import package asynchronously in chunks
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param importSettings    The settings of the import
+     * @param file  The file
+     * @param chunkSize Size of the chunk
+     * @return  Returns the result of the import operation
+     */
     public static Future<DeserializedHttpResponseGen<ImportResult>> chunkImportArchiveAsync(FileCabinet fileCabinet, ImportSettings importSettings, IFileUploadInfo file, int chunkSize) {
         return FileCabinetExtensionsBase.<ImportResult>chunkUploadFileAsync(fileCabinet.getImportDocumentsRelationLink(), ((IRelationsWithProxy) fileCabinet), file, chunkSize, importSettings, ImportResult.class);
     }
+    
+      /**
+     * Uploads the import package asynchronously in chunks
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param importSettings    The settings of the import
+     * @param file  The file
+     * @return  Returns the result of the import operation
+     */
+    public static Future<DeserializedHttpResponseGen<ImportResult>> chunkImportArchiveAsync(FileCabinet fileCabinet, ImportSettings importSettings, IFileUploadInfo file) {
+        return chunkImportArchiveAsync(fileCabinet, importSettings, file,0);
+    }
 
-        /// <summary>
-    /// Uploads the import package in chunks.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="file">The file.</param>
-    /// <param name="chunkSize">Size of the chunk.</param>
-    /// <param name="importSettings">The settings of the import.</param>
-    /// <returns>Returns the result of the import operation.</returns>
+
+      /**
+     * Uploads the import package in chunks
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param importSettings    The settings of the import
+     * @param file  The file
+     * @param chunkSize Size of the chunk
+     * @return  Returns the result of the import operation
+     */
     public static ImportResult chunkImportArchive(FileCabinet fileCabinet, ImportSettings importSettings, IFileUploadInfo file, int chunkSize) {
         return FileCabinetExtensionsBase.<ImportResult>chunkUploadFile(fileCabinet.getImportDocumentsRelationLink(), ((IRelationsWithProxy) fileCabinet), file, chunkSize, importSettings, ImportResult.class);
     }
-
-        /// <summary>
-    /// Uploads the specified synchronization package asynchronously in chunks.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="file">The file.</param>
-    /// <param name="chunkSize">Size of the chunk.</param>
-    /// <param name="synchronizationSettings">The settings of the synchronization.</param>
-    /// <returns>Returns the result of the synchronization operation.</returns>
+    
+     /**
+     * Uploads the import package in chunks
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param importSettings    The settings of the import
+     * @param file  The file
+     * @return  Returns the result of the import operation
+     */
+    public static ImportResult chunkImportArchive(FileCabinet fileCabinet, ImportSettings importSettings, IFileUploadInfo file) {
+        return chunkImportArchive(fileCabinet, importSettings, file, 0);
+    }
+    
+     /**
+     * Uploads the specified synchronization package asynchronously in chunks
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param synchronizationSettings   The settings of the synchronization
+     * @param file  The file
+     * @param chunkSize Size of the chunk
+     * @return  Returns the result of the synchronization operation
+     */
     public static Future<DeserializedHttpResponseGen<ImportResult>> chunkSynchronizeAsync(FileCabinet fileCabinet, SynchronizationSettings synchronizationSettings, IFileUploadInfo file, int chunkSize) {
         return FileCabinetExtensionsBase.<ImportResult>chunkUploadFileAsync(fileCabinet.getImportDocumentsRelationLink(), ((IRelationsWithProxy) fileCabinet), file, chunkSize, synchronizationSettings, ImportResult.class);
     }
+    
+    public static Future<DeserializedHttpResponseGen<ImportResult>> chunkSynchronizeAsync(FileCabinet fileCabinet, SynchronizationSettings synchronizationSettings, IFileUploadInfo file) {
+        return chunkSynchronizeAsync(fileCabinet, synchronizationSettings, file, 0);
+    }
 
-        /// <summary>
-    /// Uploads the specified synchronization package in chunks.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="file">The file.</param>
-    /// <param name="chunkSize">Size of the chunk.</param>
-    /// <param name="synchronizationSettings">The settings of the synchronization.</param>
-    /// <returns>Returns the result of the synchronization operation.</returns>
+    /**
+     * Uploads the specified synchronization package in chunks
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param synchronizationSettings   The settings of the synchronization
+     * @param file  The file
+     * @param chunkSize Size of the chunk
+     * @return  Returns the result of the synchronization operation
+     */
     public static ImportResult chunkSynchronize(FileCabinet fileCabinet, SynchronizationSettings synchronizationSettings, IFileUploadInfo file, int chunkSize) {
         return FileCabinetExtensionsBase.<ImportResult>chunkUploadFile(fileCabinet.getImportDocumentsRelationLink(), ((IRelationsWithProxy) fileCabinet), file, chunkSize, synchronizationSettings, ImportResult.class);
     }
+    
+     /**
+     * Uploads the specified synchronization package in chunks
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param synchronizationSettings   The settings of the synchronization
+     * @param file  The file
+     * @return  Returns the result of the synchronization operation
+     */
+    public static ImportResult chunkSynchronize(FileCabinet fileCabinet, SynchronizationSettings synchronizationSettings, IFileUploadInfo file) {
+        return chunkSynchronize(fileCabinet, synchronizationSettings, file, 0);
+    }
 
-        /// <summary>
-    /// Uploads the specified asynchronously document in chunks.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="files">The files.</param>
-    /// <param name="chunkSize">Size of the chunk.</param>
-    /// <returns>The uploaded document's metadata.</returns>
+     /**
+     * Uploads the specified synchronization package in chunks
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param files  The files
+     * @param chunkSize Size of the chunk
+     * @return  The uploaded document's metadata
+     */
     public static Future<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(FileCabinet fileCabinet, IFileUploadInfo[] files, int chunkSize) {
         return FileCabinetExtensionsBase.<Document>chunkUploadFileAsync(fileCabinet.getDocumentsRelationLink(), ((IRelationsWithProxy) fileCabinet), files, chunkSize, null);
     }
+    
+    /**
+     * Uploads the specified synchronization package in chunks
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param files  The files
+     * @return  The uploaded document's metadata
+     */
+    public static Future<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(FileCabinet fileCabinet, IFileUploadInfo[] files) {
+        return chunkUploadDocumentAsync(fileCabinet, files, 0);
+    }
 
-        /// <summary>
-    /// Upload the specified document in chunks.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="files">The files.</param>
-    /// <param name="chunkSize">Size of the chunk.</param>
-    /// <returns>The uploaded document's metadata.</returns>
+    /**
+     * Upload the specified document in chunks
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param files  The files
+     * @param chunkSize Size of the chunk
+     * @return  The uploaded document's metadata
+     */
     public static Document chunkUploadDocument(FileCabinet fileCabinet, IFileUploadInfo[] files, int chunkSize) {
         return FileCabinetExtensionsBase.<Document>chunkUploadFile(fileCabinet.getDocumentsRelationLink(), ((IRelationsWithProxy) fileCabinet), files, chunkSize, null);
     }
+    
+     /**
+     * Upload the specified document in chunks
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param files  The files
+     * @return  The uploaded document's metadata
+     */
+    public static Document chunkUploadDocument(FileCabinet fileCabinet, IFileUploadInfo[] files) {
+        return chunkUploadDocument(fileCabinet, files, 0);
+    }
 
-        /// <summary>
-    /// Upload the specified document asynchronously in chunks.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="file">The file.</param>
-    /// <param name="chunkSize">Size of the chunk.</param>
-    /// <param name="document">The document.</param>
-    /// <returns>The uploaded document's metadata.</returns>
+     /**
+     * Upload the specified document asynchronously in chunks
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param document  The document
+     * @param file  The file
+     * @param chunkSize Size of the chunk
+     * @return  The uploaded document's metadata
+     */
     public static Future<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(FileCabinet fileCabinet, Document document, IFileUploadInfo file, int chunkSize) {
         return FileCabinetExtensionsBase.<Document>chunkUploadFileAsync(fileCabinet.getDocumentsRelationLink(), ((IRelationsWithProxy) fileCabinet), file, chunkSize, document, Document.class);
     }
+    
+     /**
+     * Upload the specified document asynchronously in chunks
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param document  The document
+     * @param file  The file
+     * @return  The uploaded document's metadata
+     */
+    public static Future<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(FileCabinet fileCabinet, Document document, IFileUploadInfo file) {
+        return chunkUploadDocumentAsync(fileCabinet, document, file, 0);
+    }
 
-        /// <summary>
-    /// Upload the specified document in chunks.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="file">The file.</param>
-    /// <param name="chunkSize">Size of the chunk.</param>
-    /// <param name="document">The document.</param>
-    /// <returns>The uploaded document's metadata.</returns>
+    /**
+     * Upload the specified document in chunks
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param document  The document
+     * @param file  The file
+     * @param chunkSize Size of the chunk
+     * @return  The uploaded document's metadata
+     */
     public static Document chunkUploadDocument(FileCabinet fileCabinet, Document document, IFileUploadInfo file, int chunkSize) {
         return FileCabinetExtensionsBase.<Document>chunkUploadFile(fileCabinet.getDocumentsRelationLink(), ((IRelationsWithProxy) fileCabinet), file, chunkSize, document, Document.class);
     }
 
-        /// <summary>
-    /// Upload the specified document asynchronously in chunks.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="files">The files.</param>
-    /// <param name="chunkSize">Size of the chunk.</param>
-    /// <param name="document">The document.</param>
-    /// <returns>The uploaded document's metadata.</returns>
+    /**
+     * Upload the specified document in chunks
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param document  The document
+     * @param file  The file
+     * @return  The uploaded document's metadata
+     */
+    public static Document chunkUploadDocument(FileCabinet fileCabinet, Document document, IFileUploadInfo file) {
+        return chunkUploadDocument(fileCabinet, document, file, 0);
+    }
+
+    /**
+     * Upload the specified document asynchronously in chunks
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param document  The document
+     * @param files  The files
+     * @param chunkSize Size of the chunk
+     * @return  The uploaded document's metadata
+     */
     public static Future<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(FileCabinet fileCabinet, Document document, IFileUploadInfo[] files, int chunkSize) {
         return FileCabinetExtensionsBase.<Document>chunkUploadFileAsync(fileCabinet.getDocumentsRelationLink(), (IRelationsWithProxy) fileCabinet, files, chunkSize, document);
     }
+    
+    /**
+     * Upload the specified document asynchronously in chunks
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param document  The document
+     * @param files  The files
+     * @return  The uploaded document's metadata
+     */
+    public static Future<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(FileCabinet fileCabinet, Document document, IFileUploadInfo[] files) {
+        return chunkUploadDocumentAsync(fileCabinet, document, files, 0);
+    }
 
-        /// <summary>
-    /// Upload the specified document in chunks.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="files">The files.</param>
-    /// <param name="chunkSize">Size of the chunk.</param>
-    /// <param name="document">The document.</param>
-    /// <returns>The uploaded document's metadata.</returns>
+    /**
+     * Upload the specified document in chunks
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param document  The document
+     * @param files  The files
+     * @param chunkSize Size of the chunk
+     * @return  The uploaded document's metadata
+     */
     public static Document chunkUploadDocument(FileCabinet fileCabinet, Document document, IFileUploadInfo[] files, int chunkSize) {
         return FileCabinetExtensionsBase.<Document>chunkUploadFile(fileCabinet.getDocumentsRelationLink(), (IRelationsWithProxy) fileCabinet, files, chunkSize, document);
     }
+    
+    /**
+     * Upload the specified document in chunks
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param document  The document
+     * @param files  The files
+     * @return  The uploaded document's metadata
+     */
+    public static Document chunkUploadDocument(FileCabinet fileCabinet, Document document, IFileUploadInfo[] files) {
+        return chunkUploadDocument(fileCabinet, document, files, 0);
+    }
 
-        /// <summary>
-    /// Upload the specified document asynchronously in chunks.
-    /// </summary>
-    /// <param name="dialog">The store dialog which is used to fill index data.</param>
-    /// <param name="file">The file.</param>
-    /// <param name="chunkSize">Size of the chunk.</param>
-    /// <param name="document">The document.</param>
-    /// <returns>The uploaded document's metadata.</returns>
+    /**
+     * Upload the specified document asynchronously in chunks
+     * 
+     * @param dialog    The store dialog which is used to fill index data
+     * @param document  The document
+     * @param file  The file
+     * @param chunkSize Size of the chunk
+     * @return  The uploaded document's metadata
+     */
     public static Future<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(DialogInfo dialog, Document document, IFileUploadInfo file, int chunkSize) {
         return FileCabinetExtensionsBase.<Document>chunkUploadFileAsync(dialog.getStoreDocumentRelationLink(), (IRelationsWithProxy) dialog, file, chunkSize, document, Document.class);
     }
+    
+     /**
+     * Upload the specified document asynchronously in chunks
+     * 
+     * @param dialog    The store dialog which is used to fill index data
+     * @param document  The document
+     * @param file  The file
+     * @return  The uploaded document's metadata
+     */
+    public static Future<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(DialogInfo dialog, Document document, IFileUploadInfo file) {
+        return chunkUploadDocumentAsync(dialog, document, file, 0);
+    }
 
-        /// <summary>
-    /// Upload the specified document in chunks.
-    /// </summary>
-    /// <param name="dialog">The store dialog which is used to fill index data.</param>
-    /// <param name="file">The file.</param>
-    /// <param name="chunkSize">Size of the chunk.</param>
-    /// <param name="document">The document.</param>
-    /// <returns>The uploaded document's metadata.</returns>
+     /**
+     * Upload the specified document in chunks
+     * 
+     * @param dialog    The store dialog which is used to fill index data
+     * @param document  The document
+     * @param file  The file
+     * @param chunkSize Size of the chunk
+     * @return  The uploaded document's metadata
+     */
     public static Document chunkUploadDocument(DialogInfo dialog, Document document, IFileUploadInfo file, int chunkSize) {
         return FileCabinetExtensionsBase.<Document>chunkUploadFile(dialog.getStoreDocumentRelationLink(), (IRelationsWithProxy) dialog, file, chunkSize, document, Document.class);
     }
+    
+    /**
+     * Upload the specified document in chunks
+     * 
+     * @param dialog    The store dialog which is used to fill index data
+     * @param document  The document
+     * @param file  The file
+     * @return  The uploaded document's metadata
+     */
+    public static Document chunkUploadDocument(DialogInfo dialog, Document document, IFileUploadInfo file) {
+        return chunkUploadDocument(dialog, document, file, 0);
+    }
 
-        /// <summary>
-    /// Upload the specified document asynchronously in chunks.
-    /// </summary>
-    /// <param name="dialog">The store dialog which is used to fill index data.</param>
-    /// <param name="document">The document.</param>
-    /// <param name="files">The files.</param>
-    /// <param name="chunkSize">Size of the chunk.</param>
-    /// <returns></returns>
+    /**
+     * Upload the specified document asynchronously in chunks
+     * 
+     * @param dialog    The store dialog which is used to fill index data
+     * @param document  The document
+     * @param files  The files
+     * @param chunkSize Size of the chunk
+     * @return  The uploaded document's metadata
+     */
     public static Future<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(DialogInfo dialog, Document document, IFileUploadInfo[] files, int chunkSize) {
         return FileCabinetExtensionsBase.<Document>chunkUploadFileAsync(dialog.getStoreDocumentRelationLink(), (IRelationsWithProxy) dialog, files, chunkSize, document);
     }
+    
+     /**
+     * Upload the specified document asynchronously in chunks
+     * 
+     * @param dialog    The store dialog which is used to fill index data
+     * @param document  The document
+     * @param files  The files
+     * @return  The uploaded document's metadata
+     */
+    public static Future<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(DialogInfo dialog, Document document, IFileUploadInfo[] files) {
+        return chunkUploadDocumentAsync(dialog, document, files, 0);
+    }
 
-        /// <summary>
-    /// Upload the specified document in chunks.
-    /// </summary>
-    /// <param name="dialog">The store dialog which is used to fill index data.</param>
-    /// <param name="document">The document.</param>
-    /// <param name="files">The files.</param>
-    /// <param name="chunkSize">Size of the chunk.</param>
-    /// <returns></returns>
+     /**
+     * Upload the specified document in chunks
+     * 
+     * @param dialog    The store dialog which is used to fill index data
+     * @param document  The document
+     * @param files  The files
+     * @param chunkSize Size of the chunk
+     * @return  The uploaded document's metadata
+     */
     public static Document chunkUploadDocument(DialogInfo dialog, Document document, IFileUploadInfo[] files, int chunkSize) {
         return FileCabinetExtensionsBase.<Document>chunkUploadFile(dialog.getStoreDocumentRelationLink(), (IRelationsWithProxy) dialog, files, chunkSize, document);
     }
+    
+     /**
+     * Upload the specified document in chunks
+     * 
+     * @param dialog    The store dialog which is used to fill index data
+     * @param document  The document
+     * @param files  The files
+     * @return  The uploaded document's metadata
+     */
+    public static Document chunkUploadDocument(DialogInfo dialog, Document document, IFileUploadInfo[] files) {
+        return chunkUploadDocument(dialog, document, files, 0);
+    }
 
-        /// <summary>
-    /// Replaces the content of a section with the passed file asynchronously.
-    /// Uploads the specified file in chunks.
-    /// </summary>
-    /// <param name="section">The section whose content is replaced.</param>
-    /// <param name="file">The file.</param>
-    /// <param name="chunkSize">Size of the chunk.</param>
-    /// <returns>The changed section's metadata.</returns>
+     /**
+     * Replaces the content of a section with the passed file asynchronously.
+     * Uploads the specified file in chunks.
+     * 
+     * @param section    The section whose content is replaced
+     * @param file  The file
+     * @param chunkSize Size of the chunk
+     * @return  The changed section's metadata
+     */
     public static Future<DeserializedHttpResponseGen<Section>> chunkUploadSectionAsync(Section section, IFileUploadInfo file, int chunkSize) {
         return FileCabinetExtensionsBase.<Section>chunkUploadFileAsync(section.getContentRelationLink(), (IRelationsWithProxy) section, file, chunkSize, null, Section.class);
     }
+    
+    /**
+     * Replaces the content of a section with the passed file asynchronously.
+     * Uploads the specified file in chunks.
+     * 
+     * @param section    The section whose content is replaced
+     * @param file  The file
+     * @return  The changed section's metadata
+     */
+    public static Future<DeserializedHttpResponseGen<Section>> chunkUploadSectionAsync(Section section, IFileUploadInfo file) {
+        return chunkUploadSectionAsync(section, file, 0);
+    }
 
-        /// <summary>
-    /// Replaces the content of a section with the passed file
-    /// Uploads the specified file in chunks.
-    /// </summary>
-    /// <param name="section">The section whose content is replaced.</param>
-    /// <param name="file">The file.</param>
-    /// <param name="chunkSize">Size of the chunk.</param>
-    /// <returns>The changed section's metadata.</returns>
+    /**
+     * Replaces the content of a section with the passed file asynchronously.
+     * Uploads the specified file in chunks.
+     * 
+     * @param section    The section whose content is replaced
+     * @param file  The file
+     * @param chunkSize Size of the chunk
+     * @return  The changed section's metadata
+     */
     public static Section chunkUploadSection(Section section, IFileUploadInfo file, int chunkSize) {
         return FileCabinetExtensionsBase.<Section>chunkUploadFile(section.getContentRelationLink(), (IRelationsWithProxy) section, file, chunkSize, null, Section.class);
     }
+    
+    /**
+     * Replaces the content of a section with the passed file asynchronously.
+     * Uploads the specified file in chunks.
+     * 
+     * @param section    The section whose content is replaced
+     * @param file  The file
+     * @return  The changed section's metadata
+     */
+    public static Section chunkUploadSection(Section section, IFileUploadInfo file) {
+        return chunkUploadSection(section, file, 0);
+    }
 
-        /// <summary>
-    /// Adds a section to a document asynchronously using chunked upload.
-    /// </summary>
-    /// <param name="document">The document.</param>
-    /// <param name="file">The file.</param>
-    /// <param name="chunkSize">Size of the chunk in bytes.</param>
-    /// <returns>The new section's metadata.</returns>*/
+    /**
+     * Adds a section to a document asynchronously using chunked upload
+     * 
+     * @param document    The document
+     * @param file  The file
+     * @param chunkSize Size of the chunk
+     * @return  The new section's metadata
+     */
     public static Future<DeserializedHttpResponseGen<Section>> chunkAddSectionAsync(Document document, IFileUploadInfo file, int chunkSize) {
         return FileCabinetExtensionsBase.<Section>chunkUploadFileAsync(document.getSectionsRelationLink(), ((IRelationsWithProxy) document), file, chunkSize, null, Section.class);
     }
+    
+    /**
+     * Adds a section to a document asynchronously using chunked upload
+     * 
+     * @param document    The document
+     * @param file  The file
+     * @return  The new section's metadata
+     */
+    public static Future<DeserializedHttpResponseGen<Section>> chunkAddSectionAsync(Document document, IFileUploadInfo file) {
+        return chunkAddSectionAsync(document, file, 0);
+    }
 
-        /// <summary>
-    /// Adds a section to a document using chunked upload.
-    /// </summary>
-    /// <param name="document">The document.</param>
-    /// <param name="file">The file.</param>
-    /// <param name="chunkSize">Size of the chunk in bytes.</param>
-    /// <returns>The new section's metadata.</returns>
+    /**
+     * Adds a section to a document using chunked upload.
+     * 
+     * @param document    The document
+     * @param file  The file
+     * @param chunkSize Size of the chunk
+     * @return  The new section's metadata
+     */
     public static Section chunkAddSection(Document document, IFileUploadInfo file, int chunkSize) {
         return FileCabinetExtensionsBase.<Section>chunkUploadFile(document.getSectionsRelationLink(), ((IRelationsWithProxy) document), file, chunkSize, null, Section.class);
+    }
+    
+    /**
+     * Adds a section to a document using chunked upload.
+     * 
+     * @param document    The document
+     * @param file  The file
+     * @return  The new section's metadata
+     */
+    public static Section chunkAddSection(Document document, IFileUploadInfo file) {
+        return chunkAddSection(document, file, 0);
     }
 
     private static Document chunkUploadFile(URI link, IRelationsWithProxy proxy, IFileUploadInfo[] files, int chunkSize, Document document) {
@@ -624,7 +867,7 @@ public class FileCabinetExtensionsBase {
         try {
             try (InputStream fs = file.createStream()) {
 
-                int bytesRead = 0;
+                int bytesRead;
                 long length = fs.available();
                 byte[] buffer = new byte[cs];
                 boolean addDocumentMetaData = stringContent != null;
@@ -713,7 +956,7 @@ public class FileCabinetExtensionsBase {
             URI l = link;
             try {
                 try (InputStream fs = file.createStream()) {
-                    int bytesRead = 0;
+                    int bytesRead;
                     int length = fs.available();
                     System.out.println(length);
                     byte[] buffer = new byte[cs];
@@ -779,7 +1022,7 @@ public class FileCabinetExtensionsBase {
                                 ((IHttpClientProxy) doc).setProxy(proxy.getProxy());
                             }
                             if (doc.getFileChunk() == null || doc.getFileChunk().isFinished()) {
-                                return new DeserializedHttpResponseGen<T>(resp, doc);
+                                return new DeserializedHttpResponseGen<>(resp, doc);
                             } else {
                                 l = doc.getFileChunk().getNextRelationLink();
                             }
@@ -788,7 +1031,7 @@ public class FileCabinetExtensionsBase {
                         }
                     }
                 }
-            } catch (Exception e) {
+            } catch (IOException | IllegalArgumentException | UniformInterfaceException | ClientHandlerException e) {
                 for (StackTraceElement s : e.getStackTrace()) {
                     System.err.println(s);
                 }

@@ -5,15 +5,11 @@
  */
 package com.docuware.dev.Extensions;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -68,9 +64,9 @@ class TarHeader {
     //TODO Check new version of SharpCompress for supporting file names larger then 100 characters 
     public void Write(OutputStream output) {
         byte[] buffer = new byte[512];
-        String name = this.name;
+        String interName = this.name;
         System.out.println("a");
-        WriteStringBytes(name, buffer, 0, 100);
+        WriteStringBytes(interName, buffer, 0, 100);
         System.out.println("b");
         WriteOctalBytes(511, buffer, 100, 8);
         System.out.println("c");

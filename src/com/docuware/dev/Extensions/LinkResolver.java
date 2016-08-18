@@ -4,35 +4,19 @@
  */
 package com.docuware.dev.Extensions;
 
-import com.docuware.dev.Extensions.DeserializedHttpResponseGen;
-import com.docuware.dev.Extensions.HttpClientProxy;
-import com.docuware.dev.Extensions.IHttpClientProxy;
-import com.docuware.dev.Extensions.IRelationsWithProxy;
 import com.docuware.dev.schema._public.services.Link;
 import com.docuware.dev.schema._public.services.Links;
-import com.sun.jersey.api.client.AsyncWebResource;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.multipart.MultiPart;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
-import org.apache.commons.httpclient.Header;
 
 /**
  *
@@ -47,23 +31,11 @@ public class LinkResolver {
         return baseUri;
     }
 
-    /**
-     *
-     * @param baseUri
-     * @param client
-     */
     public LinkResolver(URI baseUri, Client client) {
         this.baseUri = baseUri;
         this.client = client;
     }
 
-    /**
-     *
-     * @param baseUri
-     * @param links
-     * @param rel
-     * @return
-     */
     public static URI getLink(URI baseUri, Links links, String rel) {
 
         for (Link link : links.getLink()) {
@@ -74,12 +46,6 @@ public class LinkResolver {
         return null;
     }
 
-    /**
-     *
-     * @param links
-     * @param rel
-     * @return
-     */
     public URI getLink(Links links, String rel) {
         return LinkResolver.getLink(baseUri, links, rel);
     }
@@ -88,16 +54,7 @@ public class LinkResolver {
         return baseUri.resolve(uri);
     }
 
-    /**
-     *
-     * @param <T>
-     * @param proxy
-     * @param links
-     * @param rel
-     * @param expectedType
-     * @return
-     */
-    public <T> Future<DeserializedHttpResponseGen<T>> getAsync(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType) {
+    <T> Future<DeserializedHttpResponseGen<T>> getAsync(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType) {
         return CompletableFuture.<DeserializedHttpResponseGen<T>>supplyAsync(() -> {
             WebResource web = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel));
             ClientResponse resp = web.get(ClientResponse.class);
@@ -114,7 +71,7 @@ public class LinkResolver {
         });
     }
 
-    public <T> T get(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType) {
+    <T> T get(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType) {
         WebResource web = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel));
         ClientResponse resp = web.get(ClientResponse.class);
         if (resp.getStatus() < 200 || resp.getStatus() > 399) {
@@ -129,7 +86,7 @@ public class LinkResolver {
         }
     }
 
-    public <T, P> T post(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, JAXBElement<P> postData) {
+    <T, P> T post(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, JAXBElement<P> postData) {
         ClientResponse resp = client.resource(LinkResolver.getLink(baseUri, links, rel)).type(MediaType.APPLICATION_XML).accept(MediaType.APPLICATION_XML).post(ClientResponse.class, postData);
         if (resp.getStatus() < 200 || resp.getStatus() > 399) {
             HttpClientRequestException e = HttpClientRequestException.create(resp);
@@ -143,7 +100,7 @@ public class LinkResolver {
         }
     }
 
-    public <T, P> Future<DeserializedHttpResponseGen<T>> postAsync(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, JAXBElement<P> postData) {
+    <T, P> Future<DeserializedHttpResponseGen<T>> postAsync(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, JAXBElement<P> postData) {
         return CompletableFuture.<DeserializedHttpResponseGen<T>>supplyAsync(() -> {
             WebResource web = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel));
             ClientResponse resp = web.type(MediaType.APPLICATION_XML).accept(MediaType.APPLICATION_XML).post(ClientResponse.class, postData);
@@ -160,7 +117,7 @@ public class LinkResolver {
         });
     }
 
-    public <P> String post(IHttpClientProxy proxy, Links links, String rel, P postData) {
+    <P> String post(IHttpClientProxy proxy, Links links, String rel, P postData) {
         ClientResponse resp = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel)).type(MediaType.APPLICATION_XML).post(ClientResponse.class, postData);
         if (resp.getStatus() < 200 || resp.getStatus() > 399) {
             HttpClientRequestException e = HttpClientRequestException.create(resp);
@@ -170,7 +127,7 @@ public class LinkResolver {
         }
     }
 
-    public <P> Future<DeserializedHttpResponseGen<String>> postAsync(IHttpClientProxy proxy, Links links, String rel, P postData) {
+    <P> Future<DeserializedHttpResponseGen<String>> postAsync(IHttpClientProxy proxy, Links links, String rel, P postData) {
         return CompletableFuture.<DeserializedHttpResponseGen<String>>supplyAsync(() -> {
             WebResource web = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel));
             ClientResponse resp = web.type(MediaType.APPLICATION_XML).accept(MediaType.APPLICATION_XML).post(ClientResponse.class, postData);
@@ -178,7 +135,7 @@ public class LinkResolver {
         });
     }
 
-    public <T, P> T post(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, P postData, String bodyContentType) {
+    <T, P> T post(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, P postData, String bodyContentType) {
         ClientResponse resp = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel)).type(bodyContentType).post(ClientResponse.class, postData);
         if (resp.getStatus() < 200 || resp.getStatus() > 399) {
             HttpClientRequestException e = HttpClientRequestException.create(resp);
@@ -192,7 +149,7 @@ public class LinkResolver {
         }
     }
 
-    public <T, P> T postMultipart(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, P postData) {
+    <T, P> T postMultipart(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, P postData) {
         ClientResponse resp = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel)).type(MediaType.MULTIPART_FORM_DATA).post(ClientResponse.class, postData);
         if (resp.getStatus() < 200 || resp.getStatus() > 399) {
             HttpClientRequestException e = HttpClientRequestException.create(resp);
@@ -206,7 +163,7 @@ public class LinkResolver {
         }
     }
 
-    public <T, P> Future<DeserializedHttpResponseGen<T>> postAsync(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, P postData, String bodyContentType) {
+    <T, P> Future<DeserializedHttpResponseGen<T>> postAsync(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, P postData, String bodyContentType) {
         return CompletableFuture.<DeserializedHttpResponseGen<T>>supplyAsync(() -> {
             WebResource web = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel));
             ClientResponse resp = web.type(bodyContentType).post(ClientResponse.class, postData);
@@ -223,7 +180,7 @@ public class LinkResolver {
         });
     }
 
-    public <T, P> Future<DeserializedHttpResponseGen<T>> postMultipartAsync(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, P postData) {
+    <T, P> Future<DeserializedHttpResponseGen<T>> postMultipartAsync(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, P postData) {
         return CompletableFuture.<DeserializedHttpResponseGen<T>>supplyAsync(() -> {
             WebResource web = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel));
             ClientResponse resp = web.type(MediaType.MULTIPART_FORM_DATA).post(ClientResponse.class, postData);
@@ -241,7 +198,7 @@ public class LinkResolver {
 
     }
 
-    public <T> T post(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, InputStream postData) {
+    <T> T post(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, InputStream postData) {
         ClientResponse resp = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel)).post(ClientResponse.class, postData);
         if (resp.getStatus() < 200 || resp.getStatus() > 399) {
             HttpClientRequestException e = HttpClientRequestException.create(resp);
@@ -255,7 +212,7 @@ public class LinkResolver {
         }
     }
 
-    public <T> Future<DeserializedHttpResponseGen<T>> postAsync(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, InputStream postData) {
+    <T> Future<DeserializedHttpResponseGen<T>> postAsync(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, InputStream postData) {
         return CompletableFuture.<DeserializedHttpResponseGen<T>>supplyAsync(() -> {
             WebResource web = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel));
             ClientResponse resp = web.post(ClientResponse.class, postData);
@@ -277,18 +234,8 @@ public class LinkResolver {
      * public <T> T post(Links links, String rel, Class<T> expectedType) {
      return client.resource(LinkResolver.getLink(baseUri, links, rel)).accept(MediaType.APPLICATION_XML).post(expectedType);
      }
-     */
-    /**
-     *
-     * @param <T>
-     * @param <P>
-     * @param links
-     * @param rel
-     * @param expectedType
-     * @param postData
-     * @return
-     */
-    public <T, P> T put(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, JAXBElement<P> postData) {
+ */
+    <T, P> T put(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, JAXBElement<P> postData) {
         ClientResponse resp = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel)).type(MediaType.APPLICATION_XML).accept(MediaType.APPLICATION_XML).put(ClientResponse.class, postData);
         if (resp.getStatus() < 200 || resp.getStatus() > 399) {
             HttpClientRequestException e = HttpClientRequestException.create(resp);
@@ -302,7 +249,7 @@ public class LinkResolver {
         }
     }
 
-    public <T, P> Future<DeserializedHttpResponseGen<T>> putAsync(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, JAXBElement<P> postData) {
+    <T, P> Future<DeserializedHttpResponseGen<T>> putAsync(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, JAXBElement<P> postData) {
         return CompletableFuture.<DeserializedHttpResponseGen<T>>supplyAsync(() -> {
             WebResource web = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel));
             ClientResponse resp = web.type(MediaType.APPLICATION_XML).accept(MediaType.APPLICATION_XML).put(ClientResponse.class, postData);
@@ -320,7 +267,7 @@ public class LinkResolver {
 
     }
 
-    public <T> T put(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType) {
+    <T> T put(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType) {
         ClientResponse resp = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel)).put(ClientResponse.class);
         if (resp.getStatus() < 200 || resp.getStatus() > 399) {
             HttpClientRequestException e = HttpClientRequestException.create(resp);
@@ -334,7 +281,7 @@ public class LinkResolver {
         }
     }
 
-    public <T> Future<DeserializedHttpResponseGen<T>> putAsync(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType) {
+    <T> Future<DeserializedHttpResponseGen<T>> putAsync(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType) {
         return CompletableFuture.<DeserializedHttpResponseGen<T>>supplyAsync(() -> {
             WebResource web = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel));
             ClientResponse resp = web.put(ClientResponse.class);
@@ -352,15 +299,7 @@ public class LinkResolver {
 
     }
 
-    /**
-     *
-     * @param <P>
-     * @param links
-     * @param rel
-     * @param postData
-     * @return
-     */
-    public <P> String put(IHttpClientProxy proxy, Links links, String rel, P postData) {
+    <P> String put(IHttpClientProxy proxy, Links links, String rel, P postData) {
         ClientResponse resp = client.resource(LinkResolver.getLink(baseUri, links, rel)).put(ClientResponse.class, postData);
         if (resp.getStatus() < 200 || resp.getStatus() > 399) {
             HttpClientRequestException e = HttpClientRequestException.create(resp);
@@ -370,7 +309,7 @@ public class LinkResolver {
         }
     }
 
-    public <P> Future<DeserializedHttpResponseGen<String>> putAsync(IHttpClientProxy proxy, Links links, String rel, P postData) {
+    <P> Future<DeserializedHttpResponseGen<String>> putAsync(IHttpClientProxy proxy, Links links, String rel, P postData) {
         return CompletableFuture.<DeserializedHttpResponseGen<String>>supplyAsync(() -> {
             WebResource web = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel));
             ClientResponse resp = web.put(ClientResponse.class, postData);
@@ -383,7 +322,7 @@ public class LinkResolver {
         });
     }
 
-    public <T, P> T put(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, P postData, String bodyContentType) {
+    <T, P> T put(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, P postData, String bodyContentType) {
         ClientResponse resp = client.resource(LinkResolver.getLink(baseUri, links, rel)).type(bodyContentType).put(ClientResponse.class, postData);
         if (resp.getStatus() < 200 || resp.getStatus() > 399) {
             HttpClientRequestException e = HttpClientRequestException.create(resp);
@@ -397,7 +336,7 @@ public class LinkResolver {
         }
     }
 
-    public <T, P> Future<DeserializedHttpResponseGen<T>> putAsync(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, P postData, String bodyContentType) {
+    <T, P> Future<DeserializedHttpResponseGen<T>> putAsync(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, P postData, String bodyContentType) {
         return CompletableFuture.<DeserializedHttpResponseGen<T>>supplyAsync(() -> {
             WebResource web = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel));
             ClientResponse resp = web.type(bodyContentType).put(ClientResponse.class, postData);
@@ -414,7 +353,7 @@ public class LinkResolver {
         });
     }
 
-    public <T> T put(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, InputStream postData) {
+    <T> T put(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, InputStream postData) {
         ClientResponse resp = client.resource(LinkResolver.getLink(baseUri, links, rel)).put(ClientResponse.class, postData);
         if (resp.getStatus() < 200 || resp.getStatus() > 399) {
             HttpClientRequestException e = HttpClientRequestException.create(resp);
@@ -428,7 +367,7 @@ public class LinkResolver {
         }
     }
 
-    public <T> Future<DeserializedHttpResponseGen<T>> putAsync(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, InputStream postData) {
+    <T> Future<DeserializedHttpResponseGen<T>> putAsync(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, InputStream postData) {
         return CompletableFuture.<DeserializedHttpResponseGen<T>>supplyAsync(() -> {
             WebResource web = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel));
             ClientResponse resp = web.put(ClientResponse.class, postData);
@@ -445,14 +384,7 @@ public class LinkResolver {
         });
     }
 
-    /**
-     *
-     * @param li
-     * @param proxynks
-     * @param rel
-     * @return
-     */
-    public String delete(IHttpClientProxy proxy, Links links, String rel) {
+    String delete(IHttpClientProxy proxy, Links links, String rel) {
         ClientResponse resp = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel)).delete(ClientResponse.class);
         if (resp.getStatus() < 200 || resp.getStatus() > 399) {
             HttpClientRequestException e = HttpClientRequestException.create(resp);
@@ -462,7 +394,7 @@ public class LinkResolver {
         }
     }
 
-    public Future<DeserializedHttpResponseGen<String>> deleteAsync(IHttpClientProxy proxy, Links links, String rel) {
+    Future<DeserializedHttpResponseGen<String>> deleteAsync(IHttpClientProxy proxy, Links links, String rel) {
         return CompletableFuture.<DeserializedHttpResponseGen<String>>supplyAsync(() -> {
             WebResource web = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel));
             ClientResponse resp = web.delete(ClientResponse.class);
@@ -484,7 +416,7 @@ public class LinkResolver {
                 HttpClientRequestException e = HttpClientRequestException.create(resp);
                 return new DeserializedHttpResponseGen(resp, e);
             } else {
-                return new DeserializedHttpResponseGen<T>(resp, resp.getEntity(expectedType));
+                return new DeserializedHttpResponseGen<>(resp, resp.getEntity(expectedType));
             }
         });
     }
@@ -497,7 +429,7 @@ public class LinkResolver {
                 HttpClientRequestException e = HttpClientRequestException.create(resp);
                 return new DeserializedHttpResponseGen(resp, e);
             } else {
-                return new DeserializedHttpResponseGen<T>(resp, resp.getEntity(expectedType));
+                return new DeserializedHttpResponseGen<>(resp, resp.getEntity(expectedType));
             }
         });
     }
@@ -510,7 +442,7 @@ public class LinkResolver {
                 HttpClientRequestException e = HttpClientRequestException.create(resp);
                 return new DeserializedHttpResponseGen(resp, e);
             } else {
-                return new DeserializedHttpResponseGen<T>(resp, resp.getEntity(expectedType));
+                return new DeserializedHttpResponseGen<>(resp, resp.getEntity(expectedType));
             }
         });
     }
@@ -524,7 +456,7 @@ public class LinkResolver {
                 HttpClientRequestException e = HttpClientRequestException.create(resp);
                 return new DeserializedHttpResponseGen(resp, e);
             } else {
-                return new DeserializedHttpResponseGen<T>(resp, resp.getEntity(expectedType));
+                return new DeserializedHttpResponseGen<>(resp, resp.getEntity(expectedType));
             }
         });
     }
@@ -537,7 +469,7 @@ public class LinkResolver {
                 HttpClientRequestException e = HttpClientRequestException.create(resp);
                 return new DeserializedHttpResponseGen(resp, e);
             } else {
-                return new DeserializedHttpResponseGen<T>(resp, resp.getEntity(expectedType));
+                return new DeserializedHttpResponseGen<>(resp, resp.getEntity(expectedType));
             }
         });
     }
@@ -552,7 +484,7 @@ public class LinkResolver {
                 HttpClientRequestException e = HttpClientRequestException.create(resp);
                 return new DeserializedHttpResponseGen(resp, e);
             } else {
-                return new DeserializedHttpResponseGen<String>(resp, resp.getEntity(String.class));
+                return new DeserializedHttpResponseGen<>(resp, resp.getEntity(String.class));
             }
         });      
         return fut;

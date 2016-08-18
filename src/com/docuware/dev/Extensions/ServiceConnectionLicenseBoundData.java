@@ -16,12 +16,10 @@ public abstract class ServiceConnectionLicenseBoundData {
 
     ServiceConnectionTransportData transport;
 
-        /// <summary>
-    /// Gets or sets the transport data.
-    /// </summary>
-    /// <value>
-    /// The transport data.
-    /// </value>
+    /**
+     * Gets the transport data
+     * @return The transport data
+     */
     public ServiceConnectionTransportData getTransport() {
         if (transport == null) {
             transport = new ServiceConnectionTransportData();
@@ -29,30 +27,36 @@ public abstract class ServiceConnectionLicenseBoundData {
         return transport;
     }
 
+    /**
+     * Sets the transport data
+     * @param value The new Transport data
+     */
     public void setTransport(ServiceConnectionTransportData value) {
         transport = value;
     }
 
-        /// <summary>
-    /// Gets or sets the type of the license used for the login.
-    /// </summary>
-    /// <value>
-    /// The type of the license.
-    /// </value>
     public DWProductTypes LicenseType;
 
+    /**
+     * Gets the type of the license used for the login
+     * @return  The type of the license
+     */
     public DWProductTypes getLicenseType() {
         return LicenseType;
     }
 
+    /**
+     * Sets the type of the license used for the login
+     * @param LicenseType   The type of the license 
+     */
     public void setLicenseType(DWProductTypes LicenseType) {
         this.LicenseType = LicenseType;
     }
 
-        /// <summary>
-    /// Adds the login form data.
-    /// </summary>
-    /// <param name="formData">The form data.</param>
+    /**
+     * Adds the login form data
+     * @param formData  The form data
+     */
     void AddLoginFormData(MultivaluedMap<String, String> formData) {
         if (LicenseType != null) {
             formData.putSingle("LicenseType", LicenseType.toString());

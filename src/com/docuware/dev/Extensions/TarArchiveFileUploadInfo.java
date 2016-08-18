@@ -5,12 +5,9 @@
  */
 package com.docuware.dev.Extensions;
 
-import java.io.ByteArrayOutputStream;
-import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
@@ -23,13 +20,14 @@ import java.util.logging.Logger;
  */
 class TarArchiveFileUploadInfo implements IFileUploadInfo, AutoCloseable {
 
-    private IFileUploadInfo[] _files;
+    private final IFileUploadInfo[] _files;
     private TarStream _stream;
 
     public TarArchiveFileUploadInfo(IFileUploadInfo... files) {
         _files = files;
     }
 
+    @Override
     public InputStream createStream() {
         if (_stream == null) {
             try {
@@ -41,19 +39,23 @@ class TarArchiveFileUploadInfo implements IFileUploadInfo, AutoCloseable {
         return _stream;
     }
 
+    @Override
     public String getContentType() {
         return "application/vnd.docuware.platform.filescontainer+tar";
     }
 
+    @Override
     public String getName() {
         return "tar.tar";
     }
 
+    @Override
     public long getLength() {
         return _stream.getLength();
 
     }
 
+    @Override
     public Date getLastWriteTimeUtc() {
         Date currentTime = new Date();
         SimpleDateFormat year = new SimpleDateFormat("yyyy");
@@ -80,8 +82,17 @@ class TarArchiveFileUploadInfo implements IFileUploadInfo, AutoCloseable {
         return e;
     }
 
+    @Override
     public void finalize() {
-        close(false);
+        try {
+            close(false);
+        } finally {
+            try {
+                super.finalize();
+            } catch (Throwable ex) {
+                Logger.getLogger(TarArchiveFileUploadInfo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     boolean disposed = false;
@@ -98,6 +109,7 @@ class TarArchiveFileUploadInfo implements IFileUploadInfo, AutoCloseable {
         }
     }
 
+    @Override
     public void close() throws IOException {
         close(true);
     }

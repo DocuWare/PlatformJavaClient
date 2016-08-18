@@ -15,48 +15,35 @@ public class HttpClientProxy {
 
     PlatformClient httpClient;
 
-        /// <summary>
-    /// Initializes a new instance of the <see cref="HttpClientProxy"/> class.
-    /// </summary>
-    /// <param name="httpClient">The HTTP client.</param>
+    /**
+     * Initializes a new instance of the HttpClientProxy class
+     * @param httpClient    The HTTP client
+     */
     public HttpClientProxy(PlatformClient httpClient) {
         this.httpClient = httpClient;
     }
 
-        /// <summary>
-    /// Replaces the HTTP client.
-    /// </summary>
-    /// <param name="httpClient">The HTTP client.</param>
+    /**
+     * Replaces the HTTP client
+     * @param httpClient    The HTTP client
+     */
     public void ReplaceHttpClient(PlatformClient httpClient) {
         this.httpClient = httpClient;
     }
 
-        /// <summary>
-    /// Gets or sets the HTTP client.
-    /// </summary>
-    /// <value>
-    /// The HTTP client.
-    /// </value>
+    /**
+     * Gets the client
+     * @return client
+     */
     public PlatformClient getHttpClient() {
         return httpClient;
     }
 
-        /// <summary>
-    /// Gets the base address.
-    /// </summary>
-    /// <value>
-    /// The base address.
-    /// </value>
+    /**
+     * Gets the base address
+     * @return  The base address
+     */
     public URI getBaseAddress() {
         return httpClient.getLinkResolver().getBaseUri();
     }
 }
-
-        /// <summary>
-/// Performs an implicit conversion from <see cref="HttpClientProxy"/> to <see cref="HttpClient"/>.
-/// </summary>
-/// <param name="httpClientProxy">The HTTP client proxy.</param>
-/// <returns>
-/// The result of the conversion.
-/// </returns
-

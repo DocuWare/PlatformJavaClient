@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.16 um 09:04:54 AM CEST 
+// Generiert: 2016.08.18 um 09:47:39 AM CEST 
 //
 
 
@@ -497,6 +497,10 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<Document>getAsync(this, links, "document", Document.class);
     }
 
+    public Future<DeserializedHttpResponseGen<Document>> getDocumentFromDocumentRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<Document>getAsync(this, links, "document", Document.class, ct);
+    }
+
     public URI getDeepZoomImageRelationLink() {
         return MethodInvocation.getLink(this, links, "deepZoomImage");
     }
@@ -507,6 +511,10 @@ private HttpClientProxy proxy;//test
 
     public Future<DeserializedHttpResponseGen<URI>> getURIFromDeepZoomImageRelationAsync() {
         return MethodInvocation.<URI>getAsync(this, links, "deepZoomImage", URI.class);
+    }
+
+    public Future<DeserializedHttpResponseGen<URI>> getURIFromDeepZoomImageRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<URI>getAsync(this, links, "deepZoomImage", URI.class, ct);
     }
 
     public URI getDeepZoomImageWithAnnotationRelationLink() {
@@ -521,6 +529,10 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<URI>getAsync(this, links, "deepZoomImageWithAnnotation", URI.class);
     }
 
+    public Future<DeserializedHttpResponseGen<URI>> getURIFromDeepZoomImageWithAnnotationRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<URI>getAsync(this, links, "deepZoomImageWithAnnotation", URI.class, ct);
+    }
+
     public URI getPositionsRelationLink() {
         return MethodInvocation.getLink(this, links, "positions");
     }
@@ -533,12 +545,20 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<WordSearchResult>getAsync(this, links, "positions", WordSearchResult.class);
     }
 
+    public Future<DeserializedHttpResponseGen<WordSearchResult>> getWordSearchResultFromPositionsRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<WordSearchResult>getAsync(this, links, "positions", WordSearchResult.class, ct);
+    }
+
     public WordSearchResult postToPositionsRelationForWordSearchResult(SearchPositionQuery data) {
         return MethodInvocation.<WordSearchResult,SearchPositionQuery>post(this, links, "positions", WordSearchResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SearchPositionQuery"), SearchPositionQuery.class, null, data));
     }
 
     public Future<DeserializedHttpResponseGen<WordSearchResult>> postToPositionsRelationForWordSearchResultAsync(SearchPositionQuery data) {
         return MethodInvocation.<WordSearchResult, SearchPositionQuery >postAsync(this, links, "positions", WordSearchResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SearchPositionQuery"), SearchPositionQuery.class, null, data));
+    }
+
+    public Future<DeserializedHttpResponseGen<WordSearchResult>> postToPositionsRelationForWordSearchResultAsync(SearchPositionQuery data, CancellationToken ct) {
+        return MethodInvocation.<WordSearchResult, SearchPositionQuery >postAsync(this, links, "positions", WordSearchResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SearchPositionQuery"), SearchPositionQuery.class, null, data), ct);
     }
 
     public URI getTextshotRelationLink() {
@@ -553,12 +573,20 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<DocumentContent>getAsync(this, links, "textshot", DocumentContent.class);
     }
 
+    public Future<DeserializedHttpResponseGen<DocumentContent>> getDocumentContentFromTextshotRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<DocumentContent>getAsync(this, links, "textshot", DocumentContent.class, ct);
+    }
+
     public String putToTextshotRelationForString(DocumentContent data) {
         return MethodInvocation.<String,DocumentContent>put(this, links, "textshot", String.class, new JAXBElement(new QName("http://dev.docuware.com/public/intellix", "Document"), DocumentContent.class, null, data));
     }
 
     public Future<DeserializedHttpResponseGen<String>> putToTextshotRelationForStringAsync(DocumentContent data) {
         return MethodInvocation.<String, DocumentContent >putAsync(this, links, "textshot", String.class, new JAXBElement(new QName("http://dev.docuware.com/public/intellix", "Document"), DocumentContent.class, null, data));
+    }
+
+    public Future<DeserializedHttpResponseGen<String>> putToTextshotRelationForStringAsync(DocumentContent data, CancellationToken ct) {
+        return MethodInvocation.<String, DocumentContent >putAsync(this, links, "textshot", String.class, new JAXBElement(new QName("http://dev.docuware.com/public/intellix", "Document"), DocumentContent.class, null, data), ct);
     }
 
     public URI getContentRelationLink() {
@@ -573,6 +601,10 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<URI>getAsync(this, links, "content", URI.class);
     }
 
+    public Future<DeserializedHttpResponseGen<URI>> getURIFromContentRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<URI>getAsync(this, links, "content", URI.class, ct);
+    }
+
     public Section putToContentRelationForSection(InputStream data, String bodyContentType) {
         return MethodInvocation.<Section, InputStream>put(this, links, "content", Section.class, data, bodyContentType);
     }
@@ -581,12 +613,20 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<Section, InputStream>putAsync(this, links, "content", Section.class, data, bodyContentType);
 }
 
+    public Future<DeserializedHttpResponseGen<Section>> putToContentRelationForSectionAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
+        return MethodInvocation.<Section, InputStream>putAsync(this, links, "content", Section.class, data, bodyContentType, ct);
+}
+
     public Section postToContentRelationForSection(InputStream data, String bodyContentType) {
         return MethodInvocation.<Section, InputStream>post(this, links, "content", Section.class, data, bodyContentType);
     }
 
     public Future<DeserializedHttpResponseGen<Section>> postToContentRelationForSectionAsync(InputStream data, String bodyContentType) { 
         return MethodInvocation.<Section, InputStream>postAsync(this, links, "content", Section.class, data, bodyContentType);
+}
+
+    public Future<DeserializedHttpResponseGen<Section>> postToContentRelationForSectionAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
+        return MethodInvocation.<Section, InputStream>postAsync(this, links, "content", Section.class, data, bodyContentType, ct);
 }
 
     public URI getFileDownloadRelationLink() {
@@ -601,12 +641,20 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<URI>getAsync(this, links, "fileDownload", URI.class);
     }
 
+    public Future<DeserializedHttpResponseGen<URI>> getURIFromFileDownloadRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<URI>getAsync(this, links, "fileDownload", URI.class, ct);
+    }
+
     public String postToFileDownloadRelationForString(FileDownload data) {
         return MethodInvocation.<String,FileDownload>post(this, links, "fileDownload", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "FileDownload"), FileDownload.class, null, data));
     }
 
     public Future<DeserializedHttpResponseGen<String>> postToFileDownloadRelationForStringAsync(FileDownload data) {
         return MethodInvocation.<String, FileDownload >postAsync(this, links, "fileDownload", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "FileDownload"), FileDownload.class, null, data));
+    }
+
+    public Future<DeserializedHttpResponseGen<String>> postToFileDownloadRelationForStringAsync(FileDownload data, CancellationToken ct) {
+        return MethodInvocation.<String, FileDownload >postAsync(this, links, "fileDownload", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "FileDownload"), FileDownload.class, null, data), ct);
     }
 
     public URI getSelfRelationLink() {
@@ -621,6 +669,10 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<Section>getAsync(this, links, "self", Section.class);
     }
 
+    public Future<DeserializedHttpResponseGen<Section>> getSectionFromSelfRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<Section>getAsync(this, links, "self", Section.class, ct);
+    }
+
     public URI getThumbnailRelationLink() {
         return MethodInvocation.getLink(this, links, "thumbnail");
     }
@@ -631,6 +683,10 @@ private HttpClientProxy proxy;//test
 
     public Future<DeserializedHttpResponseGen<URI>> getURIFromThumbnailRelationAsync() {
         return MethodInvocation.<URI>getAsync(this, links, "thumbnail", URI.class);
+    }
+
+    public Future<DeserializedHttpResponseGen<URI>> getURIFromThumbnailRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<URI>getAsync(this, links, "thumbnail", URI.class, ct);
     }
 
     public URI getIconRelationLink() {
@@ -645,6 +701,10 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<URI>getAsync(this, links, "icon", URI.class);
     }
 
+    public Future<DeserializedHttpResponseGen<URI>> getURIFromIconRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<URI>getAsync(this, links, "icon", URI.class, ct);
+    }
+
     public URI getTextAnnotationRelationLink() {
         return MethodInvocation.getLink(this, links, "textAnnotation");
     }
@@ -657,12 +717,20 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<URI>getAsync(this, links, "textAnnotation", URI.class);
     }
 
+    public Future<DeserializedHttpResponseGen<URI>> getURIFromTextAnnotationRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<URI>getAsync(this, links, "textAnnotation", URI.class, ct);
+    }
+
     public String postToTextAnnotationRelationForString(InputStream data, String bodyContentType) {
         return MethodInvocation.<String, InputStream>post(this, links, "textAnnotation", String.class, data, bodyContentType);
     }
 
     public Future<DeserializedHttpResponseGen<String>> postToTextAnnotationRelationForStringAsync(InputStream data, String bodyContentType) { 
         return MethodInvocation.<String, InputStream>postAsync(this, links, "textAnnotation", String.class, data, bodyContentType);
+}
+
+    public Future<DeserializedHttpResponseGen<String>> postToTextAnnotationRelationForStringAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
+        return MethodInvocation.<String, InputStream>postAsync(this, links, "textAnnotation", String.class, data, bodyContentType, ct);
 }
 
     public URI getPagesBlockRelationLink() {
@@ -677,6 +745,10 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<Pages, PagesBlockQuery >postAsync(this, links, "pagesBlock", Pages.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "PagesBlockQuery"), PagesBlockQuery.class, null, data));
     }
 
+    public Future<DeserializedHttpResponseGen<Pages>> postToPagesBlockRelationForPagesAsync(PagesBlockQuery data, CancellationToken ct) {
+        return MethodInvocation.<Pages, PagesBlockQuery >postAsync(this, links, "pagesBlock", Pages.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "PagesBlockQuery"), PagesBlockQuery.class, null, data), ct);
+    }
+
     public URI getAnnotationAsSvgRelationLink() {
         return MethodInvocation.getLink(this, links, "annotationAsSvg");
     }
@@ -687,6 +759,10 @@ private HttpClientProxy proxy;//test
 
     public Future<DeserializedHttpResponseGen<URI>> getURIFromAnnotationAsSvgRelationAsync() {
         return MethodInvocation.<URI>getAsync(this, links, "annotationAsSvg", URI.class);
+    }
+
+    public Future<DeserializedHttpResponseGen<URI>> getURIFromAnnotationAsSvgRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<URI>getAsync(this, links, "annotationAsSvg", URI.class, ct);
     }
 
 

@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.16 um 09:04:54 AM CEST 
+// Generiert: 2016.08.18 um 09:47:39 AM CEST 
 //
 
 
@@ -377,12 +377,20 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<Dialog>getAsync(this, links, "self", Dialog.class);
     }
 
+    public Future<DeserializedHttpResponseGen<Dialog>> getDialogFromSelfRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<Dialog>getAsync(this, links, "self", Dialog.class, ct);
+    }
+
     public String deleteSelfRelation() {
         return MethodInvocation.delete(this, links, "self");
     }
 
     public Future<DeserializedHttpResponseGen<String>> deleteSelfRelationAsync() {
         return MethodInvocation.deleteAsync(this, links, "self");
+    }
+
+    public Future<DeserializedHttpResponseGen<String>> deleteSelfRelationAsync(CancellationToken ct) {
+        return MethodInvocation.deleteAsync(this, links, "self", ct);
     }
 
     public URI getAssignedDialogRelationLink() {
@@ -397,6 +405,10 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<Dialog>getAsync(this, links, "assignedDialog", Dialog.class);
     }
 
+    public Future<DeserializedHttpResponseGen<Dialog>> getDialogFromAssignedDialogRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<Dialog>getAsync(this, links, "assignedDialog", Dialog.class, ct);
+    }
+
     public URI getCountRelationLink() {
         return MethodInvocation.getLink(this, links, "count");
     }
@@ -409,12 +421,20 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<CountResult>getAsync(this, links, "count", CountResult.class);
     }
 
+    public Future<DeserializedHttpResponseGen<CountResult>> getCountResultFromCountRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<CountResult>getAsync(this, links, "count", CountResult.class, ct);
+    }
+
     public CountResult postToCountRelationForCountResult(CountExpression data) {
         return MethodInvocation.<CountResult,CountExpression>post(this, links, "count", CountResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "CountExpression"), CountExpression.class, null, data));
     }
 
     public Future<DeserializedHttpResponseGen<CountResult>> postToCountRelationForCountResultAsync(CountExpression data) {
         return MethodInvocation.<CountResult, CountExpression >postAsync(this, links, "count", CountResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "CountExpression"), CountExpression.class, null, data));
+    }
+
+    public Future<DeserializedHttpResponseGen<CountResult>> postToCountRelationForCountResultAsync(CountExpression data, CancellationToken ct) {
+        return MethodInvocation.<CountResult, CountExpression >postAsync(this, links, "count", CountResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "CountExpression"), CountExpression.class, null, data), ct);
     }
 
     public URI getSelectListRelationLink() {
@@ -429,6 +449,10 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<SelectListResult, SelectListExpression >postAsync(this, links, "selectList", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data));
     }
 
+    public Future<DeserializedHttpResponseGen<SelectListResult>> postToSelectListRelationForSelectListResultAsync(SelectListExpression data, CancellationToken ct) {
+        return MethodInvocation.<SelectListResult, SelectListExpression >postAsync(this, links, "selectList", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data), ct);
+    }
+
     public URI getStoreDocumentRelationLink() {
         return MethodInvocation.getLink(this, links, "storeDocument");
     }
@@ -439,6 +463,10 @@ private HttpClientProxy proxy;//test
 
     public Future<DeserializedHttpResponseGen<Document>> postToStoreDocumentRelationForDocumentAsync(Document data) {
         return MethodInvocation.<Document, Document >postAsync(this, links, "storeDocument", Document.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "Document"), Document.class, null, data));
+    }
+
+    public Future<DeserializedHttpResponseGen<Document>> postToStoreDocumentRelationForDocumentAsync(Document data, CancellationToken ct) {
+        return MethodInvocation.<Document, Document >postAsync(this, links, "storeDocument", Document.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "Document"), Document.class, null, data), ct);
     }
 
     public URI getTransferRelationLink() {
@@ -453,12 +481,20 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<DocumentsQueryResult, FileCabinetTransferInfo >postAsync(this, links, "transfer", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "FileCabinetTransferInfo"), FileCabinetTransferInfo.class, null, data));
     }
 
+    public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> postToTransferRelationForDocumentsQueryResultAsync(FileCabinetTransferInfo data, CancellationToken ct) {
+        return MethodInvocation.<DocumentsQueryResult, FileCabinetTransferInfo >postAsync(this, links, "transfer", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "FileCabinetTransferInfo"), FileCabinetTransferInfo.class, null, data), ct);
+    }
+
     public DocumentsQueryResult postToTransferRelationForDocumentsQueryResult(DocumentsTransferInfo data) {
         return MethodInvocation.<DocumentsQueryResult,DocumentsTransferInfo>post(this, links, "transfer", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentsTransferInfo"), DocumentsTransferInfo.class, null, data));
     }
 
     public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> postToTransferRelationForDocumentsQueryResultAsync(DocumentsTransferInfo data) {
         return MethodInvocation.<DocumentsQueryResult, DocumentsTransferInfo >postAsync(this, links, "transfer", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentsTransferInfo"), DocumentsTransferInfo.class, null, data));
+    }
+
+    public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> postToTransferRelationForDocumentsQueryResultAsync(DocumentsTransferInfo data, CancellationToken ct) {
+        return MethodInvocation.<DocumentsQueryResult, DocumentsTransferInfo >postAsync(this, links, "transfer", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentsTransferInfo"), DocumentsTransferInfo.class, null, data), ct);
     }
 
     public URI getCreateUserDefinedSearchRelationLink() {
@@ -471,6 +507,10 @@ private HttpClientProxy proxy;//test
 
     public Future<DeserializedHttpResponseGen<Dialog>> postToCreateUserDefinedSearchRelationForDialogAsync(UserDefinedSearchInfo data) {
         return MethodInvocation.<Dialog, UserDefinedSearchInfo >postAsync(this, links, "createUserDefinedSearch", Dialog.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "UserDefinedSearchInfo"), UserDefinedSearchInfo.class, null, data));
+    }
+
+    public Future<DeserializedHttpResponseGen<Dialog>> postToCreateUserDefinedSearchRelationForDialogAsync(UserDefinedSearchInfo data, CancellationToken ct) {
+        return MethodInvocation.<Dialog, UserDefinedSearchInfo >postAsync(this, links, "createUserDefinedSearch", Dialog.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "UserDefinedSearchInfo"), UserDefinedSearchInfo.class, null, data), ct);
     }
 
 

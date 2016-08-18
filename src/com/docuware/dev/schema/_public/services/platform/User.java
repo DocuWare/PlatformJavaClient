@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.16 um 09:04:54 AM CEST 
+// Generiert: 2016.08.18 um 09:47:39 AM CEST 
 //
 
 
@@ -364,12 +364,20 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<User>getAsync(this, links, "self", User.class);
     }
 
+    public Future<DeserializedHttpResponseGen<User>> getUserFromSelfRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<User>getAsync(this, links, "self", User.class, ct);
+    }
+
     public User postToSelfRelationForUser(User data) {
         return MethodInvocation.<User,User>post(this, links, "self", User.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "User"), User.class, null, data));
     }
 
     public Future<DeserializedHttpResponseGen<User>> postToSelfRelationForUserAsync(User data) {
         return MethodInvocation.<User, User >postAsync(this, links, "self", User.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "User"), User.class, null, data));
+    }
+
+    public Future<DeserializedHttpResponseGen<User>> postToSelfRelationForUserAsync(User data, CancellationToken ct) {
+        return MethodInvocation.<User, User >postAsync(this, links, "self", User.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "User"), User.class, null, data), ct);
     }
 
     public URI getDefaultWebBasketRelationLink() {
@@ -384,6 +392,10 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<FileCabinet>getAsync(this, links, "defaultWebBasket", FileCabinet.class);
     }
 
+    public Future<DeserializedHttpResponseGen<FileCabinet>> getFileCabinetFromDefaultWebBasketRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<FileCabinet>getAsync(this, links, "defaultWebBasket", FileCabinet.class, ct);
+    }
+
     public URI getGroupsRelationLink() {
         return MethodInvocation.getLink(this, links, "groups");
     }
@@ -396,12 +408,20 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<Groups>getAsync(this, links, "groups", Groups.class);
     }
 
+    public Future<DeserializedHttpResponseGen<Groups>> getGroupsFromGroupsRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<Groups>getAsync(this, links, "groups", Groups.class, ct);
+    }
+
     public String putToGroupsRelationForString(AssignmentOperation data) {
         return MethodInvocation.<String,AssignmentOperation>put(this, links, "groups", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "AssignmentOperation"), AssignmentOperation.class, null, data));
     }
 
     public Future<DeserializedHttpResponseGen<String>> putToGroupsRelationForStringAsync(AssignmentOperation data) {
         return MethodInvocation.<String, AssignmentOperation >putAsync(this, links, "groups", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "AssignmentOperation"), AssignmentOperation.class, null, data));
+    }
+
+    public Future<DeserializedHttpResponseGen<String>> putToGroupsRelationForStringAsync(AssignmentOperation data, CancellationToken ct) {
+        return MethodInvocation.<String, AssignmentOperation >putAsync(this, links, "groups", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "AssignmentOperation"), AssignmentOperation.class, null, data), ct);
     }
 
     public URI getRolesRelationLink() {
@@ -416,12 +436,20 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<Roles>getAsync(this, links, "roles", Roles.class);
     }
 
+    public Future<DeserializedHttpResponseGen<Roles>> getRolesFromRolesRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<Roles>getAsync(this, links, "roles", Roles.class, ct);
+    }
+
     public String putToRolesRelationForString(AssignmentOperation data) {
         return MethodInvocation.<String,AssignmentOperation>put(this, links, "roles", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "AssignmentOperation"), AssignmentOperation.class, null, data));
     }
 
     public Future<DeserializedHttpResponseGen<String>> putToRolesRelationForStringAsync(AssignmentOperation data) {
         return MethodInvocation.<String, AssignmentOperation >putAsync(this, links, "roles", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "AssignmentOperation"), AssignmentOperation.class, null, data));
+    }
+
+    public Future<DeserializedHttpResponseGen<String>> putToRolesRelationForStringAsync(AssignmentOperation data, CancellationToken ct) {
+        return MethodInvocation.<String, AssignmentOperation >putAsync(this, links, "roles", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "AssignmentOperation"), AssignmentOperation.class, null, data), ct);
     }
 
 

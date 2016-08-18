@@ -5,10 +5,7 @@
  */
 package com.docuware.dev.Extensions;
 
-/**
- *
- * @author Patrick
- */
+
 public class KeyValuePairGen<K, V> {
 
     private K key;

@@ -47,14 +47,15 @@ public class FileNameExtensions {
         }
         return "";
     }
-        /// <summary>
-    /// Creates a name of of the checkout file which contains the encoded document address.
-    /// </summary>
-    /// <param name="fileName">Name of the file.</param>
-    /// <param name="fileCabinetId">The file cabinet identifier.</param>
-    /// <param name="docId">The document identifier.</param>
-    /// <returns>A file name which contains the address of the document.</returns>
-
+  
+    /**
+     * Creates a name of of the checkout file which contains the encoded document address
+     * 
+     * @param fileName  Name of the file
+     * @param fileCabinetId he file cabinet identifier
+     * @param docId The document identifier
+     * @return  A file name which contains the address of the document
+     */
     public static String CreateCheckoutFileName(String fileName, String fileCabinetId, int docId) {
         fileName = MakeFileNameSane(fileName) == null ? "" : MakeFileNameSane(fileName);
         String ext = getExtension(fileName);
@@ -69,29 +70,30 @@ public class FileNameExtensions {
         System.out.println(finalName + ";" + ext);
         return String.format("%s%s", finalName, ext);
     }
-
-        /// <summary>
-    /// Strips the address of a checked out file from its name.
-    /// </summary>
-    /// <param name="encodedName">Encoded name of the file.</param>
-    /// <param name="fileName">Name of the file.</param>
-    /// <param name="fileCabinetId">The file cabinet identifier.</param>
-    /// <param name="docId">The document identifier.</param>
-    /// <exception cref="System.ArgumentException">The file name cannot be decoded by the checkin/checkout encoding/decoding rules.</exception>
+    
+    /**
+     * Strips the address of a checked out file from its name
+     * 
+     * @param encodedName   Encoded name of the file
+     * @param fileName  Name of the file
+     * @param fileCabinetId The file cabinet identifier
+     * @param docId The document identifier
+     */
     public static void DecodeCheckoutFileName(String encodedName, String fileName, String fileCabinetId, int docId) {
         if (!TryDecodeCheckoutFileName(encodedName, fileName, fileCabinetId, docId)) {
             throw new RuntimeException("The file name cannot be decoded by the checkin/checkout encoding/decoding rules. Did you modify the file name?");
         }
     }
 
-        /// <summary>
-    /// Tries decode the file name of a checkout file.
-    /// </summary>
-    /// <param name="encodedName">Name of the encoded.</param>
-    /// <param name="fileName">Name of the file.</param>
-    /// <param name="fileCabinetId">The file cabinet identifier.</param>
-    /// <param name="docId">The document identifier.</param>
-    /// <returns><c>True</c> if the file name could be decoded. In this case the decoded parts of the file name is in the out parameters.</returns>
+     /**
+     * Tries decode the file name of a checkout file
+     * 
+     * @param encodedName   Name of the encoded
+     * @param fileName  Name of the file
+     * @param fileCabinetId The file cabinet identifier
+     * @param docId The document identifier
+     * @return True if the file namee could be decoded. If this case the decoded parts of the file name is in the other parameters
+     */
     public static boolean TryDecodeCheckoutFileName(String encodedName, String fileName, String fileCabinetId,
             int docId) {
         String ext = getExtension(encodedName);
@@ -119,6 +121,14 @@ public class FileNameExtensions {
     /// <param name="fileName">Name of the file.</param>
     /// <returns>The file name without not allowed characters.</returns>
     /// <remarks>This function removes any not supported character from a file name.</remarks>
+    /**
+     *  Makes the file name sane    <p>
+     * 
+     * Remarks: This function removes any not supported character from a file name
+     * 
+     * @param fileName  Name of the file
+     * @return  The file name without not allowed characters
+     */
     public static String MakeFileNameSane(String fileName) {
 
         Character[] invalidChars = {'\u0022', '\u003C', '\u003E', '\u007C', '\u0000', '\u0001', '\u0002', '\u0003', '\u0004', '\u0005', '\u0006', '\u0007',
@@ -133,11 +143,10 @@ public class FileNameExtensions {
             if (fileName.endsWith("\"")) {
                 fileName = fileName.substring(0, fileName.length() - 1);
             }
-            for (int i = 0; i < invalidChars.length; i++) {
+            for (Character invalidChar : invalidChars) {
                 {
-                    fileName = fileName.replace("" + invalidChars[i], "_");
+                    fileName = fileName.replace("" + invalidChar, "_");
                 }
-
                 return fileName;
             }
         }

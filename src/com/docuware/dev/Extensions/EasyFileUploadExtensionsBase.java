@@ -17,15 +17,10 @@ import com.docuware.dev.schema._public.services.platform.Section;
 import com.docuware.dev.schema._public.services.platform.SynchronizationSettings;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.client.apache.ApacheHttpClient;
 import java.io.InputStream;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ws.rs.core.HttpHeaders;
 
 /**
@@ -33,20 +28,19 @@ import javax.ws.rs.core.HttpHeaders;
  * @author Patrick
  */
 public class EasyFileUploadExtensionsBase {
-        /// <summary>
-    /// Uploads the specified file as new document to a basket asynchronously.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="documentMetaData">The document meta data. Currently only the fields are used.</param>
-    /// <param name="file">The file.</param>
-    /// <returns>
-    /// The uploaded document's metadata.
-    /// </returns>
-    /// <remarks>The document is uploaded as optimal as possible. 
-    /// That is, if the document is small enough it is uploaded with a single request. 
-    /// If the file is large, the upload is done chunkwise.
-    /// </remarks>
-
+       
+    /**
+     * Uploads the specified file as new document to a basket asynchronously <p>
+     * 
+     * Remarks: The document is uploaded as optimal as possible. 
+     * That is, if the document is small enough it is uploaded with a single request. 
+     * If the file is large, the upload is done chunkwise.
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param file  The file
+     * @param documentMetaData  The document meta data. Currently only the fields are used
+     * @return  The uploaded document's metadata
+     */
     public static Future<DeserializedHttpResponseGen<Document>> EasyUploadSingleDocumentAsync(FileCabinet fileCabinet, IFileUploadInfo file, Document documentMetaData) {
         if (file.getLength() > EasyUploadDefaults.maxSingleFileChunkSize) {
             return FileCabinetExtensionsBase.chunkUploadDocumentAsync(fileCabinet, documentMetaData, file, EasyUploadDefaults.chunkSize);
@@ -55,19 +49,18 @@ public class EasyFileUploadExtensionsBase {
         }
     }
 
-        /// <summary>
-    /// Uploads the specified file as new document to a basket.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="documentMetaData">The document meta data. Currently only the fields are used.</param>
-    /// <param name="file">The file.</param>
-    /// <returns>
-    /// The uploaded document's metadata.
-    /// </returns>
-    /// <remarks>The document is uploaded as optimal as possible. 
-    /// That is, if the document is small enough it is uploaded with a single request. 
-    /// If the file is large, the upload is done chunkwise.
-    /// </remarks>
+    /**
+     * Uploads the specified file as new document to a basket <p>
+     * 
+     * Remarks: The document is uploaded as optimal as possible. 
+     * That is, if the document is small enough it is uploaded with a single request. 
+     * If the file is large, the upload is done chunkwise.
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param file  The document meta data. Currently only the fields are used
+     * @param documentMetaData  The file
+     * @return  The uploaded document's metadata
+     */
     public static Document EasyUploadSingleDocument(FileCabinet fileCabinet, IFileUploadInfo file, Document documentMetaData) {
         if (file.getLength() > EasyUploadDefaults.maxSingleFileChunkSize) {
             return FileCabinetExtensionsBase.chunkUploadDocument(fileCabinet, documentMetaData, file, EasyUploadDefaults.chunkSize);
@@ -76,19 +69,18 @@ public class EasyFileUploadExtensionsBase {
         }
     }
 
-        /// <summary>
-    /// Uploads the specified file as new document to a basket or to a file cabinet asynchronously.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="file">The file.</param>
-    /// <param name="indexFields">The index fields.</param>
-    /// <returns>
-    /// The uploaded document's metadata.
-    /// </returns>
-    /// <remarks>The document is uploaded as optimal as possible. 
-    /// That is, if the document is small enough it is uploaded with a single request. 
-    /// If the file is large, the upload is done chunkwise.
-    /// </remarks>
+    /**
+     * Uploads the specified file as new document to a basket or to a file cabinet asynchronously <p>
+     * 
+     * Remarks: The document is uploaded as optimal as possible. 
+     * That is, if the document is small enough it is uploaded with a single request. 
+     * If the file is large, the upload is done chunkwise.
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param file  The document meta data. Currently only the fields are used
+     * @param indexFields   The index fields
+     * @return  The uploaded document's metadata
+     */
     public static Future<DeserializedHttpResponseGen<Document>> EasyUploadSingleDocumentAsync(FileCabinet fileCabinet, IFileUploadInfo file, DocumentIndexField... indexFields) {
         Future<DeserializedHttpResponseGen<Document>> result;
         if (indexFields != null && indexFields.length > 0) {
@@ -114,19 +106,18 @@ public class EasyFileUploadExtensionsBase {
         return result;
     }
 
-        /// <summary>
-    /// Uploads the specified file as new document to a basket or to a file cabinet.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="file">The file.</param>
-    /// <param name="indexFields">The index fields.</param>
-    /// <returns>
-    /// The uploaded document's metadata.
-    /// </returns>
-    /// <remarks>The document is uploaded as optimal as possible. 
-    /// That is, if the document is small enough it is uploaded with a single request. 
-    /// If the file is large, the upload is done chunkwise.
-    /// </remarks>
+    /**
+     * Uploads the specified file as new document to a basket or to a file cabinet <p>
+     * 
+     * Remarks: The document is uploaded as optimal as possible. 
+     * That is, if the document is small enough it is uploaded with a single request. 
+     * If the file is large, the upload is done chunkwise.
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param file  The file
+     * @param indexFields   The index fields
+     * @return  The uploaded document's metadata
+     */
     public static Document EasyUploadSingleDocument(FileCabinet fileCabinet, IFileUploadInfo file, DocumentIndexField... indexFields) {
         Document result;
         if (indexFields != null && indexFields.length > 0) {
@@ -152,15 +143,14 @@ public class EasyFileUploadExtensionsBase {
         return result;
     }
 
-        /// <summary>
-    /// Imports the specified file into a file cabinet.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="file">The file.</param>
-    /// <param name="importSettings">The settings of the import.</param>
-    /// <returns>
-    /// Returns the result of the import operation
-    /// </returns>
+    /**
+     * Imports the specified file into a file cabinet
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param file  The file
+     * @param importSettings    The settings of the import
+     * @return  Returns the result of the import operation
+     */
     public static ImportResult EasyImportArchive(FileCabinet fileCabinet, IFileUploadInfo file, ImportSettings importSettings) {
         if (file.getLength() > EasyUploadDefaults.maxSingleFileChunkSize) {
             return FileCabinetExtensionsBase.chunkImportArchive(fileCabinet, importSettings, file, EasyUploadDefaults.chunkSize);
@@ -169,15 +159,14 @@ public class EasyFileUploadExtensionsBase {
         }
     }
 
-		/// <summary>
-    /// Imports asynchronously the specified file into a file cabinet.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="file">The file.</param>
-    /// <param name="importSettings">The settings of the import.</param>
-    /// <returns>
-    /// Returns the result of the import operation
-    /// </returns>
+    /**
+     * Imports asynchronously the specified file into a file cabinet
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param file  The file
+     * @param importSettings    The settings of the import
+     * @return  Returns the result of the import operation
+     */
     public static Future<DeserializedHttpResponseGen<ImportResult>> EasyImportArchiveAsync(FileCabinet fileCabinet, IFileUploadInfo file, ImportSettings importSettings) {
         if (file.getLength() > EasyUploadDefaults.maxSingleFileChunkSize) {
             return FileCabinetExtensionsBase.chunkImportArchiveAsync(fileCabinet, importSettings, file, EasyUploadDefaults.chunkSize);
@@ -186,15 +175,14 @@ public class EasyFileUploadExtensionsBase {
         }
     }
 
-		/// <summary>
-    /// Synchronizes the specified file into a file cabinet.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="file">The file.</param>
-    /// <param name="synchronizeSettings">The settings of the synchronization.</param>
-    /// <returns>
-    /// Returns the result of the synchronization operation.
-    /// </returns>
+    /**
+     * Synchronizes the specified file into a file cabinet
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param file  The file
+     * @param synchronizeSettings   The settings of the synchronization
+     * @return  Returns the result of the synchronization operation
+     */
     public static ImportResult EasySynchronize(FileCabinet fileCabinet, IFileUploadInfo file, SynchronizationSettings synchronizeSettings) {
         if (file.getLength() > EasyUploadDefaults.maxSingleFileChunkSize) {
             return FileCabinetExtensionsBase.chunkSynchronize(fileCabinet, synchronizeSettings, file, EasyUploadDefaults.chunkSize);
@@ -203,15 +191,14 @@ public class EasyFileUploadExtensionsBase {
         }
     }
 
-		/// <summary>
-    /// Synchronizes asynchronously the specified file into a file cabinet.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="file">The file.</param>
-    /// <param name="synchronizeSettings">The settings of the synchronization.</param>
-    /// <returns>
-    /// Returns the result of the synchronization operation.
-    /// </returns>
+    /**
+     * Synchronizes asynchronously the specified file into a file cabinet
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param file  The file
+     * @param synchronizeSettings   The settings of the synchronization
+     * @return  Returns the result of the synchronization operation
+     */
     public static Future<DeserializedHttpResponseGen<ImportResult>> EasySynchronizeAsync(FileCabinet fileCabinet, IFileUploadInfo file, SynchronizationSettings synchronizeSettings) {
         if (file.getLength() > EasyUploadDefaults.maxSingleFileChunkSize) {
             return FileCabinetExtensionsBase.chunkSynchronizeAsync(fileCabinet, synchronizeSettings, file, EasyUploadDefaults.chunkSize);
@@ -220,19 +207,18 @@ public class EasyFileUploadExtensionsBase {
         }
     }
 
-        /// <summary>
-    /// Uploads array of files as new document asynchronously.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="documentMetaData">The document meta data. Currently only the fields are used.</param>
-    /// <param name="files">The files.</param>
-    /// <returns>
-    /// The uploaded document's metadata.
-    /// </returns>
-    /// <remarks>The document is uploaded as optimal as possible. 
-    /// That is, if the document is small enough it is uploaded with a single request. 
-    /// If the file is large, the upload is done chunkwise.
-    /// </remarks>
+    /**
+     * Uploads array of files as new document asynchronously <p>
+     * 
+     * Remarks: The document is uploaded as optimal as possible. 
+     * That is, if the document is small enough it is uploaded with a single request. 
+     * If the file is large, the upload is done chunkwise.
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param files The files
+     * @param documentMetaData  The document meta data. Currently only the fields are used
+     * @return  The uploaded document's metadata
+     */
     public static Future<DeserializedHttpResponseGen<Document>> EasyUploadDocumentAsync(FileCabinet fileCabinet, IFileUploadInfo[] files, Document documentMetaData) {
         long sum = 0;
         for (IFileUploadInfo f : files) {
@@ -245,19 +231,18 @@ public class EasyFileUploadExtensionsBase {
         }
     }
 
-        /// <summary>
-    /// Uploads array of files as new document.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="documentMetaData">The document meta data. Currently only the fields are used.</param>
-    /// <param name="files">The files.</param>
-    /// <returns>
-    /// The uploaded document's metadata.
-    /// </returns>
-    /// <remarks>The document is uploaded as optimal as possible. 
-    /// That is, if the document is small enough it is uploaded with a single request. 
-    /// If the file is large, the upload is done chunkwise.
-    /// </remarks>
+    /**
+     * Uploads array of files as new document <p>
+     * 
+     * Remarks: The document is uploaded as optimal as possible. 
+     * That is, if the document is small enough it is uploaded with a single request. 
+     * If the file is large, the upload is done chunkwise.
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param files The files
+     * @param documentMetaData  The document meta data. Currently only the fields are used
+     * @return  The uploaded document's metadata
+     */
     public static Document EasyUploadDocument(FileCabinet fileCabinet, IFileUploadInfo[] files, Document documentMetaData) {
         long sum = 0;
         for (IFileUploadInfo f : files) {
@@ -270,19 +255,18 @@ public class EasyFileUploadExtensionsBase {
         }
     }
 
-        /// <summary>
-    /// Uploads array of files as new document asynchronously.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="files">The files.</param>
-    /// <param name="indexFields">The index fields.</param>
-    /// <returns>
-    /// The uploaded document's metadata.
-    /// </returns>
-    /// <remarks>The document is uploaded as optimal as possible. 
-    /// That is, if the document is small enough it is uploaded with a single request. 
-    /// If the file is large, the upload is done chunkwise.
-    /// </remarks>
+    /**
+     * Uploads array of files as new document asynchronously <p>
+     * 
+     * Remarks: The document is uploaded as optimal as possible. 
+     * That is, if the document is small enough it is uploaded with a single request. 
+     * If the file is large, the upload is done chunkwise.
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param files The files
+     * @param indexFields   The index fields
+     * @return  The uploaded document's metadata
+     */
     public static Future<DeserializedHttpResponseGen<Document>> EasyUploadDocumentAsync(FileCabinet fileCabinet, IFileUploadInfo[] files, DocumentIndexField... indexFields) {
         long sum = 0;
         for (IFileUploadInfo f : files) {
@@ -309,19 +293,18 @@ public class EasyFileUploadExtensionsBase {
         }
     }
 
-        /// <summary>
-    /// Uploads array of files as new document.
-    /// </summary>
-    /// <param name="fileCabinet">The file cabinet.</param>
-    /// <param name="files">The files.</param>
-    /// <param name="indexFields">The index fields.</param>
-    /// <returns>
-    /// The uploaded document's metadata.
-    /// </returns>
-    /// <remarks>The document is uploaded as optimal as possible. 
-    /// That is, if the document is small enough it is uploaded with a single request. 
-    /// If the file is large, the upload is done chunkwise.
-    /// </remarks>
+    /**
+     * Uploads array of files as new document <p>
+     * 
+     * Remarks: The document is uploaded as optimal as possible. 
+     * That is, if the document is small enough it is uploaded with a single request. 
+     * If the file is large, the upload is done chunkwise.
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param files The files
+     * @param indexFields   The index fields
+     * @return  The uploaded document's metadata
+     */
     public static Document EasyUploadDocument(FileCabinet fileCabinet, IFileUploadInfo[] files, DocumentIndexField... indexFields) {
         long sum = 0;
         for (IFileUploadInfo f : files) {
@@ -348,19 +331,18 @@ public class EasyFileUploadExtensionsBase {
         }
     }
 
-        /// <summary>
-    /// Uploads array of files as new document via a store dialog asynchronously.
-    /// </summary>
-    /// <param name="dialogInfo">The store dialog.</param>
-    /// <param name="documentMetaData">The document meta data. Currently only the fields are used.</param>
-    /// <param name="files">The array of files.</param>
-    /// <returns>
-    /// The uploaded document's metadata.
-    /// </returns>
-    /// <remarks>The document is uploaded as optimal as possible. 
-    /// That is, if the document is small enough it is uploaded with a single request. 
-    /// If the file is large, the upload is done chunkwise.
-    /// </remarks>
+    /**
+     * Uploads array of files as new document via a store dialog asynchronously <p>
+     * 
+     * Remarks: The document is uploaded as optimal as possible. 
+     * That is, if the document is small enough it is uploaded with a single request. 
+     * If the file is large, the upload is done chunkwise.
+     * 
+     * @param dialogInfo    The store dialog
+     * @param files The array of files
+     * @param documentMetaData  The document meta data. Currently only the fields are used
+     * @return  The uploaded document's metadata
+     */
     public static Future<DeserializedHttpResponseGen<Document>> EasyUploadDocumentAsync(DialogInfo dialogInfo, IFileUploadInfo[] files, Document documentMetaData) {
         long sum = 0;
         for (IFileUploadInfo f : files) {
@@ -373,19 +355,18 @@ public class EasyFileUploadExtensionsBase {
         }
     }
 
-        /// <summary>
-    /// Uploads array of files as new document via a store dialog.
-    /// </summary>
-    /// <param name="dialogInfo">The store dialog.</param>
-    /// <param name="documentMetaData">The document meta data. Currently only the fields are used.</param>
-    /// <param name="files">The array of files.</param>
-    /// <returns>
-    /// The uploaded document's metadata.
-    /// </returns>
-    /// <remarks>The document is uploaded as optimal as possible. 
-    /// That is, if the document is small enough it is uploaded with a single request. 
-    /// If the file is large, the upload is done chunkwise.
-    /// </remarks>
+    /**
+     * Uploads array of files as new document via a store dialog <p>
+     * 
+     * Remarks: The document is uploaded as optimal as possible. 
+     * That is, if the document is small enough it is uploaded with a single request. 
+     * If the file is large, the upload is done chunkwise.
+     * 
+     * @param dialogInfo    The store dialog
+     * @param files The array of files
+     * @param documentMetaData   The document meta data. Currently only the fields are used
+     * @return  The uploaded document's metadata
+     */
     public static Document EasyUploadDocument(DialogInfo dialogInfo, IFileUploadInfo[] files, Document documentMetaData) {
         long sum = 0;
         for (IFileUploadInfo f : files) {
@@ -418,22 +399,28 @@ public class EasyFileUploadExtensionsBase {
     /// <param name="document">The document.</param>
     /// <param name="file">The file.</param>
     /// <returns>The metadata of the added section.</returns>
+    /**
+     * Uploads the specified file as new section to the specified document
+     * 
+     * @param document  The document
+     * @param file  The file
+     * @return  The metadata of the added section
+     */
     public static Section EasyUploadFile(Document document, IFileUploadInfo file) {
         try {
             return EasyUploadFileAsync(document, file).get().getContent();
-        } catch (Exception e) {
+        } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e.getMessage());
         }
     }
 
-        /// <summary>
-    /// Uploads the specified file as new section to the specified document asynchronously.
-    /// </summary>
-    /// <param name="section">The section to modify.</param>
-    /// <param name="file">The file marking the new content of the section.</param>
-    /// <returns>
-    /// The metadata of the modified section.
-    /// </returns>
+    /**
+     * Uploads the specified file as new section to the specified document asynchronously
+     * 
+     * @param section   The section to modify
+     * @param file  The file marking the new content of the section
+     * @return  The metadata of the modified section
+     */
     public static Future<DeserializedHttpResponseGen<Section>> EasyReplaceFileAsync(Section section, IFileUploadInfo file) {
         if (file.getLength() > EasyUploadDefaults.maxSingleFileChunkSize) {
             return FileCabinetExtensionsBase.chunkUploadSectionAsync(section, file, EasyUploadDefaults.chunkSize);
@@ -446,18 +433,17 @@ public class EasyFileUploadExtensionsBase {
         }
     }
 
-        /// <summary>
-    /// Uploads the specified file as new section to the specified document.
-    /// </summary>
-    /// <param name="section">The section to modify.</param>
-    /// <param name="file">The file marking the new content of the section.</param>
-    /// <returns>
-    /// The metadata of the modified section.
-    /// </returns>
+    /**
+     * Uploads the specified file as new section to the specified document
+     * 
+     * @param section   The section to modify
+     * @param file  The file marking the new content of the section
+     * @return  The metadata of the modified section
+     */
     public static Section EasyReplaceFile(Section section, IFileUploadInfo file) {
         try {
             return EasyReplaceFileAsync(section, file).get().getContent();
-        } catch (Exception e) {
+        } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -475,7 +461,7 @@ public class EasyFileUploadExtensionsBase {
                 return new DeserializedHttpResponseGen(resp, e);
                    }
             else {
-                return new DeserializedHttpResponseGen<Section>(resp, resp.getEntity(Section.class));}
+                return new DeserializedHttpResponseGen<>(resp, resp.getEntity(Section.class));}
             } catch (Exception e) {
                 throw new RuntimeException(e.getMessage());
             }

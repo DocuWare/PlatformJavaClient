@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.16 um 09:04:54 AM CEST 
+// Generiert: 2016.08.18 um 09:47:39 AM CEST 
 //
 
 
@@ -119,6 +119,10 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<URI>getAsync(this, links, "htmlTestClient", URI.class);
     }
 
+    public Future<DeserializedHttpResponseGen<URI>> getURIFromHtmlTestClientRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<URI>getAsync(this, links, "htmlTestClient", URI.class, ct);
+    }
+
     public URI getReflectStampPlacementRelationLink() {
         return MethodInvocation.getLink(this, links, "reflectStampPlacement");
     }
@@ -129,6 +133,10 @@ private HttpClientProxy proxy;//test
 
     public Future<DeserializedHttpResponseGen<StampPlacement>> postToReflectStampPlacementRelationForStampPlacementAsync(StampPlacement data) {
         return MethodInvocation.<StampPlacement, StampPlacement >postAsync(this, links, "reflectStampPlacement", StampPlacement.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampPlacement"), StampPlacement.class, null, data));
+    }
+
+    public Future<DeserializedHttpResponseGen<StampPlacement>> postToReflectStampPlacementRelationForStampPlacementAsync(StampPlacement data, CancellationToken ct) {
+        return MethodInvocation.<StampPlacement, StampPlacement >postAsync(this, links, "reflectStampPlacement", StampPlacement.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampPlacement"), StampPlacement.class, null, data), ct);
     }
 
     public URI getReflectDialogQueryRelationLink() {
@@ -143,6 +151,10 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<DialogExpression, DialogExpression >postAsync(this, links, "reflectDialogQuery", DialogExpression.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DialogExpression"), DialogExpression.class, null, data));
     }
 
+    public Future<DeserializedHttpResponseGen<DialogExpression>> postToReflectDialogQueryRelationForDialogExpressionAsync(DialogExpression data, CancellationToken ct) {
+        return MethodInvocation.<DialogExpression, DialogExpression >postAsync(this, links, "reflectDialogQuery", DialogExpression.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DialogExpression"), DialogExpression.class, null, data), ct);
+    }
+
     public URI getQueryStringRelationLink() {
         return MethodInvocation.getLink(this, links, "queryString");
     }
@@ -153,6 +165,10 @@ private HttpClientProxy proxy;//test
 
     public Future<DeserializedHttpResponseGen<URI>> getURIFromQueryStringRelationAsync() {
         return MethodInvocation.<URI>getAsync(this, links, "queryString", URI.class);
+    }
+
+    public Future<DeserializedHttpResponseGen<URI>> getURIFromQueryStringRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<URI>getAsync(this, links, "queryString", URI.class, ct);
     }
 
 

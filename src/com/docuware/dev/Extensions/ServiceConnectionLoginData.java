@@ -14,29 +14,32 @@ import javax.ws.rs.core.MultivaluedMap;
  * @author Patrick
  */
 public class ServiceConnectionLoginData extends ServiceConnectionLicenseBoundData {
-        /// <summary>
-    /// Gets or sets the organization which the client wants to log in.
-    /// </summary>
-    /// <remarks>In case there is only a single organization in the system or in case the client wants to connect with a system account, the value can be set to null.
-    /// </remarks>
-    /// <value>
-    /// The organization.
-    /// </value>
-
+        
     public String Organization;
 
+    /**
+     * Gets the organization which the client wants to log in
+     * @return The organization
+     */
     public String getOrganization() {
         return Organization;
     }
 
+    /**
+     * Sets the organization <p>
+     * 
+     * Remarks: In case there is only a single organization in the system or in case the client wants to connect with a system account, the value can be set to null
+     * @param Organization The organization which the client wants to login
+     */
     public void setOrganization(String Organization) {
         this.Organization = Organization;
     }
 
-        /// <summary>
-    /// Adds the login form data.
-    /// </summary>
-    /// <param name="formData">The form data.</param>
+    /**
+     * Add the login form data
+     * @param formData  The form data
+     */
+    @Override
     void AddLoginFormData(MultivaluedMap<String, String> formData) {
         super.AddLoginFormData(formData);
         if (Organization != null && !Organization.isEmpty()) {

@@ -19,7 +19,7 @@ class UriTemplateResolver {
 
     private static final String _UriReservedSymbols = ":/?#[]@!$&'()*+,;=";
     private static final String _UriUnreservedSymbols = "-._~";
-    private static HashMap<Character, OperatorInfo> _Operators = new HashMap<Character, OperatorInfo>();
+    private static final HashMap<Character, OperatorInfo> _Operators = new HashMap<>();
 
     private static void initiateOperators() {
         _Operators.put('\u0000', new OperatorInfo(true, "", ',', false, "", false));
@@ -32,8 +32,8 @@ class UriTemplateResolver {
         _Operators.put('#', new OperatorInfo(false, "#", ',', false, "", true));
     }
 
-    private String _template;
-    private HashMap<String, Object> _Parameters = new HashMap<String, Object>();
+    private final String _template;
+    private final HashMap<String, Object> _Parameters = new HashMap<>();
 
     private enum States {
 
@@ -50,25 +50,9 @@ class UriTemplateResolver {
     public void SetParameter(String name, Object value) {
         _Parameters.put(name, value);
     }
-    /*
-     public void SetParameter(string name, string value)
-     {
-     _Parameters[name] = value;
-     }
-
-     public void SetParameter(string name, IEnumerable<string> value)
-     {
-     _Parameters[name] = value;
-     }
-
-     public void SetParameter(string name, IDictionary<string, string> value)
-     {
-     _Parameters[name] = value;
-     }
-     */
 
     public Iterable<String> GetParameterNames() {
-        List<String> parameterNames = new LinkedList<String>();
+        List<String> parameterNames = new LinkedList<>();
         _ParameterNames = parameterNames;
         Resolve();
         _ParameterNames = null;

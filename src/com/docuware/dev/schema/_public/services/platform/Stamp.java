@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.16 um 09:04:54 AM CEST 
+// Generiert: 2016.08.18 um 09:47:39 AM CEST 
 //
 
 
@@ -603,12 +603,20 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<URI>getAsync(this, links, "asBitmap", URI.class);
     }
 
+    public Future<DeserializedHttpResponseGen<URI>> getURIFromAsBitmapRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<URI>getAsync(this, links, "asBitmap", URI.class, ct);
+    }
+
     public String postToAsBitmapRelationForString(FormFieldValues data) {
         return MethodInvocation.<String,FormFieldValues>post(this, links, "asBitmap", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampFormFields"), FormFieldValues.class, null, data));
     }
 
     public Future<DeserializedHttpResponseGen<String>> postToAsBitmapRelationForStringAsync(FormFieldValues data) {
         return MethodInvocation.<String, FormFieldValues >postAsync(this, links, "asBitmap", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampFormFields"), FormFieldValues.class, null, data));
+    }
+
+    public Future<DeserializedHttpResponseGen<String>> postToAsBitmapRelationForStringAsync(FormFieldValues data, CancellationToken ct) {
+        return MethodInvocation.<String, FormFieldValues >postAsync(this, links, "asBitmap", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampFormFields"), FormFieldValues.class, null, data), ct);
     }
 
     public URI getAsSvgRelationLink() {
@@ -623,12 +631,20 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<URI>getAsync(this, links, "asSvg", URI.class);
     }
 
+    public Future<DeserializedHttpResponseGen<URI>> getURIFromAsSvgRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<URI>getAsync(this, links, "asSvg", URI.class, ct);
+    }
+
     public String postToAsSvgRelationForString(FormFieldValues data) {
         return MethodInvocation.<String,FormFieldValues>post(this, links, "asSvg", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampFormFields"), FormFieldValues.class, null, data));
     }
 
     public Future<DeserializedHttpResponseGen<String>> postToAsSvgRelationForStringAsync(FormFieldValues data) {
         return MethodInvocation.<String, FormFieldValues >postAsync(this, links, "asSvg", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampFormFields"), FormFieldValues.class, null, data));
+    }
+
+    public Future<DeserializedHttpResponseGen<String>> postToAsSvgRelationForStringAsync(FormFieldValues data, CancellationToken ct) {
+        return MethodInvocation.<String, FormFieldValues >postAsync(this, links, "asSvg", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampFormFields"), FormFieldValues.class, null, data), ct);
     }
 
 

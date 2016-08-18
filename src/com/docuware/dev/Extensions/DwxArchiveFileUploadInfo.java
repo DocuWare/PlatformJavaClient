@@ -10,8 +10,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -28,6 +26,7 @@ public class DwxArchiveFileUploadInfo implements IFileUploadInfo {
     public DwxArchiveFileUploadInfo() {
     }
 
+    @Override
     public InputStream createStream() {
         try {
             return new FileInputStream(_file);
@@ -36,19 +35,23 @@ public class DwxArchiveFileUploadInfo implements IFileUploadInfo {
         }
     }
 
+    @Override
     public String getContentType() {
         return "application/vnd.docuware.platform.filescontainer+dwx";
     }
 
+    @Override
     public String getName() {
         return "dwx.dwx";
     }
 
+    @Override
     public long getLength() {
         return _file.length();
 
     }
 
+    @Override
     public Date getLastWriteTimeUtc() {
         return new Date();
     }

@@ -9,7 +9,7 @@ package com.docuware.dev.Extensions;
  *
  * @author Patrick
  */
-public class OperatorInfo {
+class OperatorInfo {
 
     private boolean Default;
     private String First;

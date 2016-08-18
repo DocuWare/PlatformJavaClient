@@ -14,16 +14,15 @@ import com.sun.jersey.client.apache.ApacheHttpClientHandler;
 import com.sun.jersey.client.apache.config.DefaultApacheHttpClientConfig;
 import com.sun.jersey.multipart.impl.MultiPartWriter;
 import java.net.URI;
-import java.util.concurrent.ForkJoinPool;
 import javax.ws.rs.core.HttpHeaders;
 
 public class PlatformClient {
 
-    private ApacheHttpClient client;
-    private LinkResolver linkResolver;
-    private WebResource webResource;
+    private final ApacheHttpClient client;
+    private final LinkResolver linkResolver;
+    private final WebResource webResource;
 
-    private ServiceDescription serviceDescription;
+    private final ServiceDescription serviceDescription;
 
     public LinkResolver getLinkResolver() {
         return linkResolver;
@@ -69,8 +68,8 @@ public class PlatformClient {
 
             @Override
             public ClientResponse handle(ClientRequest cr) throws ClientHandlerException {
-                for (int i = 0; i < UserAgent.length; i++) {
-                    cr.getHeaders().add(HttpHeaders.USER_AGENT, UserAgent[i]);
+                for (String UserAgent1 : UserAgent) {
+                    cr.getHeaders().add(HttpHeaders.USER_AGENT, UserAgent1);
                 }
                 return client.handle(cr);
             }
@@ -83,8 +82,8 @@ public class PlatformClient {
 
             @Override
             public ClientResponse handle(ClientRequest cr) throws ClientHandlerException {
-                for (int i = 0; i < AcceptLanguage.length; i++) {
-                    cr.getHeaders().add(HttpHeaders.ACCEPT_LANGUAGE, AcceptLanguage[i]);
+                for (String AcceptLanguage1 : AcceptLanguage) {
+                    cr.getHeaders().add(HttpHeaders.ACCEPT_LANGUAGE, AcceptLanguage1);
                 }
                 return client.handle(cr);
             }
@@ -115,26 +114,6 @@ public class PlatformClient {
         HttpClientProxy proxy = new HttpClientProxy(this);
         serviceDescription.setProxy(proxy);
     }
-    /*
-     private  HttpClientProxy CreateHttpClient(URI serviceUri, ApacheHttpClientHandler httpClientHandler)
-     {
-     PlatformClient  cl = createPlatformClient(serviceUri, httpClientHandler);
-     HttpClientProxy httpClient = new HttpClientProxy(cl);
-     return httpClient;
-     }
-         
-     private  HttpClientProxy CreateHttpClient(URI serviceUri)
-     {
-     PlatformClient cl=  new PlatformClient(serviceUri.toString());
-     HttpClientProxy httpClient = new HttpClientProxy(cl);
-     return httpClient;
-     }
-         
-     private PlatformClient createPlatformClient(URI serviceUri, ApacheHttpClientHandler httpClientHandler) {
-     ApacheHttpClient proxyApacheClient = new ApacheHttpClient(httpClientHandler);
-     PlatformClient cl = new PlatformClient(serviceUri.toString(), proxyApacheClient);
-     return cl;
-     }*/
 
     public ServiceDescription getServiceDescription() {
         return serviceDescription;
@@ -148,7 +127,4 @@ public class PlatformClient {
         return client.asyncResource(uri);
     }
 
-    /*
-     * Example on how to logon to DocuWare
-     */
 }

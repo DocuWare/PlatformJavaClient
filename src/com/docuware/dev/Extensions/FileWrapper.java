@@ -5,22 +5,19 @@
  */
 package com.docuware.dev.Extensions;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- *
- * @author Patrick
+ * 
+ * A wrapper for files. Wrapped files can be treated as IFileUploadInfo object
  */
 public class FileWrapper implements IFileUploadInfo {
 
-    private File file;
+    private final File file;
 
     FileWrapper(File fileInfo) {
         this.file = fileInfo;
@@ -50,6 +47,7 @@ public class FileWrapper implements IFileUploadInfo {
         return new FileWrapper(fileInfo);
     }
 
+    @Override
     public InputStream createStream() {
         FileInputStream fis = null;
         try {
@@ -59,27 +57,27 @@ public class FileWrapper implements IFileUploadInfo {
         return fis;
     }
 
+    @Override
     public String getContentType() {
         int posOfDot = file.getName().lastIndexOf(".");
         String extension = file.getName().substring(posOfDot);
         return ContentTypeMapping.getDefault().getContentTypeFromFileExtension(extension);
     }
 
+    @Override
     public String getName() {
         return file.getName();
     }
 
+    @Override
     public long getLength() {
         return file.length();
     }
 
+    @Override
     public Date getLastWriteTimeUtc() {
         Long t = file.lastModified();
         Date d = new Date(t);
         return d;
     }
-
-    /// <summary>
-    /// Some wrappers for file info structures.
-    /// </summary>
 }

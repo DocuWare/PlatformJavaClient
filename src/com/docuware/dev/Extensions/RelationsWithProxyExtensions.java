@@ -12,12 +12,13 @@ import java.net.URI;
  * @author Patrick
  */
 public class RelationsWithProxyExtensions {
-        /// <summary>
-    /// Gets the base URI of the specified relations instance.
-    /// </summary>
-    /// <param name="relationsWithProxy">The relations with proxy.</param>
-    /// <returns>The base URI of the specified relations instance.</returns>
-
+      
+    /**
+     * Gets the base Uri of the specified relations instance
+     * 
+     * @param relationsWithProxy The relations with proxy
+     * @return The base Uri lf the specified relations instance
+     */
     static public URI getBaseUri(IRelationsWithProxy relationsWithProxy) {
         return relationsWithProxy.getProxy().getBaseAddress();
     }

@@ -26,58 +26,47 @@ public class HttpClientRequestException extends RuntimeException
         private String method;
         private String uri;
 
-        /// <summary>
-        /// Gets the status code.
-        /// </summary>
-        /// <value>
-        /// The status code.
-        /// </value>
+        /**
+         * Gets the status code
+         * @return  The status code
+         */
         public int getStatusCode()
         {
             return statusCode;
         }
 
-
-        /// <summary>
-        /// Gets the reason phrase.
-        /// </summary>
-        /// <value>
-        /// The reason phrase.
-        /// </value>
+        /**
+         * Gets the reason phrase 
+         * @return  The reason phrase
+         */
         public String getReasonPhrase()
         {
             return reasonPhrase;
         }
 
-
-        /// <summary>
-        /// Gets the method.
-        /// </summary>
-        /// <value>
-        /// The method.
-        /// </value>
+        /**
+         * Gets the method
+         * @return  The method 
+         */
         public String getMethod()
         {
            return method; 
         }
 
-
-        /// <summary>
-        /// Gets the URI.
-        /// </summary>
-        /// <value>
-        /// The URI.
-        /// </value>
+        /**
+         * Gets the URI
+         * @return  The URI
+         */
         public String getUri()
         {
            return uri;
         }
 
-
-        /// <summary>
-        /// Gets a message that describes the current exception.
-        /// </summary>
-        /// <returns>The error message that explains the reason for the exception, or an empty string("").</returns>
+        /**
+         * Gets a message that describes the current exception
+         * @return  The error message that explains the reason for the exception, or an empty string("")
+         */
+        @Override
         public String getMessage()
         {
             {
@@ -97,15 +86,11 @@ public class HttpClientRequestException extends RuntimeException
             }
         }
 
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        /// <PermissionSet>
-        ///   <IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" PathDiscovery="*AllFiles*" />
-        ///   </PermissionSet>
+        /**
+         * Returns a String that represents this instance
+         * @return  A String that represents this instance
+         */
+        @Override
         public String toString()
         {
             return super.toString();
@@ -132,23 +117,19 @@ public class HttpClientRequestException extends RuntimeException
             return sb;
         }
 
-        /// <summary>
-        /// Gets the error.
-        /// </summary>
-        /// <value>
-        /// The error.
-        /// </value>
+        /**
+         * Gets the error
+         * @return  The error
+         */
         public Error getError()
         {
                 return error;
         }
 
-        /// <summary>
-        /// Gets the HTML error.
-        /// </summary>
-        /// <value>
-        /// The HTML error.
-        /// </value>
+        /**
+         * Get the HTML error
+         * @return The HTML error
+         */
         public String getHtmlError()
         {
                 return htmlError;
@@ -158,7 +139,6 @@ public class HttpClientRequestException extends RuntimeException
         HttpClientRequestException extractErrorFromResponseAsync(ClientResponse httpResponseMessage)
         {
             String ct = httpResponseMessage.getHeaders().getFirst("Content-Type");
-           // HttpClientRequestException ex = new HttpClientRequestException();
             this.error = httpResponseMessage.getEntity(Error.class);
             this.statusCode = httpResponseMessage.getStatus();
             this.reasonPhrase = httpResponseMessage.getStatusInfo().toString();
@@ -169,42 +149,46 @@ public class HttpClientRequestException extends RuntimeException
         
         private HttpClientRequestException() {}
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HttpClientRequestException" /> class.
-        /// </summary>
-        /// <param name="statusCode">The status code.</param>
-        /// <param name="reasonPhrase">The reason phrase.</param>
+        /**
+         * Initializes a new instance of the HttpClientRequestExeption class
+         * 
+         * @param statusCode    The status code
+         * @param reasonPhrase  The reason phrase
+         */
         HttpClientRequestException(int statusCode, String reasonPhrase) {
              super(statusCode + " " + reasonPhrase);
         
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HttpClientRequestException" /> class.
-        /// </summary>
-        /// <param name="messageText">The message text.</param>
+        /**
+         * Initializes a new instance of the HttpClientRequestExeption class
+         * 
+         * @param messageText   The message text
+         */
         HttpClientRequestException(String messageText){
            super(messageText);
         }
 
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HttpClientRequestException" /> class.
-        /// </summary>
-        /// <param name="statusCode">The status code.</param>
-        /// <param name="reasonPhrase">The reason phrase.</param>
-        /// <param name="inner">The inner.</param>
+        /**
+         * Initializes a new instance of the HttpClientRequestExeption class
+         * 
+         * @param statusCode    The status code
+         * @param reasonPhrase  The reason phrase
+         * @param inner     The inner
+         */
         HttpClientRequestException(int statusCode, String reasonPhrase, Exception inner)
         {
             super(statusCode + " " + reasonPhrase);
         }
 
-        /// <summary>
-        /// Creates the specified message.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        /// <param name="inner">The inner exception.</param>
-        /// <returns>A task which creates the message.</returns>
+        /**
+         * Creates the specified message
+         * 
+         * @param message   The message
+         * @param inner The inner exception
+         * @return  A future which creates the message
+         */
         public static HttpClientRequestException create(ClientResponse message, Exception inner)
         {
             int statusCode = message.getStatus();
@@ -213,22 +197,28 @@ public class HttpClientRequestException extends RuntimeException
             return result.extractErrorFromResponseAsync(message);
         }
         
+        /**
+         * Creates the specified message
+         * 
+         * @param message   The message
+         * @return  A future which creates the message
+         */
         public static HttpClientRequestException create(ClientResponse message)
         {
             int statusCode = message.getStatus();
             String reasonPhrase = message.getStatusInfo().toString();
             HttpClientRequestException result = new HttpClientRequestException(statusCode, reasonPhrase);          
             HttpClientRequestException e = result.extractErrorFromResponseAsync(message);
-           // System.out.println(e.getMessage());
             return e;
         }
 
-        /// <summary>
-        /// Creates the specified message.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        /// <param name="messageText">The message text.</param>
-        /// <returns></returns>
+        /**
+         * Creates the specified message
+         * 
+         * @param message   The message
+         * @param messageText   The message text
+         * @return 
+         */
         public static HttpClientRequestException create(ClientResponse message,String messageText)
         {
             HttpClientRequestException result = new HttpClientRequestException(messageText);

@@ -34,6 +34,7 @@ public class EasyCheckoutResult implements Closeable {
         response = data;
     }
 
+    @Override
     public void close() {
         this.response.close();
     }

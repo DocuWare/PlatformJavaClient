@@ -10,7 +10,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -21,7 +20,7 @@ import java.util.Queue;
  */
 public class TarStream extends InputStream {
 
-    private Queue<InputStream> streams;
+    private final Queue<InputStream> streams;
     private InputStream current;
     private long length;
 
@@ -31,7 +30,7 @@ public class TarStream extends InputStream {
          * The end of an archive is marked by at least two consecutive zero-filled records. The final block of an archive is padded out to full length with zeros.
          * See https://en.wikipedia.org/wiki/Tar_(computing) for details on file format.
          */
-        ArrayList<ByteArrayInputStream> streamList = new ArrayList<ByteArrayInputStream>();
+        ArrayList<ByteArrayInputStream> streamList = new ArrayList<>();
         for (IFileUploadInfo file : files) {
             ByteArrayOutputStream headerStream = new ByteArrayOutputStream();
             ByteArrayOutputStream padStream = new ByteArrayOutputStream();
@@ -61,13 +60,14 @@ public class TarStream extends InputStream {
             streamList.add(entryInStream);
             streamList.add(padInStream);
         }
-        streams = new LinkedList<InputStream>(streamList);
+        streams = new LinkedList<>(streamList);
     }
 
     public boolean canRead() {
         return true;
     }
 
+    @Override
     public int available() {
         return (int) length;
     }
@@ -76,6 +76,7 @@ public class TarStream extends InputStream {
         return this.length;
     }
 
+    @Override
     public int read(byte[] buffer, int offset, int count) throws IOException {
         if (this.current == null && streams.size() == 0) {
             return -1;
@@ -114,6 +115,7 @@ public class TarStream extends InputStream {
         stream.write(new byte[zeros], 0, zeros);
     }
 
+    @Override
     public int read() throws IOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.16 um 09:04:54 AM CEST 
+// Generiert: 2016.08.18 um 09:47:39 AM CEST 
 //
 
 
@@ -236,6 +236,10 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<DocumentsQueryResult>getAsync(this, links, "result", DocumentsQueryResult.class);
     }
 
+    public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> getDocumentsQueryResultFromResultRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<DocumentsQueryResult>getAsync(this, links, "result", DocumentsQueryResult.class, ct);
+    }
+
     public URI getDialogExpressionRelationLink() {
         return MethodInvocation.getLink(this, links, "dialogExpression");
     }
@@ -246,6 +250,10 @@ private HttpClientProxy proxy;//test
 
     public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> postToDialogExpressionRelationForDocumentsQueryResultAsync(DialogExpression data) {
         return MethodInvocation.<DocumentsQueryResult, DialogExpression >postAsync(this, links, "dialogExpression", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DialogExpression"), DialogExpression.class, null, data));
+    }
+
+    public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> postToDialogExpressionRelationForDocumentsQueryResultAsync(DialogExpression data, CancellationToken ct) {
+        return MethodInvocation.<DocumentsQueryResult, DialogExpression >postAsync(this, links, "dialogExpression", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DialogExpression"), DialogExpression.class, null, data), ct);
     }
 
     public URI getTableResultRelationLink() {
@@ -260,6 +268,10 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<DocumentsQueryTableResult>getAsync(this, links, "tableResult", DocumentsQueryTableResult.class);
     }
 
+    public Future<DeserializedHttpResponseGen<DocumentsQueryTableResult>> getDocumentsQueryTableResultFromTableResultRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<DocumentsQueryTableResult>getAsync(this, links, "tableResult", DocumentsQueryTableResult.class, ct);
+    }
+
     public URI getTableDialogExpressionRelationLink() {
         return MethodInvocation.getLink(this, links, "tableDialogExpression");
     }
@@ -272,6 +284,10 @@ private HttpClientProxy proxy;//test
         return MethodInvocation.<DocumentsQueryTableResult, DialogExpression >postAsync(this, links, "tableDialogExpression", DocumentsQueryTableResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DialogExpression"), DialogExpression.class, null, data));
     }
 
+    public Future<DeserializedHttpResponseGen<DocumentsQueryTableResult>> postToTableDialogExpressionRelationForDocumentsQueryTableResultAsync(DialogExpression data, CancellationToken ct) {
+        return MethodInvocation.<DocumentsQueryTableResult, DialogExpression >postAsync(this, links, "tableDialogExpression", DocumentsQueryTableResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DialogExpression"), DialogExpression.class, null, data), ct);
+    }
+
     public URI getBatchUpdateRelationLink() {
         return MethodInvocation.getLink(this, links, "batchUpdate");
     }
@@ -282,6 +298,10 @@ private HttpClientProxy proxy;//test
 
     public Future<DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>> postToBatchUpdateRelationForBatchUpdateIndexFieldsResultAsync(BatchUpdateProcess data) {
         return MethodInvocation.<BatchUpdateIndexFieldsResult, BatchUpdateProcess >postAsync(this, links, "batchUpdate", BatchUpdateIndexFieldsResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "BatchUpdateProcess"), BatchUpdateProcess.class, null, data));
+    }
+
+    public Future<DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>> postToBatchUpdateRelationForBatchUpdateIndexFieldsResultAsync(BatchUpdateProcess data, CancellationToken ct) {
+        return MethodInvocation.<BatchUpdateIndexFieldsResult, BatchUpdateProcess >postAsync(this, links, "batchUpdate", BatchUpdateIndexFieldsResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "BatchUpdateProcess"), BatchUpdateProcess.class, null, data), ct);
     }
 
 
