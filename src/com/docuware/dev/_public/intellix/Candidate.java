@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.18 um 09:47:39 AM CEST 
+// Generiert: 2016.08.22 um 03:45:48 PM CEST 
 //
 
 
@@ -19,7 +19,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
@@ -72,7 +72,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "line",
     "index",
     "length",
-    "decimalOrDateOrText",
+    "decimal",
+    "date",
+    "text",
     "foundWithLanguages",
     "correctLanguageTo",
     "impliesCultures"
@@ -99,12 +101,13 @@ public class Candidate  {
     protected int index;
     @XmlElement(name = "Length")
     protected int length;
-    @XmlElements({
-        @XmlElement(name = "Decimal", type = BigDecimal.class),
-        @XmlElement(name = "Date", type = XMLGregorianCalendar.class),
-        @XmlElement(name = "Text", type = String.class)
-    })
-    protected Object decimalOrDateOrText;
+    @XmlElement(name = "Decimal")
+    protected BigDecimal decimal;
+    @XmlElement(name = "Date")
+    @XmlSchemaType(name = "date")
+    protected XMLGregorianCalendar date;
+    @XmlElement(name = "Text")
+    protected String text;
     @XmlElement(name = "FoundWithLanguages")
     protected List<String> foundWithLanguages;
     @XmlElement(name = "CorrectLanguageTo")
@@ -297,31 +300,75 @@ public class Candidate  {
     }
 
     /**
-     * Ruft den Wert der decimalOrDateOrText-Eigenschaft ab.
+     * Ruft den Wert der decimal-Eigenschaft ab.
      * 
      * @return
      *     possible object is
      *     {@link BigDecimal }
-     *     {@link XMLGregorianCalendar }
-     *     {@link String }
      *     
      */
-    public Object getDecimalOrDateOrText() {
-        return decimalOrDateOrText;
+    public BigDecimal getDecimal() {
+        return decimal;
     }
 
     /**
-     * Legt den Wert der decimalOrDateOrText-Eigenschaft fest.
+     * Legt den Wert der decimal-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
      *     {@link BigDecimal }
+     *     
+     */
+    public void setDecimal(BigDecimal value) {
+        this.decimal = value;
+    }
+
+    /**
+     * Ruft den Wert der date-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
      *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public XMLGregorianCalendar getDate() {
+        return date;
+    }
+
+    /**
+     * Legt den Wert der date-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public void setDate(XMLGregorianCalendar value) {
+        this.date = value;
+    }
+
+    /**
+     * Ruft den Wert der text-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
      *     {@link String }
      *     
      */
-    public void setDecimalOrDateOrText(Object value) {
-        this.decimalOrDateOrText = value;
+    public String getText() {
+        return text;
+    }
+
+    /**
+     * Legt den Wert der text-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setText(String value) {
+        this.text = value;
     }
 
     /**

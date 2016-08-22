@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.18 um 09:47:39 AM CEST 
+// Generiert: 2016.08.22 um 03:45:48 PM CEST 
 //
 
 
@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="StoreDialogs" type="{http://dev.docuware.com/schema/public/services/platform}FavoriteItems"/>
  *         &lt;element name="SearchDialogs" type="{http://dev.docuware.com/schema/public/services/platform}FavoriteItems"/>
  *         &lt;element name="TaskLists" type="{http://dev.docuware.com/schema/public/services/platform}FavoriteItems"/>
+ *         &lt;element name="TreeViews" type="{http://dev.docuware.com/schema/public/services/platform}FavoriteItems"/>
  *         &lt;element name="MultiFCSearches" type="{http://dev.docuware.com/schema/public/services/platform}FavoriteItems"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -48,6 +49,7 @@ import javax.xml.bind.annotation.XmlType;
     "storeDialogs",
     "searchDialogs",
     "taskLists",
+    "treeViews",
     "multiFCSearches"
 })
 public class Favorites  {
@@ -60,6 +62,8 @@ public class Favorites  {
     protected FavoriteItems searchDialogs;
     @XmlElement(name = "TaskLists", required = true)
     protected FavoriteItems taskLists;
+    @XmlElement(name = "TreeViews", required = true)
+    protected FavoriteItems treeViews;
     @XmlElement(name = "MultiFCSearches", required = true)
     protected FavoriteItems multiFCSearches;
 
@@ -157,6 +161,30 @@ public class Favorites  {
      */
     public void setTaskLists(FavoriteItems value) {
         this.taskLists = value;
+    }
+
+    /**
+     * Ruft den Wert der treeViews-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link FavoriteItems }
+     *     
+     */
+    public FavoriteItems getTreeViews() {
+        return treeViews;
+    }
+
+    /**
+     * Legt den Wert der treeViews-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link FavoriteItems }
+     *     
+     */
+    public void setTreeViews(FavoriteItems value) {
+        this.treeViews = value;
     }
 
     /**

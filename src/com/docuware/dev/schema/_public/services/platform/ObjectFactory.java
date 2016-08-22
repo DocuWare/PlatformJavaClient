@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.18 um 09:47:39 AM CEST 
+// Generiert: 2016.08.22 um 03:45:48 PM CEST 
 //
 
 
@@ -45,15 +45,16 @@ public class ObjectFactory  {
     private final static QName _SaveTemplateResult_QNAME = new QName("http://dev.docuware.com/schema/public/services/platform", "SaveTemplateResult");
     private final static QName _UploadTemplateResult_QNAME = new QName("http://dev.docuware.com/schema/public/services/platform", "UploadTemplateResult");
     private final static QName _CreateFormsFileResult_QNAME = new QName("http://dev.docuware.com/schema/public/services/platform", "CreateFormsFileResult");
+    private final static QName _RequestDialogQuery_QNAME = new QName("http://dev.docuware.com/schema/public/services/platform", "RequestDialogQuery");
     private final static QName _FormInfo_QNAME = new QName("http://dev.docuware.com/schema/public/services/platform", "FormInfo");
     private final static QName _DocumentsQuery_QNAME = new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentsQuery");
     private final static QName _XmlSchemas_QNAME = new QName("http://dev.docuware.com/schema/public/services/platform", "XmlSchemas");
+    private final static QName _SequenceRequest_QNAME = new QName("http://dev.docuware.com/schema/public/services/platform", "SequenceRequest");
     private final static QName _FileCabinet_QNAME = new QName("http://dev.docuware.com/schema/public/services/platform", "FileCabinet");
     private final static QName _WordSearchResult_QNAME = new QName("http://dev.docuware.com/schema/public/services/platform", "WordSearchResult");
     private final static QName _LockInfo_QNAME = new QName("http://dev.docuware.com/schema/public/services/platform", "LockInfo");
     private final static QName _TokenDescription_QNAME = new QName("http://dev.docuware.com/schema/public/services/platform", "TokenDescription");
     private final static QName _Notifications_QNAME = new QName("http://dev.docuware.com/schema/public/services/platform", "Notifications");
-    private final static QName _ExportSettings_QNAME = new QName("http://dev.docuware.com/schema/public/services/platform", "ExportSettings");
     private final static QName _Pages_QNAME = new QName("http://dev.docuware.com/schema/public/services/platform", "Pages");
     private final static QName _Role_QNAME = new QName("http://dev.docuware.com/schema/public/services/platform", "Role");
     private final static QName _DocumentIndexFields_QNAME = new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentIndexFields");
@@ -111,6 +112,7 @@ public class ObjectFactory  {
     private final static QName _IntegerList_QNAME = new QName("http://dev.docuware.com/schema/public/services/platform", "IntegerList");
     private final static QName _FileCabinetTransferInfo_QNAME = new QName("http://dev.docuware.com/schema/public/services/platform", "FileCabinetTransferInfo");
     private final static QName _CheckOutToFileSystemInfo_QNAME = new QName("http://dev.docuware.com/schema/public/services/platform", "CheckOutToFileSystemInfo");
+    private final static QName _SequenceResult_QNAME = new QName("http://dev.docuware.com/schema/public/services/platform", "SequenceResult");
     private final static QName _BatchUpdateIndexFieldsResult_QNAME = new QName("http://dev.docuware.com/schema/public/services/platform", "BatchUpdateIndexFieldsResult");
     private final static QName _CountExpression_QNAME = new QName("http://dev.docuware.com/schema/public/services/platform", "CountExpression");
     private final static QName _CFSStatistic_QNAME = new QName("http://dev.docuware.com/schema/public/services/platform", "CFSStatistic");
@@ -308,6 +310,14 @@ public class ObjectFactory  {
     }
 
     /**
+     * Create an instance of {@link RequestDialogQuery }
+     * 
+     */
+    public RequestDialogQuery createRequestDialogQuery() {
+        return new RequestDialogQuery();
+    }
+
+    /**
      * Create an instance of {@link FormInfo }
      * 
      */
@@ -329,6 +339,14 @@ public class ObjectFactory  {
      */
     public XmlSchemas createXmlSchemas() {
         return new XmlSchemas();
+    }
+
+    /**
+     * Create an instance of {@link SequenceRequest }
+     * 
+     */
+    public SequenceRequest createSequenceRequest() {
+        return new SequenceRequest();
     }
 
     /**
@@ -457,14 +475,6 @@ public class ObjectFactory  {
      */
     public Notifications createNotifications() {
         return new Notifications();
-    }
-
-    /**
-     * Create an instance of {@link ExportSettings }
-     * 
-     */
-    public ExportSettings createExportSettings() {
-        return new ExportSettings();
     }
 
     /**
@@ -617,6 +627,14 @@ public class ObjectFactory  {
      */
     public CheckOutToFileSystemInfo createCheckOutToFileSystemInfo() {
         return new CheckOutToFileSystemInfo();
+    }
+
+    /**
+     * Create an instance of {@link SequenceResult }
+     * 
+     */
+    public SequenceResult createSequenceResult() {
+        return new SequenceResult();
     }
 
     /**
@@ -908,14 +926,6 @@ public class ObjectFactory  {
     }
 
     /**
-     * Create an instance of {@link RequestDialogQuery }
-     * 
-     */
-    public RequestDialogQuery createRequestDialogQuery() {
-        return new RequestDialogQuery();
-    }
-
-    /**
      * Create an instance of {@link CountResult }
      * 
      */
@@ -956,6 +966,14 @@ public class ObjectFactory  {
     }
 
     /**
+     * Create an instance of {@link SelectListInfos }
+     * 
+     */
+    public SelectListInfos createSelectListInfos() {
+        return new SelectListInfos();
+    }
+
+    /**
      * Create an instance of {@link BatchUpdateResultItem }
      * 
      */
@@ -977,6 +995,14 @@ public class ObjectFactory  {
      */
     public AnnotationRectangle createAnnotationRectangle() {
         return new AnnotationRectangle();
+    }
+
+    /**
+     * Create an instance of {@link ExportSettings }
+     * 
+     */
+    public ExportSettings createExportSettings() {
+        return new ExportSettings();
     }
 
     /**
@@ -1025,14 +1051,6 @@ public class ObjectFactory  {
      */
     public ApplicationPreferences createApplicationPreferences() {
         return new ApplicationPreferences();
-    }
-
-    /**
-     * Create an instance of {@link DocumentsQueryTableResultHeader }
-     * 
-     */
-    public DocumentsQueryTableResultHeader createDocumentsQueryTableResultHeader() {
-        return new DocumentsQueryTableResultHeader();
     }
 
     /**
@@ -1132,6 +1150,14 @@ public class ObjectFactory  {
     }
 
     /**
+     * Create an instance of {@link SelectListValues }
+     * 
+     */
+    public SelectListValues createSelectListValues() {
+        return new SelectListValues();
+    }
+
+    /**
      * Create an instance of {@link SortedFieldsList }
      * 
      */
@@ -1145,6 +1171,14 @@ public class ObjectFactory  {
      */
     public CheckOutResult createCheckOutResult() {
         return new CheckOutResult();
+    }
+
+    /**
+     * Create an instance of {@link SelectListInfo }
+     * 
+     */
+    public SelectListInfo createSelectListInfo() {
+        return new SelectListInfo();
     }
 
     /**
@@ -1196,6 +1230,14 @@ public class ObjectFactory  {
     }
 
     /**
+     * Create an instance of {@link FormProperties }
+     * 
+     */
+    public FormProperties createFormProperties() {
+        return new FormProperties();
+    }
+
+    /**
      * Create an instance of {@link WordSearchResultWordHits }
      * 
      */
@@ -1225,6 +1267,14 @@ public class ObjectFactory  {
      */
     public MergeAnnotationsParameters createMergeAnnotationsParameters() {
         return new MergeAnnotationsParameters();
+    }
+
+    /**
+     * Create an instance of {@link TableResultRow }
+     * 
+     */
+    public TableResultRow createTableResultRow() {
+        return new TableResultRow();
     }
 
     /**
@@ -1305,6 +1355,14 @@ public class ObjectFactory  {
      */
     public CheckOutActionParameters createCheckOutActionParameters() {
         return new CheckOutActionParameters();
+    }
+
+    /**
+     * Create an instance of {@link SingleColumnSelectListValues }
+     * 
+     */
+    public SingleColumnSelectListValues createSingleColumnSelectListValues() {
+        return new SingleColumnSelectListValues();
     }
 
     /**
@@ -1460,6 +1518,14 @@ public class ObjectFactory  {
     }
 
     /**
+     * Create an instance of {@link ImageField }
+     * 
+     */
+    public ImageField createImageField() {
+        return new ImageField();
+    }
+
+    /**
      * Create an instance of {@link TemplateGUIDS }
      * 
      */
@@ -1497,6 +1563,14 @@ public class ObjectFactory  {
      */
     public FieldsList createFieldsList() {
         return new FieldsList();
+    }
+
+    /**
+     * Create an instance of {@link SubmissionOptions }
+     * 
+     */
+    public SubmissionOptions createSubmissionOptions() {
+        return new SubmissionOptions();
     }
 
     /**
@@ -1585,6 +1659,22 @@ public class ObjectFactory  {
      */
     public ApplicationPreferencesHolder createApplicationPreferencesHolder() {
         return new ApplicationPreferencesHolder();
+    }
+
+    /**
+     * Create an instance of {@link TableResultHeader }
+     * 
+     */
+    public TableResultHeader createTableResultHeader() {
+        return new TableResultHeader();
+    }
+
+    /**
+     * Create an instance of {@link FieldMappings }
+     * 
+     */
+    public FieldMappings createFieldMappings() {
+        return new FieldMappings();
     }
 
     /**
@@ -1836,11 +1926,35 @@ public class ObjectFactory  {
     }
 
     /**
+     * Create an instance of {@link SelectListValuesQuery }
+     * 
+     */
+    public SelectListValuesQuery createSelectListValuesQuery() {
+        return new SelectListValuesQuery();
+    }
+
+    /**
+     * Create an instance of {@link FieldMapping }
+     * 
+     */
+    public FieldMapping createFieldMapping() {
+        return new FieldMapping();
+    }
+
+    /**
      * Create an instance of {@link MultiFCSearchConfiguration }
      * 
      */
     public MultiFCSearchConfiguration createMultiFCSearchConfiguration() {
         return new MultiFCSearchConfiguration();
+    }
+
+    /**
+     * Create an instance of {@link AttachFileInfo }
+     * 
+     */
+    public AttachFileInfo createAttachFileInfo() {
+        return new AttachFileInfo();
     }
 
     /**
@@ -1884,6 +1998,14 @@ public class ObjectFactory  {
     }
 
     /**
+     * Create an instance of {@link NullTableResultValue }
+     * 
+     */
+    public NullTableResultValue createNullTableResultValue() {
+        return new NullTableResultValue();
+    }
+
+    /**
      * Create an instance of {@link XmlDSigContentType }
      * 
      */
@@ -1897,6 +2019,14 @@ public class ObjectFactory  {
      */
     public WebFormOptions createWebFormOptions() {
         return new WebFormOptions();
+    }
+
+    /**
+     * Create an instance of {@link ConfigurationRights }
+     * 
+     */
+    public ConfigurationRights createConfigurationRights() {
+        return new ConfigurationRights();
     }
 
     /**
@@ -1985,6 +2115,14 @@ public class ObjectFactory  {
      */
     public DocumentsQueryTableResult.Headers createDocumentsQueryTableResultHeaders() {
         return new DocumentsQueryTableResult.Headers();
+    }
+
+    /**
+     * Create an instance of {@link DocumentsQueryTableResult.Rows }
+     * 
+     */
+    public DocumentsQueryTableResult.Rows createDocumentsQueryTableResultRows() {
+        return new DocumentsQueryTableResult.Rows();
     }
 
     /**
@@ -2100,6 +2238,15 @@ public class ObjectFactory  {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link RequestDialogQuery }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://dev.docuware.com/schema/public/services/platform", name = "RequestDialogQuery")
+    public JAXBElement<RequestDialogQuery> createRequestDialogQuery(RequestDialogQuery value) {
+        return new JAXBElement<RequestDialogQuery>(_RequestDialogQuery_QNAME, RequestDialogQuery.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link FormInfo }{@code >}}
      * 
      */
@@ -2124,6 +2271,15 @@ public class ObjectFactory  {
     @XmlElementDecl(namespace = "http://dev.docuware.com/schema/public/services/platform", name = "XmlSchemas")
     public JAXBElement<XmlSchemas> createXmlSchemas(XmlSchemas value) {
         return new JAXBElement<XmlSchemas>(_XmlSchemas_QNAME, XmlSchemas.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SequenceRequest }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://dev.docuware.com/schema/public/services/platform", name = "SequenceRequest")
+    public JAXBElement<SequenceRequest> createSequenceRequest(SequenceRequest value) {
+        return new JAXBElement<SequenceRequest>(_SequenceRequest_QNAME, SequenceRequest.class, null, value);
     }
 
     /**
@@ -2169,15 +2325,6 @@ public class ObjectFactory  {
     @XmlElementDecl(namespace = "http://dev.docuware.com/schema/public/services/platform", name = "Notifications")
     public JAXBElement<Notifications> createNotifications(Notifications value) {
         return new JAXBElement<Notifications>(_Notifications_QNAME, Notifications.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ExportSettings }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://dev.docuware.com/schema/public/services/platform", name = "ExportSettings")
-    public JAXBElement<ExportSettings> createExportSettings(ExportSettings value) {
-        return new JAXBElement<ExportSettings>(_ExportSettings_QNAME, ExportSettings.class, null, value);
     }
 
     /**
@@ -2691,6 +2838,15 @@ public class ObjectFactory  {
     @XmlElementDecl(namespace = "http://dev.docuware.com/schema/public/services/platform", name = "CheckOutToFileSystemInfo")
     public JAXBElement<CheckOutToFileSystemInfo> createCheckOutToFileSystemInfo(CheckOutToFileSystemInfo value) {
         return new JAXBElement<CheckOutToFileSystemInfo>(_CheckOutToFileSystemInfo_QNAME, CheckOutToFileSystemInfo.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SequenceResult }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://dev.docuware.com/schema/public/services/platform", name = "SequenceResult")
+    public JAXBElement<SequenceResult> createSequenceResult(SequenceResult value) {
+        return new JAXBElement<SequenceResult>(_SequenceResult_QNAME, SequenceResult.class, null, value);
     }
 
     /**

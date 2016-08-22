@@ -390,8 +390,6 @@ public class ServiceConnection {
         ClientResponse response = client.resource(resolver.getLink(serviceDescription.getLinks(), rel))
                 .type("application/x-www-form-urlencoded").post(
                         ClientResponse.class, formData);
-
-        // Check the HTTP status
         return new ServiceConnection(serviceDescription);
     }
 
@@ -973,7 +971,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri = buildUri(parameters, "documentIndexFields");
-        Future<DeserializedHttpResponseGen<DocumentIndexFields>> fut = LinkResolver.<DocumentIndexFields>getAsync(this.getServiceDescription(), uri, "application/xmml", DocumentIndexFields.class);
+        Future<DeserializedHttpResponseGen<DocumentIndexFields>> fut = LinkResolver.<DocumentIndexFields>getAsync(this.getServiceDescription(), uri, "application/xml", DocumentIndexFields.class);
         if(ct!=null)ct.addFuture(fut);
         return fut;
     }

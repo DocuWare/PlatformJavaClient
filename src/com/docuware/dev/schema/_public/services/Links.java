@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.18 um 09:47:39 AM CEST 
+// Generiert: 2016.08.22 um 03:45:48 PM CEST 
 //
 
 
@@ -80,6 +80,13 @@ public class Links  {
         return this.link;
     }
 
+
+	/**
+	* Gets the link by its name.
+	* 
+	* @param relationName	Name of the relation
+	* @return	The link, if it exists; null otherwise.
+	*/
     public Link getLink(String relationName) {
 	return RelationExtension.getLink(this, relationName);
     }

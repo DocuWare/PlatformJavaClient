@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.18 um 09:47:39 AM CEST 
+// Generiert: 2016.08.22 um 03:45:48 PM CEST 
 //
 
 
@@ -22,7 +22,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlType;
 import com.docuware.dev.schema._public.services.Links;
 
@@ -74,7 +73,9 @@ import com.docuware.dev.schema._public.services.Links;
     "formField",
     "fields",
     "headFont",
-    "textStampOrStrokeStampOrBitmapStamp",
+    "textStamp",
+    "strokeStamp",
+    "bitmapStamp",
     "links"
 })
 public class Stamp  implements IRelationsWithProxy {
@@ -87,12 +88,12 @@ private HttpClientProxy proxy;//test
     protected List<StampField> fields;
     @XmlElement(name = "HeadFont", required = true)
     protected Font headFont;
-    @XmlElements({
-        @XmlElement(name = "TextStamp", type = TextStamp.class),
-        @XmlElement(name = "StrokeStamp", type = StrokeStamp.class),
-        @XmlElement(name = "BitmapStamp", type = BitmapStamp.class)
-    })
-    protected Object textStampOrStrokeStampOrBitmapStamp;
+    @XmlElement(name = "TextStamp")
+    protected TextStamp textStamp;
+    @XmlElement(name = "StrokeStamp")
+    protected StrokeStamp strokeStamp;
+    @XmlElement(name = "BitmapStamp")
+    protected BitmapStamp bitmapStamp;
     @XmlElement(name = "Links", namespace = "http://dev.docuware.com/schema/public/services", required = true)
     protected Links links;
     @XmlAttribute(name = "PasswordProtected", required = true)
@@ -203,31 +204,75 @@ private HttpClientProxy proxy;//test
     }
 
     /**
-     * Ruft den Wert der textStampOrStrokeStampOrBitmapStamp-Eigenschaft ab.
+     * Ruft den Wert der textStamp-Eigenschaft ab.
      * 
      * @return
      *     possible object is
      *     {@link TextStamp }
-     *     {@link StrokeStamp }
-     *     {@link BitmapStamp }
      *     
      */
-    public Object getTextStampOrStrokeStampOrBitmapStamp() {
-        return textStampOrStrokeStampOrBitmapStamp;
+    public TextStamp getTextStamp() {
+        return textStamp;
     }
 
     /**
-     * Legt den Wert der textStampOrStrokeStampOrBitmapStamp-Eigenschaft fest.
+     * Legt den Wert der textStamp-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
      *     {@link TextStamp }
+     *     
+     */
+    public void setTextStamp(TextStamp value) {
+        this.textStamp = value;
+    }
+
+    /**
+     * Ruft den Wert der strokeStamp-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
      *     {@link StrokeStamp }
+     *     
+     */
+    public StrokeStamp getStrokeStamp() {
+        return strokeStamp;
+    }
+
+    /**
+     * Legt den Wert der strokeStamp-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link StrokeStamp }
+     *     
+     */
+    public void setStrokeStamp(StrokeStamp value) {
+        this.strokeStamp = value;
+    }
+
+    /**
+     * Ruft den Wert der bitmapStamp-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
      *     {@link BitmapStamp }
      *     
      */
-    public void setTextStampOrStrokeStampOrBitmapStamp(Object value) {
-        this.textStampOrStrokeStampOrBitmapStamp = value;
+    public BitmapStamp getBitmapStamp() {
+        return bitmapStamp;
+    }
+
+    /**
+     * Legt den Wert der bitmapStamp-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BitmapStamp }
+     *     
+     */
+    public void setBitmapStamp(BitmapStamp value) {
+        this.bitmapStamp = value;
     }
 
     /**
@@ -558,10 +603,22 @@ private HttpClientProxy proxy;//test
         this.keepStampActive = value;
     }
 
+
+	/**
+	* Gets the proxy.
+	* 
+	* @return	The proxy
+	*/
     public HttpClientProxy getProxy() {
 	return this.proxy;
     }
 
+
+	/**
+	* Sets the HTTP Communication Proxy which is used in futher HTTP communication.
+	* 
+	* @param proxy	The new proxy
+	*/
     public void setProxy(HttpClientProxy proxy) {
 	this.proxy = proxy;
 	if(this.proxy!=null) { 
@@ -571,78 +628,159 @@ private HttpClientProxy proxy;//test
 	}
     }
 
+
+	/**
+	* Gets the base URI of the specified relations instance.
+	* 
+	* @return	The base URI of the specified relations instance.
+	*/
     public URI getBaseUri() { 
 	return RelationsWithProxyExtensions.getBaseUri(this); 
     }
 
+
+	/**
+	* Gets the link by its name.
+	* 
+	* @param relationName	Name of the relation
+	* @return	The link, if it exists; null otherwise.
+	*/
     public Link getLink(String relationName) {
 	return RelationExtension.getLink(this, relationName);
     }
 
+
+	/**
+	* Gets the URI of the relation specified by the name.
+	* 
+	* @param relationName	Name of the relation
+	* @return	The link, if it exists; null otherwise.
+	*/
     public String getRelationUri(String relationName) {
 	return RelationExtension.getRelationUri(this, relationName);
     }
 
+
+	/**
+	* Gets the URI of the relation specified by the name.
+	* 
+	* @param relationName	Name of the relation
+	* @return	The link, if it exists.
+	* @throws	RuntimeException: The specified Link is not found
+	*/
     public String getRelationUriOrThrow(String relationName) {
 	return RelationExtension.getRelationUriOrThrow(this, relationName);
     }
 
+
+	/**
+	* Determines whether the specified link exists.
+	* 
+	* @param relationName	Name of the relation
+	* @return	 True, if the specified link exists; otherwise, False.
+	*/
     public boolean hasRelationUri(String relationName) {
 	return RelationExtension.hasRelationUri(this, relationName);
     }
 
+    /**
+    * Gets the Uri of the Link for the relation "AsBitmap".
+    * Returns the Uri of the Link for the relation "AsBitmap", if this links exists, or null, if this link does not exists. The returned link can be relative or absolute. If it is a relative link you must set it in the right context yourself.
+    * @return  the requested URI
+    */
     public URI getAsBitmapRelationLink() {
         return MethodInvocation.getLink(this, links, "asBitmap");
     }
 
+    /**
+    * Calls the HTTP Get Method on the link for the relation "AsBitmap".
+    */
     public URI getURIFromAsBitmapRelation() {
         return MethodInvocation.<URI>get(this, links, "asBitmap", URI.class);
     }
 
+    /**
+    * Calls the HTTP Get Method on the link for the relation "AsBitmap" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<URI>> getURIFromAsBitmapRelationAsync() {
         return MethodInvocation.<URI>getAsync(this, links, "asBitmap", URI.class);
     }
 
+    /**
+    * Calls the HTTP Get Method on the link for the relation "AsBitmap" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<URI>> getURIFromAsBitmapRelationAsync(CancellationToken ct) {
         return MethodInvocation.<URI>getAsync(this, links, "asBitmap", URI.class, ct);
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "AsBitmap".
+    */
     public String postToAsBitmapRelationForString(FormFieldValues data) {
         return MethodInvocation.<String,FormFieldValues>post(this, links, "asBitmap", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampFormFields"), FormFieldValues.class, null, data));
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "AsBitmap" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<String>> postToAsBitmapRelationForStringAsync(FormFieldValues data) {
         return MethodInvocation.<String, FormFieldValues >postAsync(this, links, "asBitmap", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampFormFields"), FormFieldValues.class, null, data));
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "AsBitmap" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<String>> postToAsBitmapRelationForStringAsync(FormFieldValues data, CancellationToken ct) {
         return MethodInvocation.<String, FormFieldValues >postAsync(this, links, "asBitmap", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampFormFields"), FormFieldValues.class, null, data), ct);
     }
 
+    /**
+    * Gets the Uri of the Link for the relation "AsSvg".
+    * Returns the Uri of the Link for the relation "AsSvg", if this links exists, or null, if this link does not exists. The returned link can be relative or absolute. If it is a relative link you must set it in the right context yourself.
+    * @return  the requested URI
+    */
     public URI getAsSvgRelationLink() {
         return MethodInvocation.getLink(this, links, "asSvg");
     }
 
+    /**
+    * Calls the HTTP Get Method on the link for the relation "AsSvg".
+    */
     public URI getURIFromAsSvgRelation() {
         return MethodInvocation.<URI>get(this, links, "asSvg", URI.class);
     }
 
+    /**
+    * Calls the HTTP Get Method on the link for the relation "AsSvg" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<URI>> getURIFromAsSvgRelationAsync() {
         return MethodInvocation.<URI>getAsync(this, links, "asSvg", URI.class);
     }
 
+    /**
+    * Calls the HTTP Get Method on the link for the relation "AsSvg" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<URI>> getURIFromAsSvgRelationAsync(CancellationToken ct) {
         return MethodInvocation.<URI>getAsync(this, links, "asSvg", URI.class, ct);
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "AsSvg".
+    */
     public String postToAsSvgRelationForString(FormFieldValues data) {
         return MethodInvocation.<String,FormFieldValues>post(this, links, "asSvg", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampFormFields"), FormFieldValues.class, null, data));
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "AsSvg" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<String>> postToAsSvgRelationForStringAsync(FormFieldValues data) {
         return MethodInvocation.<String, FormFieldValues >postAsync(this, links, "asSvg", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampFormFields"), FormFieldValues.class, null, data));
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "AsSvg" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<String>> postToAsSvgRelationForStringAsync(FormFieldValues data, CancellationToken ct) {
         return MethodInvocation.<String, FormFieldValues >postAsync(this, links, "asSvg", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampFormFields"), FormFieldValues.class, null, data), ct);
     }

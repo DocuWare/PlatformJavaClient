@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.18 um 09:47:39 AM CEST 
+// Generiert: 2016.08.22 um 03:45:48 PM CEST 
 //
 
 
@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;enumeration value="CurrentDate"/>
  *     &lt;enumeration value="CurrentDateTime"/>
  *     &lt;enumeration value="CurrentTime"/>
+ *     &lt;enumeration value="AutoNumber"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
@@ -61,7 +62,14 @@ public enum DynamicValueType {
      * 
      */
     @XmlEnumValue("CurrentTime")
-    CURRENT_TIME("CurrentTime");
+    CURRENT_TIME("CurrentTime"),
+
+    /**
+     * Auto incrementing number.
+     * 
+     */
+    @XmlEnumValue("AutoNumber")
+    AUTO_NUMBER("AutoNumber");
     private final String value;
 
     DynamicValueType(String v) {

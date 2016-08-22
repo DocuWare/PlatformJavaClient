@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.18 um 09:47:39 AM CEST 
+// Generiert: 2016.08.22 um 03:45:48 PM CEST 
 //
 
 
@@ -108,10 +108,27 @@ public class DialogExpressionCondition  {
         this.dbName = value;
     }
 
+
+	/**
+	* Creates a condition for an exact search at the specified field.
+	* 
+	* @param fieldName	Name of the Field
+	* @param value	The search value
+	* @return	The codition
+	*/
     public static DialogExpressionCondition create(String fieldName,String value) {
 	return Extensions.createDia(fieldName, value);
     }
 
+
+	/**
+	* Creates a condition for an exact search at the specified field.
+	* 
+	* @param fieldName	Name of the Field
+	* @param valueFrom	The value from
+	* @param valueTo	The value to
+	* @return	The condition
+	*/
     public static DialogExpressionCondition create(String fieldName,String valueFrom,String valueTo) {
 	return Extensions.create(fieldName, valueFrom, valueTo);
     }

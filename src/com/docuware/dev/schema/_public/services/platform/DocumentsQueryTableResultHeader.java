@@ -2,11 +2,21 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.18 um 09:47:39 AM CEST 
+// Generiert: 2016.08.22 um 02:58:00 PM CEST 
 //
 
 
 package com.docuware.dev.schema._public.services.platform;
+
+import java.net.URI;
+import com.docuware.dev.Extensions.*;
+import java.util.concurrent.Future;
+import com.docuware.dev.schema._public.services.Link;
+
+import java.net.URI;
+import com.docuware.dev.Extensions.*;
+import java.util.concurrent.Future;
+import com.docuware.dev.schema._public.services.Link;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
@@ -42,7 +52,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "DocumentsQueryTableResultHeader")
-public class DocumentsQueryTableResultHeader  {
+public class DocumentsQueryTableResultHeader    {
 
     @XmlAttribute(name = "FieldName", required = true)
     protected String fieldName;
@@ -122,6 +132,10 @@ public class DocumentsQueryTableResultHeader  {
     public void setFieldLabel(String value) {
         this.fieldLabel = value;
     }
+
+
+
+
 
 
 

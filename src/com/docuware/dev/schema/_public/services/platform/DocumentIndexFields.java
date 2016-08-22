@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.18 um 09:47:39 AM CEST 
+// Generiert: 2016.08.22 um 03:45:48 PM CEST 
 //
 
 
@@ -84,11 +84,26 @@ public class DocumentIndexFields  {
         return this.field;
     }
 
+
+	/**
+	* Gets the DocumentIndexField with the specified name.
+	* 
+	* @param fieldName	Name of the Field
+	* @return	the requested field
+	*/
     public DocumentIndexField getField(String fieldName) {
 	return Extensions.getDocumentIndexFieldByNameFromDocumentIndexFields(this, fieldName);
     }
 
-    public void createOrUpdate(String fieldName,DocumentIndexField value) {
+
+	/**
+	* Sets or create the DocumentIndexField with the specified name and value.
+	* 
+	* @param fieldName	Name of the Field
+	* @param value	The value
+	* @return	the requested field
+	*/
+    public void setField(String fieldName,DocumentIndexField value) {
 	Extensions.createOrUpdate(this.getField(), fieldName, value);
     }
 

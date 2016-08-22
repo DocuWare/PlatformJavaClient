@@ -49,9 +49,17 @@ public class PlatformClient {
                 prepareUserAgent(localClient, sctd.getUserAgent());
             }
             if (sctd.getAcceptLanguage() != null) {
-
+                prepareHttpClient(localClient, sctd.getAcceptLanguage());
             }
         }
+        localClient.addFilter(new ClientFilter() {
+            
+            @Override
+            public ClientResponse handle(ClientRequest cr) throws ClientHandlerException {
+               cr.clone().getHeaders().add(HttpHeaders.USER_AGENT, PackageInfo.name+"/"+PackageInfo.version);
+                return getNext().handle(cr);
+            }
+        });
         System.setProperty(
                 "com.sun.jersey.impl.client.httpclient.handleCookies", "true");
         System.setProperty("http.protocol.handle-redirects", "true");
@@ -71,7 +79,7 @@ public class PlatformClient {
                 for (String UserAgent1 : UserAgent) {
                     cr.getHeaders().add(HttpHeaders.USER_AGENT, UserAgent1);
                 }
-                return client.handle(cr);
+                return getNext().handle(cr);
             }
         };
         client.addFilter(cf);
@@ -85,7 +93,7 @@ public class PlatformClient {
                 for (String AcceptLanguage1 : AcceptLanguage) {
                     cr.getHeaders().add(HttpHeaders.ACCEPT_LANGUAGE, AcceptLanguage1);
                 }
-                return client.handle(cr);
+                return getNext().handle(cr);
             }
         };
         client.addFilter(cf);

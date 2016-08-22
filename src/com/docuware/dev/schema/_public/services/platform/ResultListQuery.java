@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.18 um 09:47:39 AM CEST 
+// Generiert: 2016.08.22 um 03:45:48 PM CEST 
 //
 
 
@@ -41,6 +41,9 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;/sequence>
  *       &lt;attribute name="Start" type="{http://www.w3.org/2001/XMLSchema}int" default="0" />
  *       &lt;attribute name="Count" type="{http://www.w3.org/2001/XMLSchema}int" default="0" />
+ *       &lt;attribute name="ExcludeDefaultSystemFields" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
+ *       &lt;attribute name="WithoutLinks" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
+ *       &lt;attribute name="IncludeSuggestions" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -69,6 +72,12 @@ public class ResultListQuery  {
     protected Integer start;
     @XmlAttribute(name = "Count")
     protected Integer count;
+    @XmlAttribute(name = "ExcludeDefaultSystemFields")
+    protected Boolean excludeDefaultSystemFields;
+    @XmlAttribute(name = "WithoutLinks")
+    protected Boolean withoutLinks;
+    @XmlAttribute(name = "IncludeSuggestions")
+    protected Boolean includeSuggestions;
 
     /**
      * Ruft den Wert der sortOrder-Eigenschaft ab.
@@ -201,6 +210,90 @@ public class ResultListQuery  {
      */
     public void setCount(Integer value) {
         this.count = value;
+    }
+
+    /**
+     * Ruft den Wert der excludeDefaultSystemFields-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public boolean isExcludeDefaultSystemFields() {
+        if (excludeDefaultSystemFields == null) {
+            return false;
+        } else {
+            return excludeDefaultSystemFields;
+        }
+    }
+
+    /**
+     * Legt den Wert der excludeDefaultSystemFields-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setExcludeDefaultSystemFields(Boolean value) {
+        this.excludeDefaultSystemFields = value;
+    }
+
+    /**
+     * Ruft den Wert der withoutLinks-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public boolean isWithoutLinks() {
+        if (withoutLinks == null) {
+            return false;
+        } else {
+            return withoutLinks;
+        }
+    }
+
+    /**
+     * Legt den Wert der withoutLinks-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setWithoutLinks(Boolean value) {
+        this.withoutLinks = value;
+    }
+
+    /**
+     * Ruft den Wert der includeSuggestions-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public boolean isIncludeSuggestions() {
+        if (includeSuggestions == null) {
+            return false;
+        } else {
+            return includeSuggestions;
+        }
+    }
+
+    /**
+     * Legt den Wert der includeSuggestions-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setIncludeSuggestions(Boolean value) {
+        this.includeSuggestions = value;
     }
 
 

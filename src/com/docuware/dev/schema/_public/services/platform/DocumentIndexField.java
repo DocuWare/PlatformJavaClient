@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.18 um 09:47:39 AM CEST 
+// Generiert: 2016.08.22 um 03:45:48 PM CEST 
 //
 
 
@@ -191,42 +191,120 @@ public class DocumentIndexField
         this.readOnly = value;
     }
 
+
+	/**
+	* Creates a string field with the specified field name
+	* 
+	* @param fieldName	Name of the field
+	* @param value	The value
+	* @return	The new Field
+	*/
     public static DocumentIndexField create(String fieldName,String value) {
 	return Extensions.create(fieldName, value);
     }
 
+
+	/**
+	* Creates a date field with the specified field name
+	* 
+	* @param fieldName	Name of the field
+	* @param value	The value
+	* @return	The new Field
+	*/
     public static DocumentIndexField create(String fieldName,GregorianCalendar value) {
 	return Extensions.create(fieldName, value);
     }
 
+
+	/**
+	* Creates a integer field with the specified field name
+	* 
+	* @param fieldName	Name of the field
+	* @param value	The value
+	* @return	The new Field
+	*/
     public static DocumentIndexField create(String fieldName,int value) {
 	return Extensions.create(fieldName, value);
     }
 
+
+	/**
+	* Creates a double field with the specified field name
+	* 
+	* @param fieldName	Name of the field
+	* @param value	The value
+	* @return	The new Field
+	*/
     public static DocumentIndexField create(String fieldName,double value) {
 	return Extensions.create(fieldName, value);
     }
 
+
+	/**
+	* Creates a field with the specified field name
+	* 
+	* @param fieldName	Name of the field
+	* @param value	The value
+	* @return	The new Field
+	*/
     public static DocumentIndexField create(String fieldName,DocumentIndexFieldKeywords value) {
 	return Extensions.create(fieldName, value);
     }
 
+
+	/**
+	* Creates a date field with the specified field name
+	* 
+	* @param fieldName	Name of the field
+	* @param value	The value
+	* @return	The new Field
+	*/
     public static DocumentIndexField createDate(String fieldName,GregorianCalendar value) {
 	return Extensions.create(fieldName, value);
     }
 
+
+	/**
+	* Creates a date field with the specified field name
+	* 
+	* @param fieldName	Name of the field
+	* @param value	The value
+	* @return	The new Field
+	*/
     public static DocumentIndexField createDate(String fieldName,int value) {
 	return Extensions.create(fieldName, value);
     }
 
+
+	/**
+	* Creates a date field with the specified field name
+	* 
+	* @param fieldName	Name of the field
+	* @param value	The value
+	* @return	The new Field
+	*/
     public static DocumentIndexField createDate(String fieldName,double value) {
 	return Extensions.create(fieldName, value);
     }
 
+
+	/**
+	* Creates a date field with the specified field name
+	* 
+	* @param fieldName	Name of the field
+	* @param value	The value
+	* @return	The new Field
+	*/
     public static DocumentIndexField createDate(String fieldName,DocumentIndexFieldKeywords value) {
 	return Extensions.create(fieldName, value);
     }
 
+
+	/**
+	* Returns a String that represents this instance.
+	* 
+	* @return	A String that represents this instance.
+	*/
     public String toString() {
 	return Extensions.documentIndexFieldToString(this);
     }

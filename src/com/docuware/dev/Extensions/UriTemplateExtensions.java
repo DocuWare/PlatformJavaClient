@@ -83,7 +83,7 @@ public class UriTemplateExtensions {
     public static String CreateUrl(Iterable<UriTemplateDescription> templates, String templateName, Map<String, Object> parameters) {
         UriTemplateDescription template = UriTemplateExtensions.FindTemplate(templates, templateName);
         if (template == null) {
-            throw new RuntimeException(String.format("The specified template '{0}' cannot be found.", templateName));
+            throw new RuntimeException(("The specified template "+templateName+" cannot be found."));
         }
         return UriPattern.Resolve(template.getUriPattern(), parameters);
     }

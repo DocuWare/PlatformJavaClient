@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.18 um 09:47:39 AM CEST 
+// Generiert: 2016.08.22 um 03:45:48 PM CEST 
 //
 
 
@@ -333,182 +333,366 @@ private HttpClientProxy proxy;//test
         this.type = value;
     }
 
+
+	/**
+	* Returns a String that represent this instance.
+	* 
+	* @return A String representing this instance
+	*/
+	
     public String toString() {
 	return Extensions.dialogInfoToString(this);
     }
 
+
+	/**
+	* Gets the proxy.
+	* 
+	* @return	The proxy
+	*/
     public HttpClientProxy getProxy() {
 	return this.proxy;
     }
 
+
+	/**
+	* Sets the HTTP Communication Proxy which is used in futher HTTP communication.
+	* 
+	* @param proxy	The new proxy
+	*/
     public void setProxy(HttpClientProxy proxy) {
 	this.proxy = proxy;
     }
 
+
+	/**
+	* Upload the specified document with multiple files in chunks.
+	* 
+	* @param document	The document
+	* @param file	The file
+	* @param chunkSize	[optional/ set this parameter to 0 if you want to use default value] The size of the chunk in bytes
+	* @return	The uploaded document's metadata
+	*/
     public Document chunkUploadDocument(Document document,java.io.File file,int chunkSize) {
 	return FileCabinetExtensionsBase.chunkUploadDocument(this, document, FileWrapper.toFileInfoWrapper(file), chunkSize);
     }
 
+
+	/**
+	* Upload the specified document with multiple files in chunks.
+	* 
+	* @param document	The document
+	* @param files	The files
+	* @param chunkSize	[optional/ set this parameter to 0 if you want to use default value] The size of the chunk in bytes
+	* @return	The uploaded document's metadata
+	*/
     public Document chunkUploadDocument(Document document,java.io.File[] files,int chunkSize) {
 	return FileCabinetExtensionsBase.chunkUploadDocument(this, document, FileWrapper.toFileInfoWrapper(files), chunkSize);
     }
 
+
+	/**
+	* Uploads the document.
+	* 
+	* @param document	The document
+	* @param file	The file
+	* @return	The uploaded document's metadata
+	*/
     public Document uploadDocument(Document document,java.io.File... file) {
 	return FileCabinetExtensionsBase.uploadDocument(this, document, FileWrapper.toFileInfoWrapper(file));
     }
 
+
+	/**
+	* Uploads the document asynchronously.
+	* 
+	* @param document	The document
+	* @param file	The file
+	* @return	A Future which uploads the document and returns the uploaded document's metadata.
+	*/
     public Future<DeserializedHttpResponseGen<Document>> uploadDocumentAsync(Document document,java.io.File... file) {
 	return FileCabinetExtensionsBase.uploadDocumentAsync(this, document, FileWrapper.toFileInfoWrapper(file));
     }
 
+
+	/**
+	* Gets the base URI of the specified relations instance.
+	* 
+	* @return	The base URI of the specified relations instance.
+	*/
     public URI getBaseUri() {
 	return RelationsWithProxyExtensions.getBaseUri(this);
     }
 
+    /**
+    * Gets the Uri of the Link for the relation "Self".
+    * Returns the Uri of the Link for the relation "Self", if this links exists, or null, if this link does not exists. The returned link can be relative or absolute. If it is a relative link you must set it in the right context yourself.
+    * @return  the requested URI
+    */
     public URI getSelfRelationLink() {
         return MethodInvocation.getLink(this, links, "self");
     }
 
+    /**
+    * Calls the HTTP Get Method on the link for the relation "Self".
+    */
     public Dialog getDialogFromSelfRelation() {
         return MethodInvocation.<Dialog>get(this, links, "self", Dialog.class);
     }
 
+    /**
+    * Calls the HTTP Get Method on the link for the relation "Self" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<Dialog>> getDialogFromSelfRelationAsync() {
         return MethodInvocation.<Dialog>getAsync(this, links, "self", Dialog.class);
     }
 
+    /**
+    * Calls the HTTP Get Method on the link for the relation "Self" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<Dialog>> getDialogFromSelfRelationAsync(CancellationToken ct) {
         return MethodInvocation.<Dialog>getAsync(this, links, "self", Dialog.class, ct);
     }
 
+    /**
+    * Calls the HTTP Delete Method on the link for the relation "Self".
+    */
     public String deleteSelfRelation() {
         return MethodInvocation.delete(this, links, "self");
     }
 
+    /**
+    * Calls the HTTP Delete Method on the link for the relation "Self" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<String>> deleteSelfRelationAsync() {
         return MethodInvocation.deleteAsync(this, links, "self");
     }
 
+    /**
+    * Calls the HTTP Delete Method on the link for the relation "Self" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<String>> deleteSelfRelationAsync(CancellationToken ct) {
         return MethodInvocation.deleteAsync(this, links, "self", ct);
     }
 
+    /**
+    * Gets the Uri of the Link for the relation "AssignedDialog".
+    * Returns the Uri of the Link for the relation "AssignedDialog", if this links exists, or null, if this link does not exists. The returned link can be relative or absolute. If it is a relative link you must set it in the right context yourself.
+    * @return  the requested URI
+    */
     public URI getAssignedDialogRelationLink() {
         return MethodInvocation.getLink(this, links, "assignedDialog");
     }
 
+    /**
+    * Calls the HTTP Get Method on the link for the relation "AssignedDialog".
+    */
     public Dialog getDialogFromAssignedDialogRelation() {
         return MethodInvocation.<Dialog>get(this, links, "assignedDialog", Dialog.class);
     }
 
+    /**
+    * Calls the HTTP Get Method on the link for the relation "AssignedDialog" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<Dialog>> getDialogFromAssignedDialogRelationAsync() {
         return MethodInvocation.<Dialog>getAsync(this, links, "assignedDialog", Dialog.class);
     }
 
+    /**
+    * Calls the HTTP Get Method on the link for the relation "AssignedDialog" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<Dialog>> getDialogFromAssignedDialogRelationAsync(CancellationToken ct) {
         return MethodInvocation.<Dialog>getAsync(this, links, "assignedDialog", Dialog.class, ct);
     }
 
+    /**
+    * Gets the Uri of the Link for the relation "Count".
+    * Returns the Uri of the Link for the relation "Count", if this links exists, or null, if this link does not exists. The returned link can be relative or absolute. If it is a relative link you must set it in the right context yourself.
+    * @return  the requested URI
+    */
     public URI getCountRelationLink() {
         return MethodInvocation.getLink(this, links, "count");
     }
 
+    /**
+    * Calls the HTTP Get Method on the link for the relation "Count".
+    */
     public CountResult getCountResultFromCountRelation() {
         return MethodInvocation.<CountResult>get(this, links, "count", CountResult.class);
     }
 
+    /**
+    * Calls the HTTP Get Method on the link for the relation "Count" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<CountResult>> getCountResultFromCountRelationAsync() {
         return MethodInvocation.<CountResult>getAsync(this, links, "count", CountResult.class);
     }
 
+    /**
+    * Calls the HTTP Get Method on the link for the relation "Count" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<CountResult>> getCountResultFromCountRelationAsync(CancellationToken ct) {
         return MethodInvocation.<CountResult>getAsync(this, links, "count", CountResult.class, ct);
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "Count".
+    */
     public CountResult postToCountRelationForCountResult(CountExpression data) {
         return MethodInvocation.<CountResult,CountExpression>post(this, links, "count", CountResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "CountExpression"), CountExpression.class, null, data));
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "Count" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<CountResult>> postToCountRelationForCountResultAsync(CountExpression data) {
         return MethodInvocation.<CountResult, CountExpression >postAsync(this, links, "count", CountResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "CountExpression"), CountExpression.class, null, data));
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "Count" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<CountResult>> postToCountRelationForCountResultAsync(CountExpression data, CancellationToken ct) {
         return MethodInvocation.<CountResult, CountExpression >postAsync(this, links, "count", CountResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "CountExpression"), CountExpression.class, null, data), ct);
     }
 
+    /**
+    * Gets the Uri of the Link for the relation "SelectList".
+    * Returns the Uri of the Link for the relation "SelectList", if this links exists, or null, if this link does not exists. The returned link can be relative or absolute. If it is a relative link you must set it in the right context yourself.
+    * @return  the requested URI
+    */
     public URI getSelectListRelationLink() {
         return MethodInvocation.getLink(this, links, "selectList");
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "SelectList".
+    */
     public SelectListResult postToSelectListRelationForSelectListResult(SelectListExpression data) {
         return MethodInvocation.<SelectListResult,SelectListExpression>post(this, links, "selectList", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data));
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "SelectList" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<SelectListResult>> postToSelectListRelationForSelectListResultAsync(SelectListExpression data) {
         return MethodInvocation.<SelectListResult, SelectListExpression >postAsync(this, links, "selectList", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data));
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "SelectList" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<SelectListResult>> postToSelectListRelationForSelectListResultAsync(SelectListExpression data, CancellationToken ct) {
         return MethodInvocation.<SelectListResult, SelectListExpression >postAsync(this, links, "selectList", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data), ct);
     }
 
+    /**
+    * Gets the Uri of the Link for the relation "StoreDocument".
+    * Returns the Uri of the Link for the relation "StoreDocument", if this links exists, or null, if this link does not exists. The returned link can be relative or absolute. If it is a relative link you must set it in the right context yourself.
+    * @return  the requested URI
+    */
     public URI getStoreDocumentRelationLink() {
         return MethodInvocation.getLink(this, links, "storeDocument");
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "StoreDocument".
+    */
     public Document postToStoreDocumentRelationForDocument(Document data) {
         return MethodInvocation.<Document,Document>post(this, links, "storeDocument", Document.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "Document"), Document.class, null, data));
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "StoreDocument" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<Document>> postToStoreDocumentRelationForDocumentAsync(Document data) {
         return MethodInvocation.<Document, Document >postAsync(this, links, "storeDocument", Document.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "Document"), Document.class, null, data));
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "StoreDocument" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<Document>> postToStoreDocumentRelationForDocumentAsync(Document data, CancellationToken ct) {
         return MethodInvocation.<Document, Document >postAsync(this, links, "storeDocument", Document.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "Document"), Document.class, null, data), ct);
     }
 
+    /**
+    * Gets the Uri of the Link for the relation "Transfer".
+    * Returns the Uri of the Link for the relation "Transfer", if this links exists, or null, if this link does not exists. The returned link can be relative or absolute. If it is a relative link you must set it in the right context yourself.
+    * @return  the requested URI
+    */
     public URI getTransferRelationLink() {
         return MethodInvocation.getLink(this, links, "transfer");
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "Transfer".
+    */
     public DocumentsQueryResult postToTransferRelationForDocumentsQueryResult(FileCabinetTransferInfo data) {
         return MethodInvocation.<DocumentsQueryResult,FileCabinetTransferInfo>post(this, links, "transfer", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "FileCabinetTransferInfo"), FileCabinetTransferInfo.class, null, data));
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "Transfer" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> postToTransferRelationForDocumentsQueryResultAsync(FileCabinetTransferInfo data) {
         return MethodInvocation.<DocumentsQueryResult, FileCabinetTransferInfo >postAsync(this, links, "transfer", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "FileCabinetTransferInfo"), FileCabinetTransferInfo.class, null, data));
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "Transfer" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> postToTransferRelationForDocumentsQueryResultAsync(FileCabinetTransferInfo data, CancellationToken ct) {
         return MethodInvocation.<DocumentsQueryResult, FileCabinetTransferInfo >postAsync(this, links, "transfer", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "FileCabinetTransferInfo"), FileCabinetTransferInfo.class, null, data), ct);
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "Transfer".
+    */
     public DocumentsQueryResult postToTransferRelationForDocumentsQueryResult(DocumentsTransferInfo data) {
         return MethodInvocation.<DocumentsQueryResult,DocumentsTransferInfo>post(this, links, "transfer", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentsTransferInfo"), DocumentsTransferInfo.class, null, data));
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "Transfer" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> postToTransferRelationForDocumentsQueryResultAsync(DocumentsTransferInfo data) {
         return MethodInvocation.<DocumentsQueryResult, DocumentsTransferInfo >postAsync(this, links, "transfer", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentsTransferInfo"), DocumentsTransferInfo.class, null, data));
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "Transfer" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> postToTransferRelationForDocumentsQueryResultAsync(DocumentsTransferInfo data, CancellationToken ct) {
         return MethodInvocation.<DocumentsQueryResult, DocumentsTransferInfo >postAsync(this, links, "transfer", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentsTransferInfo"), DocumentsTransferInfo.class, null, data), ct);
     }
 
+    /**
+    * Gets the Uri of the Link for the relation "CreateUserDefinedSearch".
+    * Returns the Uri of the Link for the relation "CreateUserDefinedSearch", if this links exists, or null, if this link does not exists. The returned link can be relative or absolute. If it is a relative link you must set it in the right context yourself.
+    * @return  the requested URI
+    */
     public URI getCreateUserDefinedSearchRelationLink() {
         return MethodInvocation.getLink(this, links, "createUserDefinedSearch");
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "CreateUserDefinedSearch".
+    */
     public Dialog postToCreateUserDefinedSearchRelationForDialog(UserDefinedSearchInfo data) {
         return MethodInvocation.<Dialog,UserDefinedSearchInfo>post(this, links, "createUserDefinedSearch", Dialog.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "UserDefinedSearchInfo"), UserDefinedSearchInfo.class, null, data));
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "CreateUserDefinedSearch" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<Dialog>> postToCreateUserDefinedSearchRelationForDialogAsync(UserDefinedSearchInfo data) {
         return MethodInvocation.<Dialog, UserDefinedSearchInfo >postAsync(this, links, "createUserDefinedSearch", Dialog.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "UserDefinedSearchInfo"), UserDefinedSearchInfo.class, null, data));
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "CreateUserDefinedSearch" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<Dialog>> postToCreateUserDefinedSearchRelationForDialogAsync(UserDefinedSearchInfo data, CancellationToken ct) {
         return MethodInvocation.<Dialog, UserDefinedSearchInfo >postAsync(this, links, "createUserDefinedSearch", Dialog.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "UserDefinedSearchInfo"), UserDefinedSearchInfo.class, null, data), ct);
     }

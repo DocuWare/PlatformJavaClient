@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.18 um 09:47:39 AM CEST 
+// Generiert: 2016.08.22 um 03:45:48 PM CEST 
 //
 
 
@@ -16,6 +16,7 @@ import com.docuware.dev.schema._public.services.Link;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -46,6 +47,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="FontWeightBold" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;element name="FontWeightItalic" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;element name="FontWeightUnderlined" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="TextAlignment" type="{http://dev.docuware.com/schema/public/services/platform}AlignmentType"/>
  *         &lt;element name="OriginalImageWidth" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="WrapText" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *       &lt;/sequence>
@@ -73,6 +75,7 @@ import javax.xml.bind.annotation.XmlType;
     "fontWeightBold",
     "fontWeightItalic",
     "fontWeightUnderlined",
+    "textAlignment",
     "originalImageWidth",
     "wrapText"
 })
@@ -108,6 +111,9 @@ public class Zone  {
     protected boolean fontWeightItalic;
     @XmlElement(name = "FontWeightUnderlined")
     protected boolean fontWeightUnderlined;
+    @XmlElement(name = "TextAlignment", required = true)
+    @XmlSchemaType(name = "string")
+    protected AlignmentType textAlignment;
     @XmlElement(name = "OriginalImageWidth")
     protected int originalImageWidth;
     @XmlElement(name = "WrapText")
@@ -391,6 +397,30 @@ public class Zone  {
      */
     public void setFontWeightUnderlined(boolean value) {
         this.fontWeightUnderlined = value;
+    }
+
+    /**
+     * Ruft den Wert der textAlignment-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link AlignmentType }
+     *     
+     */
+    public AlignmentType getTextAlignment() {
+        return textAlignment;
+    }
+
+    /**
+     * Legt den Wert der textAlignment-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link AlignmentType }
+     *     
+     */
+    public void setTextAlignment(AlignmentType value) {
+        this.textAlignment = value;
     }
 
     /**

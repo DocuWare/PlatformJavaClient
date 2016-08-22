@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.18 um 09:47:39 AM CEST 
+// Generiert: 2016.08.22 um 03:45:48 PM CEST 
 //
 
 
@@ -35,6 +35,8 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="ConfigId" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="Name" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="Fields" type="{http://dev.docuware.com/schema/public/services/platform}WebFormControls"/>
+ *         &lt;element name="FormProperties" type="{http://dev.docuware.com/schema/public/services/platform}FormProperties"/>
+ *         &lt;element name="SubmissionOptions" type="{http://dev.docuware.com/schema/public/services/platform}SubmissionOptions"/>
  *       &lt;/sequence>
  *       &lt;attribute name="Public" type="{http://www.w3.org/2001/XMLSchema}boolean" />
  *     &lt;/restriction>
@@ -48,7 +50,9 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "FormInfo", propOrder = {
     "configId",
     "name",
-    "fields"
+    "fields",
+    "formProperties",
+    "submissionOptions"
 })
 public class FormInfo  {
 
@@ -58,6 +62,10 @@ public class FormInfo  {
     protected String name;
     @XmlElement(name = "Fields", required = true)
     protected WebFormControls fields;
+    @XmlElement(name = "FormProperties", required = true)
+    protected FormProperties formProperties;
+    @XmlElement(name = "SubmissionOptions", required = true)
+    protected SubmissionOptions submissionOptions;
     @XmlAttribute(name = "Public")
     protected Boolean _public;
 
@@ -131,6 +139,54 @@ public class FormInfo  {
      */
     public void setFields(WebFormControls value) {
         this.fields = value;
+    }
+
+    /**
+     * Ruft den Wert der formProperties-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link FormProperties }
+     *     
+     */
+    public FormProperties getFormProperties() {
+        return formProperties;
+    }
+
+    /**
+     * Legt den Wert der formProperties-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link FormProperties }
+     *     
+     */
+    public void setFormProperties(FormProperties value) {
+        this.formProperties = value;
+    }
+
+    /**
+     * Ruft den Wert der submissionOptions-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link SubmissionOptions }
+     *     
+     */
+    public SubmissionOptions getSubmissionOptions() {
+        return submissionOptions;
+    }
+
+    /**
+     * Legt den Wert der submissionOptions-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link SubmissionOptions }
+     *     
+     */
+    public void setSubmissionOptions(SubmissionOptions value) {
+        this.submissionOptions = value;
     }
 
     /**

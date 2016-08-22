@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.18 um 09:47:39 AM CEST 
+// Generiert: 2016.08.22 um 03:45:48 PM CEST 
 //
 
 
@@ -311,86 +311,179 @@ private HttpClientProxy proxy;//test
         this.sampleEditText = value;
     }
 
+
+	/**
+	* Gets the proxy.
+	* 
+	* @return	The proxy
+	*/
     public HttpClientProxy getProxy() {
 	return this.proxy;
     }
 
+
+	/**
+	* Sets the HTTP Communication Proxy which is used in futher HTTP communication.
+	* 
+	* @param proxy	The new proxy
+	*/
     public void setProxy(HttpClientProxy proxy) {
 	this.proxy = proxy;
     }
 
+
+	/**
+	* Gets the base URI of the specified relations instance.
+	* 
+	* @return	The base URI of the specified relations instance.
+	*/
     public URI getBaseUri() {
 	return RelationsWithProxyExtensions.getBaseUri(this);
     }
 
+
+	/**
+	* Gets the link by its name.
+	* 
+	* @param relationName	Name of the relation
+	* @return	The link, if it exists; null otherwise.
+	*/
     public Link getLink(String relationName) {
 	return RelationExtension.getLink(this, relationName);
     }
 
+
+	/**
+	* Gets the URI of the relation specified by the name.
+	* 
+	* @param relationName	Name of the relation
+	* @return	The link, if it exists; null otherwise.
+	*/
     public String getRelationUri(String relationName) {
 	return RelationExtension.getRelationUri(this, relationName);
     }
 
+
+	/**
+	* Gets the URI of the relation specified by the name.
+	* 
+	* @param relationName	Name of the relation
+	* @return	The link, if it exists.
+	* @throws	RuntimeException: The specified Link is not found
+	*/
     public String getRelationUriOrThrow(String relationName) {
 	return RelationExtension.getRelationUriOrThrow(this, relationName);
     }
 
+
+	/**
+	* Determines whether the specified link exists.
+	* 
+	* @param relationName	Name of the relation
+	* @return	 True, if the specified link exists; otherwise, False.
+	*/
     public boolean hasRelationUri(String relationName) {
 	return RelationExtension.hasRelationUri(this, relationName);
     }
 
+    /**
+    * Gets the Uri of the Link for the relation "SelectListValues".
+    * Returns the Uri of the Link for the relation "SelectListValues", if this links exists, or null, if this link does not exists. The returned link can be relative or absolute. If it is a relative link you must set it in the right context yourself.
+    * @return  the requested URI
+    */
     public URI getSelectListValuesRelationLink() {
         return MethodInvocation.getLink(this, links, "selectListValues");
     }
 
+    /**
+    * Calls the HTTP Get Method on the link for the relation "SelectListValues".
+    */
     public SelectListResult getSelectListResultFromSelectListValuesRelation() {
         return MethodInvocation.<SelectListResult>get(this, links, "selectListValues", SelectListResult.class);
     }
 
+    /**
+    * Calls the HTTP Get Method on the link for the relation "SelectListValues" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<SelectListResult>> getSelectListResultFromSelectListValuesRelationAsync() {
         return MethodInvocation.<SelectListResult>getAsync(this, links, "selectListValues", SelectListResult.class);
     }
 
+    /**
+    * Calls the HTTP Get Method on the link for the relation "SelectListValues" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<SelectListResult>> getSelectListResultFromSelectListValuesRelationAsync(CancellationToken ct) {
         return MethodInvocation.<SelectListResult>getAsync(this, links, "selectListValues", SelectListResult.class, ct);
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "SelectListValues".
+    */
     public SelectListResult postToSelectListValuesRelationForSelectListResult(SelectListExpression data) {
         return MethodInvocation.<SelectListResult,SelectListExpression>post(this, links, "selectListValues", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data));
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "SelectListValues" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<SelectListResult>> postToSelectListValuesRelationForSelectListResultAsync(SelectListExpression data) {
         return MethodInvocation.<SelectListResult, SelectListExpression >postAsync(this, links, "selectListValues", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data));
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "SelectListValues" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<SelectListResult>> postToSelectListValuesRelationForSelectListResultAsync(SelectListExpression data, CancellationToken ct) {
         return MethodInvocation.<SelectListResult, SelectListExpression >postAsync(this, links, "selectListValues", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data), ct);
     }
 
+    /**
+    * Gets the Uri of the Link for the relation "SimpleSelectList".
+    * Returns the Uri of the Link for the relation "SimpleSelectList", if this links exists, or null, if this link does not exists. The returned link can be relative or absolute. If it is a relative link you must set it in the right context yourself.
+    * @return  the requested URI
+    */
     public URI getSimpleSelectListRelationLink() {
         return MethodInvocation.getLink(this, links, "simpleSelectList");
     }
 
+    /**
+    * Calls the HTTP Get Method on the link for the relation "SimpleSelectList".
+    */
     public SelectListResult getSelectListResultFromSimpleSelectListRelation() {
         return MethodInvocation.<SelectListResult>get(this, links, "simpleSelectList", SelectListResult.class);
     }
 
+    /**
+    * Calls the HTTP Get Method on the link for the relation "SimpleSelectList" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<SelectListResult>> getSelectListResultFromSimpleSelectListRelationAsync() {
         return MethodInvocation.<SelectListResult>getAsync(this, links, "simpleSelectList", SelectListResult.class);
     }
 
+    /**
+    * Calls the HTTP Get Method on the link for the relation "SimpleSelectList" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<SelectListResult>> getSelectListResultFromSimpleSelectListRelationAsync(CancellationToken ct) {
         return MethodInvocation.<SelectListResult>getAsync(this, links, "simpleSelectList", SelectListResult.class, ct);
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "SimpleSelectList".
+    */
     public SelectListResult postToSimpleSelectListRelationForSelectListResult(SelectListExpression data) {
         return MethodInvocation.<SelectListResult,SelectListExpression>post(this, links, "simpleSelectList", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data));
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "SimpleSelectList" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<SelectListResult>> postToSimpleSelectListRelationForSelectListResultAsync(SelectListExpression data) {
         return MethodInvocation.<SelectListResult, SelectListExpression >postAsync(this, links, "simpleSelectList", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data));
     }
 
+    /**
+    * Calls the HTTP post Method on the link for the relation "SimpleSelectList" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<SelectListResult>> postToSimpleSelectListRelationForSelectListResultAsync(SelectListExpression data, CancellationToken ct) {
         return MethodInvocation.<SelectListResult, SelectListExpression >postAsync(this, links, "simpleSelectList", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data), ct);
     }

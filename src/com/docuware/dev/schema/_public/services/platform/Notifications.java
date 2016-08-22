@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.18 um 09:47:39 AM CEST 
+// Generiert: 2016.08.22 um 03:45:48 PM CEST 
 //
 
 
@@ -145,30 +145,62 @@ private HttpClientProxy proxy;//test
         this.timeout = value;
     }
 
+
+	/**
+	* Gets the proxy.
+	* 
+	* @return	The proxy
+	*/
     public HttpClientProxy getProxy() {
 	return this.proxy;
     }
 
+
+	/**
+	* Sets the HTTP Communication Proxy which is used in futher HTTP communication.
+	* 
+	* @param proxy	The new proxy
+	*/
     public void setProxy(HttpClientProxy proxy) {
 	this.proxy = proxy;
     }
 
+
+	/**
+	* Gets the base URI of the specified relations instance.
+	* 
+	* @return	The base URI of the specified relations instance.
+	*/
     public URI getBaseUri() {
 	return RelationsWithProxyExtensions.getBaseUri(this);
     }
 
+    /**
+    * Gets the Uri of the Link for the relation "Self".
+    * Returns the Uri of the Link for the relation "Self", if this links exists, or null, if this link does not exists. The returned link can be relative or absolute. If it is a relative link you must set it in the right context yourself.
+    * @return  the requested URI
+    */
     public URI getSelfRelationLink() {
         return MethodInvocation.getLink(this, links, "self");
     }
 
+    /**
+    * Calls the HTTP Get Method on the link for the relation "Self".
+    */
     public Notifications getNotificationsFromSelfRelation() {
         return MethodInvocation.<Notifications>get(this, links, "self", Notifications.class);
     }
 
+    /**
+    * Calls the HTTP Get Method on the link for the relation "Self" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<Notifications>> getNotificationsFromSelfRelationAsync() {
         return MethodInvocation.<Notifications>getAsync(this, links, "self", Notifications.class);
     }
 
+    /**
+    * Calls the HTTP Get Method on the link for the relation "Self" asynchronously.
+    */
     public Future<DeserializedHttpResponseGen<Notifications>> getNotificationsFromSelfRelationAsync(CancellationToken ct) {
         return MethodInvocation.<Notifications>getAsync(this, links, "self", Notifications.class, ct);
     }

@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.18 um 09:47:39 AM CEST 
+// Generiert: 2016.08.22 um 03:45:48 PM CEST 
 //
 
 
@@ -100,10 +100,25 @@ public class SortedField  {
         this.direction = value;
     }
 
+
+	/**
+	* Creates a sort order for the specified field.
+	* 
+	* @param fieldName	Name of the Field
+	* @param sortDirection	The sort direction
+	* @return	The sort order
+	*/
     public static SortedField create(String fieldName,SortDirection sortDirection) {
 	return Extensions.create(fieldName, sortDirection);
     }
 
+
+	/**
+	* Creates a sort order for the specified field.
+	* 
+	* @param fieldName	Name of the Field
+	* @return	The sort order
+	*/
     public static SortedField create(String fieldName) {
 	return Extensions.create(fieldName);
     }
