@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -13,13 +7,13 @@ import com.docuware.dev.Extensions.*;
 import java.util.concurrent.Future;
 import com.docuware.dev.schema._public.services.Link;
 import com.docuware.dev.schema._public.services.platform.Document;
+import java.io.InputStream;
 import com.docuware.dev.schema._public.services.platform.WordSearchResult;
 import com.docuware.dev.schema._public.services.platform.SearchPositionQuery;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 import com.docuware.dev._public.intellix.DocumentContent;
 import com.docuware.dev.schema._public.services.platform.Section;
-import java.io.InputStream;
 import com.docuware.dev.schema._public.services.platform.FileDownload;
 import com.docuware.dev.schema._public.services.platform.Pages;
 import com.docuware.dev.schema._public.services.platform.PagesBlockQuery;
@@ -36,39 +30,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import com.docuware.dev.schema._public.services.Links;
 
 
-/**
- * Define a single section of a document
- * 
- * <p>Java-Klasse f�r Section complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="Section">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="SignatureStatus" type="{http://dev.docuware.com/schema/public/services/platform}SignatureStatus" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="Pages" type="{http://dev.docuware.com/schema/public/services/platform}Pages" minOccurs="0"/>
- *         &lt;element name="Thumbnails" type="{http://dev.docuware.com/schema/public/services/platform}Pages" minOccurs="0"/>
- *         &lt;element name="FileChunk" type="{http://dev.docuware.com/schema/public/services/platform}UploadedFileChunk" minOccurs="0"/>
- *         &lt;element ref="{http://dev.docuware.com/schema/public/services}Links" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attribute name="Id" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="ContentType" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="HaveMorePages" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="PageCount" type="{http://www.w3.org/2001/XMLSchema}int" default="-1" />
- *       &lt;attribute name="FileSize" type="{http://www.w3.org/2001/XMLSchema}long" default="0" />
- *       &lt;attribute name="OriginalFileName" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="ContentModified" use="required" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *       &lt;attribute name="HasTextAnnotation" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Section", propOrder = {
 "proxy",
@@ -111,28 +72,7 @@ private HttpClientProxy proxy;//test
     @XmlAttribute(name = "HasTextAnnotation")
     protected Boolean hasTextAnnotation;
 
-    /**
-     * Gets the value of the signatureStatus property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the signatureStatus property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getSignatureStatus().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link SignatureStatus }
-     * 
-     * 
-     */
+    /**Define allowed operations when there is signature*/
     public List<SignatureStatus> getSignatureStatus() {
         if (signatureStatus == null) {
             signatureStatus = new ArrayList<SignatureStatus>();
@@ -140,158 +80,67 @@ private HttpClientProxy proxy;//test
         return this.signatureStatus;
     }
 
-    /**
-     * Ruft den Wert der pages-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Pages }
-     *     
-     */
+    /**Contains one or more pages of the document, if there are pages available.*/
     public Pages getPages() {
         return pages;
     }
 
-    /**
-     * Legt den Wert der pages-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Pages }
-     *     
-     */
+    /**Contains one or more pages of the document, if there are pages available.*/
     public void setPages(Pages value) {
         this.pages = value;
     }
 
-    /**
-     * Ruft den Wert der thumbnails-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Pages }
-     *     
-     */
+    /**Contains one or more pages of the document, if there are pages available.*/
     public Pages getThumbnails() {
         return thumbnails;
     }
 
-    /**
-     * Legt den Wert der thumbnails-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Pages }
-     *     
-     */
+    /**Contains one or more pages of the document, if there are pages available.*/
     public void setThumbnails(Pages value) {
         this.thumbnails = value;
     }
 
-    /**
-     * Ruft den Wert der fileChunk-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link UploadedFileChunk }
-     *     
-     */
+    /**Contains data for a file chunk during a big file upload. This data is created on the server of every chunk request.*/
+    @Eagle
     public UploadedFileChunk getFileChunk() {
         return fileChunk;
     }
 
-    /**
-     * Legt den Wert der fileChunk-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link UploadedFileChunk }
-     *     
-     */
+    /**Contains data for a file chunk during a big file upload. This data is created on the server of every chunk request.*/
+    @Eagle
     public void setFileChunk(UploadedFileChunk value) {
         this.fileChunk = value;
     }
 
-    /**
-     * Ruft den Wert der links-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Links }
-     *     
-     */
     public Links getLinks() {
         return links;
     }
 
-    /**
-     * Legt den Wert der links-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Links }
-     *     
-     */
     public void setLinks(Links value) {
         this.links = value;
     }
 
-    /**
-     * Ruft den Wert der id-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Identity of the section*/
     public String getId() {
         return id;
     }
 
-    /**
-     * Legt den Wert der id-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Identity of the section*/
     public void setId(String value) {
         this.id = value;
     }
 
-    /**
-     * Ruft den Wert der contentType-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**The Internet media type of the section. If there is no section this value is missing.*/
     public String getContentType() {
         return contentType;
     }
 
-    /**
-     * Legt den Wert der contentType-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**The Internet media type of the section. If there is no section this value is missing.*/
     public void setContentType(String value) {
         this.contentType = value;
     }
 
-    /**
-     * Ruft den Wert der haveMorePages-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Contains one or more pages of the document, if there are pages available.*/
     public boolean isHaveMorePages() {
         if (haveMorePages == null) {
             return false;
@@ -300,26 +149,12 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der haveMorePages-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Contains one or more pages of the document, if there are pages available.*/
     public void setHaveMorePages(Boolean value) {
         this.haveMorePages = value;
     }
 
-    /**
-     * Ruft den Wert der pageCount-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
+    /**The number of pages of this section, if known. If it is unknown, this value is -1.*/
     public int getPageCount() {
         if (pageCount == null) {
             return -1;
@@ -328,26 +163,12 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der pageCount-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
+    /**The number of pages of this section, if known. If it is unknown, this value is -1.*/
     public void setPageCount(Integer value) {
         this.pageCount = value;
     }
 
-    /**
-     * Ruft den Wert der fileSize-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Long }
-     *     
-     */
+    /**The size of the file in bytes.*/
     public long getFileSize() {
         if (fileSize == null) {
             return  0L;
@@ -356,74 +177,35 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der fileSize-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Long }
-     *     
-     */
+    /**The size of the file in bytes.*/
     public void setFileSize(Long value) {
         this.fileSize = value;
     }
 
-    /**
-     * Ruft den Wert der originalFileName-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Time when content is last modified*/
     public String getOriginalFileName() {
         return originalFileName;
     }
 
-    /**
-     * Legt den Wert der originalFileName-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Time when content is last modified*/
     public void setOriginalFileName(String value) {
         this.originalFileName = value;
     }
 
-    /**
-     * Ruft den Wert der contentModified-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
+    /**Time when content is last modified*/
+    @Dolphin
     public XMLGregorianCalendar getContentModified() {
         return contentModified;
     }
 
-    /**
-     * Legt den Wert der contentModified-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
+    /**Time when content is last modified*/
+    @Dolphin
     public void setContentModified(XMLGregorianCalendar value) {
         this.contentModified = value;
     }
 
-    /**
-     * Ruft den Wert der hasTextAnnotation-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Contains true if the section has text annotation.*/
+    @Eagle
     public boolean isHasTextAnnotation() {
         if (hasTextAnnotation == null) {
             return false;
@@ -432,14 +214,8 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der hasTextAnnotation-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Contains true if the section has text annotation.*/
+    @Eagle
     public void setHasTextAnnotation(Boolean value) {
         this.hasTextAnnotation = value;
     }
@@ -582,22 +358,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "DeepZoomImage".
     */
-    public URI getURIFromDeepZoomImageRelation() {
-        return MethodInvocation.<URI>get(this, links, "deepZoomImage", URI.class);
+    public InputStream getInputStreamFromDeepZoomImageRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "deepZoomImage", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "DeepZoomImage" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromDeepZoomImageRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "deepZoomImage", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromDeepZoomImageRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "deepZoomImage", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "DeepZoomImage" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromDeepZoomImageRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "deepZoomImage", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromDeepZoomImageRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "deepZoomImage", InputStream.class, ct);
     }
 
     /**
@@ -612,22 +388,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "DeepZoomImageWithAnnotation".
     */
-    public URI getURIFromDeepZoomImageWithAnnotationRelation() {
-        return MethodInvocation.<URI>get(this, links, "deepZoomImageWithAnnotation", URI.class);
+    public InputStream getInputStreamFromDeepZoomImageWithAnnotationRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "deepZoomImageWithAnnotation", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "DeepZoomImageWithAnnotation" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromDeepZoomImageWithAnnotationRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "deepZoomImageWithAnnotation", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromDeepZoomImageWithAnnotationRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "deepZoomImageWithAnnotation", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "DeepZoomImageWithAnnotation" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromDeepZoomImageWithAnnotationRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "deepZoomImageWithAnnotation", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromDeepZoomImageWithAnnotationRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "deepZoomImageWithAnnotation", InputStream.class, ct);
     }
 
     /**
@@ -744,22 +520,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Content".
     */
-    public URI getURIFromContentRelation() {
-        return MethodInvocation.<URI>get(this, links, "content", URI.class);
+    public InputStream getInputStreamFromContentRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "content", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Content" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromContentRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "content", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromContentRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "content", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Content" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromContentRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "content", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromContentRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "content", InputStream.class, ct);
     }
 
     /**
@@ -816,22 +592,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "FileDownload".
     */
-    public URI getURIFromFileDownloadRelation() {
-        return MethodInvocation.<URI>get(this, links, "fileDownload", URI.class);
+    public InputStream getInputStreamFromFileDownloadRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "fileDownload", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "FileDownload" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromFileDownloadRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "fileDownload", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromFileDownloadRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "fileDownload", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "FileDownload" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromFileDownloadRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "fileDownload", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromFileDownloadRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "fileDownload", InputStream.class, ct);
     }
 
     /**
@@ -897,22 +673,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Thumbnail".
     */
-    public URI getURIFromThumbnailRelation() {
-        return MethodInvocation.<URI>get(this, links, "thumbnail", URI.class);
+    public InputStream getInputStreamFromThumbnailRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "thumbnail", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Thumbnail" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromThumbnailRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "thumbnail", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromThumbnailRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "thumbnail", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Thumbnail" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromThumbnailRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "thumbnail", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromThumbnailRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "thumbnail", InputStream.class, ct);
     }
 
     /**
@@ -927,22 +703,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Icon".
     */
-    public URI getURIFromIconRelation() {
-        return MethodInvocation.<URI>get(this, links, "icon", URI.class);
+    public InputStream getInputStreamFromIconRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "icon", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Icon" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromIconRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "icon", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromIconRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "icon", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Icon" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromIconRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "icon", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromIconRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "icon", InputStream.class, ct);
     }
 
     /**
@@ -957,22 +733,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "TextAnnotation".
     */
-    public URI getURIFromTextAnnotationRelation() {
-        return MethodInvocation.<URI>get(this, links, "textAnnotation", URI.class);
+    public InputStream getInputStreamFromTextAnnotationRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "textAnnotation", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "TextAnnotation" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromTextAnnotationRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "textAnnotation", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromTextAnnotationRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "textAnnotation", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "TextAnnotation" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromTextAnnotationRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "textAnnotation", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromTextAnnotationRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "textAnnotation", InputStream.class, ct);
     }
 
     /**
@@ -1038,22 +814,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "AnnotationAsSvg".
     */
-    public URI getURIFromAnnotationAsSvgRelation() {
-        return MethodInvocation.<URI>get(this, links, "annotationAsSvg", URI.class);
+    public InputStream getInputStreamFromAnnotationAsSvgRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "annotationAsSvg", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "AnnotationAsSvg" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromAnnotationAsSvgRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "annotationAsSvg", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromAnnotationAsSvgRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "annotationAsSvg", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "AnnotationAsSvg" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromAnnotationAsSvgRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "annotationAsSvg", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromAnnotationAsSvgRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "annotationAsSvg", InputStream.class, ct);
     }
 
 

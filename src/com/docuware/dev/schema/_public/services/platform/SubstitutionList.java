@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -22,30 +16,6 @@ import javax.xml.bind.annotation.XmlType;
 import com.docuware.dev.schema._public.services.Links;
 
 
-/**
- * Defines a substitution list for an organization.
- * 
- * <p>Java-Klasse f�r SubstitutionList complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="SubstitutionList">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element ref="{http://dev.docuware.com/schema/public/services}Links"/>
- *       &lt;/sequence>
- *       &lt;attribute name="Name" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="Active" use="required" type="{http://www.w3.org/2001/XMLSchema}boolean" />
- *       &lt;attribute name="Guid" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SubstitutionList", propOrder = {
 "proxy",
@@ -64,90 +34,40 @@ private HttpClientProxy proxy;//test
     @XmlAttribute(name = "Guid", required = true)
     protected String guid;
 
-    /**
-     * Ruft den Wert der links-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Links }
-     *     
-     */
     public Links getLinks() {
         return links;
     }
 
-    /**
-     * Legt den Wert der links-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Links }
-     *     
-     */
     public void setLinks(Links value) {
         this.links = value;
     }
 
-    /**
-     * Ruft den Wert der name-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Gets the name of the list.*/
     public String getName() {
         return name;
     }
 
-    /**
-     * Legt den Wert der name-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Gets the name of the list.*/
     public void setName(String value) {
         this.name = value;
     }
 
-    /**
-     * Ruft den Wert der active-Eigenschaft ab.
-     * 
-     */
+    /**Gets a value indicating whether the list is active.*/
     public boolean isActive() {
         return active;
     }
 
-    /**
-     * Legt den Wert der active-Eigenschaft fest.
-     * 
-     */
+    /**Gets a value indicating whether the list is active.*/
     public void setActive(boolean value) {
         this.active = value;
     }
 
-    /**
-     * Ruft den Wert der guid-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Gets the Guid of the list.*/
     public String getGuid() {
         return guid;
     }
 
-    /**
-     * Legt den Wert der guid-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Gets the Guid of the list.*/
     public void setGuid(String value) {
         this.guid = value;
     }

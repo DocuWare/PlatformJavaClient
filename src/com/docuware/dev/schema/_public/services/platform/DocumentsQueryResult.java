@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -13,6 +7,7 @@ import com.docuware.dev.Extensions.*;
 import java.util.concurrent.Future;
 import com.docuware.dev.schema._public.services.Link;
 import com.docuware.dev.schema._public.services.platform.DocumentsQueryResult;
+import java.io.InputStream;
 import com.docuware.dev.schema._public.services.platform.BatchUpdateIndexFieldsResult;
 import com.docuware.dev.schema._public.services.platform.BatchUpdateProcessData;
 import javax.xml.bind.JAXBElement;
@@ -33,41 +28,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import com.docuware.dev.schema._public.services.Links;
 
 
-/**
- * Define a result from document query
- * 
- * <p>Java-Klasse f�r DocumentsQueryResult complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="DocumentsQueryResult">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Count" type="{http://dev.docuware.com/schema/public/services/platform}CountPlusValue" minOccurs="0"/>
- *         &lt;element name="Items">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="Item" type="{http://dev.docuware.com/schema/public/services/platform}Document" maxOccurs="unbounded" minOccurs="0"/>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element ref="{http://dev.docuware.com/schema/public/services}Links"/>
- *       &lt;/sequence>
- *       &lt;attribute name="Title" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="TimeStamp" use="required" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "DocumentsQueryResult", propOrder = {
 "proxy",
@@ -91,146 +51,55 @@ private HttpClientProxy proxy;//test
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar timeStamp;
 
-    /**
-     * Ruft den Wert der count-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link CountPlusValue }
-     *     
-     */
+    /**Gets the number of items of the query leading to this result.*/
     public CountPlusValue getCount() {
         return count;
     }
 
-    /**
-     * Legt den Wert der count-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link CountPlusValue }
-     *     
-     */
+    /**Gets the number of items of the query leading to this result.*/
     public void setCount(CountPlusValue value) {
         this.count = value;
     }
 
-    /**
-     * Ruft den Wert der items-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link DocumentsQueryResult.Items }
-     *     
-     */
+    /**Collection of documents from result*/
     public DocumentsQueryResult.Items getItems() {
         return items;
     }
 
-    /**
-     * Legt den Wert der items-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link DocumentsQueryResult.Items }
-     *     
-     */
+    /**Collection of documents from result*/
     public void setItems(DocumentsQueryResult.Items value) {
         this.items = value;
     }
 
-    /**
-     * Ruft den Wert der links-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Links }
-     *     
-     */
     public Links getLinks() {
         return links;
     }
 
-    /**
-     * Legt den Wert der links-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Links }
-     *     
-     */
     public void setLinks(Links value) {
         this.links = value;
     }
 
-    /**
-     * Ruft den Wert der title-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**The title of the document collection, if it exists.*/
     public String getTitle() {
         return title;
     }
 
-    /**
-     * Legt den Wert der title-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**The title of the document collection, if it exists.*/
     public void setTitle(String value) {
         this.title = value;
     }
 
-    /**
-     * Ruft den Wert der timeStamp-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
+    /**TimeStamp of the result.*/
     public XMLGregorianCalendar getTimeStamp() {
         return timeStamp;
     }
 
-    /**
-     * Legt den Wert der timeStamp-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
+    /**TimeStamp of the result.*/
     public void setTimeStamp(XMLGregorianCalendar value) {
         this.timeStamp = value;
     }
 
 
-    /**
-     * <p>Java-Klasse f�r anonymous complex type.
-     * 
-     * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
-     * 
-     * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="Item" type="{http://dev.docuware.com/schema/public/services/platform}Document" maxOccurs="unbounded" minOccurs="0"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
-     * </pre>
-     * 
-     * 
-     */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
         "item"
@@ -240,28 +109,7 @@ private HttpClientProxy proxy;//test
         @XmlElement(name = "Item")
         protected List<Document> item;
 
-        /**
-         * Gets the value of the item property.
-         * 
-         * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the item property.
-         * 
-         * <p>
-         * For example, to add a new item, do as follows:
-         * <pre>
-         *    getItem().add(newItem);
-         * </pre>
-         * 
-         * 
-         * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link Document }
-         * 
-         * 
-         */
+    /**Define a specific document from result*/
         public List<Document> getItem() {
             if (item == null) {
                 item = new ArrayList<Document>();
@@ -483,22 +331,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Feed".
     */
-    public URI getURIFromFeedRelation() {
-        return MethodInvocation.<URI>get(this, links, "feed", URI.class);
+    public InputStream getInputStreamFromFeedRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "feed", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Feed" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromFeedRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "feed", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromFeedRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "feed", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Feed" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromFeedRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "feed", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromFeedRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "feed", InputStream.class, ct);
     }
 
     /**

@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -37,38 +31,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import com.docuware.dev.schema._public.services.Links;
 
 
-/**
- * Define a row of  the table result from document query
- * 
- * <p>Java-Klasse f�r TableResultRow complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="TableResultRow">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;sequence maxOccurs="unbounded" minOccurs="0">
- *           &lt;choice>
- *             &lt;element name="Int" type="{http://www.w3.org/2001/XMLSchema}long"/>
- *             &lt;element name="Decimal" type="{http://www.w3.org/2001/XMLSchema}decimal"/>
- *             &lt;element name="String" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *             &lt;element name="DateTime" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *             &lt;element name="Empty" type="{http://dev.docuware.com/schema/public/services/platform}NullTableResultValue"/>
- *           &lt;/choice>
- *         &lt;/sequence>
- *         &lt;element ref="{http://dev.docuware.com/schema/public/services}Links" minOccurs="0"/>
- *         &lt;element name="Suggestions" type="{http://dev.docuware.com/schema/public/services/platform}SuggestionFields" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attribute name="Id" use="required" type="{http://www.w3.org/2001/XMLSchema}int" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TableResultRow", propOrder = {
 "proxy",
@@ -95,32 +57,6 @@ private HttpClientProxy proxy;//test
     @XmlAttribute(name = "Id", required = true)
     protected int id;
 
-    /**
-     * Gets the value of the intOrDecimalOrString property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the intOrDecimalOrString property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getIntOrDecimalOrString().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Long }
-     * {@link BigDecimal }
-     * {@link String }
-     * {@link XMLGregorianCalendar }
-     * {@link NullTableResultValue }
-     * 
-     * 
-     */
     public List<Object> getIntOrDecimalOrString() {
         if (intOrDecimalOrString == null) {
             intOrDecimalOrString = new ArrayList<Object>();
@@ -128,66 +64,28 @@ private HttpClientProxy proxy;//test
         return this.intOrDecimalOrString;
     }
 
-    /**
-     * Ruft den Wert der links-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Links }
-     *     
-     */
     public Links getLinks() {
         return links;
     }
 
-    /**
-     * Legt den Wert der links-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Links }
-     *     
-     */
     public void setLinks(Links value) {
         this.links = value;
     }
 
-    /**
-     * Ruft den Wert der suggestions-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link SuggestionFields }
-     *     
-     */
     public SuggestionFields getSuggestions() {
         return suggestions;
     }
 
-    /**
-     * Legt den Wert der suggestions-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link SuggestionFields }
-     *     
-     */
     public void setSuggestions(SuggestionFields value) {
         this.suggestions = value;
     }
 
-    /**
-     * Ruft den Wert der id-Eigenschaft ab.
-     * 
-     */
+    /**Id of the document represented by the current row.*/
     public int getId() {
         return id;
     }
 
-    /**
-     * Legt den Wert der id-Eigenschaft fest.
-     * 
-     */
+    /**Id of the document represented by the current row.*/
     public void setId(int value) {
         this.id = value;
     }
@@ -489,22 +387,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Thumbnail".
     */
-    public URI getURIFromThumbnailRelation() {
-        return MethodInvocation.<URI>get(this, links, "thumbnail", URI.class);
+    public InputStream getInputStreamFromThumbnailRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "thumbnail", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Thumbnail" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromThumbnailRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "thumbnail", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromThumbnailRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "thumbnail", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Thumbnail" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromThumbnailRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "thumbnail", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromThumbnailRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "thumbnail", InputStream.class, ct);
     }
 
     /**

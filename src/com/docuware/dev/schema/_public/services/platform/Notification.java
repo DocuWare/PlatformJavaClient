@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -22,29 +16,6 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 
-/**
- * A data stucture for implementing simple notifications.
- * 
- * <p>Java-Klasse f�r Notification complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="Notification">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="TimeStamp" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *       &lt;/sequence>
- *       &lt;attribute name="IsActive" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="Name" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Notification", propOrder = {
     "timeStamp"
@@ -59,38 +30,17 @@ public class Notification  {
     @XmlAttribute(name = "Name", required = true)
     protected String name;
 
-    /**
-     * Ruft den Wert der timeStamp-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
+    /**TimeStamp when the notification was checked. Ensure that notification was happened before that time stamp*/
     public XMLGregorianCalendar getTimeStamp() {
         return timeStamp;
     }
 
-    /**
-     * Legt den Wert der timeStamp-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
+    /**TimeStamp when the notification was checked. Ensure that notification was happened before that time stamp*/
     public void setTimeStamp(XMLGregorianCalendar value) {
         this.timeStamp = value;
     }
 
-    /**
-     * Ruft den Wert der isActive-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**If this flag is true then this notification is set.*/
     public boolean isIsActive() {
         if (isActive == null) {
             return false;
@@ -99,38 +49,17 @@ public class Notification  {
         }
     }
 
-    /**
-     * Legt den Wert der isActive-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**If this flag is true then this notification is set.*/
     public void setIsActive(Boolean value) {
         this.isActive = value;
     }
 
-    /**
-     * Ruft den Wert der name-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Gets or sets the name of this notification.*/
     public String getName() {
         return name;
     }
 
-    /**
-     * Legt den Wert der name-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Gets or sets the name of this notification.*/
     public void setName(String value) {
         this.name = value;
     }

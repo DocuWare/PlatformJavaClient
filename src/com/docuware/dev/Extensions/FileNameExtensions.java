@@ -42,7 +42,6 @@ public class FileNameExtensions {
     private static String getFileNameWithoutExtension(String path) {
         if (findExt(path) > 0) {
             String s = path.substring(0, findExt(path) - 1);
-            System.out.println("a" + s);
             return s;
         }
         return "";
@@ -60,14 +59,12 @@ public class FileNameExtensions {
         fileName = MakeFileNameSane(fileName) == null ? "" : MakeFileNameSane(fileName);
         String ext = getExtension(fileName);
         fileName = getFileNameWithoutExtension(fileName).replaceAll("[^\\w\\d\\s]", "_");
-        System.out.println(fileName + ";" + docId + ";" + fileCabinetId);
         String finalName = String.format("%s+%s+%s", docId, fileCabinetId, (fileName));
 
         int maxFileNameSize = MAX_FILE_NAME_SIZE - ext.length();
         if (finalName.length() > maxFileNameSize) {
             finalName = finalName.substring(0, maxFileNameSize);
         }
-        System.out.println(finalName + ";" + ext);
         return String.format("%s%s", finalName, ext);
     }
     

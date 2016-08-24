@@ -61,9 +61,7 @@ public class EasyCheckoutCheckinExtensionsBase {
 
             EasyCheckoutResult ecr = new EasyCheckoutResult();
             String s = EasyCheckoutCheckinExtensionsBase.createEasyCheckoutFileName(t, fileCabinetId, docId);
-            System.out.println("1" + s);
             ecr.setEncodedFileName(s);
-            System.out.println("2" + ecr.getEncodedFileName());
             ecr.setResponse(t);
             return ecr;
         });

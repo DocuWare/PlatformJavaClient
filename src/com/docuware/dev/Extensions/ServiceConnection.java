@@ -42,9 +42,14 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.xml.bind.JAXBElement;
+import org.apache.http.auth.Credentials;
+import org.apache.http.auth.NTCredentials;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -397,6 +402,57 @@ public class ServiceConnection {
         return CompletableFuture.<ServiceConnection>supplyAsync(() -> {
             return create(formData, uri, rel, sclbd);
         });
+    }
+    
+    static public Future<ServiceConnection> createWithWindowsAuthenticationAsync(String serviceUri, String userName, String password, String domain, String organization, DWProductTypes licenseType, ApacheHttpClientHandler httpClientHandler,
+            String[] userAgent)
+        {
+            NTCredentials c= new NTCredentials(userName, password, System.getenv("COMPUTERNAME"), domain);
+            return createWithWindowsAuthenticationAsync(serviceUri,c,  ServiceConnectionLoginData.Create(organization, licenseType, httpClientHandler, userAgent));
+        }
+    
+    static public Future<ServiceConnection> createWithWindowsAuthenticationAsync(String serviceUri, Credentials credentials, ServiceConnectionLoginData serviceConnectionLoginData)
+        {
+            ServiceConnectionTransportData transport = serviceConnectionLoginData.getTransport();
+            MultivaluedMap<String, String> m = new MultivaluedMapImpl();
+
+            if (transport.HttpClientHandler == null) {
+                 return CompletableFuture.<ServiceConnection>supplyAsync(()-> {
+                 return createWindows(m, serviceUri, "windowsLogin", transport, credentials);
+            });
+            }
+            return createAsync(m , serviceUri, "windowsLogin", serviceConnectionLoginData.getTransport());
+        }
+    
+    static public ServiceConnection createWithWindowsAuthentication(String serviceUri, Credentials credentials, ServiceConnectionLoginData serviceConnectionLoginData)
+        {
+            try{
+            return createWithWindowsAuthenticationAsync(serviceUri, credentials, serviceConnectionLoginData).get();
+            } catch (InterruptedException  | ExecutionException ex) {
+            throw new RuntimeException(ex.getCause());
+        }
+        }
+    
+    static public ServiceConnection createWithWindowsAuthentication(String serviceUri, String userName, String password, String domain, String organization, DWProductTypes licenseType, ApacheHttpClientHandler httpClientHandler,
+            String[] userAgent)
+        {
+            NTCredentials c= new NTCredentials(userName, password, System.getenv("COMPUTERNAME"), domain);
+        try {
+            return createWithWindowsAuthenticationAsync(serviceUri,c,  ServiceConnectionLoginData.Create(organization, licenseType, httpClientHandler, userAgent)).get();
+        } catch (InterruptedException  | ExecutionException ex) {
+            throw new RuntimeException(ex.getCause());
+        }
+        }
+    
+    private static ServiceConnection createWindows(MultivaluedMap<String, String> formData, String baseuri, String rel, ServiceConnectionTransportData sclbd, Credentials c) {
+        client = new PlatformClient(baseuri, sclbd, c);
+        LinkResolver resolver = client.getLinkResolver();
+        ServiceDescription serviceDescription = client.getServiceDescription();
+        // fire the request and get the response
+        ClientResponse response = client.resource(resolver.getLink(serviceDescription.getLinks(), rel))
+                .type("application/x-www-form-urlencoded").post(
+                        ClientResponse.class, formData);
+        return new ServiceConnection(serviceDescription);
     }
 
     /**

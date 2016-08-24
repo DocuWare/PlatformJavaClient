@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -12,6 +6,7 @@ import java.net.URI;
 import com.docuware.dev.Extensions.*;
 import java.util.concurrent.Future;
 import com.docuware.dev.schema._public.services.Link;
+import java.io.InputStream;
 import com.docuware.dev.schema._public.services.platform.FormFieldValues;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
@@ -22,60 +17,18 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlType;
 import com.docuware.dev.schema._public.services.Links;
 
 
-/**
- * Models a DocuWare stamp.
- * 
- * <p>Java-Klasse f�r Stamp complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="Stamp">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="FormField" type="{http://dev.docuware.com/schema/public/services/platform}StampFormField" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="Fields" type="{http://dev.docuware.com/schema/public/services/platform}StampField" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="HeadFont" type="{http://dev.docuware.com/schema/public/services/platform}Font"/>
- *         &lt;choice>
- *           &lt;element name="TextStamp" type="{http://dev.docuware.com/schema/public/services/platform}TextStamp"/>
- *           &lt;element name="StrokeStamp" type="{http://dev.docuware.com/schema/public/services/platform}StrokeStamp"/>
- *           &lt;element name="BitmapStamp" type="{http://dev.docuware.com/schema/public/services/platform}BitmapStamp"/>
- *         &lt;/choice>
- *         &lt;element ref="{http://dev.docuware.com/schema/public/services}Links"/>
- *       &lt;/sequence>
- *       &lt;attribute name="PasswordProtected" use="required" type="{http://www.w3.org/2001/XMLSchema}boolean" />
- *       &lt;attribute name="Signature" use="required" type="{http://dev.docuware.com/schema/public/services/platform}StampSignatureType" />
- *       &lt;attribute name="Color" use="required" type="{http://dev.docuware.com/settings/common}Color" />
- *       &lt;attribute name="Name" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="DisplayName" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="Overwrite" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="Id" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="IsHidden" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="Autosave" type="{http://www.w3.org/2001/XMLSchema}int" default="-1" />
- *       &lt;attribute name="CloseAfterStampSet" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="AutomaticallyOpenNextDocument" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="KeepStampActive" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Stamp", propOrder = {
 "proxy",
     "formField",
     "fields",
     "headFont",
-    "textStamp",
-    "strokeStamp",
-    "bitmapStamp",
+    "textStampOrStrokeStampOrBitmapStamp",
     "links"
 })
 public class Stamp  implements IRelationsWithProxy {
@@ -88,12 +41,12 @@ private HttpClientProxy proxy;//test
     protected List<StampField> fields;
     @XmlElement(name = "HeadFont", required = true)
     protected Font headFont;
-    @XmlElement(name = "TextStamp")
-    protected TextStamp textStamp;
-    @XmlElement(name = "StrokeStamp")
-    protected StrokeStamp strokeStamp;
-    @XmlElement(name = "BitmapStamp")
-    protected BitmapStamp bitmapStamp;
+    @XmlElements({
+        @XmlElement(name = "TextStamp", type = TextStamp.class),
+        @XmlElement(name = "StrokeStamp", type = StrokeStamp.class),
+        @XmlElement(name = "BitmapStamp", type = BitmapStamp.class)
+    })
+    protected Object textStampOrStrokeStampOrBitmapStamp;
     @XmlElement(name = "Links", namespace = "http://dev.docuware.com/schema/public/services", required = true)
     protected Links links;
     @XmlAttribute(name = "PasswordProtected", required = true)
@@ -121,28 +74,7 @@ private HttpClientProxy proxy;//test
     @XmlAttribute(name = "KeepStampActive")
     protected Boolean keepStampActive;
 
-    /**
-     * Gets the value of the formField property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the formField property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getFormField().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link StampFormField }
-     * 
-     * 
-     */
+    /**List of the stamp form fields.*/
     public List<StampFormField> getFormField() {
         if (formField == null) {
             formField = new ArrayList<StampFormField>();
@@ -150,28 +82,7 @@ private HttpClientProxy proxy;//test
         return this.formField;
     }
 
-    /**
-     * Gets the value of the fields property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the fields property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getFields().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link StampField }
-     * 
-     * 
-     */
+    /**List of the stamp fields.*/
     public List<StampField> getFields() {
         if (fields == null) {
             fields = new ArrayList<StampField>();
@@ -179,246 +90,85 @@ private HttpClientProxy proxy;//test
         return this.fields;
     }
 
-    /**
-     * Ruft den Wert der headFont-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Font }
-     *     
-     */
+    /**Font for the additional items of information.*/
     public Font getHeadFont() {
         return headFont;
     }
 
-    /**
-     * Legt den Wert der headFont-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Font }
-     *     
-     */
+    /**Font for the additional items of information.*/
     public void setHeadFont(Font value) {
         this.headFont = value;
     }
 
-    /**
-     * Ruft den Wert der textStamp-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link TextStamp }
-     *     
-     */
-    public TextStamp getTextStamp() {
-        return textStamp;
+    public Object getTextStampOrStrokeStampOrBitmapStamp() {
+        return textStampOrStrokeStampOrBitmapStamp;
     }
 
-    /**
-     * Legt den Wert der textStamp-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link TextStamp }
-     *     
-     */
-    public void setTextStamp(TextStamp value) {
-        this.textStamp = value;
+    public void setTextStampOrStrokeStampOrBitmapStamp(Object value) {
+        this.textStampOrStrokeStampOrBitmapStamp = value;
     }
 
-    /**
-     * Ruft den Wert der strokeStamp-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link StrokeStamp }
-     *     
-     */
-    public StrokeStamp getStrokeStamp() {
-        return strokeStamp;
-    }
-
-    /**
-     * Legt den Wert der strokeStamp-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link StrokeStamp }
-     *     
-     */
-    public void setStrokeStamp(StrokeStamp value) {
-        this.strokeStamp = value;
-    }
-
-    /**
-     * Ruft den Wert der bitmapStamp-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BitmapStamp }
-     *     
-     */
-    public BitmapStamp getBitmapStamp() {
-        return bitmapStamp;
-    }
-
-    /**
-     * Legt den Wert der bitmapStamp-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BitmapStamp }
-     *     
-     */
-    public void setBitmapStamp(BitmapStamp value) {
-        this.bitmapStamp = value;
-    }
-
-    /**
-     * Ruft den Wert der links-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Links }
-     *     
-     */
     public Links getLinks() {
         return links;
     }
 
-    /**
-     * Legt den Wert der links-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Links }
-     *     
-     */
     public void setLinks(Links value) {
         this.links = value;
     }
 
-    /**
-     * Ruft den Wert der passwordProtected-Eigenschaft ab.
-     * 
-     */
+    /**If this flag is true password is needed to place the stamp.*/
+    @Dolphin
     public boolean isPasswordProtected() {
         return passwordProtected;
     }
 
-    /**
-     * Legt den Wert der passwordProtected-Eigenschaft fest.
-     * 
-     */
+    /**If this flag is true password is needed to place the stamp.*/
+    @Dolphin
     public void setPasswordProtected(boolean value) {
         this.passwordProtected = value;
     }
 
-    /**
-     * Ruft den Wert der signature-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link StampSignatureType }
-     *     
-     */
+    /**The type of the stamp signature if there is any.*/
     public StampSignatureType getSignature() {
         return signature;
     }
 
-    /**
-     * Legt den Wert der signature-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link StampSignatureType }
-     *     
-     */
+    /**The type of the stamp signature if there is any.*/
     public void setSignature(StampSignatureType value) {
         this.signature = value;
     }
 
-    /**
-     * Ruft den Wert der color-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**The color of the stamp content*/
     public String getColor() {
         return color;
     }
 
-    /**
-     * Legt den Wert der color-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**The color of the stamp content*/
     public void setColor(String value) {
         this.color = value;
     }
 
-    /**
-     * Ruft den Wert der name-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**The name of the stamp.*/
     public String getName() {
         return name;
     }
 
-    /**
-     * Legt den Wert der name-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**The name of the stamp.*/
     public void setName(String value) {
         this.name = value;
     }
 
-    /**
-     * Ruft den Wert der displayName-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**The name of the stamp.*/
     public String getDisplayName() {
         return displayName;
     }
 
-    /**
-     * Legt den Wert der displayName-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**The name of the stamp.*/
     public void setDisplayName(String value) {
         this.displayName = value;
     }
 
-    /**
-     * Ruft den Wert der overwrite-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**If this flag is true the system will overwrite existing database entries with the stamp entries.*/
     public boolean isOverwrite() {
         if (overwrite == null) {
             return false;
@@ -427,50 +177,22 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der overwrite-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**If this flag is true the system will overwrite existing database entries with the stamp entries.*/
     public void setOverwrite(Boolean value) {
         this.overwrite = value;
     }
 
-    /**
-     * Ruft den Wert der id-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**The id of the stamp, which is a GUID usually.*/
     public String getId() {
         return id;
     }
 
-    /**
-     * Legt den Wert der id-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**The id of the stamp, which is a GUID usually.*/
     public void setId(String value) {
         this.id = value;
     }
 
-    /**
-     * Ruft den Wert der isHidden-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether the stamp is visible.*/
     public boolean isIsHidden() {
         if (isHidden == null) {
             return false;
@@ -479,26 +201,12 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der isHidden-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether the stamp is visible.*/
     public void setIsHidden(Boolean value) {
         this.isHidden = value;
     }
 
-    /**
-     * Ruft den Wert der autosave-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
+    /**Automatically save the stamp after specified period in seconds. Value -1 mean the stamp have to be saved on user action.*/
     public int getAutosave() {
         if (autosave == null) {
             return -1;
@@ -507,26 +215,12 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der autosave-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
+    /**Automatically save the stamp after specified period in seconds. Value -1 mean the stamp have to be saved on user action.*/
     public void setAutosave(Integer value) {
         this.autosave = value;
     }
 
-    /**
-     * Ruft den Wert der closeAfterStampSet-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Automatically close the window after stamp is placed in a document*/
     public boolean isCloseAfterStampSet() {
         if (closeAfterStampSet == null) {
             return false;
@@ -535,26 +229,13 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der closeAfterStampSet-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Automatically close the window after stamp is placed in a document*/
     public void setCloseAfterStampSet(Boolean value) {
         this.closeAfterStampSet = value;
     }
 
-    /**
-     * Ruft den Wert der automaticallyOpenNextDocument-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether the stamp remains active after being stored.*/
+    @Dolphin
     public boolean isAutomaticallyOpenNextDocument() {
         if (automaticallyOpenNextDocument == null) {
             return false;
@@ -563,26 +244,14 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der automaticallyOpenNextDocument-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether the stamp remains active after being stored.*/
+    @Dolphin
     public void setAutomaticallyOpenNextDocument(Boolean value) {
         this.automaticallyOpenNextDocument = value;
     }
 
-    /**
-     * Ruft den Wert der keepStampActive-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether next document is opened automatically after the stamp is stored.*/
+    @Dolphin
     public boolean isKeepStampActive() {
         if (keepStampActive == null) {
             return false;
@@ -591,14 +260,8 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der keepStampActive-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether next document is opened automatically after the stamp is stored.*/
+    @Dolphin
     public void setKeepStampActive(Boolean value) {
         this.keepStampActive = value;
     }
@@ -695,22 +358,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "AsBitmap".
     */
-    public URI getURIFromAsBitmapRelation() {
-        return MethodInvocation.<URI>get(this, links, "asBitmap", URI.class);
+    public InputStream getInputStreamFromAsBitmapRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "asBitmap", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "AsBitmap" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromAsBitmapRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "asBitmap", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromAsBitmapRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "asBitmap", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "AsBitmap" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromAsBitmapRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "asBitmap", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromAsBitmapRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "asBitmap", InputStream.class, ct);
     }
 
     /**
@@ -746,22 +409,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "AsSvg".
     */
-    public URI getURIFromAsSvgRelation() {
-        return MethodInvocation.<URI>get(this, links, "asSvg", URI.class);
+    public InputStream getInputStreamFromAsSvgRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "asSvg", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "AsSvg" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromAsSvgRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "asSvg", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromAsSvgRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "asSvg", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "AsSvg" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromAsSvgRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "asSvg", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromAsSvgRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "asSvg", InputStream.class, ct);
     }
 
     /**

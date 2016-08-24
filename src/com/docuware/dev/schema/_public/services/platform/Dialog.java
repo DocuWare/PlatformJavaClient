@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -19,27 +13,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
-/**
- * <p>Java-Klasse f�r Dialog complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="Dialog">
- *   &lt;complexContent>
- *     &lt;extension base="{http://dev.docuware.com/schema/public/services/platform}DialogInfo">
- *       &lt;sequence>
- *         &lt;element name="Fields" type="{http://dev.docuware.com/schema/public/services/platform}DialogFields"/>
- *         &lt;element name="Query" type="{http://dev.docuware.com/schema/public/services/platform}DocumentsQuery" minOccurs="0"/>
- *         &lt;element name="Properties" type="{http://dev.docuware.com/schema/public/services/platform}DialogProperties"/>
- *       &lt;/sequence>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Dialog", propOrder = {
 "proxy",
@@ -60,74 +33,32 @@ private HttpClientProxy proxy;//test
     @XmlElement(name = "Properties", required = true)
     protected DialogProperties properties;
 
-    /**
-     * Ruft den Wert der fields-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link DialogFields }
-     *     
-     */
+    /**The fields of this dialog.*/
     public DialogFields getFields() {
         return fields;
     }
 
-    /**
-     * Legt den Wert der fields-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link DialogFields }
-     *     
-     */
+    /**The fields of this dialog.*/
     public void setFields(DialogFields value) {
         this.fields = value;
     }
 
-    /**
-     * Ruft den Wert der query-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link DocumentsQuery }
-     *     
-     */
+    /**The query defined by this dialog.*/
     public DocumentsQuery getQuery() {
         return query;
     }
 
-    /**
-     * Legt den Wert der query-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link DocumentsQuery }
-     *     
-     */
+    /**The query defined by this dialog.*/
     public void setQuery(DocumentsQuery value) {
         this.query = value;
     }
 
-    /**
-     * Ruft den Wert der properties-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link DialogProperties }
-     *     
-     */
+    /**Dialog properties specific for dialog type.*/
     public DialogProperties getProperties() {
         return properties;
     }
 
-    /**
-     * Legt den Wert der properties-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link DialogProperties }
-     *     
-     */
+    /**Dialog properties specific for dialog type.*/
     public void setProperties(DialogProperties value) {
         this.properties = value;
     }

@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.settings.common;
@@ -19,26 +13,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
 
-/**
- * <p>Java-Klasse f�r DWRectangle complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="DWRectangle">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;attribute name="Left" use="required" type="{http://www.w3.org/2001/XMLSchema}double" />
- *       &lt;attribute name="Top" use="required" type="{http://www.w3.org/2001/XMLSchema}double" />
- *       &lt;attribute name="Width" use="required" type="{http://www.w3.org/2001/XMLSchema}double" />
- *       &lt;attribute name="Height" use="required" type="{http://www.w3.org/2001/XMLSchema}double" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "DWRectangle")
 public class DWRectangle  {
@@ -52,66 +26,42 @@ public class DWRectangle  {
     @XmlAttribute(name = "Height", required = true)
     protected double height;
 
-    /**
-     * Ruft den Wert der left-Eigenschaft ab.
-     * 
-     */
+    /**The left coordinate of the rectangle.*/
     public double getLeft() {
         return left;
     }
 
-    /**
-     * Legt den Wert der left-Eigenschaft fest.
-     * 
-     */
+    /**The left coordinate of the rectangle.*/
     public void setLeft(double value) {
         this.left = value;
     }
 
-    /**
-     * Ruft den Wert der top-Eigenschaft ab.
-     * 
-     */
+    /**The top coordinate of the rectangle.*/
     public double getTop() {
         return top;
     }
 
-    /**
-     * Legt den Wert der top-Eigenschaft fest.
-     * 
-     */
+    /**The top coordinate of the rectangle.*/
     public void setTop(double value) {
         this.top = value;
     }
 
-    /**
-     * Ruft den Wert der width-Eigenschaft ab.
-     * 
-     */
+    /**The width of the rectangle in coordinates.*/
     public double getWidth() {
         return width;
     }
 
-    /**
-     * Legt den Wert der width-Eigenschaft fest.
-     * 
-     */
+    /**The width of the rectangle in coordinates.*/
     public void setWidth(double value) {
         this.width = value;
     }
 
-    /**
-     * Ruft den Wert der height-Eigenschaft ab.
-     * 
-     */
+    /**The height of the rectangle in coordinates.*/
     public double getHeight() {
         return height;
     }
 
-    /**
-     * Legt den Wert der height-Eigenschaft fest.
-     * 
-     */
+    /**The height of the rectangle in coordinates.*/
     public void setHeight(double value) {
         this.height = value;
     }

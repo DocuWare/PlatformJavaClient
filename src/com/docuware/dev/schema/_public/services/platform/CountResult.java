@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -24,28 +18,6 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 
-/**
- * Result set of of item counts
- * 
- * <p>Java-Klasse f�r CountResult complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="CountResult">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Group" type="{http://dev.docuware.com/schema/public/services/platform}CountResultItem" maxOccurs="unbounded"/>
- *       &lt;/sequence>
- *       &lt;attribute name="TimeStamp" use="required" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "CountResult", propOrder = {
     "group"
@@ -58,28 +30,7 @@ public class CountResult  {
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar timeStamp;
 
-    /**
-     * Gets the value of the group property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the group property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getGroup().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link CountResultItem }
-     * 
-     * 
-     */
+    /**Set of count results*/
     public List<CountResultItem> getGroup() {
         if (group == null) {
             group = new ArrayList<CountResultItem>();
@@ -87,26 +38,14 @@ public class CountResult  {
         return this.group;
     }
 
-    /**
-     * Ruft den Wert der timeStamp-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
+    /**TimeStamp of the result*/
+    @Eagle
     public XMLGregorianCalendar getTimeStamp() {
         return timeStamp;
     }
 
-    /**
-     * Legt den Wert der timeStamp-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
+    /**TimeStamp of the result*/
+    @Eagle
     public void setTimeStamp(XMLGregorianCalendar value) {
         this.timeStamp = value;
     }

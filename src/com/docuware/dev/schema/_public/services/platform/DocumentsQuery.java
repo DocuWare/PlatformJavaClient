@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -28,33 +22,6 @@ import javax.xml.bind.annotation.XmlType;
 import com.docuware.dev.schema._public.services.Links;
 
 
-/**
- * Defines a query for documents.
- * 
- * <p>Java-Klasse f�r DocumentsQuery complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="DocumentsQuery">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="ForceRefresh" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *         &lt;element name="Expression" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="Fields" type="{http://dev.docuware.com/schema/public/services/platform}FieldsList" minOccurs="0"/>
- *         &lt;element name="SortOrder" type="{http://dev.docuware.com/schema/public/services/platform}SortedFieldsList" minOccurs="0"/>
- *         &lt;element ref="{http://dev.docuware.com/schema/public/services}Links"/>
- *       &lt;/sequence>
- *       &lt;attribute name="ExcludeSystemFields" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="IncludeSuggestions" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "DocumentsQuery", propOrder = {
 "proxy",
@@ -83,134 +50,57 @@ private HttpClientProxy proxy;//test
     @XmlAttribute(name = "IncludeSuggestions")
     protected Boolean includeSuggestions;
 
-    /**
-     * Ruft den Wert der forceRefresh-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determine if result list is retrieved from the cache when ForceRefresh is set to false (default) or always a new one is executed when ForceRefresh is set to true.*/
+    @Dolphin
     public Boolean isForceRefresh() {
         return forceRefresh;
     }
 
-    /**
-     * Legt den Wert der forceRefresh-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determine if result list is retrieved from the cache when ForceRefresh is set to false (default) or always a new one is executed when ForceRefresh is set to true.*/
+    @Dolphin
     public void setForceRefresh(Boolean value) {
         this.forceRefresh = value;
     }
 
-    /**
-     * Ruft den Wert der expression-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Gets or sets the query expression.*/
     public String getExpression() {
         return expression;
     }
 
-    /**
-     * Legt den Wert der expression-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Gets or sets the query expression.*/
     public void setExpression(String value) {
         this.expression = value;
     }
 
-    /**
-     * Ruft den Wert der fields-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link FieldsList }
-     *     
-     */
+    /**Gets or sets the fields which are returned by this query.*/
     public FieldsList getFields() {
         return fields;
     }
 
-    /**
-     * Legt den Wert der fields-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link FieldsList }
-     *     
-     */
+    /**Gets or sets the fields which are returned by this query.*/
     public void setFields(FieldsList value) {
         this.fields = value;
     }
 
-    /**
-     * Ruft den Wert der sortOrder-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link SortedFieldsList }
-     *     
-     */
+    /**Gets or sets the fields which are returned by this query.*/
     public SortedFieldsList getSortOrder() {
         return sortOrder;
     }
 
-    /**
-     * Legt den Wert der sortOrder-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link SortedFieldsList }
-     *     
-     */
+    /**Gets or sets the fields which are returned by this query.*/
     public void setSortOrder(SortedFieldsList value) {
         this.sortOrder = value;
     }
 
-    /**
-     * Ruft den Wert der links-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Links }
-     *     
-     */
     public Links getLinks() {
         return links;
     }
 
-    /**
-     * Legt den Wert der links-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Links }
-     *     
-     */
     public void setLinks(Links value) {
         this.links = value;
     }
 
-    /**
-     * Ruft den Wert der excludeSystemFields-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Gets or sets the fields which are returned by this query.*/
     public boolean isExcludeSystemFields() {
         if (excludeSystemFields == null) {
             return false;
@@ -219,26 +109,11 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der excludeSystemFields-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Gets or sets the fields which are returned by this query.*/
     public void setExcludeSystemFields(Boolean value) {
         this.excludeSystemFields = value;
     }
 
-    /**
-     * Ruft den Wert der includeSuggestions-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
     public boolean isIncludeSuggestions() {
         if (includeSuggestions == null) {
             return false;
@@ -247,14 +122,6 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der includeSuggestions-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
     public void setIncludeSuggestions(Boolean value) {
         this.includeSuggestions = value;
     }

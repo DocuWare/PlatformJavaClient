@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -21,36 +15,6 @@ import javax.xml.bind.annotation.XmlType;
 import com.docuware.dev.settings.interop.DWFieldType;
 
 
-/**
- * <p>Java-Klasse f�r FileCabinetField complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="FileCabinetField">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="FixedEntry" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="FieldInfoText" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attribute name="Scope" type="{http://dev.docuware.com/schema/public/services/platform}FileCabinetFieldScope" default="User" />
- *       &lt;attribute name="DWFieldType" use="required" type="{http://dev.docuware.com/settings/interop}DWFieldType" />
- *       &lt;attribute name="Length" type="{http://www.w3.org/2001/XMLSchema}int" default="0" />
- *       &lt;attribute name="DBFieldName" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="DisplayName" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="DropLeadingZero" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="DropLeadingBlanks" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="UsedAsDocumentName" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="NotEmpty" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="Precision" type="{http://www.w3.org/2001/XMLSchema}int" default="0" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "FileCabinetField", propOrder = {
     "fixedEntry",
@@ -83,62 +47,27 @@ public class FileCabinetField  {
     @XmlAttribute(name = "Precision")
     protected Integer precision;
 
-    /**
-     * Ruft den Wert der fixedEntry-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Fixed value of the field.If it's null the field has no fixed value.*/
     public String getFixedEntry() {
         return fixedEntry;
     }
 
-    /**
-     * Legt den Wert der fixedEntry-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Fixed value of the field.If it's null the field has no fixed value.*/
     public void setFixedEntry(String value) {
         this.fixedEntry = value;
     }
 
-    /**
-     * Ruft den Wert der fieldInfoText-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Description of the field.*/
     public String getFieldInfoText() {
         return fieldInfoText;
     }
 
-    /**
-     * Legt den Wert der fieldInfoText-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Description of the field.*/
     public void setFieldInfoText(String value) {
         this.fieldInfoText = value;
     }
 
-    /**
-     * Ruft den Wert der scope-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link FileCabinetFieldScope }
-     *     
-     */
+    /**Gets whether the field is a user or a system field.*/
     public FileCabinetFieldScope getScope() {
         if (scope == null) {
             return FileCabinetFieldScope.USER;
@@ -147,50 +76,22 @@ public class FileCabinetField  {
         }
     }
 
-    /**
-     * Legt den Wert der scope-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link FileCabinetFieldScope }
-     *     
-     */
+    /**Gets whether the field is a user or a system field.*/
     public void setScope(FileCabinetFieldScope value) {
         this.scope = value;
     }
 
-    /**
-     * Ruft den Wert der dwFieldType-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link DWFieldType }
-     *     
-     */
+    /**The DocuWare type of the field*/
     public DWFieldType getDWFieldType() {
         return dwFieldType;
     }
 
-    /**
-     * Legt den Wert der dwFieldType-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link DWFieldType }
-     *     
-     */
+    /**The DocuWare type of the field*/
     public void setDWFieldType(DWFieldType value) {
         this.dwFieldType = value;
     }
 
-    /**
-     * Ruft den Wert der length-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
+    /**Lenght of the field (for text fields).*/
     public int getLength() {
         if (length == null) {
             return  0;
@@ -199,74 +100,32 @@ public class FileCabinetField  {
         }
     }
 
-    /**
-     * Legt den Wert der length-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
+    /**Lenght of the field (for text fields).*/
     public void setLength(Integer value) {
         this.length = value;
     }
 
-    /**
-     * Ruft den Wert der dbFieldName-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**The name of the database column for the field.*/
     public String getDBFieldName() {
         return dbFieldName;
     }
 
-    /**
-     * Legt den Wert der dbFieldName-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**The name of the database column for the field.*/
     public void setDBFieldName(String value) {
         this.dbFieldName = value;
     }
 
-    /**
-     * Ruft den Wert der displayName-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Label (display name) of the field.*/
     public String getDisplayName() {
         return displayName;
     }
 
-    /**
-     * Legt den Wert der displayName-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Label (display name) of the field.*/
     public void setDisplayName(String value) {
         this.displayName = value;
     }
 
-    /**
-     * Ruft den Wert der dropLeadingZero-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether the system will automatically remove any leading zeros. If both the Remove leading spaces and Remove leading zeros options are enabled, both leading spaces and zeros are removed: _07896 becomes 7896.*/
     public boolean isDropLeadingZero() {
         if (dropLeadingZero == null) {
             return false;
@@ -275,26 +134,12 @@ public class FileCabinetField  {
         }
     }
 
-    /**
-     * Legt den Wert der dropLeadingZero-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether the system will automatically remove any leading zeros. If both the Remove leading spaces and Remove leading zeros options are enabled, both leading spaces and zeros are removed: _07896 becomes 7896.*/
     public void setDropLeadingZero(Boolean value) {
         this.dropLeadingZero = value;
     }
 
-    /**
-     * Ruft den Wert der dropLeadingBlanks-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether the system will automatically remove any leading spaces. If both the Remove leading spaces and Remove leading zeros options are enabled, both leading spaces and zeros are removed: _07896 becomes 7896.*/
     public boolean isDropLeadingBlanks() {
         if (dropLeadingBlanks == null) {
             return false;
@@ -303,26 +148,12 @@ public class FileCabinetField  {
         }
     }
 
-    /**
-     * Legt den Wert der dropLeadingBlanks-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether the system will automatically remove any leading spaces. If both the Remove leading spaces and Remove leading zeros options are enabled, both leading spaces and zeros are removed: _07896 becomes 7896.*/
     public void setDropLeadingBlanks(Boolean value) {
         this.dropLeadingBlanks = value;
     }
 
-    /**
-     * Ruft den Wert der usedAsDocumentName-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether the field is used as document name.*/
     public boolean isUsedAsDocumentName() {
         if (usedAsDocumentName == null) {
             return false;
@@ -331,26 +162,12 @@ public class FileCabinetField  {
         }
     }
 
-    /**
-     * Legt den Wert der usedAsDocumentName-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether the field is used as document name.*/
     public void setUsedAsDocumentName(Boolean value) {
         this.usedAsDocumentName = value;
     }
 
-    /**
-     * Ruft den Wert der notEmpty-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**If this flag is true then this field must have an entry, otherwise the document cannot be stored.*/
     public boolean isNotEmpty() {
         if (notEmpty == null) {
             return false;
@@ -359,26 +176,12 @@ public class FileCabinetField  {
         }
     }
 
-    /**
-     * Legt den Wert der notEmpty-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**If this flag is true then this field must have an entry, otherwise the document cannot be stored.*/
     public void setNotEmpty(Boolean value) {
         this.notEmpty = value;
     }
 
-    /**
-     * Ruft den Wert der precision-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
+    /**The number of decimal places that can be entered after the decimal point of a numeric field.*/
     public int getPrecision() {
         if (precision == null) {
             return  0;
@@ -387,14 +190,7 @@ public class FileCabinetField  {
         }
     }
 
-    /**
-     * Legt den Wert der precision-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
+    /**The number of decimal places that can be entered after the decimal point of a numeric field.*/
     public void setPrecision(Integer value) {
         this.precision = value;
     }

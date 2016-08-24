@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -19,28 +13,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
-/**
- * Text stamp. Value contains the text.
- * 
- * <p>Java-Klasse f�r TextStampEntry complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="TextStampEntry">
- *   &lt;complexContent>
- *     &lt;extension base="{http://dev.docuware.com/schema/public/services/platform}StampBase">
- *       &lt;sequence>
- *         &lt;element name="Font" type="{http://dev.docuware.com/schema/public/services/platform}Font"/>
- *         &lt;element name="Value" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *       &lt;/sequence>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TextStampEntry", propOrder = {
     "font",
@@ -55,50 +27,22 @@ public class TextStampEntry
     @XmlElement(name = "Value", required = true)
     protected String value;
 
-    /**
-     * Ruft den Wert der font-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Font }
-     *     
-     */
+    /**Font that is used for the text of the stamp.*/
     public Font getFont() {
         return font;
     }
 
-    /**
-     * Legt den Wert der font-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Font }
-     *     
-     */
+    /**Font that is used for the text of the stamp.*/
     public void setFont(Font value) {
         this.font = value;
     }
 
-    /**
-     * Ruft den Wert der value-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Text that stamp will show.*/
     public String getValue() {
         return value;
     }
 
-    /**
-     * Legt den Wert der value-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Text that stamp will show.*/
     public void setValue(String value) {
         this.value = value;
     }

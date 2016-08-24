@@ -419,7 +419,11 @@ public class LinkResolver {
                 HttpClientRequestException e = HttpClientRequestException.create(resp);
                 return new DeserializedHttpResponseGen(resp, e);
             } else {
-                return new DeserializedHttpResponseGen<>(resp, resp.getEntity(expectedType));
+                T t = resp.getEntity(expectedType);
+                if (t instanceof IHttpClientProxy) {
+                    ((IHttpClientProxy) t).setProxy(proxy.getProxy());
+                }
+                return new DeserializedHttpResponseGen<>(resp, t);
             }
         });
     }
@@ -432,7 +436,11 @@ public class LinkResolver {
                 HttpClientRequestException e = HttpClientRequestException.create(resp);
                 return new DeserializedHttpResponseGen(resp, e);
             } else {
-                return new DeserializedHttpResponseGen<>(resp, resp.getEntity(expectedType));
+                T t = resp.getEntity(expectedType);
+                if (t instanceof IHttpClientProxy) {
+                    ((IHttpClientProxy) t).setProxy(proxy.getProxy());
+                }
+                return new DeserializedHttpResponseGen<>(resp, t);
             }
         });
     }
@@ -445,7 +453,11 @@ public class LinkResolver {
                 HttpClientRequestException e = HttpClientRequestException.create(resp);
                 return new DeserializedHttpResponseGen(resp, e);
             } else {
-                return new DeserializedHttpResponseGen<>(resp, resp.getEntity(expectedType));
+                T t = resp.getEntity(expectedType);
+                if (t instanceof IHttpClientProxy) {
+                    ((IHttpClientProxy) t).setProxy(proxy.getProxy());
+                }
+                return new DeserializedHttpResponseGen<>(resp, t);
             }
         });
     }
@@ -459,7 +471,11 @@ public class LinkResolver {
                 HttpClientRequestException e = HttpClientRequestException.create(resp);
                 return new DeserializedHttpResponseGen(resp, e);
             } else {
-                return new DeserializedHttpResponseGen<>(resp, resp.getEntity(expectedType));
+                T t = resp.getEntity(expectedType);
+                if (t instanceof IHttpClientProxy) {
+                    ((IHttpClientProxy) t).setProxy(proxy.getProxy());
+                }
+                return new DeserializedHttpResponseGen<>(resp, t);
             }
         });
     }
@@ -472,8 +488,11 @@ public class LinkResolver {
                 HttpClientRequestException e = HttpClientRequestException.create(resp);
                 return new DeserializedHttpResponseGen(resp, e);
             } else {
-                System.out.println("real");
-                return new DeserializedHttpResponseGen<>(resp, resp.getEntity(expectedType));
+                T t = resp.getEntity(expectedType);
+                if (t instanceof IHttpClientProxy) {
+                    ((IHttpClientProxy) t).setProxy(proxy.getProxy());
+                }
+                return new DeserializedHttpResponseGen<>(resp, t);
             }
         });
     }

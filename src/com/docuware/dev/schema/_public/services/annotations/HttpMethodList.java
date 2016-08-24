@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.annotations;
@@ -23,26 +17,6 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 
-/**
- * <p>Java-Klasse f�r HttpMethodList complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="HttpMethodList">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Method" type="{http://dev.docuware.com/schema/public/services/annotations}HttpMethod" maxOccurs="unbounded"/>
- *       &lt;/sequence>
- *       &lt;attribute name="IsComplete" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "HttpMethodList", propOrder = {
     "method"
@@ -55,28 +29,6 @@ public class HttpMethodList  {
     @XmlAttribute(name = "IsComplete")
     protected Boolean isComplete;
 
-    /**
-     * Gets the value of the method property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the method property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getMethod().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link HttpMethod }
-     * 
-     * 
-     */
     public List<HttpMethod> getMethod() {
         if (method == null) {
             method = new ArrayList<HttpMethod>();
@@ -84,14 +36,7 @@ public class HttpMethodList  {
         return this.method;
     }
 
-    /**
-     * Ruft den Wert der isComplete-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**If this is true than there are no other methods are expected than the specified.*/
     public boolean isIsComplete() {
         if (isComplete == null) {
             return false;
@@ -100,14 +45,7 @@ public class HttpMethodList  {
         }
     }
 
-    /**
-     * Legt den Wert der isComplete-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**If this is true than there are no other methods are expected than the specified.*/
     public void setIsComplete(Boolean value) {
         this.isComplete = value;
     }

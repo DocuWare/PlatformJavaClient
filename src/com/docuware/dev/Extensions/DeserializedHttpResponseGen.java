@@ -47,10 +47,8 @@ public class DeserializedHttpResponseGen<T> implements Closeable {
 
     private static String getFileNameInternal(DeserializedHttpResponseGen<InputStream> response) {
         String fileName = response.getHeaders().getFirst("Content-Disposition");
-        //System.out.println(fileName);
         fileName = fileName.substring(fileName.indexOf("filename"));
         fileName = fileName.replace("filename=", "");
-        //System.out.println(fileName);
         fileName = fileName.substring(0, !fileName.contains(";") ? fileName.length() : fileName.indexOf(";"));
         if (fileName == null || fileName.isEmpty()) {
             fileName = null;

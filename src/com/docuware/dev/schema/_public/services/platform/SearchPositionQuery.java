@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -20,35 +14,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
-/**
- * Define a query for searching words in phrase
- * 
- * <p>Java-Klasse f�r SearchPositionQuery complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="SearchPositionQuery">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Phrase" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *       &lt;/sequence>
- *       &lt;attribute name="IgnoreCase" type="{http://www.w3.org/2001/XMLSchema}boolean" default="true" />
- *       &lt;attribute name="WholeWord" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="StartPage" type="{http://www.w3.org/2001/XMLSchema}int" default="0" />
- *       &lt;attribute name="StartSectionNumber" type="{http://www.w3.org/2001/XMLSchema}int" default="0" />
- *       &lt;attribute name="PageCount" type="{http://www.w3.org/2001/XMLSchema}int" default="1" />
- *       &lt;attribute name="Backward" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="RangeSearch" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="Normalize" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SearchPositionQuery", propOrder = {
     "phrase"
@@ -74,38 +39,17 @@ public class SearchPositionQuery  {
     @XmlAttribute(name = "Normalize")
     protected Boolean normalize;
 
-    /**
-     * Ruft den Wert der phrase-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Define the search phrase (words)*/
     public String getPhrase() {
         return phrase;
     }
 
-    /**
-     * Legt den Wert der phrase-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Define the search phrase (words)*/
     public void setPhrase(String value) {
         this.phrase = value;
     }
 
-    /**
-     * Ruft den Wert der ignoreCase-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Define if case is ignored*/
     public boolean isIgnoreCase() {
         if (ignoreCase == null) {
             return true;
@@ -114,26 +58,12 @@ public class SearchPositionQuery  {
         }
     }
 
-    /**
-     * Legt den Wert der ignoreCase-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Define if case is ignored*/
     public void setIgnoreCase(Boolean value) {
         this.ignoreCase = value;
     }
 
-    /**
-     * Ruft den Wert der wholeWord-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Define if search for whole words only*/
     public boolean isWholeWord() {
         if (wholeWord == null) {
             return false;
@@ -142,26 +72,12 @@ public class SearchPositionQuery  {
         }
     }
 
-    /**
-     * Legt den Wert der wholeWord-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Define if search for whole words only*/
     public void setWholeWord(Boolean value) {
         this.wholeWord = value;
     }
 
-    /**
-     * Ruft den Wert der startPage-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
+    /**Define a starting page for the search*/
     public int getStartPage() {
         if (startPage == null) {
             return  0;
@@ -170,26 +86,12 @@ public class SearchPositionQuery  {
         }
     }
 
-    /**
-     * Legt den Wert der startPage-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
+    /**Define a starting page for the search*/
     public void setStartPage(Integer value) {
         this.startPage = value;
     }
 
-    /**
-     * Ruft den Wert der startSectionNumber-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
+    /**Define a starting section for the search*/
     public int getStartSectionNumber() {
         if (startSectionNumber == null) {
             return  0;
@@ -198,26 +100,12 @@ public class SearchPositionQuery  {
         }
     }
 
-    /**
-     * Legt den Wert der startSectionNumber-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
+    /**Define a starting section for the search*/
     public void setStartSectionNumber(Integer value) {
         this.startSectionNumber = value;
     }
 
-    /**
-     * Ruft den Wert der pageCount-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
+    /**Search this number of pages after the first page where a hit occur. If value is less than zero then all pages will be returned*/
     public int getPageCount() {
         if (pageCount == null) {
             return  1;
@@ -226,26 +114,12 @@ public class SearchPositionQuery  {
         }
     }
 
-    /**
-     * Legt den Wert der pageCount-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
+    /**Search this number of pages after the first page where a hit occur. If value is less than zero then all pages will be returned*/
     public void setPageCount(Integer value) {
         this.pageCount = value;
     }
 
-    /**
-     * Ruft den Wert der backward-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**If this flag is true then the search will be executed in the previous pages.*/
     public boolean isBackward() {
         if (backward == null) {
             return false;
@@ -254,26 +128,12 @@ public class SearchPositionQuery  {
         }
     }
 
-    /**
-     * Legt den Wert der backward-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**If this flag is true then the search will be executed in the previous pages.*/
     public void setBackward(Boolean value) {
         this.backward = value;
     }
 
-    /**
-     * Ruft den Wert der rangeSearch-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**If this flag is true then only the specified page range is searched. Otherwise the whole document starting at the specified page is serched until the specified number of pages are found.*/
     public boolean isRangeSearch() {
         if (rangeSearch == null) {
             return false;
@@ -282,26 +142,13 @@ public class SearchPositionQuery  {
         }
     }
 
-    /**
-     * Legt den Wert der rangeSearch-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**If this flag is true then only the specified page range is searched. Otherwise the whole document starting at the specified page is serched until the specified number of pages are found.*/
     public void setRangeSearch(Boolean value) {
         this.rangeSearch = value;
     }
 
-    /**
-     * Ruft den Wert der normalize-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**If this flag is true then the result coordinates orientation will be alligned with the page*/
+    @Dolphin
     public boolean isNormalize() {
         if (normalize == null) {
             return false;
@@ -310,14 +157,8 @@ public class SearchPositionQuery  {
         }
     }
 
-    /**
-     * Legt den Wert der normalize-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**If this flag is true then the result coordinates orientation will be alligned with the page*/
+    @Dolphin
     public void setNormalize(Boolean value) {
         this.normalize = value;
     }

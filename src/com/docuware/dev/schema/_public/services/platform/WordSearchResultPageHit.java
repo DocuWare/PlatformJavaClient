@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -20,28 +14,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
-/**
- * Define a a set of words and locations where they are found in a page
- * 
- * <p>Java-Klasse f�r WordSearchResultPageHit complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="WordSearchResultPageHit">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Hits" type="{http://dev.docuware.com/schema/public/services/platform}WordSearchResultWordHits"/>
- *       &lt;/sequence>
- *       &lt;attribute name="PageNum" use="required" type="{http://www.w3.org/2001/XMLSchema}int" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "WordSearchResultPageHit", propOrder = {
     "hits"
@@ -53,42 +25,22 @@ public class WordSearchResultPageHit  {
     @XmlAttribute(name = "PageNum", required = true)
     protected int pageNum;
 
-    /**
-     * Ruft den Wert der hits-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link WordSearchResultWordHits }
-     *     
-     */
+    /**Contains the sequence of words matching the search query.*/
     public WordSearchResultWordHits getHits() {
         return hits;
     }
 
-    /**
-     * Legt den Wert der hits-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link WordSearchResultWordHits }
-     *     
-     */
+    /**Contains the sequence of words matching the search query.*/
     public void setHits(WordSearchResultWordHits value) {
         this.hits = value;
     }
 
-    /**
-     * Ruft den Wert der pageNum-Eigenschaft ab.
-     * 
-     */
+    /**Page number where the hits a found*/
     public int getPageNum() {
         return pageNum;
     }
 
-    /**
-     * Legt den Wert der pageNum-Eigenschaft fest.
-     * 
-     */
+    /**Page number where the hits a found*/
     public void setPageNum(int value) {
         this.pageNum = value;
     }

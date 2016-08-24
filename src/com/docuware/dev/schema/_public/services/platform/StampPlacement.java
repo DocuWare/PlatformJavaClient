@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -25,33 +19,6 @@ import javax.xml.bind.annotation.XmlType;
 import com.docuware.dev.settings.common.DWPoint;
 
 
-/**
- * Describes how to place a stamp on a page.
- * 
- * <p>Java-Klasse f�r StampPlacement complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="StampPlacement">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Strokes" type="{http://dev.docuware.com/schema/public/services/platform}PolyLineEntry" minOccurs="0"/>
- *         &lt;element name="Location" type="{http://dev.docuware.com/settings/common}DWPoint" minOccurs="0"/>
- *         &lt;element name="Field" type="{http://dev.docuware.com/schema/public/services/platform}FormFieldValue" maxOccurs="5" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attribute name="StampId" type="{http://www.w3.org/2001/XMLSchema}anySimpleType" />
- *       &lt;attribute name="Rotation" type="{http://www.w3.org/2001/XMLSchema}int" default="0" />
- *       &lt;attribute name="Layer" type="{http://www.w3.org/2001/XMLSchema}int" default="0" />
- *       &lt;attribute name="Password" type="{http://www.w3.org/2001/XMLSchema}string" default="" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "StampPlacement", propOrder = {
     "strokes",
@@ -79,76 +46,27 @@ public class StampPlacement  {
     @XmlAttribute(name = "Password")
     protected String password;
 
-    /**
-     * Ruft den Wert der strokes-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link PolyLineEntry }
-     *     
-     */
+    /**A polyline entry in case of stroke stamps.*/
     public PolyLineEntry getStrokes() {
         return strokes;
     }
 
-    /**
-     * Legt den Wert der strokes-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link PolyLineEntry }
-     *     
-     */
+    /**A polyline entry in case of stroke stamps.*/
     public void setStrokes(PolyLineEntry value) {
         this.strokes = value;
     }
 
-    /**
-     * Ruft den Wert der location-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link DWPoint }
-     *     
-     */
+    /**The location of the stamp.*/
     public DWPoint getLocation() {
         return location;
     }
 
-    /**
-     * Legt den Wert der location-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link DWPoint }
-     *     
-     */
+    /**The location of the stamp.*/
     public void setLocation(DWPoint value) {
         this.location = value;
     }
 
-    /**
-     * Gets the value of the field property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the field property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getField().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link FormFieldValue }
-     * 
-     * 
-     */
+    /**The form field values which are applied when placing the stamp.*/
     public List<FormFieldValue> getField() {
         if (field == null) {
             field = new ArrayList<FormFieldValue>();
@@ -156,38 +74,17 @@ public class StampPlacement  {
         return this.field;
     }
 
-    /**
-     * Ruft den Wert der stampId-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**The Id of the stamp to place.*/
     public String getStampId() {
         return stampId;
     }
 
-    /**
-     * Legt den Wert der stampId-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**The Id of the stamp to place.*/
     public void setStampId(String value) {
         this.stampId = value;
     }
 
-    /**
-     * Ruft den Wert der rotation-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
+    /**Rotation of the stamp. Only rotation even of 90 degree are supported.*/
     public int getRotation() {
         if (rotation == null) {
             return  0;
@@ -196,26 +93,12 @@ public class StampPlacement  {
         }
     }
 
-    /**
-     * Legt den Wert der rotation-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
+    /**Rotation of the stamp. Only rotation even of 90 degree are supported.*/
     public void setRotation(Integer value) {
         this.rotation = value;
     }
 
-    /**
-     * Ruft den Wert der layer-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
+    /**Layer where the stamp have to be placed.*/
     public int getLayer() {
         if (layer == null) {
             return  0;
@@ -224,26 +107,13 @@ public class StampPlacement  {
         }
     }
 
-    /**
-     * Legt den Wert der layer-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
+    /**Layer where the stamp have to be placed.*/
     public void setLayer(Integer value) {
         this.layer = value;
     }
 
-    /**
-     * Ruft den Wert der password-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Password for password protected stamps*/
+    @Dolphin
     public String getPassword() {
         if (password == null) {
             return "";
@@ -252,14 +122,8 @@ public class StampPlacement  {
         }
     }
 
-    /**
-     * Legt den Wert der password-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Password for password protected stamps*/
+    @Dolphin
     public void setPassword(String value) {
         this.password = value;
     }

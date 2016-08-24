@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -19,23 +13,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
 
-/**
- * <p>Java-Klasse f�r ImportSettings complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="ImportSettings">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;attribute name="PreserveSystemFields" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ImportSettings")
 public class ImportSettings  implements IStringContent {
@@ -43,14 +20,7 @@ public class ImportSettings  implements IStringContent {
     @XmlAttribute(name = "PreserveSystemFields")
     protected Boolean preserveSystemFields;
 
-    /**
-     * Ruft den Wert der preserveSystemFields-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Gets or sets a value indicating whether the document' system fields to be replaced.*/
     public boolean isPreserveSystemFields() {
         if (preserveSystemFields == null) {
             return false;
@@ -59,14 +29,7 @@ public class ImportSettings  implements IStringContent {
         }
     }
 
-    /**
-     * Legt den Wert der preserveSystemFields-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Gets or sets a value indicating whether the document' system fields to be replaced.*/
     public void setPreserveSystemFields(Boolean value) {
         this.preserveSystemFields = value;
     }

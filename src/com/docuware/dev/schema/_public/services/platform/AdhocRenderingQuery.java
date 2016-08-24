@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -21,29 +15,6 @@ import javax.xml.bind.annotation.XmlType;
 import com.docuware.dev.settings.common.DWSize;
 
 
-/**
- * In case you do not specify the size or resolution a default rendering resolution of 72 dpi is assumed.
- * 
- * <p>Java-Klasse f�r AdhocRenderingQuery complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="AdhocRenderingQuery">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Size" type="{http://dev.docuware.com/settings/common}DWSize" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attribute name="Page" type="{http://www.w3.org/2001/XMLSchema}int" default="0" />
- *       &lt;attribute name="Dpi" type="{http://www.w3.org/2001/XMLSchema}float" default="72" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AdhocRenderingQuery", propOrder = {
     "size"
@@ -57,38 +28,17 @@ public class AdhocRenderingQuery  {
     @XmlAttribute(name = "Dpi")
     protected Float dpi;
 
-    /**
-     * Ruft den Wert der size-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link DWSize }
-     *     
-     */
+    /**Gets or sets the size in pixels of the rendering canvas.*/
     public DWSize getSize() {
         return size;
     }
 
-    /**
-     * Legt den Wert der size-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link DWSize }
-     *     
-     */
+    /**Gets or sets the size in pixels of the rendering canvas.*/
     public void setSize(DWSize value) {
         this.size = value;
     }
 
-    /**
-     * Ruft den Wert der page-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
+    /**Gets or sets page number to be rendered.*/
     public int getPage() {
         if (page == null) {
             return  0;
@@ -97,26 +47,12 @@ public class AdhocRenderingQuery  {
         }
     }
 
-    /**
-     * Legt den Wert der page-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
+    /**Gets or sets page number to be rendered.*/
     public void setPage(Integer value) {
         this.page = value;
     }
 
-    /**
-     * Ruft den Wert der dpi-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Float }
-     *     
-     */
+    /**Gets or sets the resolution of the rendered bitmap.*/
     public float getDpi() {
         if (dpi == null) {
             return  72.0F;
@@ -125,14 +61,7 @@ public class AdhocRenderingQuery  {
         }
     }
 
-    /**
-     * Legt den Wert der dpi-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Float }
-     *     
-     */
+    /**Gets or sets the resolution of the rendered bitmap.*/
     public void setDpi(Float value) {
         this.dpi = value;
     }

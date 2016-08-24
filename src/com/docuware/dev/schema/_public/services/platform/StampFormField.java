@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -26,35 +20,6 @@ import com.docuware.dev.schema._public.services.Links;
 import com.docuware.dev.settings.interop.DWFieldType;
 
 
-/**
- * A form field for variable text to a text stamp.
- * 
- * <p>Java-Klasse f�r StampFormField complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="StampFormField">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element ref="{http://dev.docuware.com/schema/public/services}Links" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attribute name="Name" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="Label" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="Length" type="{http://www.w3.org/2001/XMLSchema}int" default="0" />
- *       &lt;attribute name="Precision" type="{http://www.w3.org/2001/XMLSchema}int" default="0" />
- *       &lt;attribute name="DWFieldType" type="{http://dev.docuware.com/settings/interop}DWFieldType" default="Text" />
- *       &lt;attribute name="Mask" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="MaskErrorText" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="SampleEditText" type="{http://www.w3.org/2001/XMLSchema}string" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "StampFormField", propOrder = {
 "proxy",
@@ -83,86 +48,35 @@ private HttpClientProxy proxy;//test
     @XmlAttribute(name = "SampleEditText")
     protected String sampleEditText;
 
-    /**
-     * Ruft den Wert der links-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Links }
-     *     
-     */
     public Links getLinks() {
         return links;
     }
 
-    /**
-     * Legt den Wert der links-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Links }
-     *     
-     */
     public void setLinks(Links value) {
         this.links = value;
     }
 
-    /**
-     * Ruft den Wert der name-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Name of the form field*/
     public String getName() {
         return name;
     }
 
-    /**
-     * Legt den Wert der name-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Name of the form field*/
     public void setName(String value) {
         this.name = value;
     }
 
-    /**
-     * Ruft den Wert der label-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**The label used to represent the form field when the stamp is set on the client.*/
     public String getLabel() {
         return label;
     }
 
-    /**
-     * Legt den Wert der label-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**The label used to represent the form field when the stamp is set on the client.*/
     public void setLabel(String value) {
         this.label = value;
     }
 
-    /**
-     * Ruft den Wert der length-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
+    /**Lenght of the form field*/
     public int getLength() {
         if (length == null) {
             return  0;
@@ -171,26 +85,12 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der length-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
+    /**Lenght of the form field*/
     public void setLength(Integer value) {
         this.length = value;
     }
 
-    /**
-     * Ruft den Wert der precision-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
+    /**Gets the number of digits after the decimal point in case of a numeric field.*/
     public int getPrecision() {
         if (precision == null) {
             return  0;
@@ -199,26 +99,12 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der precision-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
+    /**Gets the number of digits after the decimal point in case of a numeric field.*/
     public void setPrecision(Integer value) {
         this.precision = value;
     }
 
-    /**
-     * Ruft den Wert der dwFieldType-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link DWFieldType }
-     *     
-     */
+    /**The DocuWare type of the field.*/
     public DWFieldType getDWFieldType() {
         if (dwFieldType == null) {
             return DWFieldType.TEXT;
@@ -227,86 +113,39 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der dwFieldType-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link DWFieldType }
-     *     
-     */
+    /**The DocuWare type of the field.*/
     public void setDWFieldType(DWFieldType value) {
         this.dwFieldType = value;
     }
 
-    /**
-     * Ruft den Wert der mask-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Mask(regular expression) for limiting the input options for the form field.*/
     public String getMask() {
         return mask;
     }
 
-    /**
-     * Legt den Wert der mask-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Mask(regular expression) for limiting the input options for the form field.*/
     public void setMask(String value) {
         this.mask = value;
     }
 
-    /**
-     * Ruft den Wert der maskErrorText-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Mask(regular expression) for limiting the input options for the form field.*/
     public String getMaskErrorText() {
         return maskErrorText;
     }
 
-    /**
-     * Legt den Wert der maskErrorText-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Mask(regular expression) for limiting the input options for the form field.*/
     public void setMaskErrorText(String value) {
         this.maskErrorText = value;
     }
 
-    /**
-     * Ruft den Wert der sampleEditText-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Sample entry that matches the mask definition.*/
+    @Dolphin
     public String getSampleEditText() {
         return sampleEditText;
     }
 
-    /**
-     * Legt den Wert der sampleEditText-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Sample entry that matches the mask definition.*/
+    @Dolphin
     public void setSampleEditText(String value) {
         this.sampleEditText = value;
     }

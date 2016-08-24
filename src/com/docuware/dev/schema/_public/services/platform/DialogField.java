@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -29,48 +23,6 @@ import com.docuware.dev.schema._public.services.Links;
 import com.docuware.dev.settings.interop.DWFieldType;
 
 
-/**
- * <p>Java-Klasse f�r DialogField complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="DialogField">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Mask" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="MaskErrorText" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="SampleEditText" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="PrefillValue" type="{http://dev.docuware.com/schema/public/services/platform}DocumentIndexFieldValue" maxOccurs="2" minOccurs="0"/>
- *         &lt;element name="DynamicPrefillValue" type="{http://dev.docuware.com/schema/public/services/platform}DynamicValueType" maxOccurs="2" minOccurs="0"/>
- *         &lt;element name="SelectListInfos" type="{http://dev.docuware.com/schema/public/services/platform}SelectListInfos" minOccurs="0"/>
- *         &lt;element ref="{http://dev.docuware.com/schema/public/services}Links" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attribute name="DBFieldName" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="DlgLabel" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="DWFieldType" use="required" type="{http://dev.docuware.com/settings/interop}DWFieldType" />
- *       &lt;attribute name="Locked" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="ReadOnly" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="NotEmpty" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="Visible" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="Length" type="{http://www.w3.org/2001/XMLSchema}int" default="-1" />
- *       &lt;attribute name="Precision" type="{http://www.w3.org/2001/XMLSchema}int" default="0" />
- *       &lt;attribute name="AllowExtendedSearch" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="UsedAsDocumentName" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="IsHierarchy" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="AllowFiltering" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="SelectListOnly" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="SelectListType" type="{http://dev.docuware.com/schema/public/services/platform}SelectListType" default="Standard" />
- *       &lt;attribute name="AssignedInternalSelectList" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="SequenceId" type="{http://www.w3.org/2001/XMLSchema}string" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "DialogField", propOrder = {
 "proxy",
@@ -136,100 +88,39 @@ private HttpClientProxy proxy;//test
     @XmlAttribute(name = "SequenceId")
     protected String sequenceId;
 
-    /**
-     * Ruft den Wert der mask-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Mask(regular expression) for limiting the input options for the field.*/
     public String getMask() {
         return mask;
     }
 
-    /**
-     * Legt den Wert der mask-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Mask(regular expression) for limiting the input options for the field.*/
     public void setMask(String value) {
         this.mask = value;
     }
 
-    /**
-     * Ruft den Wert der maskErrorText-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Mask(regular expression) for limiting the input options for the field.*/
     public String getMaskErrorText() {
         return maskErrorText;
     }
 
-    /**
-     * Legt den Wert der maskErrorText-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Mask(regular expression) for limiting the input options for the field.*/
     public void setMaskErrorText(String value) {
         this.maskErrorText = value;
     }
 
-    /**
-     * Ruft den Wert der sampleEditText-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Sample entry that matches the mask definition.*/
+    @Dolphin
     public String getSampleEditText() {
         return sampleEditText;
     }
 
-    /**
-     * Legt den Wert der sampleEditText-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Sample entry that matches the mask definition.*/
+    @Dolphin
     public void setSampleEditText(String value) {
         this.sampleEditText = value;
     }
 
-    /**
-     * Gets the value of the prefillValue property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the prefillValue property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getPrefillValue().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link DocumentIndexFieldValue }
-     * 
-     * 
-     */
+    /**The default value of the field(s). If DynamicPrefillValue is not empty this property should be ignored.*/
     public List<DocumentIndexFieldValue> getPrefillValue() {
         if (prefillValue == null) {
             prefillValue = new ArrayList<DocumentIndexFieldValue>();
@@ -237,28 +128,8 @@ private HttpClientProxy proxy;//test
         return this.prefillValue;
     }
 
-    /**
-     * Gets the value of the dynamicPrefillValue property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the dynamicPrefillValue property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getDynamicPrefillValue().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link DynamicValueType }
-     * 
-     * 
-     */
+    /**The default value of the field(s). If DynamicPrefillValue is not empty this property should be ignored.*/
+    @Eagle
     public List<DynamicValueType> getDynamicPrefillValue() {
         if (dynamicPrefillValue == null) {
             dynamicPrefillValue = new ArrayList<DynamicValueType>();
@@ -266,134 +137,57 @@ private HttpClientProxy proxy;//test
         return this.dynamicPrefillValue;
     }
 
-    /**
-     * Ruft den Wert der selectListInfos-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link SelectListInfos }
-     *     
-     */
+    /**Gets a list with information for all assigned select lists.*/
+    @Hawk
     public SelectListInfos getSelectListInfos() {
         return selectListInfos;
     }
 
-    /**
-     * Legt den Wert der selectListInfos-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link SelectListInfos }
-     *     
-     */
+    /**Gets a list with information for all assigned select lists.*/
+    @Hawk
     public void setSelectListInfos(SelectListInfos value) {
         this.selectListInfos = value;
     }
 
-    /**
-     * Ruft den Wert der links-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Links }
-     *     
-     */
     public Links getLinks() {
         return links;
     }
 
-    /**
-     * Legt den Wert der links-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Links }
-     *     
-     */
     public void setLinks(Links value) {
         this.links = value;
     }
 
-    /**
-     * Ruft den Wert der dbFieldName-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Name of field in the file cabinet.*/
     public String getDBFieldName() {
         return dbFieldName;
     }
 
-    /**
-     * Legt den Wert der dbFieldName-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Name of field in the file cabinet.*/
     public void setDBFieldName(String value) {
         this.dbFieldName = value;
     }
 
-    /**
-     * Ruft den Wert der dlgLabel-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Label (display name) of the field.*/
     public String getDlgLabel() {
         return dlgLabel;
     }
 
-    /**
-     * Legt den Wert der dlgLabel-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Label (display name) of the field.*/
     public void setDlgLabel(String value) {
         this.dlgLabel = value;
     }
 
-    /**
-     * Ruft den Wert der dwFieldType-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link DWFieldType }
-     *     
-     */
+    /**The DocuWare type of the field.*/
     public DWFieldType getDWFieldType() {
         return dwFieldType;
     }
 
-    /**
-     * Legt den Wert der dwFieldType-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link DWFieldType }
-     *     
-     */
+    /**The DocuWare type of the field.*/
     public void setDWFieldType(DWFieldType value) {
         this.dwFieldType = value;
     }
 
-    /**
-     * Ruft den Wert der locked-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether the value of the field cannot be changed by the user.*/
     public boolean isLocked() {
         if (locked == null) {
             return false;
@@ -402,26 +196,12 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der locked-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether the value of the field cannot be changed by the user.*/
     public void setLocked(Boolean value) {
         this.locked = value;
     }
 
-    /**
-     * Ruft den Wert der readOnly-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether the field is read only, considering Locked property and user rights(Modify Right for info dialog, Write Right for store dialog)*/
     public boolean isReadOnly() {
         if (readOnly == null) {
             return false;
@@ -430,26 +210,12 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der readOnly-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether the field is read only, considering Locked property and user rights(Modify Right for info dialog, Write Right for store dialog)*/
     public void setReadOnly(Boolean value) {
         this.readOnly = value;
     }
 
-    /**
-     * Ruft den Wert der notEmpty-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether the field can be empty, considering NotEmpty in Field settings and Field may be empty Right*/
     public boolean isNotEmpty() {
         if (notEmpty == null) {
             return false;
@@ -458,26 +224,12 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der notEmpty-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether the field can be empty, considering NotEmpty in Field settings and Field may be empty Right*/
     public void setNotEmpty(Boolean value) {
         this.notEmpty = value;
     }
 
-    /**
-     * Ruft den Wert der visible-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether the field is visible.*/
     public boolean isVisible() {
         if (visible == null) {
             return false;
@@ -486,26 +238,12 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der visible-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether the field is visible.*/
     public void setVisible(Boolean value) {
         this.visible = value;
     }
 
-    /**
-     * Ruft den Wert der length-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
+    /**Length of the field (for text fields).*/
     public int getLength() {
         if (length == null) {
             return -1;
@@ -514,26 +252,12 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der length-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
+    /**Length of the field (for text fields).*/
     public void setLength(Integer value) {
         this.length = value;
     }
 
-    /**
-     * Ruft den Wert der precision-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
+    /**The precision of this dialog field. This is derived from the file cabinet fields precision.*/
     public int getPrecision() {
         if (precision == null) {
             return  0;
@@ -542,26 +266,12 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der precision-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
+    /**The precision of this dialog field. This is derived from the file cabinet fields precision.*/
     public void setPrecision(Integer value) {
         this.precision = value;
     }
 
-    /**
-     * Ruft den Wert der allowExtendedSearch-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Use extended search*/
     public boolean isAllowExtendedSearch() {
         if (allowExtendedSearch == null) {
             return false;
@@ -570,26 +280,12 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der allowExtendedSearch-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Use extended search*/
     public void setAllowExtendedSearch(Boolean value) {
         this.allowExtendedSearch = value;
     }
 
-    /**
-     * Ruft den Wert der usedAsDocumentName-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether the field is used as document name.*/
     public boolean isUsedAsDocumentName() {
         if (usedAsDocumentName == null) {
             return false;
@@ -598,26 +294,13 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der usedAsDocumentName-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether the field is used as document name.*/
     public void setUsedAsDocumentName(Boolean value) {
         this.usedAsDocumentName = value;
     }
 
-    /**
-     * Ruft den Wert der isHierarchy-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether the field is part of the hierarchy structure of tree view result dialog (only for tree view result dialogs, for other types it's always false).*/
+    @Dolphin
     public boolean isIsHierarchy() {
         if (isHierarchy == null) {
             return false;
@@ -626,26 +309,13 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der isHierarchy-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether the field is part of the hierarchy structure of tree view result dialog (only for tree view result dialogs, for other types it's always false).*/
+    @Dolphin
     public void setIsHierarchy(Boolean value) {
         this.isHierarchy = value;
     }
 
-    /**
-     * Ruft den Wert der allowFiltering-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Allow extended filtering.*/
     public boolean isAllowFiltering() {
         if (allowFiltering == null) {
             return false;
@@ -654,26 +324,12 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der allowFiltering-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Allow extended filtering.*/
     public void setAllowFiltering(Boolean value) {
         this.allowFiltering = value;
     }
 
-    /**
-     * Ruft den Wert der selectListOnly-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**(Only relevant for store and info dialogs)If this flag is true, no one can allocate a new entry for this field when storing a document, unless this is contained in a selection list.*/
     public boolean isSelectListOnly() {
         if (selectListOnly == null) {
             return false;
@@ -682,26 +338,12 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der selectListOnly-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**(Only relevant for store and info dialogs)If this flag is true, no one can allocate a new entry for this field when storing a document, unless this is contained in a selection list.*/
     public void setSelectListOnly(Boolean value) {
         this.selectListOnly = value;
     }
 
-    /**
-     * Ruft den Wert der selectListType-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link SelectListType }
-     *     
-     */
+    /**Type of the select list.*/
     public SelectListType getSelectListType() {
         if (selectListType == null) {
             return SelectListType.STANDARD;
@@ -710,26 +352,12 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der selectListType-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link SelectListType }
-     *     
-     */
+    /**Type of the select list.*/
     public void setSelectListType(SelectListType value) {
         this.selectListType = value;
     }
 
-    /**
-     * Ruft den Wert der assignedInternalSelectList-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**A value indicating whether the internal select list is assigned.*/
     public boolean isAssignedInternalSelectList() {
         if (assignedInternalSelectList == null) {
             return false;
@@ -738,38 +366,17 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der assignedInternalSelectList-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**A value indicating whether the internal select list is assigned.*/
     public void setAssignedInternalSelectList(Boolean value) {
         this.assignedInternalSelectList = value;
     }
 
-    /**
-     * Ruft den Wert der sequenceId-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**The unique identifier of the sequence.*/
     public String getSequenceId() {
         return sequenceId;
     }
 
-    /**
-     * Legt den Wert der sequenceId-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**The unique identifier of the sequence.*/
     public void setSequenceId(String value) {
         this.sequenceId = value;
     }

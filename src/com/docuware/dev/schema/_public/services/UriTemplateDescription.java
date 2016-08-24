@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services;
@@ -25,40 +19,6 @@ import javax.xml.bind.annotation.XmlType;
 import org.w3c.dom.Element;
 
 
-/**
- * <p>Java-Klasse f�r UriTemplateDescription complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="UriTemplateDescription">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Parameter" type="{http://dev.docuware.com/schema/public/services}UriTemplateParameter" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="Invoke" type="{http://dev.docuware.com/schema/public/services}UriInvocation" maxOccurs="unbounded"/>
- *         &lt;element name="HtmlDescription" minOccurs="0">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;any processContents='skip'/>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/sequence>
- *       &lt;attribute name="Name" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="UriPattern" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="FurtherReading" type="{http://www.w3.org/2001/XMLSchema}anyURI" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "UriTemplateDescription", propOrder = {
     "parameter",
@@ -81,28 +41,6 @@ public class UriTemplateDescription  {
     @XmlSchemaType(name = "anyURI")
     protected String furtherReading;
 
-    /**
-     * Gets the value of the parameter property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the parameter property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getParameter().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link UriTemplateParameter }
-     * 
-     * 
-     */
     public List<UriTemplateParameter> getParameter() {
         if (parameter == null) {
             parameter = new ArrayList<UriTemplateParameter>();
@@ -110,28 +48,6 @@ public class UriTemplateDescription  {
         return this.parameter;
     }
 
-    /**
-     * Gets the value of the invoke property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the invoke property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getInvoke().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link UriInvocation }
-     * 
-     * 
-     */
     public List<UriInvocation> getInvoke() {
         if (invoke == null) {
             invoke = new ArrayList<UriInvocation>();
@@ -139,122 +55,47 @@ public class UriTemplateDescription  {
         return this.invoke;
     }
 
-    /**
-     * Ruft den Wert der htmlDescription-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link UriTemplateDescription.HtmlDescription }
-     *     
-     */
+    /**Describes the Uri.*/
     public UriTemplateDescription.HtmlDescription getHtmlDescription() {
         return htmlDescription;
     }
 
-    /**
-     * Legt den Wert der htmlDescription-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link UriTemplateDescription.HtmlDescription }
-     *     
-     */
+    /**Describes the Uri.*/
     public void setHtmlDescription(UriTemplateDescription.HtmlDescription value) {
         this.htmlDescription = value;
     }
 
-    /**
-     * Ruft den Wert der name-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**The name of this template.*/
     public String getName() {
         return name;
     }
 
-    /**
-     * Legt den Wert der name-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**The name of this template.*/
     public void setName(String value) {
         this.name = value;
     }
 
-    /**
-     * Ruft den Wert der uriPattern-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**The URI template.*/
     public String getUriPattern() {
         return uriPattern;
     }
 
-    /**
-     * Legt den Wert der uriPattern-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**The URI template.*/
     public void setUriPattern(String value) {
         this.uriPattern = value;
     }
 
-    /**
-     * Ruft den Wert der furtherReading-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Gets a link for further readings.*/
     public String getFurtherReading() {
         return furtherReading;
     }
 
-    /**
-     * Legt den Wert der furtherReading-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Gets a link for further readings.*/
     public void setFurtherReading(String value) {
         this.furtherReading = value;
     }
 
 
-    /**
-     * <p>Java-Klasse f�r anonymous complex type.
-     * 
-     * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
-     * 
-     * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;any processContents='skip'/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
-     * </pre>
-     * 
-     * 
-     */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
         "any"
@@ -262,29 +103,13 @@ public class UriTemplateDescription  {
     public static class HtmlDescription {
 
         @XmlAnyElement
-        protected Element any;
+        protected XElementWrapper any;
 
-        /**
-         * Ruft den Wert der any-Eigenschaft ab.
-         * 
-         * @return
-         *     possible object is
-         *     {@link Element }
-         *     
-         */
-        public Element getAny() {
+        public XElementWrapper getAny() {
             return any;
         }
 
-        /**
-         * Legt den Wert der any-Eigenschaft fest.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link Element }
-         *     
-         */
-        public void setAny(Element value) {
+        public void setAny(XElementWrapper value) {
             this.any = value;
         }
 

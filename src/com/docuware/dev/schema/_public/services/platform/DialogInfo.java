@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -34,36 +28,6 @@ import javax.xml.bind.annotation.XmlType;
 import com.docuware.dev.schema._public.services.Links;
 
 
-/**
- * General properties of any dialog.
- * 
- * <p>Java-Klasse f�r DialogInfo complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="DialogInfo">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element ref="{http://dev.docuware.com/schema/public/services}Links"/>
- *       &lt;/sequence>
- *       &lt;attribute name="Id" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="FileCabinetId" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="FileCabinetName" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="DisplayName" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="IsForMobile" use="required" type="{http://www.w3.org/2001/XMLSchema}boolean" />
- *       &lt;attribute name="AssignedDialogId" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="Color" use="required" type="{http://dev.docuware.com/settings/common}Color" />
- *       &lt;attribute name="IsDefault" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="Type" use="required" type="{http://dev.docuware.com/schema/public/services/platform}DialogTypes" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "DialogInfo", propOrder = {
 "proxy",
@@ -97,198 +61,85 @@ private HttpClientProxy proxy;//test
     @XmlAttribute(name = "Type", required = true)
     protected DialogTypes type;
 
-    /**
-     * Ruft den Wert der links-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Links }
-     *     
-     */
     public Links getLinks() {
         return links;
     }
 
-    /**
-     * Legt den Wert der links-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Links }
-     *     
-     */
     public void setLinks(Links value) {
         this.links = value;
     }
 
-    /**
-     * Ruft den Wert der id-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**The id of the dialog*/
     public String getId() {
         return id;
     }
 
-    /**
-     * Legt den Wert der id-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**The id of the dialog*/
     public void setId(String value) {
         this.id = value;
     }
 
-    /**
-     * Ruft den Wert der fileCabinetId-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**The id of the dialog*/
     public String getFileCabinetId() {
         return fileCabinetId;
     }
 
-    /**
-     * Legt den Wert der fileCabinetId-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**The id of the dialog*/
     public void setFileCabinetId(String value) {
         this.fileCabinetId = value;
     }
 
-    /**
-     * Ruft den Wert der fileCabinetName-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**The name of the file cabinet*/
     public String getFileCabinetName() {
         return fileCabinetName;
     }
 
-    /**
-     * Legt den Wert der fileCabinetName-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**The name of the file cabinet*/
     public void setFileCabinetName(String value) {
         this.fileCabinetName = value;
     }
 
-    /**
-     * Ruft den Wert der displayName-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**The display name of the dialog*/
     public String getDisplayName() {
         return displayName;
     }
 
-    /**
-     * Legt den Wert der displayName-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**The display name of the dialog*/
     public void setDisplayName(String value) {
         this.displayName = value;
     }
 
-    /**
-     * Ruft den Wert der isForMobile-Eigenschaft ab.
-     * 
-     */
+    /**Gets or sets if this dialog is a available for mobile client*/
     public boolean isIsForMobile() {
         return isForMobile;
     }
 
-    /**
-     * Legt den Wert der isForMobile-Eigenschaft fest.
-     * 
-     */
+    /**Gets or sets if this dialog is a available for mobile client*/
     public void setIsForMobile(boolean value) {
         this.isForMobile = value;
     }
 
-    /**
-     * Ruft den Wert der assignedDialogId-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**The id of the dialog*/
     public String getAssignedDialogId() {
         return assignedDialogId;
     }
 
-    /**
-     * Legt den Wert der assignedDialogId-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**The id of the dialog*/
     public void setAssignedDialogId(String value) {
         this.assignedDialogId = value;
     }
 
-    /**
-     * Ruft den Wert der color-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Color of the dialog icon.*/
     public String getColor() {
         return color;
     }
 
-    /**
-     * Legt den Wert der color-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Color of the dialog icon.*/
     public void setColor(String value) {
         this.color = value;
     }
 
-    /**
-     * Ruft den Wert der isDefault-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Gets or sets if this dialog is a default dialog.*/
     public boolean isIsDefault() {
         if (isDefault == null) {
             return false;
@@ -297,38 +148,17 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der isDefault-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Gets or sets if this dialog is a default dialog.*/
     public void setIsDefault(Boolean value) {
         this.isDefault = value;
     }
 
-    /**
-     * Ruft den Wert der type-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link DialogTypes }
-     *     
-     */
+    /**The type of the dialog.*/
     public DialogTypes getType() {
         return type;
     }
 
-    /**
-     * Legt den Wert der type-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link DialogTypes }
-     *     
-     */
+    /**The type of the dialog.*/
     public void setType(DialogTypes value) {
         this.type = value;
     }

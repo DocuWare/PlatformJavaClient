@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -22,28 +16,6 @@ import javax.xml.bind.annotation.XmlType;
 import com.docuware.dev.schema._public.services.Links;
 
 
-/**
- * <p>Java-Klasse f�r UploadedFileChunk complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="UploadedFileChunk">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element ref="{http://dev.docuware.com/schema/public/services}Links"/>
- *       &lt;/sequence>
- *       &lt;attribute name="Finished" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="LastChunkId" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="BytesWritten" type="{http://www.w3.org/2001/XMLSchema}long" default="0" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "UploadedFileChunk", propOrder = {
 "proxy",
@@ -62,38 +34,15 @@ private HttpClientProxy proxy;//test
     @XmlAttribute(name = "BytesWritten")
     protected Long bytesWritten;
 
-    /**
-     * Ruft den Wert der links-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Links }
-     *     
-     */
     public Links getLinks() {
         return links;
     }
 
-    /**
-     * Legt den Wert der links-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Links }
-     *     
-     */
     public void setLinks(Links value) {
         this.links = value;
     }
 
-    /**
-     * Ruft den Wert der finished-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Indicates that the last chunk has been uploaded.*/
     public boolean isFinished() {
         if (finished == null) {
             return false;
@@ -102,50 +51,22 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der finished-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Indicates that the last chunk has been uploaded.*/
     public void setFinished(Boolean value) {
         this.finished = value;
     }
 
-    /**
-     * Ruft den Wert der lastChunkId-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**The id of the last uploaded chunk.*/
     public String getLastChunkId() {
         return lastChunkId;
     }
 
-    /**
-     * Legt den Wert der lastChunkId-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**The id of the last uploaded chunk.*/
     public void setLastChunkId(String value) {
         this.lastChunkId = value;
     }
 
-    /**
-     * Ruft den Wert der bytesWritten-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Long }
-     *     
-     */
+    /**The number of bytes written up to now.*/
     public long getBytesWritten() {
         if (bytesWritten == null) {
             return  0L;
@@ -154,14 +75,7 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der bytesWritten-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Long }
-     *     
-     */
+    /**The number of bytes written up to now.*/
     public void setBytesWritten(Long value) {
         this.bytesWritten = value;
     }

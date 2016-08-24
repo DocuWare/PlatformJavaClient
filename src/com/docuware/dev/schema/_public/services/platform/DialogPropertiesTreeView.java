@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -22,28 +16,6 @@ import javax.xml.bind.annotation.XmlType;
 import com.docuware.dev.schema._public.services.Links;
 
 
-/**
- * Dialog properties specific for Tree list
- * 
- * <p>Java-Klasse f�r DialogPropertiesTreeView complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="DialogPropertiesTreeView">
- *   &lt;complexContent>
- *     &lt;extension base="{http://dev.docuware.com/schema/public/services/platform}DialogProperties">
- *       &lt;sequence>
- *         &lt;element ref="{http://dev.docuware.com/schema/public/services}Links"/>
- *       &lt;/sequence>
- *       &lt;attribute name="StoreDialogId" type="{http://www.w3.org/2001/XMLSchema}string" default="false" />
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "DialogPropertiesTreeView", propOrder = {
 "proxy",
@@ -60,38 +32,18 @@ private HttpClientProxy proxy;//test
     @XmlAttribute(name = "StoreDialogId")
     protected String storeDialogId;
 
-    /**
-     * Ruft den Wert der links-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Links }
-     *     
-     */
+    @Dolphin
     public Links getLinks() {
         return links;
     }
 
-    /**
-     * Legt den Wert der links-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Links }
-     *     
-     */
+    @Dolphin
     public void setLinks(Links value) {
         this.links = value;
     }
 
-    /**
-     * Ruft den Wert der storeDialogId-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Id of the store dialog to be used for storing documents in the tree view.*/
+    @Dolphin
     public String getStoreDialogId() {
         if (storeDialogId == null) {
             return "false";
@@ -100,14 +52,8 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der storeDialogId-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Id of the store dialog to be used for storing documents in the tree view.*/
+    @Dolphin
     public void setStoreDialogId(String value) {
         this.storeDialogId = value;
     }

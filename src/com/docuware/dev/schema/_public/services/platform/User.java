@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -28,36 +22,6 @@ import javax.xml.bind.annotation.XmlType;
 import com.docuware.dev.schema._public.services.Links;
 
 
-/**
- * User details and settings
- * 
- * <p>Java-Klasse f�r User complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="User">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="EMail" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="DefaultWebBasket" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="OutOfOffice" type="{http://dev.docuware.com/schema/public/services/platform}OutOfOffice"/>
- *         &lt;element name="RegionalSettings" type="{http://dev.docuware.com/schema/public/services/platform}RegionalSettings"/>
- *         &lt;element ref="{http://dev.docuware.com/schema/public/services}Links"/>
- *       &lt;/sequence>
- *       &lt;attribute name="Id" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="Name" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="DBName" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="Active" use="required" type="{http://www.w3.org/2001/XMLSchema}boolean" />
- *       &lt;attribute name="NetworkId" type="{http://www.w3.org/2001/XMLSchema}string" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "User", propOrder = {
 "proxy",
@@ -92,234 +56,100 @@ private HttpClientProxy proxy;//test
     @XmlAttribute(name = "NetworkId")
     protected String networkId;
 
-    /**
-     * Ruft den Wert der eMail-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**The email address of the user.*/
     public String getEMail() {
         return eMail;
     }
 
-    /**
-     * Legt den Wert der eMail-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**The email address of the user.*/
     public void setEMail(String value) {
         this.eMail = value;
     }
 
-    /**
-     * Ruft den Wert der defaultWebBasket-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Default Web Basket*/
     public String getDefaultWebBasket() {
         return defaultWebBasket;
     }
 
-    /**
-     * Legt den Wert der defaultWebBasket-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Default Web Basket*/
     public void setDefaultWebBasket(String value) {
         this.defaultWebBasket = value;
     }
 
-    /**
-     * Ruft den Wert der outOfOffice-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link OutOfOffice }
-     *     
-     */
+    /**Out of office settings*/
     public OutOfOffice getOutOfOffice() {
         return outOfOffice;
     }
 
-    /**
-     * Legt den Wert der outOfOffice-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link OutOfOffice }
-     *     
-     */
+    /**Out of office settings*/
     public void setOutOfOffice(OutOfOffice value) {
         this.outOfOffice = value;
     }
 
-    /**
-     * Ruft den Wert der regionalSettings-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link RegionalSettings }
-     *     
-     */
+    /**Regional settings*/
     public RegionalSettings getRegionalSettings() {
         return regionalSettings;
     }
 
-    /**
-     * Legt den Wert der regionalSettings-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link RegionalSettings }
-     *     
-     */
+    /**Regional settings*/
     public void setRegionalSettings(RegionalSettings value) {
         this.regionalSettings = value;
     }
 
-    /**
-     * Ruft den Wert der links-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Links }
-     *     
-     */
     public Links getLinks() {
         return links;
     }
 
-    /**
-     * Legt den Wert der links-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Links }
-     *     
-     */
     public void setLinks(Links value) {
         this.links = value;
     }
 
-    /**
-     * Ruft den Wert der id-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**The ID of the user.*/
     public String getId() {
         return id;
     }
 
-    /**
-     * Legt den Wert der id-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**The ID of the user.*/
     public void setId(String value) {
         this.id = value;
     }
 
-    /**
-     * Ruft den Wert der name-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**The display name of the user.*/
     public String getName() {
         return name;
     }
 
-    /**
-     * Legt den Wert der name-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**The display name of the user.*/
     public void setName(String value) {
         this.name = value;
     }
 
-    /**
-     * Ruft den Wert der dbName-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**The display name of the user.*/
     public String getDBName() {
         return dbName;
     }
 
-    /**
-     * Legt den Wert der dbName-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**The display name of the user.*/
     public void setDBName(String value) {
         this.dbName = value;
     }
 
-    /**
-     * Ruft den Wert der active-Eigenschaft ab.
-     * 
-     */
+    /**The value indicates whether the user is active or not.*/
     public boolean isActive() {
         return active;
     }
 
-    /**
-     * Legt den Wert der active-Eigenschaft fest.
-     * 
-     */
+    /**The value indicates whether the user is active or not.*/
     public void setActive(boolean value) {
         this.active = value;
     }
 
-    /**
-     * Ruft den Wert der networkId-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**The ID of the user.*/
     public String getNetworkId() {
         return networkId;
     }
 
-    /**
-     * Legt den Wert der networkId-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**The ID of the user.*/
     public void setNetworkId(String value) {
         this.networkId = value;
     }

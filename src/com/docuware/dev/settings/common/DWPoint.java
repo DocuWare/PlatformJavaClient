@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.settings.common;
@@ -19,24 +13,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
 
-/**
- * <p>Java-Klasse f�r DWPoint complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="DWPoint">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;attribute name="X" use="required" type="{http://www.w3.org/2001/XMLSchema}double" />
- *       &lt;attribute name="Y" use="required" type="{http://www.w3.org/2001/XMLSchema}double" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "DWPoint")
 public class DWPoint  {
@@ -46,34 +22,22 @@ public class DWPoint  {
     @XmlAttribute(name = "Y", required = true)
     protected double y;
 
-    /**
-     * Ruft den Wert der x-Eigenschaft ab.
-     * 
-     */
+    /**The horizontal position in coordinates.*/
     public double getX() {
         return x;
     }
 
-    /**
-     * Legt den Wert der x-Eigenschaft fest.
-     * 
-     */
+    /**The horizontal position in coordinates.*/
     public void setX(double value) {
         this.x = value;
     }
 
-    /**
-     * Ruft den Wert der y-Eigenschaft ab.
-     * 
-     */
+    /**The vertical position in coordinates.*/
     public double getY() {
         return y;
     }
 
-    /**
-     * Legt den Wert der y-Eigenschaft fest.
-     * 
-     */
+    /**The vertical position in coordinates.*/
     public void setY(double value) {
         this.y = value;
     }

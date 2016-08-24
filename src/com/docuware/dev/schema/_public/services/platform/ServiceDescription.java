@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -28,32 +22,6 @@ import com.docuware.dev.schema._public.services.Links;
 import com.docuware.dev.schema._public.services.UriTemplateDescriptions;
 
 
-/**
- * Root object that define platform structure.
- * 
- * <p>Java-Klasse f�r ServiceDescription complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="ServiceDescription">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element ref="{http://dev.docuware.com/schema/public/services}Links"/>
- *         &lt;element name="Tests" type="{http://dev.docuware.com/schema/public/services/platform}ServiceDescriptionTests"/>
- *         &lt;element name="Documentation" type="{http://dev.docuware.com/schema/public/services/platform}ServiceDescriptionDocumentation"/>
- *         &lt;element name="Resources" type="{http://dev.docuware.com/schema/public/services}UriTemplateDescriptions"/>
- *         &lt;element name="Statistics" type="{http://dev.docuware.com/schema/public/services/platform}ServiceDescriptionStatistics"/>
- *       &lt;/sequence>
- *       &lt;attribute name="Version" type="{http://www.w3.org/2001/XMLSchema}string" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ServiceDescription", propOrder = {
 "proxy",
@@ -80,146 +48,62 @@ private HttpClientProxy proxy;//test
     @XmlAttribute(name = "Version")
     protected String version;
 
-    /**
-     * Ruft den Wert der links-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Links }
-     *     
-     */
     public Links getLinks() {
         return links;
     }
 
-    /**
-     * Legt den Wert der links-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Links }
-     *     
-     */
     public void setLinks(Links value) {
         this.links = value;
     }
 
-    /**
-     * Ruft den Wert der tests-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ServiceDescriptionTests }
-     *     
-     */
+    /**Test applications for platform.*/
     public ServiceDescriptionTests getTests() {
         return tests;
     }
 
-    /**
-     * Legt den Wert der tests-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ServiceDescriptionTests }
-     *     
-     */
+    /**Test applications for platform.*/
     public void setTests(ServiceDescriptionTests value) {
         this.tests = value;
     }
 
-    /**
-     * Ruft den Wert der documentation-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ServiceDescriptionDocumentation }
-     *     
-     */
+    /**Documentation links for platform.*/
     public ServiceDescriptionDocumentation getDocumentation() {
         return documentation;
     }
 
-    /**
-     * Legt den Wert der documentation-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ServiceDescriptionDocumentation }
-     *     
-     */
+    /**Documentation links for platform.*/
     public void setDocumentation(ServiceDescriptionDocumentation value) {
         this.documentation = value;
     }
 
-    /**
-     * Ruft den Wert der resources-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link UriTemplateDescriptions }
-     *     
-     */
+    /**Resource definitions/templates.*/
     public UriTemplateDescriptions getResources() {
         return resources;
     }
 
-    /**
-     * Legt den Wert der resources-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link UriTemplateDescriptions }
-     *     
-     */
+    /**Resource definitions/templates.*/
     public void setResources(UriTemplateDescriptions value) {
         this.resources = value;
     }
 
-    /**
-     * Ruft den Wert der statistics-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ServiceDescriptionStatistics }
-     *     
-     */
+    /**Test applications for platform.*/
     public ServiceDescriptionStatistics getStatistics() {
         return statistics;
     }
 
-    /**
-     * Legt den Wert der statistics-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ServiceDescriptionStatistics }
-     *     
-     */
+    /**Test applications for platform.*/
     public void setStatistics(ServiceDescriptionStatistics value) {
         this.statistics = value;
     }
 
-    /**
-     * Ruft den Wert der version-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Contains the product version of DocuWare.*/
+    @Dolphin
     public String getVersion() {
         return version;
     }
 
-    /**
-     * Legt den Wert der version-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Contains the product version of DocuWare.*/
+    @Dolphin
     public void setVersion(String value) {
         this.version = value;
     }
@@ -349,22 +233,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Login".
     */
-    public URI getURIFromLoginRelation() {
-        return MethodInvocation.<URI>get(this, links, "login", URI.class);
+    public InputStream getInputStreamFromLoginRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "login", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Login" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromLoginRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "login", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromLoginRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "login", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Login" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromLoginRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "login", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromLoginRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "login", InputStream.class, ct);
     }
 
     /**
@@ -400,22 +284,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "GuestLogin".
     */
-    public URI getURIFromGuestLoginRelation() {
-        return MethodInvocation.<URI>get(this, links, "guestLogin", URI.class);
+    public InputStream getInputStreamFromGuestLoginRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "guestLogin", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "GuestLogin" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromGuestLoginRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "guestLogin", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromGuestLoginRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "guestLogin", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "GuestLogin" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromGuestLoginRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "guestLogin", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromGuestLoginRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "guestLogin", InputStream.class, ct);
     }
 
     /**
@@ -451,22 +335,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "WindowsLogin".
     */
-    public URI getURIFromWindowsLoginRelation() {
-        return MethodInvocation.<URI>get(this, links, "windowsLogin", URI.class);
+    public InputStream getInputStreamFromWindowsLoginRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "windowsLogin", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "WindowsLogin" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromWindowsLoginRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "windowsLogin", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromWindowsLoginRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "windowsLogin", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "WindowsLogin" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromWindowsLoginRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "windowsLogin", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromWindowsLoginRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "windowsLogin", InputStream.class, ct);
     }
 
     /**
@@ -502,22 +386,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "ChangePassword".
     */
-    public URI getURIFromChangePasswordRelation() {
-        return MethodInvocation.<URI>get(this, links, "changePassword", URI.class);
+    public InputStream getInputStreamFromChangePasswordRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "changePassword", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "ChangePassword" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromChangePasswordRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "changePassword", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromChangePasswordRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "changePassword", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "ChangePassword" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromChangePasswordRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "changePassword", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromChangePasswordRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "changePassword", InputStream.class, ct);
     }
 
     /**
@@ -553,22 +437,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "ResetPassword".
     */
-    public URI getURIFromResetPasswordRelation() {
-        return MethodInvocation.<URI>get(this, links, "resetPassword", URI.class);
+    public InputStream getInputStreamFromResetPasswordRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "resetPassword", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "ResetPassword" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromResetPasswordRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "resetPassword", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromResetPasswordRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "resetPassword", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "ResetPassword" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromResetPasswordRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "resetPassword", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromResetPasswordRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "resetPassword", InputStream.class, ct);
     }
 
     /**
@@ -604,22 +488,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "TokenLogin".
     */
-    public URI getURIFromTokenLoginRelation() {
-        return MethodInvocation.<URI>get(this, links, "tokenLogin", URI.class);
+    public InputStream getInputStreamFromTokenLoginRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "tokenLogin", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "TokenLogin" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromTokenLoginRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "tokenLogin", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromTokenLoginRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "tokenLogin", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "TokenLogin" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromTokenLoginRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "tokenLogin", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromTokenLoginRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "tokenLogin", InputStream.class, ct);
     }
 
     /**
@@ -655,22 +539,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "TrustedLogin".
     */
-    public URI getURIFromTrustedLoginRelation() {
-        return MethodInvocation.<URI>get(this, links, "trustedLogin", URI.class);
+    public InputStream getInputStreamFromTrustedLoginRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "trustedLogin", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "TrustedLogin" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromTrustedLoginRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "trustedLogin", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromTrustedLoginRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "trustedLogin", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "TrustedLogin" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromTrustedLoginRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "trustedLogin", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromTrustedLoginRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "trustedLogin", InputStream.class, ct);
     }
 
     /**
@@ -706,22 +590,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Logout".
     */
-    public URI getURIFromLogoutRelation() {
-        return MethodInvocation.<URI>get(this, links, "logout", URI.class);
+    public InputStream getInputStreamFromLogoutRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "logout", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Logout" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromLogoutRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "logout", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromLogoutRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "logout", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Logout" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromLogoutRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "logout", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromLogoutRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "logout", InputStream.class, ct);
     }
 
     /**
@@ -736,22 +620,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Disconnect".
     */
-    public URI getURIFromDisconnectRelation() {
-        return MethodInvocation.<URI>get(this, links, "disconnect", URI.class);
+    public InputStream getInputStreamFromDisconnectRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "disconnect", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Disconnect" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromDisconnectRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "disconnect", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromDisconnectRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "disconnect", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Disconnect" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromDisconnectRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "disconnect", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromDisconnectRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "disconnect", InputStream.class, ct);
     }
 
     /**
@@ -766,22 +650,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "LoginCookie".
     */
-    public URI getURIFromLoginCookieRelation() {
-        return MethodInvocation.<URI>get(this, links, "loginCookie", URI.class);
+    public InputStream getInputStreamFromLoginCookieRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "loginCookie", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "LoginCookie" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromLoginCookieRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "loginCookie", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromLoginCookieRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "loginCookie", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "LoginCookie" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromLoginCookieRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "loginCookie", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromLoginCookieRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "loginCookie", InputStream.class, ct);
     }
 
     /**
@@ -877,22 +761,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "RootSchema".
     */
-    public URI getURIFromRootSchemaRelation() {
-        return MethodInvocation.<URI>get(this, links, "rootSchema", URI.class);
+    public InputStream getInputStreamFromRootSchemaRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "rootSchema", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "RootSchema" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromRootSchemaRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "rootSchema", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromRootSchemaRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "rootSchema", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "RootSchema" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromRootSchemaRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "rootSchema", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromRootSchemaRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "rootSchema", InputStream.class, ct);
     }
 
     /**
@@ -937,22 +821,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "PermanentUrl".
     */
-    public URI getURIFromPermanentUrlRelation() {
-        return MethodInvocation.<URI>get(this, links, "permanentUrl", URI.class);
+    public InputStream getInputStreamFromPermanentUrlRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "permanentUrl", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "PermanentUrl" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromPermanentUrlRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "permanentUrl", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromPermanentUrlRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "permanentUrl", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "PermanentUrl" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromPermanentUrlRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "permanentUrl", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromPermanentUrlRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "permanentUrl", InputStream.class, ct);
     }
 
 

@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -21,33 +15,6 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 
-/**
- * Base element for annotation entry.
- * 
- * <p>Java-Klasse f�r EntryBase complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="EntryBase">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Created" type="{http://dev.docuware.com/schema/public/services/platform}CreatedInfo"/>
- *       &lt;/sequence>
- *       &lt;attribute name="Type" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="Color" type="{http://dev.docuware.com/settings/common}Color" default="#000000" />
- *       &lt;attribute name="Rotation" type="{http://dev.docuware.com/schema/public/services/platform}RotationType" default="0" />
- *       &lt;attribute name="Transparent" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="StrokeWidth" type="{http://dev.docuware.com/schema/public/services/platform}DistanceType" default="20" />
- *       &lt;attribute name="Id" type="{http://www.w3.org/2001/XMLSchema}string" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "EntryBase", propOrder = {
     "created"
@@ -77,62 +44,27 @@ public class EntryBase  {
     @XmlAttribute(name = "Id")
     protected String id;
 
-    /**
-     * Ruft den Wert der created-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link CreatedInfo }
-     *     
-     */
+    /**Info about creation of the annotation.*/
     public CreatedInfo getCreated() {
         return created;
     }
 
-    /**
-     * Legt den Wert der created-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link CreatedInfo }
-     *     
-     */
+    /**Info about creation of the annotation.*/
     public void setCreated(CreatedInfo value) {
         this.created = value;
     }
 
-    /**
-     * Ruft den Wert der type-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Type of the annotation.*/
     public String getType() {
         return type;
     }
 
-    /**
-     * Legt den Wert der type-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Type of the annotation.*/
     public void setType(String value) {
         this.type = value;
     }
 
-    /**
-     * Ruft den Wert der color-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Color of the annotation.*/
     public String getColor() {
         if (color == null) {
             return "#000000";
@@ -141,26 +73,12 @@ public class EntryBase  {
         }
     }
 
-    /**
-     * Legt den Wert der color-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Color of the annotation.*/
     public void setColor(String value) {
         this.color = value;
     }
 
-    /**
-     * Ruft den Wert der rotation-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
+    /**Rotaion of the annotation.*/
     public int getRotation() {
         if (rotation == null) {
             return  0;
@@ -169,26 +87,12 @@ public class EntryBase  {
         }
     }
 
-    /**
-     * Legt den Wert der rotation-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
+    /**Rotaion of the annotation.*/
     public void setRotation(Integer value) {
         this.rotation = value;
     }
 
-    /**
-     * Ruft den Wert der transparent-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Define if annotation is transparent.*/
     public boolean isTransparent() {
         if (transparent == null) {
             return false;
@@ -197,26 +101,12 @@ public class EntryBase  {
         }
     }
 
-    /**
-     * Legt den Wert der transparent-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Define if annotation is transparent.*/
     public void setTransparent(Boolean value) {
         this.transparent = value;
     }
 
-    /**
-     * Ruft den Wert der strokeWidth-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
+    /**The thickness of the stroke in twips.*/
     public int getStrokeWidth() {
         if (strokeWidth == null) {
             return  20;
@@ -225,38 +115,17 @@ public class EntryBase  {
         }
     }
 
-    /**
-     * Legt den Wert der strokeWidth-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
+    /**The thickness of the stroke in twips.*/
     public void setStrokeWidth(Integer value) {
         this.strokeWidth = value;
     }
 
-    /**
-     * Ruft den Wert der id-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Identity of the stamp.*/
     public String getId() {
         return id;
     }
 
-    /**
-     * Legt den Wert der id-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Identity of the stamp.*/
     public void setId(String value) {
         this.id = value;
     }

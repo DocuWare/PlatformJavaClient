@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -19,33 +13,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
 
-/**
- * Define possible flags for a document
- * 
- * <p>Java-Klasse f�r DocumentFlags complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="DocumentFlags">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;attribute name="IsCold" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="IsDBRecord" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="IsCheckedOut" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="IsCopyRightProtected" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="IsVoiceAvailable" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="HasAppendedDocuments" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="IsProtected" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="IsDeleted" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="IsEmail" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "DocumentFlags")
 public class DocumentFlags  {
@@ -69,14 +36,7 @@ public class DocumentFlags  {
     @XmlAttribute(name = "IsEmail")
     protected Boolean isEmail;
 
-    /**
-     * Ruft den Wert der isCold-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Readonly flag. It will be overriden if set.*/
     public boolean isIsCold() {
         if (isCold == null) {
             return false;
@@ -85,26 +45,12 @@ public class DocumentFlags  {
         }
     }
 
-    /**
-     * Legt den Wert der isCold-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Readonly flag. It will be overriden if set.*/
     public void setIsCold(Boolean value) {
         this.isCold = value;
     }
 
-    /**
-     * Ruft den Wert der isDBRecord-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Readonly flag. It will be overriden if set.*/
     public boolean isIsDBRecord() {
         if (isDBRecord == null) {
             return false;
@@ -113,26 +59,12 @@ public class DocumentFlags  {
         }
     }
 
-    /**
-     * Legt den Wert der isDBRecord-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Readonly flag. It will be overriden if set.*/
     public void setIsDBRecord(Boolean value) {
         this.isDBRecord = value;
     }
 
-    /**
-     * Ruft den Wert der isCheckedOut-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Readonly flag. It will be overriden if set.*/
     public boolean isIsCheckedOut() {
         if (isCheckedOut == null) {
             return false;
@@ -141,26 +73,12 @@ public class DocumentFlags  {
         }
     }
 
-    /**
-     * Legt den Wert der isCheckedOut-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Readonly flag. It will be overriden if set.*/
     public void setIsCheckedOut(Boolean value) {
         this.isCheckedOut = value;
     }
 
-    /**
-     * Ruft den Wert der isCopyRightProtected-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Readonly flag. It will be overriden if set.*/
     public boolean isIsCopyRightProtected() {
         if (isCopyRightProtected == null) {
             return false;
@@ -169,26 +87,12 @@ public class DocumentFlags  {
         }
     }
 
-    /**
-     * Legt den Wert der isCopyRightProtected-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Readonly flag. It will be overriden if set.*/
     public void setIsCopyRightProtected(Boolean value) {
         this.isCopyRightProtected = value;
     }
 
-    /**
-     * Ruft den Wert der isVoiceAvailable-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Readonly flag. It will be overriden if set.*/
     public boolean isIsVoiceAvailable() {
         if (isVoiceAvailable == null) {
             return false;
@@ -197,26 +101,12 @@ public class DocumentFlags  {
         }
     }
 
-    /**
-     * Legt den Wert der isVoiceAvailable-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Readonly flag. It will be overriden if set.*/
     public void setIsVoiceAvailable(Boolean value) {
         this.isVoiceAvailable = value;
     }
 
-    /**
-     * Ruft den Wert der hasAppendedDocuments-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Readonly flag. It will be overriden if set.*/
     public boolean isHasAppendedDocuments() {
         if (hasAppendedDocuments == null) {
             return false;
@@ -225,26 +115,12 @@ public class DocumentFlags  {
         }
     }
 
-    /**
-     * Legt den Wert der hasAppendedDocuments-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Readonly flag. It will be overriden if set.*/
     public void setHasAppendedDocuments(Boolean value) {
         this.hasAppendedDocuments = value;
     }
 
-    /**
-     * Ruft den Wert der isProtected-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Readonly flag. It will be overriden if set.*/
     public boolean isIsProtected() {
         if (isProtected == null) {
             return false;
@@ -253,26 +129,12 @@ public class DocumentFlags  {
         }
     }
 
-    /**
-     * Legt den Wert der isProtected-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Readonly flag. It will be overriden if set.*/
     public void setIsProtected(Boolean value) {
         this.isProtected = value;
     }
 
-    /**
-     * Ruft den Wert der isDeleted-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Readonly flag. It will be overriden if set.*/
     public boolean isIsDeleted() {
         if (isDeleted == null) {
             return false;
@@ -281,26 +143,12 @@ public class DocumentFlags  {
         }
     }
 
-    /**
-     * Legt den Wert der isDeleted-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Readonly flag. It will be overriden if set.*/
     public void setIsDeleted(Boolean value) {
         this.isDeleted = value;
     }
 
-    /**
-     * Ruft den Wert der isEmail-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Read-write flag.*/
     public boolean isIsEmail() {
         if (isEmail == null) {
             return false;
@@ -309,14 +157,7 @@ public class DocumentFlags  {
         }
     }
 
-    /**
-     * Legt den Wert der isEmail-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Read-write flag.*/
     public void setIsEmail(Boolean value) {
         this.isEmail = value;
     }

@@ -65,11 +65,8 @@ class TarHeader {
     public void Write(OutputStream output) {
         byte[] buffer = new byte[512];
         String interName = this.name;
-        System.out.println("a");
         WriteStringBytes(interName, buffer, 0, 100);
-        System.out.println("b");
         WriteOctalBytes(511, buffer, 100, 8);
-        System.out.println("c");
         WriteOctalBytes(0, buffer, 108, 8);
         WriteOctalBytes(0, buffer, 116, 8);
         WriteOctalBytes(size, buffer, 124, 12);

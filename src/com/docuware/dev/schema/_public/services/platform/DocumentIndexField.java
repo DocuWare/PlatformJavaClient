@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -21,29 +15,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
-/**
- * <p>Java-Klasse f�r DocumentIndexField complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="DocumentIndexField">
- *   &lt;complexContent>
- *     &lt;extension base="{http://dev.docuware.com/schema/public/services/platform}DocumentIndexFieldValueBase">
- *       &lt;sequence>
- *         &lt;element name="PointAndShootInfo" type="{http://dev.docuware.com/schema/public/services/platform}PointAndShootInfo" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attribute name="FieldName" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="FieldLabel" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="IsNull" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="ReadOnly" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "DocumentIndexField", propOrder = {
     "pointAndShootInfo"
@@ -63,86 +34,37 @@ public class DocumentIndexField
     @XmlAttribute(name = "ReadOnly")
     protected Boolean readOnly;
 
-    /**
-     * Ruft den Wert der pointAndShootInfo-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link PointAndShootInfo }
-     *     
-     */
+    /**Contains one rectangle value for scalar field values and one or more values for keyword fields.*/
     public PointAndShootInfo getPointAndShootInfo() {
         return pointAndShootInfo;
     }
 
-    /**
-     * Legt den Wert der pointAndShootInfo-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link PointAndShootInfo }
-     *     
-     */
+    /**Contains one rectangle value for scalar field values and one or more values for keyword fields.*/
     public void setPointAndShootInfo(PointAndShootInfo value) {
         this.pointAndShootInfo = value;
     }
 
-    /**
-     * Ruft den Wert der fieldName-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Contains the internal name of the field.*/
     public String getFieldName() {
         return fieldName;
     }
 
-    /**
-     * Legt den Wert der fieldName-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Contains the internal name of the field.*/
     public void setFieldName(String value) {
         this.fieldName = value;
     }
 
-    /**
-     * Ruft den Wert der fieldLabel-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Contains the label of the field.*/
     public String getFieldLabel() {
         return fieldLabel;
     }
 
-    /**
-     * Legt den Wert der fieldLabel-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Contains the label of the field.*/
     public void setFieldLabel(String value) {
         this.fieldLabel = value;
     }
 
-    /**
-     * Ruft den Wert der isNull-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Indicates whether the field value is null or non-null.*/
     public boolean isIsNull() {
         if (isNull == null) {
             return false;
@@ -151,26 +73,12 @@ public class DocumentIndexField
         }
     }
 
-    /**
-     * Legt den Wert der isNull-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Indicates whether the field value is null or non-null.*/
     public void setIsNull(Boolean value) {
         this.isNull = value;
     }
 
-    /**
-     * Ruft den Wert der readOnly-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Indicates whether this field is readonly or not.*/
     public boolean isReadOnly() {
         if (readOnly == null) {
             return false;
@@ -179,14 +87,7 @@ public class DocumentIndexField
         }
     }
 
-    /**
-     * Legt den Wert der readOnly-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Indicates whether this field is readonly or not.*/
     public void setReadOnly(Boolean value) {
         this.readOnly = value;
     }

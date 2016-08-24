@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -18,82 +12,6 @@ import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
 
 
-/**
- * <p>Java-Klasse f�r ToolbarControlType.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * <p>
- * <pre>
- * &lt;simpleType name="ToolbarControlType">
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="Unknown"/>
- *     &lt;enumeration value="Nav_DocumentNumber"/>
- *     &lt;enumeration value="Nav_FirstDocument"/>
- *     &lt;enumeration value="Nav_PreviousDocument"/>
- *     &lt;enumeration value="Nav_NextDocument"/>
- *     &lt;enumeration value="Nav_LastDocument"/>
- *     &lt;enumeration value="Nav_FileNumber"/>
- *     &lt;enumeration value="Nav_FirstFile"/>
- *     &lt;enumeration value="Nav_PreviousFile"/>
- *     &lt;enumeration value="Nav_NextFile"/>
- *     &lt;enumeration value="Nav_LastFile"/>
- *     &lt;enumeration value="Nav_PageNumber"/>
- *     &lt;enumeration value="Nav_FirstPage"/>
- *     &lt;enumeration value="Nav_PreviousPage"/>
- *     &lt;enumeration value="Nav_NextPage"/>
- *     &lt;enumeration value="Nav_LastPage"/>
- *     &lt;enumeration value="Tools_Save"/>
- *     &lt;enumeration value="Tools_Edit"/>
- *     &lt;enumeration value="Tools_PrintDocument"/>
- *     &lt;enumeration value="Tools_SendDocument"/>
- *     &lt;enumeration value="Tools_ShowDocumentInformation"/>
- *     &lt;enumeration value="Tools_ShowDocumentOverview"/>
- *     &lt;enumeration value="Tools_FulltextSearch"/>
- *     &lt;enumeration value="Tools_FulltextSearchContinue"/>
- *     &lt;enumeration value="Tools_TextAnnotation"/>
- *     &lt;enumeration value="Tools_Checksum"/>
- *     &lt;enumeration value="Tools_Download"/>
- *     &lt;enumeration value="Tools_PointAndShoot"/>
- *     &lt;enumeration value="Tools_ShootToClipboard"/>
- *     &lt;enumeration value="Tools_WorkflowHistory"/>
- *     &lt;enumeration value="Tools_GetLink"/>
- *     &lt;enumeration value="Display_FitToWidth"/>
- *     &lt;enumeration value="Display_FitToWidthNoMargins"/>
- *     &lt;enumeration value="Display_FullDocument"/>
- *     &lt;enumeration value="Display_ZoomIn"/>
- *     &lt;enumeration value="Display_ZoomOut"/>
- *     &lt;enumeration value="Display_ZoomNumber"/>
- *     &lt;enumeration value="Display_MagnifyingGlass"/>
- *     &lt;enumeration value="Display_DisplayEnhancement"/>
- *     &lt;enumeration value="Display_Invert"/>
- *     &lt;enumeration value="Display_RotateLeft"/>
- *     &lt;enumeration value="Display_RotateRight"/>
- *     &lt;enumeration value="Display_SaveRotation"/>
- *     &lt;enumeration value="Display_ImageEnhancement"/>
- *     &lt;enumeration value="Display_MergeLayers"/>
- *     &lt;enumeration value="Display_ShowOverlay1"/>
- *     &lt;enumeration value="Display_ShowOverlay2"/>
- *     &lt;enumeration value="Display_ShowOverlay3"/>
- *     &lt;enumeration value="Display_ShowOverlay4"/>
- *     &lt;enumeration value="Display_ShowOverlay5"/>
- *     &lt;enumeration value="Annotations_Select"/>
- *     &lt;enumeration value="Annotations_Delete"/>
- *     &lt;enumeration value="Annotations_Text"/>
- *     &lt;enumeration value="Annotations_Marker"/>
- *     &lt;enumeration value="Annotations_Line"/>
- *     &lt;enumeration value="Annotations_FreehandLine"/>
- *     &lt;enumeration value="Annotations_Arrow"/>
- *     &lt;enumeration value="Annotations_Rectangle"/>
- *     &lt;enumeration value="Annotations_Ellipse"/>
- *     &lt;enumeration value="Annotations_FilledEllipse"/>
- *     &lt;enumeration value="Annotations_FilledRectangle"/>
- *     &lt;enumeration value="Annotations_TransparentEllipse"/>
- *     &lt;enumeration value="Annotations_TransparentRectangle"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
- * </pre>
- * 
- */
 @XmlType(name = "ToolbarControlType")
 @XmlEnum
 public enum ToolbarControlType {

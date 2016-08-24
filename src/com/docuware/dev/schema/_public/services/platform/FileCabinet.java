@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -45,41 +39,6 @@ import javax.xml.bind.annotation.XmlType;
 import com.docuware.dev.schema._public.services.Links;
 
 
-/**
- * Models a DocuWare file cabinet or a web basket(document tray).
- * 
- * <p>Java-Klasse f�r FileCabinet complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="FileCabinet">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element ref="{http://dev.docuware.com/schema/public/services}Links"/>
- *         &lt;element name="Fields" type="{http://dev.docuware.com/schema/public/services/platform}FileCabinetFields" minOccurs="0"/>
- *         &lt;element name="Rights" type="{http://dev.docuware.com/schema/public/services/platform}Rights" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attribute name="Color" use="required" type="{http://dev.docuware.com/settings/common}Color" />
- *       &lt;attribute name="Name" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="Id" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="IsBasket" use="required" type="{http://www.w3.org/2001/XMLSchema}boolean" />
- *       &lt;attribute name="Usable" type="{http://www.w3.org/2001/XMLSchema}boolean" default="true" />
- *       &lt;attribute name="Default" use="required" type="{http://www.w3.org/2001/XMLSchema}boolean" />
- *       &lt;attribute name="AssignedCabinetId" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="IntellixDialogId" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="VersionManagement" type="{http://dev.docuware.com/schema/public/services/platform}VersionManagementMode" default="Disable" />
- *       &lt;attribute name="VersionHistoryResultListId" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="WindowsExplorerClientAccess" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="AddIndexEntriesInUpperCase" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "FileCabinet", propOrder = {
 "proxy",
@@ -122,174 +81,75 @@ private HttpClientProxy proxy;//test
     @XmlAttribute(name = "AddIndexEntriesInUpperCase")
     protected Boolean addIndexEntriesInUpperCase;
 
-    /**
-     * Ruft den Wert der links-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Links }
-     *     
-     */
     public Links getLinks() {
         return links;
     }
 
-    /**
-     * Legt den Wert der links-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Links }
-     *     
-     */
     public void setLinks(Links value) {
         this.links = value;
     }
 
-    /**
-     * Ruft den Wert der fields-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link FileCabinetFields }
-     *     
-     */
+    /**List of the fields of the cabinet.*/
     public FileCabinetFields getFields() {
         return fields;
     }
 
-    /**
-     * Legt den Wert der fields-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link FileCabinetFields }
-     *     
-     */
+    /**List of the fields of the cabinet.*/
     public void setFields(FileCabinetFields value) {
         this.fields = value;
     }
 
-    /**
-     * Ruft den Wert der rights-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Rights }
-     *     
-     */
+    /**List of the rights that the current user has for this cabinet.*/
     public Rights getRights() {
         return rights;
     }
 
-    /**
-     * Legt den Wert der rights-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Rights }
-     *     
-     */
+    /**List of the rights that the current user has for this cabinet.*/
     public void setRights(Rights value) {
         this.rights = value;
     }
 
-    /**
-     * Ruft den Wert der color-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Gets or sets the color of the file cabinet icon.*/
     public String getColor() {
         return color;
     }
 
-    /**
-     * Legt den Wert der color-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Gets or sets the color of the file cabinet icon.*/
     public void setColor(String value) {
         this.color = value;
     }
 
-    /**
-     * Ruft den Wert der name-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Gets or sets the name of the file cabinet.*/
     public String getName() {
         return name;
     }
 
-    /**
-     * Legt den Wert der name-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Gets or sets the name of the file cabinet.*/
     public void setName(String value) {
         this.name = value;
     }
 
-    /**
-     * Ruft den Wert der id-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Gets or sets the id of the file.*/
     public String getId() {
         return id;
     }
 
-    /**
-     * Legt den Wert der id-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Gets or sets the id of the file.*/
     public void setId(String value) {
         this.id = value;
     }
 
-    /**
-     * Ruft den Wert der isBasket-Eigenschaft ab.
-     * 
-     */
+    /**Gets or sets a flag indicating whether this file cabinet is a basket or not.*/
     public boolean isIsBasket() {
         return isBasket;
     }
 
-    /**
-     * Legt den Wert der isBasket-Eigenschaft fest.
-     * 
-     */
+    /**Gets or sets a flag indicating whether this file cabinet is a basket or not.*/
     public void setIsBasket(boolean value) {
         this.isBasket = value;
     }
 
-    /**
-     * Ruft den Wert der usable-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Gets or sets if user has usage right for web basket. For file cabinets it's always true*/
     public boolean isUsable() {
         if (usable == null) {
             return true;
@@ -298,90 +158,42 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der usable-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Gets or sets if user has usage right for web basket. For file cabinets it's always true*/
     public void setUsable(Boolean value) {
         this.usable = value;
     }
 
-    /**
-     * Ruft den Wert der default-Eigenschaft ab.
-     * 
-     */
+    /**Gets or sets a flag indicating whether this cabinet is default or not.*/
     public boolean isDefault() {
         return _default;
     }
 
-    /**
-     * Legt den Wert der default-Eigenschaft fest.
-     * 
-     */
+    /**Gets or sets a flag indicating whether this cabinet is default or not.*/
     public void setDefault(boolean value) {
         this._default = value;
     }
 
-    /**
-     * Ruft den Wert der assignedCabinetId-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Gets or sets the id of the file.*/
     public String getAssignedCabinetId() {
         return assignedCabinetId;
     }
 
-    /**
-     * Legt den Wert der assignedCabinetId-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Gets or sets the id of the file.*/
     public void setAssignedCabinetId(String value) {
         this.assignedCabinetId = value;
     }
 
-    /**
-     * Ruft den Wert der intellixDialogId-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Gets or sets the id of the file.*/
     public String getIntellixDialogId() {
         return intellixDialogId;
     }
 
-    /**
-     * Legt den Wert der intellixDialogId-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Gets or sets the id of the file.*/
     public void setIntellixDialogId(String value) {
         this.intellixDialogId = value;
     }
 
-    /**
-     * Ruft den Wert der versionManagement-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link VersionManagementMode }
-     *     
-     */
+    /**Version management mode.*/
     public VersionManagementMode getVersionManagement() {
         if (versionManagement == null) {
             return VersionManagementMode.DISABLE;
@@ -390,50 +202,23 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der versionManagement-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link VersionManagementMode }
-     *     
-     */
+    /**Version management mode.*/
     public void setVersionManagement(VersionManagementMode value) {
         this.versionManagement = value;
     }
 
-    /**
-     * Ruft den Wert der versionHistoryResultListId-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Gets or sets the id of the file.*/
     public String getVersionHistoryResultListId() {
         return versionHistoryResultListId;
     }
 
-    /**
-     * Legt den Wert der versionHistoryResultListId-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Gets or sets the id of the file.*/
     public void setVersionHistoryResultListId(String value) {
         this.versionHistoryResultListId = value;
     }
 
-    /**
-     * Ruft den Wert der windowsExplorerClientAccess-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Gets whether the file cabinet can be accessed by windows explorer client.*/
+    @Dolphin
     public boolean isWindowsExplorerClientAccess() {
         if (windowsExplorerClientAccess == null) {
             return false;
@@ -442,26 +227,14 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der windowsExplorerClientAccess-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Gets whether the file cabinet can be accessed by windows explorer client.*/
+    @Dolphin
     public void setWindowsExplorerClientAccess(Boolean value) {
         this.windowsExplorerClientAccess = value;
     }
 
-    /**
-     * Ruft den Wert der addIndexEntriesInUpperCase-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Gets whether all letters are input in upper case, regardless of how they were entered on the keyboard*/
+    @Eagle
     public boolean isAddIndexEntriesInUpperCase() {
         if (addIndexEntriesInUpperCase == null) {
             return false;
@@ -470,14 +243,8 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der addIndexEntriesInUpperCase-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Gets whether all letters are input in upper case, regardless of how they were entered on the keyboard*/
+    @Eagle
     public void setAddIndexEntriesInUpperCase(Boolean value) {
         this.addIndexEntriesInUpperCase = value;
     }

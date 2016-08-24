@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -12,6 +6,7 @@ import java.net.URI;
 import com.docuware.dev.Extensions.*;
 import java.util.concurrent.Future;
 import com.docuware.dev.schema._public.services.Link;
+import java.io.InputStream;
 import com.docuware.dev._public.intellix.PageContent;
 import com.docuware.dev.schema._public.services.platform.FileDownloadPage;
 import javax.xml.bind.JAXBElement;
@@ -31,30 +26,6 @@ import javax.xml.bind.annotation.XmlType;
 import com.docuware.dev.schema._public.services.Links;
 
 
-/**
- * Gets the vertical size of a page image in pixels. In case of vector images this is the maximal pixel height which can be rendered.
- * 
- * <p>Java-Klasse f�r Page complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="Page">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Data" type="{http://dev.docuware.com/schema/public/services/platform}PageData" minOccurs="0"/>
- *         &lt;element ref="{http://dev.docuware.com/schema/public/services}Links" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attribute name="PageNum" use="required" type="{http://www.w3.org/2001/XMLSchema}int" />
- *       &lt;attribute name="HasAnnotation" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Page", propOrder = {
 "proxy",
@@ -74,78 +45,31 @@ private HttpClientProxy proxy;//test
     @XmlAttribute(name = "HasAnnotation")
     protected Boolean hasAnnotation;
 
-    /**
-     * Ruft den Wert der data-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link PageData }
-     *     
-     */
     public PageData getData() {
         return data;
     }
 
-    /**
-     * Legt den Wert der data-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link PageData }
-     *     
-     */
     public void setData(PageData value) {
         this.data = value;
     }
 
-    /**
-     * Ruft den Wert der links-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Links }
-     *     
-     */
     public Links getLinks() {
         return links;
     }
 
-    /**
-     * Legt den Wert der links-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Links }
-     *     
-     */
     public void setLinks(Links value) {
         this.links = value;
     }
 
-    /**
-     * Ruft den Wert der pageNum-Eigenschaft ab.
-     * 
-     */
     public int getPageNum() {
         return pageNum;
     }
 
-    /**
-     * Legt den Wert der pageNum-Eigenschaft fest.
-     * 
-     */
     public void setPageNum(int value) {
         this.pageNum = value;
     }
 
-    /**
-     * Ruft den Wert der hasAnnotation-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Gets to sets if this page has annotations.*/
     public boolean isHasAnnotation() {
         if (hasAnnotation == null) {
             return false;
@@ -154,14 +78,7 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**
-     * Legt den Wert der hasAnnotation-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Gets to sets if this page has annotations.*/
     public void setHasAnnotation(Boolean value) {
         this.hasAnnotation = value;
     }
@@ -253,22 +170,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Thumbnail".
     */
-    public URI getURIFromThumbnailRelation() {
-        return MethodInvocation.<URI>get(this, links, "thumbnail", URI.class);
+    public InputStream getInputStreamFromThumbnailRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "thumbnail", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Thumbnail" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromThumbnailRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "thumbnail", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromThumbnailRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "thumbnail", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Thumbnail" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromThumbnailRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "thumbnail", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromThumbnailRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "thumbnail", InputStream.class, ct);
     }
 
     /**
@@ -283,22 +200,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Icon".
     */
-    public URI getURIFromIconRelation() {
-        return MethodInvocation.<URI>get(this, links, "icon", URI.class);
+    public InputStream getInputStreamFromIconRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "icon", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Icon" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromIconRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "icon", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromIconRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "icon", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Icon" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromIconRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "icon", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromIconRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "icon", InputStream.class, ct);
     }
 
     /**
@@ -313,22 +230,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "DeepZoomImage".
     */
-    public URI getURIFromDeepZoomImageRelation() {
-        return MethodInvocation.<URI>get(this, links, "deepZoomImage", URI.class);
+    public InputStream getInputStreamFromDeepZoomImageRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "deepZoomImage", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "DeepZoomImage" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromDeepZoomImageRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "deepZoomImage", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromDeepZoomImageRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "deepZoomImage", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "DeepZoomImage" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromDeepZoomImageRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "deepZoomImage", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromDeepZoomImageRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "deepZoomImage", InputStream.class, ct);
     }
 
     /**
@@ -343,22 +260,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "DeepZoomImageWithAnnotation".
     */
-    public URI getURIFromDeepZoomImageWithAnnotationRelation() {
-        return MethodInvocation.<URI>get(this, links, "deepZoomImageWithAnnotation", URI.class);
+    public InputStream getInputStreamFromDeepZoomImageWithAnnotationRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "deepZoomImageWithAnnotation", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "DeepZoomImageWithAnnotation" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromDeepZoomImageWithAnnotationRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "deepZoomImageWithAnnotation", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromDeepZoomImageWithAnnotationRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "deepZoomImageWithAnnotation", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "DeepZoomImageWithAnnotation" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromDeepZoomImageWithAnnotationRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "deepZoomImageWithAnnotation", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromDeepZoomImageWithAnnotationRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "deepZoomImageWithAnnotation", InputStream.class, ct);
     }
 
     /**
@@ -373,22 +290,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "LowQualityImage".
     */
-    public URI getURIFromLowQualityImageRelation() {
-        return MethodInvocation.<URI>get(this, links, "lowQualityImage", URI.class);
+    public InputStream getInputStreamFromLowQualityImageRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "lowQualityImage", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "LowQualityImage" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromLowQualityImageRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "lowQualityImage", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromLowQualityImageRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "lowQualityImage", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "LowQualityImage" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromLowQualityImageRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "lowQualityImage", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromLowQualityImageRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "lowQualityImage", InputStream.class, ct);
     }
 
     /**
@@ -403,22 +320,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "LowQualityImageWithAnnotation".
     */
-    public URI getURIFromLowQualityImageWithAnnotationRelation() {
-        return MethodInvocation.<URI>get(this, links, "lowQualityImageWithAnnotation", URI.class);
+    public InputStream getInputStreamFromLowQualityImageWithAnnotationRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "lowQualityImageWithAnnotation", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "LowQualityImageWithAnnotation" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromLowQualityImageWithAnnotationRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "lowQualityImageWithAnnotation", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromLowQualityImageWithAnnotationRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "lowQualityImageWithAnnotation", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "LowQualityImageWithAnnotation" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromLowQualityImageWithAnnotationRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "lowQualityImageWithAnnotation", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromLowQualityImageWithAnnotationRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "lowQualityImageWithAnnotation", InputStream.class, ct);
     }
 
     /**
@@ -463,22 +380,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "FileDownload".
     */
-    public URI getURIFromFileDownloadRelation() {
-        return MethodInvocation.<URI>get(this, links, "fileDownload", URI.class);
+    public InputStream getInputStreamFromFileDownloadRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "fileDownload", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "FileDownload" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromFileDownloadRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "fileDownload", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromFileDownloadRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "fileDownload", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "FileDownload" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromFileDownloadRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "fileDownload", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromFileDownloadRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "fileDownload", InputStream.class, ct);
     }
 
     /**
@@ -586,22 +503,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "AnnotationAsSvg".
     */
-    public URI getURIFromAnnotationAsSvgRelation() {
-        return MethodInvocation.<URI>get(this, links, "annotationAsSvg", URI.class);
+    public InputStream getInputStreamFromAnnotationAsSvgRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "annotationAsSvg", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "AnnotationAsSvg" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromAnnotationAsSvgRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "annotationAsSvg", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromAnnotationAsSvgRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "annotationAsSvg", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "AnnotationAsSvg" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromAnnotationAsSvgRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "annotationAsSvg", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromAnnotationAsSvgRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "annotationAsSvg", InputStream.class, ct);
     }
 
     /**
@@ -616,22 +533,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "AnnotationAsXaml".
     */
-    public URI getURIFromAnnotationAsXamlRelation() {
-        return MethodInvocation.<URI>get(this, links, "annotationAsXaml", URI.class);
+    public InputStream getInputStreamFromAnnotationAsXamlRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "annotationAsXaml", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "AnnotationAsXaml" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromAnnotationAsXamlRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "annotationAsXaml", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromAnnotationAsXamlRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "annotationAsXaml", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "AnnotationAsXaml" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromAnnotationAsXamlRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "annotationAsXaml", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromAnnotationAsXamlRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "annotationAsXaml", InputStream.class, ct);
     }
 
     /**

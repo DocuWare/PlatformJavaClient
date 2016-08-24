@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -23,32 +17,6 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 
-/**
- * Dialog properties specific for Result List
- * 
- * <p>Java-Klasse f�r DialogPropertiesResultList complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="DialogPropertiesResultList">
- *   &lt;complexContent>
- *     &lt;extension base="{http://dev.docuware.com/schema/public/services/platform}DialogProperties">
- *       &lt;sequence>
- *         &lt;element name="Functions" type="{http://dev.docuware.com/schema/public/services/platform}ResultDialogFunction" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="ViewerDialog" type="{http://dev.docuware.com/schema/public/services/platform}ViewerDialog"/>
- *         &lt;element name="SortOrder" type="{http://dev.docuware.com/schema/public/services/platform}SortedFieldsList" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attribute name="DefaultListTextLetterCase" use="required" type="{http://dev.docuware.com/schema/public/services/platform}LetterCase" />
- *       &lt;attribute name="DisplayFirstDocument" use="required" type="{http://www.w3.org/2001/XMLSchema}boolean" />
- *       &lt;attribute name="ShowCheckedOutDocumens" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "DialogPropertiesResultList", propOrder = {
     "functions",
@@ -75,28 +43,7 @@ public class DialogPropertiesResultList
     @XmlAttribute(name = "ShowCheckedOutDocumens")
     protected Boolean showCheckedOutDocumens;
 
-    /**
-     * Gets the value of the functions property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the functions property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getFunctions().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link ResultDialogFunction }
-     * 
-     * 
-     */
+    /**Functions available for the result list (Print document, Display document, etc.)*/
     public List<ResultDialogFunction> getFunctions() {
         if (functions == null) {
             functions = new ArrayList<ResultDialogFunction>();
@@ -104,102 +51,47 @@ public class DialogPropertiesResultList
         return this.functions;
     }
 
-    /**
-     * Ruft den Wert der viewerDialog-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ViewerDialog }
-     *     
-     */
+    /**Viewer properties*/
     public ViewerDialog getViewerDialog() {
         return viewerDialog;
     }
 
-    /**
-     * Legt den Wert der viewerDialog-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ViewerDialog }
-     *     
-     */
+    /**Viewer properties*/
     public void setViewerDialog(ViewerDialog value) {
         this.viewerDialog = value;
     }
 
-    /**
-     * Ruft den Wert der sortOrder-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link SortedFieldsList }
-     *     
-     */
+    /**Sort order for the result list.*/
     public SortedFieldsList getSortOrder() {
         return sortOrder;
     }
 
-    /**
-     * Legt den Wert der sortOrder-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link SortedFieldsList }
-     *     
-     */
+    /**Sort order for the result list.*/
     public void setSortOrder(SortedFieldsList value) {
         this.sortOrder = value;
     }
 
-    /**
-     * Ruft den Wert der defaultListTextLetterCase-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link LetterCase }
-     *     
-     */
+    /**Letter case to be used to display the hits in the result list*/
     public LetterCase getDefaultListTextLetterCase() {
         return defaultListTextLetterCase;
     }
 
-    /**
-     * Legt den Wert der defaultListTextLetterCase-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link LetterCase }
-     *     
-     */
+    /**Letter case to be used to display the hits in the result list*/
     public void setDefaultListTextLetterCase(LetterCase value) {
         this.defaultListTextLetterCase = value;
     }
 
-    /**
-     * Ruft den Wert der displayFirstDocument-Eigenschaft ab.
-     * 
-     */
+    /**Determines whether the web client automatically displays the first document in the result list in the viewer.*/
     public boolean isDisplayFirstDocument() {
         return displayFirstDocument;
     }
 
-    /**
-     * Legt den Wert der displayFirstDocument-Eigenschaft fest.
-     * 
-     */
+    /**Determines whether the web client automatically displays the first document in the result list in the viewer.*/
     public void setDisplayFirstDocument(boolean value) {
         this.displayFirstDocument = value;
     }
 
-    /**
-     * Ruft den Wert der showCheckedOutDocumens-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether the result list can show documents that are currently checked out.*/
     public boolean isShowCheckedOutDocumens() {
         if (showCheckedOutDocumens == null) {
             return false;
@@ -208,14 +100,7 @@ public class DialogPropertiesResultList
         }
     }
 
-    /**
-     * Legt den Wert der showCheckedOutDocumens-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether the result list can show documents that are currently checked out.*/
     public void setShowCheckedOutDocumens(Boolean value) {
         this.showCheckedOutDocumens = value;
     }

@@ -871,9 +871,7 @@ public class FileCabinetExtensionsBase {
                 long length = fs.available();
                 byte[] buffer = new byte[cs];
                 boolean addDocumentMetaData = stringContent != null;
-                System.out.println(length);
                 while ((bytesRead = fs.read(buffer, 0, cs > fs.available() ? fs.available() : cs)) > 0) {
-                    System.out.println(bytesRead);
                     if (fs.available() == 0) {
                         byte[] b = new byte[bytesRead];
                         System.arraycopy(buffer, 0, b, 0, b.length);
@@ -958,7 +956,6 @@ public class FileCabinetExtensionsBase {
                 try (InputStream fs = file.createStream()) {
                     int bytesRead;
                     int length = fs.available();
-                    System.out.println(length);
                     byte[] buffer = new byte[cs];
                     boolean addDocumentMetaData = stringContent != null;
 

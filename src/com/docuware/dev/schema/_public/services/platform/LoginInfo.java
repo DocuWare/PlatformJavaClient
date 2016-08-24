@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -21,26 +15,6 @@ import javax.xml.datatype.Duration;
 import com.docuware.dev.settings.interop.DWProductTypes;
 
 
-/**
- * Details abut user login
- * 
- * <p>Java-Klasse f�r LoginInfo complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="LoginInfo">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;attribute name="PasswordExpireNotification" type="{http://www.w3.org/2001/XMLSchema}duration" />
- *       &lt;attribute name="BookedLicense" use="required" type="{http://dev.docuware.com/settings/interop}DWProductTypes" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "LoginInfo")
 public class LoginInfo  {
@@ -50,50 +24,30 @@ public class LoginInfo  {
     @XmlAttribute(name = "BookedLicense", required = true)
     protected DWProductTypes bookedLicense;
 
-    /**
-     * Ruft den Wert der passwordExpireNotification-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Duration }
-     *     
-     */
+    /**Define the period of time when password will expire.
+          This parameter contains a time interval specification in the form:
+          [ws][-]{ d | [d.]hh:mm[:ss[.ff]] }[ws]
+          Elements in square brackets ([ and ]) are optional. One selection from the list of alternatives enclosed in braces ({ and }) and separated by vertical bars (|) is required.
+          For more details check http://msdn.microsoft.com/en-us/library/se73z7b9.aspx*/
     public Duration getPasswordExpireNotification() {
         return passwordExpireNotification;
     }
 
-    /**
-     * Legt den Wert der passwordExpireNotification-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Duration }
-     *     
-     */
+    /**Define the period of time when password will expire.
+          This parameter contains a time interval specification in the form:
+          [ws][-]{ d | [d.]hh:mm[:ss[.ff]] }[ws]
+          Elements in square brackets ([ and ]) are optional. One selection from the list of alternatives enclosed in braces ({ and }) and separated by vertical bars (|) is required.
+          For more details check http://msdn.microsoft.com/en-us/library/se73z7b9.aspx*/
     public void setPasswordExpireNotification(Duration value) {
         this.passwordExpireNotification = value;
     }
 
-    /**
-     * Ruft den Wert der bookedLicense-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link DWProductTypes }
-     *     
-     */
+    /**License that is booked for the login*/
     public DWProductTypes getBookedLicense() {
         return bookedLicense;
     }
 
-    /**
-     * Legt den Wert der bookedLicense-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link DWProductTypes }
-     *     
-     */
+    /**License that is booked for the login*/
     public void setBookedLicense(DWProductTypes value) {
         this.bookedLicense = value;
     }

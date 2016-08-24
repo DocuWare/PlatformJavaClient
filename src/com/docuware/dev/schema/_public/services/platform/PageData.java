@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -13,45 +7,15 @@ import com.docuware.dev.Extensions.*;
 import java.util.concurrent.Future;
 import com.docuware.dev.schema._public.services.Link;
 
-import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import com.docuware.dev.settings.common.DWRectangle;
 
 
-/**
- * Define a metadata for a page
- * 
- * <p>Java-Klasse f�r PageData complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="PageData">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="LowQualitySize" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="TileSize" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="RenderedImageFormat" type="{http://dev.docuware.com/schema/public/services/platform}PlatformImageFormat"/>
- *         &lt;element name="ContentArea" type="{http://dev.docuware.com/settings/common}DWRectangle" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attribute name="DpiX" use="required" type="{http://www.w3.org/2001/XMLSchema}int" />
- *       &lt;attribute name="DpiY" use="required" type="{http://www.w3.org/2001/XMLSchema}int" />
- *       &lt;attribute name="Width" use="required" type="{http://www.w3.org/2001/XMLSchema}int" />
- *       &lt;attribute name="Height" use="required" type="{http://www.w3.org/2001/XMLSchema}int" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "PageData", propOrder = {
     "lowQualitySize",
@@ -68,8 +32,8 @@ public class PageData  {
     @XmlElement(name = "RenderedImageFormat", required = true)
     @XmlSchemaType(name = "string")
     protected PlatformImageFormat renderedImageFormat;
-    @XmlElementRef(name = "ContentArea", namespace = "http://dev.docuware.com/schema/public/services/platform", type = JAXBElement.class, required = false)
-    protected JAXBElement<DWRectangle> contentArea;
+    @XmlElement(name = "ContentArea", nillable = true)
+    protected DWRectangle contentArea;
     @XmlAttribute(name = "DpiX", required = true)
     protected int dpiX;
     @XmlAttribute(name = "DpiY", required = true)
@@ -79,146 +43,82 @@ public class PageData  {
     @XmlAttribute(name = "Height", required = true)
     protected int height;
 
-    /**
-     * Ruft den Wert der lowQualitySize-Eigenschaft ab.
-     * 
-     */
+    /**Gets or sets the low quality level.*/
     public int getLowQualitySize() {
         return lowQualitySize;
     }
 
-    /**
-     * Legt den Wert der lowQualitySize-Eigenschaft fest.
-     * 
-     */
+    /**Gets or sets the low quality level.*/
     public void setLowQualitySize(int value) {
         this.lowQualitySize = value;
     }
 
-    /**
-     * Ruft den Wert der tileSize-Eigenschaft ab.
-     * 
-     */
+    /**Gets or sets the recommented size of multi scale image tiles.*/
     public int getTileSize() {
         return tileSize;
     }
 
-    /**
-     * Legt den Wert der tileSize-Eigenschaft fest.
-     * 
-     */
+    /**Gets or sets the recommented size of multi scale image tiles.*/
     public void setTileSize(int value) {
         this.tileSize = value;
     }
 
-    /**
-     * Ruft den Wert der renderedImageFormat-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link PlatformImageFormat }
-     *     
-     */
+    /**Gets or sets the preferred format this page is rendered.*/
     public PlatformImageFormat getRenderedImageFormat() {
         return renderedImageFormat;
     }
 
-    /**
-     * Legt den Wert der renderedImageFormat-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link PlatformImageFormat }
-     *     
-     */
+    /**Gets or sets the preferred format this page is rendered.*/
     public void setRenderedImageFormat(PlatformImageFormat value) {
         this.renderedImageFormat = value;
     }
 
-    /**
-     * Ruft den Wert der contentArea-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link JAXBElement }{@code <}{@link DWRectangle }{@code >}
-     *     
-     */
-    public JAXBElement<DWRectangle> getContentArea() {
+    /**Gets or sets the area of the content of the page. The coordinates are in twips (1/1440 inches) - https://en.wikipedia.org/wiki/Twip .*/
+    public DWRectangle getContentArea() {
         return contentArea;
     }
 
-    /**
-     * Legt den Wert der contentArea-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link JAXBElement }{@code <}{@link DWRectangle }{@code >}
-     *     
-     */
-    public void setContentArea(JAXBElement<DWRectangle> value) {
+    /**Gets or sets the area of the content of the page. The coordinates are in twips (1/1440 inches) - https://en.wikipedia.org/wiki/Twip .*/
+    public void setContentArea(DWRectangle value) {
         this.contentArea = value;
     }
 
-    /**
-     * Ruft den Wert der dpiX-Eigenschaft ab.
-     * 
-     */
+    /**Gets the horizontal resolution of a page image. In case of vector images this is the maximal resolution which can be rendered.*/
     public int getDpiX() {
         return dpiX;
     }
 
-    /**
-     * Legt den Wert der dpiX-Eigenschaft fest.
-     * 
-     */
+    /**Gets the horizontal resolution of a page image. In case of vector images this is the maximal resolution which can be rendered.*/
     public void setDpiX(int value) {
         this.dpiX = value;
     }
 
-    /**
-     * Ruft den Wert der dpiY-Eigenschaft ab.
-     * 
-     */
+    /**Gets the vertical resolution of a page image. In case of vector images this is the maximal resolution which can be rendered.*/
     public int getDpiY() {
         return dpiY;
     }
 
-    /**
-     * Legt den Wert der dpiY-Eigenschaft fest.
-     * 
-     */
+    /**Gets the vertical resolution of a page image. In case of vector images this is the maximal resolution which can be rendered.*/
     public void setDpiY(int value) {
         this.dpiY = value;
     }
 
-    /**
-     * Ruft den Wert der width-Eigenschaft ab.
-     * 
-     */
+    /**Gets the horizontal size of a page image in pixels. In case of vector images this is the maximal pixel width which can be rendered.*/
     public int getWidth() {
         return width;
     }
 
-    /**
-     * Legt den Wert der width-Eigenschaft fest.
-     * 
-     */
+    /**Gets the horizontal size of a page image in pixels. In case of vector images this is the maximal pixel width which can be rendered.*/
     public void setWidth(int value) {
         this.width = value;
     }
 
-    /**
-     * Ruft den Wert der height-Eigenschaft ab.
-     * 
-     */
+    /**Gets the vertical size of a page image in pixels. In case of vector images this is the maximal pixel height which can be rendered.*/
     public int getHeight() {
         return height;
     }
 
-    /**
-     * Legt den Wert der height-Eigenschaft fest.
-     * 
-     */
+    /**Gets the vertical size of a page image in pixels. In case of vector images this is the maximal pixel height which can be rendered.*/
     public void setHeight(int value) {
         this.height = value;
     }

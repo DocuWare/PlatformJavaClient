@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -21,29 +15,6 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 
-/**
- * Contains the value of form field
- * 
- * <p>Java-Klasse f�r FormFieldValue complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="FormFieldValue">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="TypedValue" type="{http://dev.docuware.com/schema/public/services/platform}DocumentIndexFieldValue" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attribute name="Name" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="Value" type="{http://www.w3.org/2001/XMLSchema}string" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "FormFieldValue", propOrder = {
     "typedValue"
@@ -60,74 +31,32 @@ public class FormFieldValue  {
     @XmlAttribute(name = "Value")
     protected String value;
 
-    /**
-     * Ruft den Wert der typedValue-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link DocumentIndexFieldValue }
-     *     
-     */
+    /**Get or sets the form field value casted to the index field type.*/
     public DocumentIndexFieldValue getTypedValue() {
         return typedValue;
     }
 
-    /**
-     * Legt den Wert der typedValue-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link DocumentIndexFieldValue }
-     *     
-     */
+    /**Get or sets the form field value casted to the index field type.*/
     public void setTypedValue(DocumentIndexFieldValue value) {
         this.typedValue = value;
     }
 
-    /**
-     * Ruft den Wert der name-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Get or sets the name of the form field.*/
     public String getName() {
         return name;
     }
 
-    /**
-     * Legt den Wert der name-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Get or sets the name of the form field.*/
     public void setName(String value) {
         this.name = value;
     }
 
-    /**
-     * Ruft den Wert der value-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Get or sets the display value of the form field.*/
     public String getValue() {
         return value;
     }
 
-    /**
-     * Legt den Wert der value-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Get or sets the display value of the form field.*/
     public void setValue(String value) {
         this.value = value;
     }

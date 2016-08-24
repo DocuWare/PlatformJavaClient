@@ -11,10 +11,16 @@ import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.filter.ClientFilter;
 import com.sun.jersey.client.apache.ApacheHttpClient;
 import com.sun.jersey.client.apache.ApacheHttpClientHandler;
+import com.sun.jersey.client.apache.config.ApacheHttpClientConfig;
 import com.sun.jersey.client.apache.config.DefaultApacheHttpClientConfig;
 import com.sun.jersey.multipart.impl.MultiPartWriter;
 import java.net.URI;
 import javax.ws.rs.core.HttpHeaders;
+import org.apache.commons.httpclient.NTCredentials;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.Credentials;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.impl.client.BasicCredentialsProvider;
 
 public class PlatformClient {
 
@@ -31,14 +37,34 @@ public class PlatformClient {
     public ApacheHttpClient getClient() {
         return client;
     }
-
-    public ApacheHttpClient createApacheClientDefault(ServiceConnectionTransportData sctd, String baseUri) {
-        ClientConfig cc = new DefaultApacheHttpClientConfig();
+    
+    public ApacheHttpClient createApacheClientWindows(ServiceConnectionTransportData sctd, String baseUri, Credentials c) {
+         ClientConfig cc = new DefaultApacheHttpClientConfig();
         cc.getClasses().add(MultiPartWriter.class);
         // turn on cookies support
         cc.getProperties().put(
                 "com.sun.jersey.impl.client.httpclient.handleCookies", true);
-
+        cc.getProperties().put("http.protocol.handle-redirects", true);
+        CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+    //make sure to supply all 4 arguments to the  NTCredentials constructor
+    credentialsProvider.setCredentials(AuthScope.ANY, c);
+        cc.getProperties().put(ApacheHttpClientConfig.PROPERTY_CREDENTIALS_PROVIDER, credentialsProvider);
+        return createApacheClient(sctd, baseUri, cc);
+    }
+    
+    public ApacheHttpClient createApacheClientDefault(ServiceConnectionTransportData sctd, String baseUri) {
+         ClientConfig cc = new DefaultApacheHttpClientConfig();
+        cc.getClasses().add(MultiPartWriter.class);
+        // turn on cookies support
+        cc.getProperties().put(
+                "com.sun.jersey.impl.client.httpclient.handleCookies", true);
+        cc.getProperties().put("http.protocol.handle-redirects", true);
+        return createApacheClient(sctd, baseUri, cc);
+    }
+    
+    public ApacheHttpClient createApacheClient(ServiceConnectionTransportData sctd, String baseUri, ClientConfig cc) {
+        
+       
 		// Initialize the HTTP client               
         ApacheHttpClient localClient = ApacheHttpClient.create(cc);
         if (sctd != null) {
@@ -56,7 +82,13 @@ public class PlatformClient {
             
             @Override
             public ClientResponse handle(ClientRequest cr) throws ClientHandlerException {
-               cr.clone().getHeaders().add(HttpHeaders.USER_AGENT, PackageInfo.name+"/"+PackageInfo.version);
+               cr.getHeaders().add(HttpHeaders.USER_AGENT, System.getProperty("java.specification.name").replace("Specification", "").trim().replace(" ", "+")+"/"+System.getProperty("java.version"));
+               cr.getHeaders().add(HttpHeaders.USER_AGENT, PackageInfo.name+"/"+PackageInfo.version);
+               for(String s: cr.getHeaders().keySet()) {
+                   for(Object o: cr.getHeaders().get(s)) {
+                       System.out.println(s + ": " + o);
+                   }
+               }
                 return getNext().handle(cr);
             }
         });
@@ -110,6 +142,19 @@ public class PlatformClient {
         HttpClientProxy proxy = new HttpClientProxy(this);
         serviceDescription.setProxy(proxy);
     }
+    
+    public PlatformClient(String baseURI, ServiceConnectionTransportData sctd, Credentials c) {
+
+        client = createApacheClientWindows(sctd, baseURI,c);
+        // The base URI of the DocuWare Platform services
+        URI baseUri = URI.create(baseURI);
+        linkResolver = new LinkResolver(baseUri, client);
+        webResource = client.resource(baseUri);
+        serviceDescription = webResource.get(ServiceDescription.class);
+        HttpClientProxy proxy = new HttpClientProxy(this);
+        serviceDescription.setProxy(proxy);
+    }
+    
 
     public PlatformClient(String baseURI, ApacheHttpClient client) {
 

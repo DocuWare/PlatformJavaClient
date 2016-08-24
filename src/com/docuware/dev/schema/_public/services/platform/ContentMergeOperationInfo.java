@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -22,29 +16,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
-/**
- * Models a DocuWare content merge operation.
- * 
- * <p>Java-Klasse f�r ContentMergeOperationInfo complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="ContentMergeOperationInfo">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Documents" type="{http://www.w3.org/2001/XMLSchema}int" maxOccurs="unbounded" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attribute name="Operation" use="required" type="{http://dev.docuware.com/schema/public/services/platform}ContentMergeOperation" />
- *       &lt;attribute name="Force" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ContentMergeOperationInfo", propOrder = {
     "documents"
@@ -58,28 +29,7 @@ public class ContentMergeOperationInfo  {
     @XmlAttribute(name = "Force")
     protected Boolean force;
 
-    /**
-     * Gets the value of the documents property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the documents property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getDocuments().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Integer }
-     * 
-     * 
-     */
+    /**Collection of documents to be used in the operation*/
     public List<Integer> getDocuments() {
         if (documents == null) {
             documents = new ArrayList<Integer>();
@@ -87,38 +37,17 @@ public class ContentMergeOperationInfo  {
         return this.documents;
     }
 
-    /**
-     * Ruft den Wert der operation-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ContentMergeOperation }
-     *     
-     */
+    /**Operation that have to be executed.*/
     public ContentMergeOperation getOperation() {
         return operation;
     }
 
-    /**
-     * Legt den Wert der operation-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ContentMergeOperation }
-     *     
-     */
+    /**Operation that have to be executed.*/
     public void setOperation(ContentMergeOperation value) {
         this.operation = value;
     }
 
-    /**
-     * Ruft den Wert der force-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Force merge operation even if possible loss of data*/
     public boolean isForce() {
         if (force == null) {
             return false;
@@ -127,14 +56,7 @@ public class ContentMergeOperationInfo  {
         }
     }
 
-    /**
-     * Legt den Wert der force-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Force merge operation even if possible loss of data*/
     public void setForce(Boolean value) {
         this.force = value;
     }

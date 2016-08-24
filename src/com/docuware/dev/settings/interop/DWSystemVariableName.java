@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.settings.interop;
@@ -18,33 +12,6 @@ import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
 
 
-/**
- * <p>Java-Klasse f�r DWSystemVariableName.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * <p>
- * <pre>
- * &lt;simpleType name="DWSystemVariableName">
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="None"/>
- *     &lt;enumeration value="CurrentUserShortName"/>
- *     &lt;enumeration value="CurrentUserLongName"/>
- *     &lt;enumeration value="CurrentDate"/>
- *     &lt;enumeration value="CurrentDateTime"/>
- *     &lt;enumeration value="CurrentUserEmail"/>
- *     &lt;enumeration value="Clipboard"/>
- *     &lt;enumeration value="ImportDirectoryName"/>
- *     &lt;enumeration value="ImportParentDirectoryName"/>
- *     &lt;enumeration value="FileName"/>
- *     &lt;enumeration value="FileExtension"/>
- *     &lt;enumeration value="FileNameWithExtension"/>
- *     &lt;enumeration value="FileModificationDateTime"/>
- *     &lt;enumeration value="FileCreationDateTime"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
- * </pre>
- * 
- */
 @XmlType(name = "DWSystemVariableName", namespace = "http://dev.docuware.com/settings/interop")
 @XmlEnum
 public enum DWSystemVariableName {

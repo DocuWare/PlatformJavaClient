@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -20,34 +14,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
-/**
- * Query definition for a select list
- * 
- * <p>Java-Klasse f�r SelectListExpression complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="SelectListExpression">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="DialogExpression" type="{http://dev.docuware.com/schema/public/services/platform}DialogExpression" minOccurs="0"/>
- *         &lt;element name="ValuePrefix" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attribute name="FieldName" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="Count" type="{http://www.w3.org/2001/XMLSchema}int" default="0" />
- *       &lt;attribute name="Start" type="{http://www.w3.org/2001/XMLSchema}int" default="0" />
- *       &lt;attribute name="Limit" type="{http://www.w3.org/2001/XMLSchema}int" default="0" />
- *       &lt;attribute name="SortDirection" type="{http://dev.docuware.com/schema/public/services/platform}SortDirection" default="Default" />
- *       &lt;attribute name="ExcludeExternal" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SelectListExpression", propOrder = {
     "dialogExpression",
@@ -72,86 +38,38 @@ public class SelectListExpression  {
     @XmlAttribute(name = "ExcludeExternal")
     protected Boolean excludeExternal;
 
-    /**
-     * Ruft den Wert der dialogExpression-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link DialogExpression }
-     *     
-     */
+    /**The expression with already filled values.*/
     public DialogExpression getDialogExpression() {
         return dialogExpression;
     }
 
-    /**
-     * Legt den Wert der dialogExpression-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link DialogExpression }
-     *     
-     */
+    /**The expression with already filled values.*/
     public void setDialogExpression(DialogExpression value) {
         this.dialogExpression = value;
     }
 
-    /**
-     * Ruft den Wert der valuePrefix-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**A possible prefix of value of the field to be filled.*/
     public String getValuePrefix() {
         return valuePrefix;
     }
 
-    /**
-     * Legt den Wert der valuePrefix-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**A possible prefix of value of the field to be filled.*/
     public void setValuePrefix(String value) {
         this.valuePrefix = value;
     }
 
-    /**
-     * Ruft den Wert der fieldName-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**The database name of the dialog field to be filled.*/
     public String getFieldName() {
         return fieldName;
     }
 
-    /**
-     * Legt den Wert der fieldName-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**The database name of the dialog field to be filled.*/
     public void setFieldName(String value) {
         this.fieldName = value;
     }
 
-    /**
-     * Ruft den Wert der count-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
+    /**Result will be returned on pages with that block size if specified. If set to default (0) select lists will be returnen in one block using Limit parameter.*/
+    @Eagle
     public int getCount() {
         if (count == null) {
             return  0;
@@ -160,26 +78,14 @@ public class SelectListExpression  {
         }
     }
 
-    /**
-     * Legt den Wert der count-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
+    /**Result will be returned on pages with that block size if specified. If set to default (0) select lists will be returnen in one block using Limit parameter.*/
+    @Eagle
     public void setCount(Integer value) {
         this.count = value;
     }
 
-    /**
-     * Ruft den Wert der start-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
+    /**First result to return if block size is specified*/
+    @Eagle
     public int getStart() {
         if (start == null) {
             return  0;
@@ -188,26 +94,13 @@ public class SelectListExpression  {
         }
     }
 
-    /**
-     * Legt den Wert der start-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
+    /**First result to return if block size is specified*/
+    @Eagle
     public void setStart(Integer value) {
         this.start = value;
     }
 
-    /**
-     * Ruft den Wert der limit-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
+    /**Limit the number of hits that are returned if no block size is specified*/
     public int getLimit() {
         if (limit == null) {
             return  0;
@@ -216,26 +109,13 @@ public class SelectListExpression  {
         }
     }
 
-    /**
-     * Legt den Wert der limit-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
+    /**Limit the number of hits that are returned if no block size is specified*/
     public void setLimit(Integer value) {
         this.limit = value;
     }
 
-    /**
-     * Ruft den Wert der sortDirection-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link SortDirection }
-     *     
-     */
+    /**Define sort order of the select list*/
+    @Eagle
     public SortDirection getSortDirection() {
         if (sortDirection == null) {
             return SortDirection.DEFAULT;
@@ -244,26 +124,14 @@ public class SelectListExpression  {
         }
     }
 
-    /**
-     * Legt den Wert der sortDirection-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link SortDirection }
-     *     
-     */
+    /**Define sort order of the select list*/
+    @Eagle
     public void setSortDirection(SortDirection value) {
         this.sortDirection = value;
     }
 
-    /**
-     * Ruft den Wert der excludeExternal-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether to return values from external select lists*/
+    @Gecko
     public boolean isExcludeExternal() {
         if (excludeExternal == null) {
             return false;
@@ -272,14 +140,8 @@ public class SelectListExpression  {
         }
     }
 
-    /**
-     * Legt den Wert der excludeExternal-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Determines whether to return values from external select lists*/
+    @Gecko
     public void setExcludeExternal(Boolean value) {
         this.excludeExternal = value;
     }

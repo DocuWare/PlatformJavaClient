@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -23,34 +17,6 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 
-/**
- * Base query definition for a result list
- * 
- * <p>Java-Klasse f�r ResultListQuery complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="ResultListQuery">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="SortOrder" type="{http://dev.docuware.com/schema/public/services/platform}SortedFieldsList" minOccurs="0"/>
- *         &lt;element name="AdditionalResultFields" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="FlagConditions" type="{http://dev.docuware.com/schema/public/services/platform}FlagConditions"/>
- *       &lt;/sequence>
- *       &lt;attribute name="Start" type="{http://www.w3.org/2001/XMLSchema}int" default="0" />
- *       &lt;attribute name="Count" type="{http://www.w3.org/2001/XMLSchema}int" default="0" />
- *       &lt;attribute name="ExcludeDefaultSystemFields" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="WithoutLinks" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="IncludeSuggestions" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ResultListQuery", propOrder = {
     "sortOrder",
@@ -79,52 +45,17 @@ public class ResultListQuery  {
     @XmlAttribute(name = "IncludeSuggestions")
     protected Boolean includeSuggestions;
 
-    /**
-     * Ruft den Wert der sortOrder-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link SortedFieldsList }
-     *     
-     */
+    /**Gets or sets the fields which are returned by this query.*/
     public SortedFieldsList getSortOrder() {
         return sortOrder;
     }
 
-    /**
-     * Legt den Wert der sortOrder-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link SortedFieldsList }
-     *     
-     */
+    /**Gets or sets the fields which are returned by this query.*/
     public void setSortOrder(SortedFieldsList value) {
         this.sortOrder = value;
     }
 
-    /**
-     * Gets the value of the additionalResultFields property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the additionalResultFields property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getAdditionalResultFields().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link String }
-     * 
-     * 
-     */
+    /**Define addition result fields to retrieve*/
     public List<String> getAdditionalResultFields() {
         if (additionalResultFields == null) {
             additionalResultFields = new ArrayList<String>();
@@ -132,38 +63,17 @@ public class ResultListQuery  {
         return this.additionalResultFields;
     }
 
-    /**
-     * Ruft den Wert der flagConditions-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link FlagConditions }
-     *     
-     */
+    /**Condition that filter documents by its flags*/
     public FlagConditions getFlagConditions() {
         return flagConditions;
     }
 
-    /**
-     * Legt den Wert der flagConditions-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link FlagConditions }
-     *     
-     */
+    /**Condition that filter documents by its flags*/
     public void setFlagConditions(FlagConditions value) {
         this.flagConditions = value;
     }
 
-    /**
-     * Ruft den Wert der start-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
+    /**Start index of result document*/
     public int getStart() {
         if (start == null) {
             return  0;
@@ -172,26 +82,12 @@ public class ResultListQuery  {
         }
     }
 
-    /**
-     * Legt den Wert der start-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
+    /**Start index of result document*/
     public void setStart(Integer value) {
         this.start = value;
     }
 
-    /**
-     * Ruft den Wert der count-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
+    /**Number of result documents to be retrieved in one block*/
     public int getCount() {
         if (count == null) {
             return  0;
@@ -200,26 +96,12 @@ public class ResultListQuery  {
         }
     }
 
-    /**
-     * Legt den Wert der count-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
+    /**Number of result documents to be retrieved in one block*/
     public void setCount(Integer value) {
         this.count = value;
     }
 
-    /**
-     * Ruft den Wert der excludeDefaultSystemFields-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Specifies whether the default system/additional fields should be returned.*/
     public boolean isExcludeDefaultSystemFields() {
         if (excludeDefaultSystemFields == null) {
             return false;
@@ -228,26 +110,12 @@ public class ResultListQuery  {
         }
     }
 
-    /**
-     * Legt den Wert der excludeDefaultSystemFields-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Specifies whether the default system/additional fields should be returned.*/
     public void setExcludeDefaultSystemFields(Boolean value) {
         this.excludeDefaultSystemFields = value;
     }
 
-    /**
-     * Ruft den Wert der withoutLinks-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Specifies whether the links are filled in the result.*/
     public boolean isWithoutLinks() {
         if (withoutLinks == null) {
             return false;
@@ -256,26 +124,11 @@ public class ResultListQuery  {
         }
     }
 
-    /**
-     * Legt den Wert der withoutLinks-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Specifies whether the links are filled in the result.*/
     public void setWithoutLinks(Boolean value) {
         this.withoutLinks = value;
     }
 
-    /**
-     * Ruft den Wert der includeSuggestions-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
     public boolean isIncludeSuggestions() {
         if (includeSuggestions == null) {
             return false;
@@ -284,14 +137,6 @@ public class ResultListQuery  {
         }
     }
 
-    /**
-     * Legt den Wert der includeSuggestions-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
     public void setIncludeSuggestions(Boolean value) {
         this.includeSuggestions = value;
     }

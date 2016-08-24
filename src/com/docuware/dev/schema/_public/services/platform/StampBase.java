@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -21,36 +15,6 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 
-/**
- * Stamp base type. Inherited by 3 types: TextStamp, BitmapStamp, PolyLineStamp
- * 
- * <p>Java-Klasse f�r StampBase complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="StampBase">
- *   &lt;complexContent>
- *     &lt;extension base="{http://dev.docuware.com/schema/public/services/platform}EntryBase">
- *       &lt;sequence>
- *         &lt;element name="Location" type="{http://dev.docuware.com/schema/public/services/platform}AnnotationRectangle"/>
- *         &lt;element name="HeadFont" type="{http://dev.docuware.com/schema/public/services/platform}Font"/>
- *       &lt;/sequence>
- *       &lt;attribute name="Signature" type="{http://dev.docuware.com/schema/public/services/platform}StampSignatureType" default="No" />
- *       &lt;attribute name="UserName" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="Visible" type="{http://www.w3.org/2001/XMLSchema}boolean" default="true" />
- *       &lt;attribute name="Frame" type="{http://www.w3.org/2001/XMLSchema}boolean" default="true" />
- *       &lt;attribute name="ShowUser" type="{http://www.w3.org/2001/XMLSchema}boolean" default="true" />
- *       &lt;attribute name="ShowDate" type="{http://www.w3.org/2001/XMLSchema}boolean" default="true" />
- *       &lt;attribute name="ShowTime" type="{http://www.w3.org/2001/XMLSchema}boolean" default="true" />
- *       &lt;attribute name="SigScopeInfo" type="{http://www.w3.org/2001/XMLSchema}string" />
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "StampBase", propOrder = {
     "location",
@@ -86,62 +50,27 @@ public class StampBase
     @XmlAttribute(name = "SigScopeInfo")
     protected String sigScopeInfo;
 
-    /**
-     * Ruft den Wert der location-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link AnnotationRectangle }
-     *     
-     */
+    /**Location of the stamp.*/
     public AnnotationRectangle getLocation() {
         return location;
     }
 
-    /**
-     * Legt den Wert der location-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link AnnotationRectangle }
-     *     
-     */
+    /**Location of the stamp.*/
     public void setLocation(AnnotationRectangle value) {
         this.location = value;
     }
 
-    /**
-     * Ruft den Wert der headFont-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Font }
-     *     
-     */
+    /**Font of the header of the stamp.*/
     public Font getHeadFont() {
         return headFont;
     }
 
-    /**
-     * Legt den Wert der headFont-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Font }
-     *     
-     */
+    /**Font of the header of the stamp.*/
     public void setHeadFont(Font value) {
         this.headFont = value;
     }
 
-    /**
-     * Ruft den Wert der signature-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link StampSignatureType }
-     *     
-     */
+    /**Define the sigiture of the stamp.*/
     public StampSignatureType getSignature() {
         if (signature == null) {
             return StampSignatureType.NO;
@@ -150,50 +79,22 @@ public class StampBase
         }
     }
 
-    /**
-     * Legt den Wert der signature-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link StampSignatureType }
-     *     
-     */
+    /**Define the sigiture of the stamp.*/
     public void setSignature(StampSignatureType value) {
         this.signature = value;
     }
 
-    /**
-     * Ruft den Wert der userName-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Full user name of the person that has set the stamp.*/
     public String getUserName() {
         return userName;
     }
 
-    /**
-     * Legt den Wert der userName-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Full user name of the person that has set the stamp.*/
     public void setUserName(String value) {
         this.userName = value;
     }
 
-    /**
-     * Ruft den Wert der visible-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Define if stamp is visible.*/
     public boolean isVisible() {
         if (visible == null) {
             return true;
@@ -202,26 +103,12 @@ public class StampBase
         }
     }
 
-    /**
-     * Legt den Wert der visible-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Define if stamp is visible.*/
     public void setVisible(Boolean value) {
         this.visible = value;
     }
 
-    /**
-     * Ruft den Wert der frame-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Define if stamp has visible frame.*/
     public boolean isFrame() {
         if (frame == null) {
             return true;
@@ -230,26 +117,12 @@ public class StampBase
         }
     }
 
-    /**
-     * Legt den Wert der frame-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Define if stamp has visible frame.*/
     public void setFrame(Boolean value) {
         this.frame = value;
     }
 
-    /**
-     * Ruft den Wert der showUser-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Define if stamp show the user who placed the stamp.*/
     public boolean isShowUser() {
         if (showUser == null) {
             return true;
@@ -258,26 +131,12 @@ public class StampBase
         }
     }
 
-    /**
-     * Legt den Wert der showUser-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Define if stamp show the user who placed the stamp.*/
     public void setShowUser(Boolean value) {
         this.showUser = value;
     }
 
-    /**
-     * Ruft den Wert der showDate-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Define if stamp show date when stamp is placed.*/
     public boolean isShowDate() {
         if (showDate == null) {
             return true;
@@ -286,26 +145,12 @@ public class StampBase
         }
     }
 
-    /**
-     * Legt den Wert der showDate-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Define if stamp show date when stamp is placed.*/
     public void setShowDate(Boolean value) {
         this.showDate = value;
     }
 
-    /**
-     * Ruft den Wert der showTime-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Define if stamp show the time when stamp is placed.*/
     public boolean isShowTime() {
         if (showTime == null) {
             return true;
@@ -314,38 +159,17 @@ public class StampBase
         }
     }
 
-    /**
-     * Legt den Wert der showTime-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
+    /**Define if stamp show the time when stamp is placed.*/
     public void setShowTime(Boolean value) {
         this.showTime = value;
     }
 
-    /**
-     * Ruft den Wert der sigScopeInfo-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Signature scope. Describes what is signed with this stamp.*/
     public String getSigScopeInfo() {
         return sigScopeInfo;
     }
 
-    /**
-     * Legt den Wert der sigScopeInfo-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Signature scope. Describes what is signed with this stamp.*/
     public void setSigScopeInfo(String value) {
         this.sigScopeInfo = value;
     }

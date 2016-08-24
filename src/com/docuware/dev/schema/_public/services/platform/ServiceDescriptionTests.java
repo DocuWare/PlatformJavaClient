@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -12,6 +6,7 @@ import java.net.URI;
 import com.docuware.dev.Extensions.*;
 import java.util.concurrent.Future;
 import com.docuware.dev.schema._public.services.Link;
+import java.io.InputStream;
 import com.docuware.dev.schema._public.services.platform.StampPlacement;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
@@ -24,25 +19,6 @@ import javax.xml.bind.annotation.XmlType;
 import com.docuware.dev.schema._public.services.Links;
 
 
-/**
- * <p>Java-Klasse f�r ServiceDescriptionTests complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="ServiceDescriptionTests">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element ref="{http://dev.docuware.com/schema/public/services}Links"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ServiceDescriptionTests", propOrder = {
 "proxy",
@@ -55,26 +31,10 @@ private HttpClientProxy proxy;//test
     @XmlElement(name = "Links", namespace = "http://dev.docuware.com/schema/public/services", required = true)
     protected Links links;
 
-    /**
-     * Ruft den Wert der links-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Links }
-     *     
-     */
     public Links getLinks() {
         return links;
     }
 
-    /**
-     * Legt den Wert der links-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Links }
-     *     
-     */
     public void setLinks(Links value) {
         this.links = value;
     }
@@ -166,22 +126,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "HtmlTestClient".
     */
-    public URI getURIFromHtmlTestClientRelation() {
-        return MethodInvocation.<URI>get(this, links, "htmlTestClient", URI.class);
+    public InputStream getInputStreamFromHtmlTestClientRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "htmlTestClient", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "HtmlTestClient" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromHtmlTestClientRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "htmlTestClient", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromHtmlTestClientRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "htmlTestClient", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "HtmlTestClient" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromHtmlTestClientRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "htmlTestClient", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromHtmlTestClientRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "htmlTestClient", InputStream.class, ct);
     }
 
     /**
@@ -256,22 +216,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "QueryString".
     */
-    public URI getURIFromQueryStringRelation() {
-        return MethodInvocation.<URI>get(this, links, "queryString", URI.class);
+    public InputStream getInputStreamFromQueryStringRelation() {
+        return MethodInvocation.<InputStream>get(this, links, "queryString", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "QueryString" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromQueryStringRelationAsync() {
-        return MethodInvocation.<URI>getAsync(this, links, "queryString", URI.class);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromQueryStringRelationAsync() {
+        return MethodInvocation.<InputStream>getAsync(this, links, "queryString", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "QueryString" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<URI>> getURIFromQueryStringRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<URI>getAsync(this, links, "queryString", URI.class, ct);
+    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromQueryStringRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<InputStream>getAsync(this, links, "queryString", InputStream.class, ct);
     }
 
 

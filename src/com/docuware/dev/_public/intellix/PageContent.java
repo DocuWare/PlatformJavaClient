@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev._public.intellix;
@@ -24,42 +18,6 @@ import javax.xml.bind.annotation.XmlType;
 import com.docuware.dev.settings.common.KeyValuePairs;
 
 
-/**
- * <p>Java-Klasse f�r PageContent complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="PageContent">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;choice maxOccurs="unbounded" minOccurs="0">
- *           &lt;element name="TextZone" type="{http://dev.docuware.com/public/intellix}TextZone"/>
- *           &lt;element name="PictureZone" type="{http://dev.docuware.com/public/intellix}PictureZone"/>
- *           &lt;element name="TableZone" type="{http://dev.docuware.com/public/intellix}TableZone"/>
- *           &lt;element name="rulerline" type="{http://dev.docuware.com/public/intellix}Rulerline"/>
- *         &lt;/choice>
- *         &lt;element name="BarCodes" type="{http://dev.docuware.com/public/intellix}BarCodeZone" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="metadata" type="{http://dev.docuware.com/settings/common}KeyValuePairs" minOccurs="0"/>
- *         &lt;element name="Candidates" type="{http://dev.docuware.com/public/intellix}CandidateInfo" maxOccurs="unbounded" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attGroup ref="{http://dev.docuware.com/public/intellix}ResolutionAttributes"/>
- *       &lt;attribute name="Lang" type="{http://dev.docuware.com/public/intellix}Languages" />
- *       &lt;attribute name="LanguageDetection" type="{http://dev.docuware.com/public/intellix}LanguageDetection" default="Explicite" />
- *       &lt;attribute name="CandidateDetectionVersion" type="{http://www.w3.org/2001/XMLSchema}int" default="0" />
- *       &lt;attribute name="SizeX" use="required" type="{http://www.w3.org/2001/XMLSchema}int" />
- *       &lt;attribute name="SizeY" use="required" type="{http://www.w3.org/2001/XMLSchema}int" />
- *       &lt;attribute name="SkewAngle" type="{http://www.w3.org/2001/XMLSchema}double" default="0.0" />
- *       &lt;attribute name="Rotation" type="{http://dev.docuware.com/public/intellix}Rotation" default="Rotate0Degree" />
- *       &lt;attribute name="FileTag" type="{http://www.w3.org/2001/XMLSchema}string" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "PageContent", propOrder = {
     "textZoneOrPictureZoneOrTableZone",
@@ -102,31 +60,6 @@ public class PageContent  {
     @XmlAttribute(name = "VerticalDpi", required = true)
     protected double verticalDpi;
 
-    /**
-     * Gets the value of the textZoneOrPictureZoneOrTableZone property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the textZoneOrPictureZoneOrTableZone property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getTextZoneOrPictureZoneOrTableZone().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link TextZone }
-     * {@link PictureZone }
-     * {@link TableZone }
-     * {@link Rulerline }
-     * 
-     * 
-     */
     public List<RectangleBase> getTextZoneOrPictureZoneOrTableZone() {
         if (textZoneOrPictureZoneOrTableZone == null) {
             textZoneOrPictureZoneOrTableZone = new ArrayList<RectangleBase>();
@@ -134,28 +67,6 @@ public class PageContent  {
         return this.textZoneOrPictureZoneOrTableZone;
     }
 
-    /**
-     * Gets the value of the barCodes property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the barCodes property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getBarCodes().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link BarCodeZone }
-     * 
-     * 
-     */
     public List<BarCodeZone> getBarCodes() {
         if (barCodes == null) {
             barCodes = new ArrayList<BarCodeZone>();
@@ -163,52 +74,14 @@ public class PageContent  {
         return this.barCodes;
     }
 
-    /**
-     * Ruft den Wert der metadata-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link KeyValuePairs }
-     *     
-     */
     public KeyValuePairs getMetadata() {
         return metadata;
     }
 
-    /**
-     * Legt den Wert der metadata-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link KeyValuePairs }
-     *     
-     */
     public void setMetadata(KeyValuePairs value) {
         this.metadata = value;
     }
 
-    /**
-     * Gets the value of the candidates property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the candidates property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getCandidates().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link CandidateInfo }
-     * 
-     * 
-     */
     public List<CandidateInfo> getCandidates() {
         if (candidates == null) {
             candidates = new ArrayList<CandidateInfo>();
@@ -216,38 +89,14 @@ public class PageContent  {
         return this.candidates;
     }
 
-    /**
-     * Ruft den Wert der lang-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
     public String getLang() {
         return lang;
     }
 
-    /**
-     * Legt den Wert der lang-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
     public void setLang(String value) {
         this.lang = value;
     }
 
-    /**
-     * Ruft den Wert der languageDetection-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link LanguageDetection }
-     *     
-     */
     public LanguageDetection getLanguageDetection() {
         if (languageDetection == null) {
             return LanguageDetection.EXPLICITE;
@@ -256,26 +105,10 @@ public class PageContent  {
         }
     }
 
-    /**
-     * Legt den Wert der languageDetection-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link LanguageDetection }
-     *     
-     */
     public void setLanguageDetection(LanguageDetection value) {
         this.languageDetection = value;
     }
 
-    /**
-     * Ruft den Wert der candidateDetectionVersion-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
     public int getCandidateDetectionVersion() {
         if (candidateDetectionVersion == null) {
             return  0;
@@ -284,58 +117,31 @@ public class PageContent  {
         }
     }
 
-    /**
-     * Legt den Wert der candidateDetectionVersion-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
     public void setCandidateDetectionVersion(Integer value) {
         this.candidateDetectionVersion = value;
     }
 
-    /**
-     * Ruft den Wert der sizeX-Eigenschaft ab.
-     * 
-     */
+    /**The page width in pixel.*/
     public int getSizeX() {
         return sizeX;
     }
 
-    /**
-     * Legt den Wert der sizeX-Eigenschaft fest.
-     * 
-     */
+    /**The page width in pixel.*/
     public void setSizeX(int value) {
         this.sizeX = value;
     }
 
-    /**
-     * Ruft den Wert der sizeY-Eigenschaft ab.
-     * 
-     */
+    /**The page height in pixel.*/
     public int getSizeY() {
         return sizeY;
     }
 
-    /**
-     * Legt den Wert der sizeY-Eigenschaft fest.
-     * 
-     */
+    /**The page height in pixel.*/
     public void setSizeY(int value) {
         this.sizeY = value;
     }
 
-    /**
-     * Ruft den Wert der skewAngle-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Double }
-     *     
-     */
+    /**The skew angle in degree denoting the amount by which the document image has to be rotated clockwise in order to match the text shot.*/
     public double getSkewAngle() {
         if (skewAngle == null) {
             return  0.0D;
@@ -344,26 +150,12 @@ public class PageContent  {
         }
     }
 
-    /**
-     * Legt den Wert der skewAngle-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Double }
-     *     
-     */
+    /**The skew angle in degree denoting the amount by which the document image has to be rotated clockwise in order to match the text shot.*/
     public void setSkewAngle(Double value) {
         this.skewAngle = value;
     }
 
-    /**
-     * Ruft den Wert der rotation-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Rotation }
-     *     
-     */
+    /**The rotation angle of the page.*/
     public Rotation getRotation() {
         if (rotation == null) {
             return Rotation.ROTATE_0_DEGREE;
@@ -372,70 +164,33 @@ public class PageContent  {
         }
     }
 
-    /**
-     * Legt den Wert der rotation-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Rotation }
-     *     
-     */
+    /**The rotation angle of the page.*/
     public void setRotation(Rotation value) {
         this.rotation = value;
     }
 
-    /**
-     * Ruft den Wert der fileTag-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**A tag identifiying the file the page was created from.*/
     public String getFileTag() {
         return fileTag;
     }
 
-    /**
-     * Legt den Wert der fileTag-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**A tag identifiying the file the page was created from.*/
     public void setFileTag(String value) {
         this.fileTag = value;
     }
 
-    /**
-     * Ruft den Wert der horizontalDpi-Eigenschaft ab.
-     * 
-     */
     public double getHorizontalDpi() {
         return horizontalDpi;
     }
 
-    /**
-     * Legt den Wert der horizontalDpi-Eigenschaft fest.
-     * 
-     */
     public void setHorizontalDpi(double value) {
         this.horizontalDpi = value;
     }
 
-    /**
-     * Ruft den Wert der verticalDpi-Eigenschaft ab.
-     * 
-     */
     public double getVerticalDpi() {
         return verticalDpi;
     }
 
-    /**
-     * Legt den Wert der verticalDpi-Eigenschaft fest.
-     * 
-     */
     public void setVerticalDpi(double value) {
         this.verticalDpi = value;
     }

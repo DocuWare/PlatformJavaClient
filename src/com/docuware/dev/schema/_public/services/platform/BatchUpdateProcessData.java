@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -21,28 +15,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
-/**
- * <p>Java-Klasse f�r BatchUpdateProcessData complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="BatchUpdateProcessData">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Field" type="{http://dev.docuware.com/schema/public/services/platform}DocumentIndexField" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="StoreDialogId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="BatchSize" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="BreakOnError" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "BatchUpdateProcessData", propOrder = {
     "field",
@@ -61,28 +33,7 @@ public class BatchUpdateProcessData  {
     @XmlElement(name = "BreakOnError", defaultValue = "true")
     protected boolean breakOnError;
 
-    /**
-     * Gets the value of the field property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the field property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getField().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link DocumentIndexField }
-     * 
-     * 
-     */
+    /**The fields which are updated.*/
     public List<DocumentIndexField> getField() {
         if (field == null) {
             field = new ArrayList<DocumentIndexField>();
@@ -90,66 +41,32 @@ public class BatchUpdateProcessData  {
         return this.field;
     }
 
-    /**
-     * Ruft den Wert der storeDialogId-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**The id of the dialog to be used to update fields which are hidden inside the store dialog.*/
     public String getStoreDialogId() {
         return storeDialogId;
     }
 
-    /**
-     * Legt den Wert der storeDialogId-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**The id of the dialog to be used to update fields which are hidden inside the store dialog.*/
     public void setStoreDialogId(String value) {
         this.storeDialogId = value;
     }
 
-    /**
-     * Ruft den Wert der batchSize-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
+    /**The number of documents which are updated within a update chunk.*/
     public Integer getBatchSize() {
         return batchSize;
     }
 
-    /**
-     * Legt den Wert der batchSize-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
+    /**The number of documents which are updated within a update chunk.*/
     public void setBatchSize(Integer value) {
         this.batchSize = value;
     }
 
-    /**
-     * Ruft den Wert der breakOnError-Eigenschaft ab.
-     * 
-     */
+    /**If this attribute is set to true then the update is stopped on the first document which failes to be updated.*/
     public boolean isBreakOnError() {
         return breakOnError;
     }
 
-    /**
-     * Legt den Wert der breakOnError-Eigenschaft fest.
-     * 
-     */
+    /**If this attribute is set to true then the update is stopped on the first document which failes to be updated.*/
     public void setBreakOnError(boolean value) {
         this.breakOnError = value;
     }

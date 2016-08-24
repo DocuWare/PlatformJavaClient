@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -20,26 +14,6 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.Duration;
 
 
-/**
- * Define how a document will be locked
- * 
- * <p>Java-Klasse f�r LockInfo complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="LockInfo">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;attribute name="Interval" type="{http://www.w3.org/2001/XMLSchema}duration" />
- *       &lt;attribute name="Operation" type="{http://www.w3.org/2001/XMLSchema}string" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "LockInfo")
 public class LockInfo  {
@@ -49,50 +23,32 @@ public class LockInfo  {
     @XmlAttribute(name = "Operation")
     protected String operation;
 
-    /**
-     * Ruft den Wert der interval-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Duration }
-     *     
-     */
+    /**Define the lifetime interval for the lock.
+          This parameter contains a time interval specification in the form:
+          [ws][-]{ d | [d.]hh:mm[:ss[.ff]] }[ws]
+          Elements in square brackets ([ and ]) are optional. One selection from the list of alternatives enclosed in braces ({ and }) and separated by vertical bars (|) is required.
+          For more details check http://msdn.microsoft.com/en-us/library/se73z7b9.aspx*/
     public Duration getInterval() {
         return interval;
     }
 
-    /**
-     * Legt den Wert der interval-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Duration }
-     *     
-     */
+    /**Define the lifetime interval for the lock.
+          This parameter contains a time interval specification in the form:
+          [ws][-]{ d | [d.]hh:mm[:ss[.ff]] }[ws]
+          Elements in square brackets ([ and ]) are optional. One selection from the list of alternatives enclosed in braces ({ and }) and separated by vertical bars (|) is required.
+          For more details check http://msdn.microsoft.com/en-us/library/se73z7b9.aspx*/
     public void setInterval(Duration value) {
         this.interval = value;
     }
 
-    /**
-     * Ruft den Wert der operation-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Optional arbitrary string that define the purpose of the lock operation. Only one operation will successfully apply a lock on one document at same time.*/
+    @Dolphin
     public String getOperation() {
         return operation;
     }
 
-    /**
-     * Legt den Wert der operation-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Optional arbitrary string that define the purpose of the lock operation. Only one operation will successfully apply a lock on one document at same time.*/
+    @Dolphin
     public void setOperation(String value) {
         this.operation = value;
     }

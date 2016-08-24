@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -25,30 +19,6 @@ import javax.xml.bind.annotation.XmlType;
 import com.docuware.dev.schema._public.services.Links;
 
 
-/**
- * Select list information object.
- * 
- * <p>Java-Klasse f�r SelectListInfo complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="SelectListInfo">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element ref="{http://dev.docuware.com/schema/public/services}Links"/>
- *       &lt;/sequence>
- *       &lt;attribute name="Guid" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="Name" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="Kind" use="required" type="{http://dev.docuware.com/schema/public/services/platform}SelectListKind" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SelectListInfo", propOrder = {
 "proxy",
@@ -67,98 +37,40 @@ private HttpClientProxy proxy;//test
     @XmlAttribute(name = "Kind", required = true)
     protected SelectListKind kind;
 
-    /**
-     * Ruft den Wert der links-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Links }
-     *     
-     */
     public Links getLinks() {
         return links;
     }
 
-    /**
-     * Legt den Wert der links-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Links }
-     *     
-     */
     public void setLinks(Links value) {
         this.links = value;
     }
 
-    /**
-     * Ruft den Wert der guid-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**The guid of the select list.*/
     public String getGuid() {
         return guid;
     }
 
-    /**
-     * Legt den Wert der guid-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**The guid of the select list.*/
     public void setGuid(String value) {
         this.guid = value;
     }
 
-    /**
-     * Ruft den Wert der name-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**The name of the select list.*/
     public String getName() {
         return name;
     }
 
-    /**
-     * Legt den Wert der name-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**The name of the select list.*/
     public void setName(String value) {
         this.name = value;
     }
 
-    /**
-     * Ruft den Wert der kind-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link SelectListKind }
-     *     
-     */
+    /**The Kind of the select list.*/
     public SelectListKind getKind() {
         return kind;
     }
 
-    /**
-     * Legt den Wert der kind-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link SelectListKind }
-     *     
-     */
+    /**The Kind of the select list.*/
     public void setKind(SelectListKind value) {
         this.kind = value;
     }

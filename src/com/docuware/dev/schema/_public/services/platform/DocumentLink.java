@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -26,31 +20,6 @@ import javax.xml.bind.annotation.XmlType;
 import com.docuware.dev.schema._public.services.Links;
 
 
-/**
- * Define a query that link one documnet to another document from same or different file cabinet
- * 
- * <p>Java-Klasse f�r DocumentLink complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="DocumentLink">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element ref="{http://dev.docuware.com/schema/public/services}Links" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attribute name="Id" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="Name" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="TargetFileCabinet" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="TargetResultList" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "DocumentLink", propOrder = {
 "proxy",
@@ -71,122 +40,50 @@ private HttpClientProxy proxy;//test
     @XmlAttribute(name = "TargetResultList", required = true)
     protected String targetResultList;
 
-    /**
-     * Ruft den Wert der links-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Links }
-     *     
-     */
     public Links getLinks() {
         return links;
     }
 
-    /**
-     * Legt den Wert der links-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Links }
-     *     
-     */
     public void setLinks(Links value) {
         this.links = value;
     }
 
-    /**
-     * Ruft den Wert der id-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Identity of the document link*/
     public String getId() {
         return id;
     }
 
-    /**
-     * Legt den Wert der id-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Identity of the document link*/
     public void setId(String value) {
         this.id = value;
     }
 
-    /**
-     * Ruft den Wert der name-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Name of the document link*/
     public String getName() {
         return name;
     }
 
-    /**
-     * Legt den Wert der name-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Name of the document link*/
     public void setName(String value) {
         this.name = value;
     }
 
-    /**
-     * Ruft den Wert der targetFileCabinet-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**File cabinet that the document is linked to*/
     public String getTargetFileCabinet() {
         return targetFileCabinet;
     }
 
-    /**
-     * Legt den Wert der targetFileCabinet-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**File cabinet that the document is linked to*/
     public void setTargetFileCabinet(String value) {
         this.targetFileCabinet = value;
     }
 
-    /**
-     * Ruft den Wert der targetResultList-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+    /**Identity of the result list that will be used to show the linked documents*/
     public String getTargetResultList() {
         return targetResultList;
     }
 
-    /**
-     * Legt den Wert der targetResultList-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+    /**Identity of the result list that will be used to show the linked documents*/
     public void setTargetResultList(String value) {
         this.targetResultList = value;
     }

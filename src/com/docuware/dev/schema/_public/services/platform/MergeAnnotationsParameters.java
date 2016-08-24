@@ -1,9 +1,3 @@
-//
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.22 um 03:45:48 PM CEST 
-//
 
 
 package com.docuware.dev.schema._public.services.platform;
@@ -19,25 +13,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
 
-/**
- * Parameters for MergeAnnotations action
- * 
- * <p>Java-Klasse f�r MergeAnnotationsParameters complex type.
- * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
- * <pre>
- * &lt;complexType name="MergeAnnotationsParameters">
- *   &lt;complexContent>
- *     &lt;extension base="{http://dev.docuware.com/schema/public/services/platform}DocumentActionParameters">
- *       &lt;attribute name="SectionNumber" type="{http://www.w3.org/2001/XMLSchema}int" default="0" />
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "MergeAnnotationsParameters")
 public class MergeAnnotationsParameters
@@ -47,14 +22,8 @@ public class MergeAnnotationsParameters
     @XmlAttribute(name = "SectionNumber")
     protected Integer sectionNumber;
 
-    /**
-     * Ruft den Wert der sectionNumber-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
+    /**Number of the section to process.*/
+    @Dolphin
     public int getSectionNumber() {
         if (sectionNumber == null) {
             return  0;
@@ -63,14 +32,8 @@ public class MergeAnnotationsParameters
         }
     }
 
-    /**
-     * Legt den Wert der sectionNumber-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
+    /**Number of the section to process.*/
+    @Dolphin
     public void setSectionNumber(Integer value) {
         this.sectionNumber = value;
     }

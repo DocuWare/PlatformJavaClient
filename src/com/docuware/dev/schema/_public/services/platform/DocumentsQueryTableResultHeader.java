@@ -23,6 +23,51 @@ import com.docuware.dev.Extensions.*;
 import java.util.concurrent.Future;
 import com.docuware.dev.schema._public.services.Link;
 
+import java.net.URI;
+import com.docuware.dev.Extensions.*;
+import java.util.concurrent.Future;
+import com.docuware.dev.schema._public.services.Link;
+
+import java.net.URI;
+import com.docuware.dev.Extensions.*;
+import java.util.concurrent.Future;
+import com.docuware.dev.schema._public.services.Link;
+
+import java.net.URI;
+import com.docuware.dev.Extensions.*;
+import java.util.concurrent.Future;
+import com.docuware.dev.schema._public.services.Link;
+
+import java.net.URI;
+import com.docuware.dev.Extensions.*;
+import java.util.concurrent.Future;
+import com.docuware.dev.schema._public.services.Link;
+
+import java.net.URI;
+import com.docuware.dev.Extensions.*;
+import java.util.concurrent.Future;
+import com.docuware.dev.schema._public.services.Link;
+
+import java.net.URI;
+import com.docuware.dev.Extensions.*;
+import java.util.concurrent.Future;
+import com.docuware.dev.schema._public.services.Link;
+
+import java.net.URI;
+import com.docuware.dev.Extensions.*;
+import java.util.concurrent.Future;
+import com.docuware.dev.schema._public.services.Link;
+
+import java.net.URI;
+import com.docuware.dev.Extensions.*;
+import java.util.concurrent.Future;
+import com.docuware.dev.schema._public.services.Link;
+
+import java.net.URI;
+import com.docuware.dev.Extensions.*;
+import java.util.concurrent.Future;
+import com.docuware.dev.schema._public.services.Link;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -52,7 +97,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "DocumentsQueryTableResultHeader")
-public class DocumentsQueryTableResultHeader    {
+public class DocumentsQueryTableResultHeader             {
 
     @XmlAttribute(name = "FieldName", required = true)
     protected String fieldName;
@@ -132,6 +177,24 @@ public class DocumentsQueryTableResultHeader    {
     public void setFieldLabel(String value) {
         this.fieldLabel = value;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
