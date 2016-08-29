@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class CountResult  {
     protected List<CountResultItem> group;
     @XmlAttribute(name = "TimeStamp", required = true)
     @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar timeStamp;
+    protected GregorianCalendar timeStamp;
 
     /**Set of count results*/
     public List<CountResultItem> getGroup() {
@@ -40,13 +41,13 @@ public class CountResult  {
 
     /**TimeStamp of the result*/
     @Eagle
-    public XMLGregorianCalendar getTimeStamp() {
+    public GregorianCalendar getTimeStamp() {
         return timeStamp;
     }
 
     /**TimeStamp of the result*/
     @Eagle
-    public void setTimeStamp(XMLGregorianCalendar value) {
+    public void setTimeStamp(GregorianCalendar value) {
         this.timeStamp = value;
     }
 

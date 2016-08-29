@@ -41,7 +41,7 @@ public class EasyFileUploadExtensionsBase {
      * @param documentMetaData  The document meta data. Currently only the fields are used
      * @return  The uploaded document's metadata
      */
-    public static Future<DeserializedHttpResponseGen<Document>> EasyUploadSingleDocumentAsync(FileCabinet fileCabinet, IFileUploadInfo file, Document documentMetaData) {
+    public static CompletableFuture<DeserializedHttpResponseGen<Document>> EasyUploadSingleDocumentAsync(FileCabinet fileCabinet, IFileUploadInfo file, Document documentMetaData) {
         if (file.getLength() > EasyUploadDefaults.maxSingleFileChunkSize) {
             return FileCabinetExtensionsBase.chunkUploadDocumentAsync(fileCabinet, documentMetaData, file, EasyUploadDefaults.chunkSize);
         } else {
@@ -81,8 +81,8 @@ public class EasyFileUploadExtensionsBase {
      * @param indexFields   The index fields
      * @return  The uploaded document's metadata
      */
-    public static Future<DeserializedHttpResponseGen<Document>> EasyUploadSingleDocumentAsync(FileCabinet fileCabinet, IFileUploadInfo file, DocumentIndexField... indexFields) {
-        Future<DeserializedHttpResponseGen<Document>> result;
+    public static CompletableFuture<DeserializedHttpResponseGen<Document>> EasyUploadSingleDocumentAsync(FileCabinet fileCabinet, IFileUploadInfo file, DocumentIndexField... indexFields) {
+        CompletableFuture<DeserializedHttpResponseGen<Document>> result;
         if (indexFields != null && indexFields.length > 0) {
             Document md = new Document();
             DocumentIndexFields difs = new DocumentIndexFields();
@@ -167,7 +167,7 @@ public class EasyFileUploadExtensionsBase {
      * @param importSettings    The settings of the import
      * @return  Returns the result of the import operation
      */
-    public static Future<DeserializedHttpResponseGen<ImportResult>> EasyImportArchiveAsync(FileCabinet fileCabinet, IFileUploadInfo file, ImportSettings importSettings) {
+    public static CompletableFuture<DeserializedHttpResponseGen<ImportResult>> EasyImportArchiveAsync(FileCabinet fileCabinet, IFileUploadInfo file, ImportSettings importSettings) {
         if (file.getLength() > EasyUploadDefaults.maxSingleFileChunkSize) {
             return FileCabinetExtensionsBase.chunkImportArchiveAsync(fileCabinet, importSettings, file, EasyUploadDefaults.chunkSize);
         } else {
@@ -199,7 +199,7 @@ public class EasyFileUploadExtensionsBase {
      * @param synchronizeSettings   The settings of the synchronization
      * @return  Returns the result of the synchronization operation
      */
-    public static Future<DeserializedHttpResponseGen<ImportResult>> EasySynchronizeAsync(FileCabinet fileCabinet, IFileUploadInfo file, SynchronizationSettings synchronizeSettings) {
+    public static CompletableFuture<DeserializedHttpResponseGen<ImportResult>> EasySynchronizeAsync(FileCabinet fileCabinet, IFileUploadInfo file, SynchronizationSettings synchronizeSettings) {
         if (file.getLength() > EasyUploadDefaults.maxSingleFileChunkSize) {
             return FileCabinetExtensionsBase.chunkSynchronizeAsync(fileCabinet, synchronizeSettings, file, EasyUploadDefaults.chunkSize);
         } else {
@@ -219,7 +219,7 @@ public class EasyFileUploadExtensionsBase {
      * @param documentMetaData  The document meta data. Currently only the fields are used
      * @return  The uploaded document's metadata
      */
-    public static Future<DeserializedHttpResponseGen<Document>> EasyUploadDocumentAsync(FileCabinet fileCabinet, IFileUploadInfo[] files, Document documentMetaData) {
+    public static CompletableFuture<DeserializedHttpResponseGen<Document>> EasyUploadDocumentAsync(FileCabinet fileCabinet, IFileUploadInfo[] files, Document documentMetaData) {
         long sum = 0;
         for (IFileUploadInfo f : files) {
             sum += f.getLength();
@@ -267,7 +267,7 @@ public class EasyFileUploadExtensionsBase {
      * @param indexFields   The index fields
      * @return  The uploaded document's metadata
      */
-    public static Future<DeserializedHttpResponseGen<Document>> EasyUploadDocumentAsync(FileCabinet fileCabinet, IFileUploadInfo[] files, DocumentIndexField... indexFields) {
+    public static CompletableFuture<DeserializedHttpResponseGen<Document>> EasyUploadDocumentAsync(FileCabinet fileCabinet, IFileUploadInfo[] files, DocumentIndexField... indexFields) {
         long sum = 0;
         for (IFileUploadInfo f : files) {
             sum += f.getLength();
@@ -343,7 +343,7 @@ public class EasyFileUploadExtensionsBase {
      * @param documentMetaData  The document meta data. Currently only the fields are used
      * @return  The uploaded document's metadata
      */
-    public static Future<DeserializedHttpResponseGen<Document>> EasyUploadDocumentAsync(DialogInfo dialogInfo, IFileUploadInfo[] files, Document documentMetaData) {
+    public static CompletableFuture<DeserializedHttpResponseGen<Document>> EasyUploadDocumentAsync(DialogInfo dialogInfo, IFileUploadInfo[] files, Document documentMetaData) {
         long sum = 0;
         for (IFileUploadInfo f : files) {
             sum += f.getLength();
@@ -385,7 +385,7 @@ public class EasyFileUploadExtensionsBase {
     /// <param name="document">The document.</param>
     /// <param name="file">The file.</param>
     /// <returns>The metadata of the added section.</returns>
-    public static Future<DeserializedHttpResponseGen<Section>> EasyUploadFileAsync(Document document, IFileUploadInfo file) {
+    public static CompletableFuture<DeserializedHttpResponseGen<Section>> EasyUploadFileAsync(Document document, IFileUploadInfo file) {
         if (file.getLength() > EasyUploadDefaults.maxSingleFileChunkSize) {
             return FileCabinetExtensionsBase.chunkAddSectionAsync(document, file, EasyUploadDefaults.chunkSize);
         } else {
@@ -421,7 +421,7 @@ public class EasyFileUploadExtensionsBase {
      * @param file  The file marking the new content of the section
      * @return  The metadata of the modified section
      */
-    public static Future<DeserializedHttpResponseGen<Section>> EasyReplaceFileAsync(Section section, IFileUploadInfo file) {
+    public static CompletableFuture<DeserializedHttpResponseGen<Section>> EasyReplaceFileAsync(Section section, IFileUploadInfo file) {
         if (file.getLength() > EasyUploadDefaults.maxSingleFileChunkSize) {
             return FileCabinetExtensionsBase.chunkUploadSectionAsync(section, file, EasyUploadDefaults.chunkSize);
         } else {
@@ -448,7 +448,7 @@ public class EasyFileUploadExtensionsBase {
         }
     }
 
-    private static Future<DeserializedHttpResponseGen<Section>> EasyReplaceFileResultAsync(String link, HttpClientProxy httpClientProxy, Section section, IFileUploadInfo file) {
+    private static CompletableFuture<DeserializedHttpResponseGen<Section>> EasyReplaceFileResultAsync(String link, HttpClientProxy httpClientProxy, Section section, IFileUploadInfo file) {
         return CompletableFuture.<DeserializedHttpResponseGen<Section>>supplyAsync(() -> {
             try (InputStream stream = file.createStream()) {
                 WebResource web = httpClientProxy.getHttpClient().getClient().resource(GenerateFullUrl(link, httpClientProxy));

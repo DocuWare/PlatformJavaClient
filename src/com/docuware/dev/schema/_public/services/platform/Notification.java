@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -24,19 +25,19 @@ public class Notification  {
 
     @XmlElement(name = "TimeStamp", required = true, nillable = true)
     @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar timeStamp;
+    protected GregorianCalendar timeStamp;
     @XmlAttribute(name = "IsActive")
     protected Boolean isActive;
     @XmlAttribute(name = "Name", required = true)
     protected String name;
 
     /**TimeStamp when the notification was checked. Ensure that notification was happened before that time stamp*/
-    public XMLGregorianCalendar getTimeStamp() {
+    public GregorianCalendar getTimeStamp() {
         return timeStamp;
     }
 
     /**TimeStamp when the notification was checked. Ensure that notification was happened before that time stamp*/
-    public void setTimeStamp(XMLGregorianCalendar value) {
+    public void setTimeStamp(GregorianCalendar value) {
         this.timeStamp = value;
     }
 
@@ -49,7 +50,6 @@ public class Notification  {
         }
     }
 
-    /**If this flag is true then this notification is set.*/
     public void setIsActive(Boolean value) {
         this.isActive = value;
     }
@@ -59,7 +59,6 @@ public class Notification  {
         return name;
     }
 
-    /**Gets or sets the name of this notification.*/
     public void setName(String value) {
         this.name = value;
     }

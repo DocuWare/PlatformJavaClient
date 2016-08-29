@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -23,7 +24,7 @@ public class CreatedInfo  {
     protected String user;
     @XmlAttribute(name = "Time", required = true)
     @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar time;
+    protected GregorianCalendar time;
 
     /**Id of the user who created this item.*/
     public String getUser() {
@@ -36,12 +37,12 @@ public class CreatedInfo  {
     }
 
     /**Timestamp when this item was created.*/
-    public XMLGregorianCalendar getTime() {
+    public GregorianCalendar getTime() {
         return time;
     }
 
     /**Timestamp when this item was created.*/
-    public void setTime(XMLGregorianCalendar value) {
+    public void setTime(GregorianCalendar value) {
         this.time = value;
     }
 

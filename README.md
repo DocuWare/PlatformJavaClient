@@ -1,7 +1,7 @@
 # PlatformJavaClient (BETA)
 *PlatformJavaClient* makes it easy to start using [DocuWare Platform API](http://help.docuware.com/sdk/platform). 
 
-As of today 12.08.16 the JavaClient applies to DocuWare Version 6.10 and is in Beta Phase, therefore bugs may occur and there is no documentation. The Java Client is supposed to reflect the same Client implementation as the .Net Client as far as possible, thus most of the samples in the .Net Client's documentation also apply too the Java Client. 
+As of today 12.08.16 the JavaClient applies to DocuWare Version 6.10 and is in Beta Phase, therefore bugs may occur and there is no documentation. The Java Client is supposed to reflect the same Client implementation as the .Net Client as far as possible, thus most of the samples in the .Net Client's documentation also apply to the Java Client. 
 
 Please help improving the Client with your feedback, additionally, everyone is very welcome to provide missing code examples.
 
@@ -22,7 +22,6 @@ Most of the examples will also run with *DocuWare 6.5* or higher.
 * Error messages may be too short or wrong
 
 ### Major missing Features
-* Windows Authentication is currently not supported
 * Some classes/methods from the .NetClient are still missing
 
 ## How to Engage, Contribute and Provide Feedback

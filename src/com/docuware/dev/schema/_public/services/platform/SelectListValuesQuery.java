@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -37,7 +38,6 @@ public class SelectListValuesQuery  {
         return count;
     }
 
-    /**Result will be returned on pages with that block size if specified. If set to default (0) select lists will be returned in one block using Limit parameter.*/
     public void setCount(Integer value) {
         this.count = value;
     }

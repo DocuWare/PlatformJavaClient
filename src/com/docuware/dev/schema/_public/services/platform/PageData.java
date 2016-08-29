@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -48,7 +49,6 @@ public class PageData  {
         return lowQualitySize;
     }
 
-    /**Gets or sets the low quality level.*/
     public void setLowQualitySize(int value) {
         this.lowQualitySize = value;
     }
@@ -58,7 +58,6 @@ public class PageData  {
         return tileSize;
     }
 
-    /**Gets or sets the recommented size of multi scale image tiles.*/
     public void setTileSize(int value) {
         this.tileSize = value;
     }
@@ -68,7 +67,6 @@ public class PageData  {
         return renderedImageFormat;
     }
 
-    /**Gets or sets the preferred format this page is rendered.*/
     public void setRenderedImageFormat(PlatformImageFormat value) {
         this.renderedImageFormat = value;
     }
@@ -78,7 +76,6 @@ public class PageData  {
         return contentArea;
     }
 
-    /**Gets or sets the area of the content of the page. The coordinates are in twips (1/1440 inches) - https://en.wikipedia.org/wiki/Twip .*/
     public void setContentArea(DWRectangle value) {
         this.contentArea = value;
     }

@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 import com.docuware.dev.schema._public.services.platform.DocumentWordSearchResult;
 
@@ -46,7 +47,7 @@ private HttpClientProxy proxy;//test
         this.search = value;
     }
 
-    /**Contains the search query leading to this result.*/
+    /**Define a a set of words and locations where they are found in a section*/
     public List<DocumentWordSearchResult.SectionHits> getSectionHits() {
         if (sectionHits == null) {
             sectionHits = new ArrayList<DocumentWordSearchResult.SectionHits>();
@@ -79,7 +80,6 @@ private HttpClientProxy proxy;//test
             return pageHits;
         }
 
-    /**Contains a set pages where of words are found*/
         public void setPageHits(PageHits value) {
             this.pageHits = value;
         }
@@ -190,14 +190,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Next" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentWordSearchResult>> getDocumentWordSearchResultFromNextRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentWordSearchResult>> getDocumentWordSearchResultFromNextRelationAsync() {
         return MethodInvocation.<DocumentWordSearchResult>getAsync(this, links, "next", DocumentWordSearchResult.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Next" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentWordSearchResult>> getDocumentWordSearchResultFromNextRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentWordSearchResult>> getDocumentWordSearchResultFromNextRelationAsync(CancellationToken ct) {
         return MethodInvocation.<DocumentWordSearchResult>getAsync(this, links, "next", DocumentWordSearchResult.class, ct);
     }
 

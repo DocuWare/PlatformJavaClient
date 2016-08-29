@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class CFSStatisticGeneral  {
     protected String moduleName;
     @XmlAttribute(name = "CreatedAt", required = true)
     @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar createdAt;
+    protected GregorianCalendar createdAt;
 
     public List<CFSStatisticSpecific> getStatisticSpecific() {
         if (statisticSpecific == null) {
@@ -57,11 +58,11 @@ public class CFSStatisticGeneral  {
         this.moduleName = value;
     }
 
-    public XMLGregorianCalendar getCreatedAt() {
+    public GregorianCalendar getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(XMLGregorianCalendar value) {
+    public void setCreatedAt(GregorianCalendar value) {
         this.createdAt = value;
     }
 

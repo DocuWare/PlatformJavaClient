@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 import com.docuware.dev.schema._public.services.platform.SubstitutionRules;
 
@@ -166,14 +167,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "SubstitutionRules" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<SubstitutionRules>> getSubstitutionRulesFromSubstitutionRulesRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<SubstitutionRules>> getSubstitutionRulesFromSubstitutionRulesRelationAsync() {
         return MethodInvocation.<SubstitutionRules>getAsync(this, links, "substitutionRules", SubstitutionRules.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "SubstitutionRules" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<SubstitutionRules>> getSubstitutionRulesFromSubstitutionRulesRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<SubstitutionRules>> getSubstitutionRulesFromSubstitutionRulesRelationAsync(CancellationToken ct) {
         return MethodInvocation.<SubstitutionRules>getAsync(this, links, "substitutionRules", SubstitutionRules.class, ct);
     }
 

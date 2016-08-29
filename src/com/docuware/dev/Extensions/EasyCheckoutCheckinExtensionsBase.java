@@ -50,7 +50,7 @@ public class EasyCheckoutCheckinExtensionsBase {
      * @param docId The document identifier
      * @return  A Future producung an instance of EasyCheckoutResult
      */
-    public static Future<EasyCheckoutResult> easyCheckOutToFileSystemAsync(ServiceConnection serviceConnection, String fileCabinetId, int docId) {
+    public static CompletableFuture<EasyCheckoutResult> easyCheckOutToFileSystemAsync(ServiceConnection serviceConnection, String fileCabinetId, int docId) {
         return CompletableFuture.<EasyCheckoutResult>supplyAsync(() -> {
             DeserializedHttpResponseGen<InputStream> t;
             try {
@@ -83,7 +83,7 @@ public class EasyCheckoutCheckinExtensionsBase {
      * @param fileToCheckin The file to checkin
      * @return  A Future producing the checked-in response of the check-in operation
      */
-    public static Future<DeserializedHttpResponseGen<Document>> easyCheckInFromFileSystemAsync(ServiceConnection serviceConnection, IFileUploadInfo fileToCheckin) {
+    public static CompletableFuture<DeserializedHttpResponseGen<Document>> easyCheckInFromFileSystemAsync(ServiceConnection serviceConnection, IFileUploadInfo fileToCheckin) {
         return easyCheckInFromFileSystemAsync(serviceConnection, fileToCheckin, null);
     }
 
@@ -105,7 +105,7 @@ public class EasyCheckoutCheckinExtensionsBase {
      * @param checkInParams The check in parameters
      * @return  A Future producing the checked-in response of the check-in operation
      */
-    public static Future<DeserializedHttpResponseGen<Document>> easyCheckInFromFileSystemAsync(ServiceConnection serviceConnection, IFileUploadInfo fileToCheckin, CheckInActionParameters checkInParams) {
+    public static CompletableFuture<DeserializedHttpResponseGen<Document>> easyCheckInFromFileSystemAsync(ServiceConnection serviceConnection, IFileUploadInfo fileToCheckin, CheckInActionParameters checkInParams) {
         MultiPart multipartForm = new MultiPart();
 
         if (checkInParams == null) {

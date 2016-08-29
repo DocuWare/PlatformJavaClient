@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 import com.docuware.dev.schema._public.services.platform.UserValidation;
 import javax.xml.bind.JAXBElement;
@@ -40,7 +41,6 @@ private HttpClientProxy proxy;//test
         return user;
     }
 
-    /**User details and settings*/
     public void setUser(User value) {
         this.user = value;
     }
@@ -156,21 +156,21 @@ private HttpClientProxy proxy;//test
     * Calls the HTTP post Method on the link for the relation "Validate".
     */
     public String postToValidateRelationForString(UserValidation data) {
-        return MethodInvocation.<String,UserValidation>post(this, links, "validate", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "UserValidation"), UserValidation.class, null, data));
+        return MethodInvocation.<String, UserValidation> post(this, links, "validate", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "UserValidation"), UserValidation.class, null, data), "application/vnd.docuware.platform.uservalidation+xml", "text/plain");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "Validate" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToValidateRelationForStringAsync(UserValidation data) {
-        return MethodInvocation.<String, UserValidation >postAsync(this, links, "validate", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "UserValidation"), UserValidation.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<String>> postToValidateRelationForStringAsync(UserValidation data) {
+        return MethodInvocation.<String, UserValidation >postAsync(this, links, "validate", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "UserValidation"), UserValidation.class, null, data), "application/vnd.docuware.platform.uservalidation+xml", "text/plain");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "Validate" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToValidateRelationForStringAsync(UserValidation data, CancellationToken ct) {
-        return MethodInvocation.<String, UserValidation >postAsync(this, links, "validate", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "UserValidation"), UserValidation.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<String>> postToValidateRelationForStringAsync(UserValidation data, CancellationToken ct) {
+        return MethodInvocation.<String, UserValidation >postAsync(this, links, "validate", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "UserValidation"), UserValidation.class, null, data), "application/vnd.docuware.platform.uservalidation+xml", "text/plain", ct);
     }
 
 

@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 import java.io.InputStream;
 import com.docuware.dev.schema._public.services.platform.StampPlacement;
@@ -133,14 +134,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "HtmlTestClient" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromHtmlTestClientRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromHtmlTestClientRelationAsync() {
         return MethodInvocation.<InputStream>getAsync(this, links, "htmlTestClient", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "HtmlTestClient" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromHtmlTestClientRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromHtmlTestClientRelationAsync(CancellationToken ct) {
         return MethodInvocation.<InputStream>getAsync(this, links, "htmlTestClient", InputStream.class, ct);
     }
 
@@ -157,21 +158,21 @@ private HttpClientProxy proxy;//test
     * Calls the HTTP post Method on the link for the relation "ReflectStampPlacement".
     */
     public StampPlacement postToReflectStampPlacementRelationForStampPlacement(StampPlacement data) {
-        return MethodInvocation.<StampPlacement,StampPlacement>post(this, links, "reflectStampPlacement", StampPlacement.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampPlacement"), StampPlacement.class, null, data));
+        return MethodInvocation.<StampPlacement, StampPlacement> post(this, links, "reflectStampPlacement", StampPlacement.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampPlacement"), StampPlacement.class, null, data), "application/vnd.docuware.platform.stampplacement+xml", "application/vnd.docuware.platform.stampplacement+xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "ReflectStampPlacement" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<StampPlacement>> postToReflectStampPlacementRelationForStampPlacementAsync(StampPlacement data) {
-        return MethodInvocation.<StampPlacement, StampPlacement >postAsync(this, links, "reflectStampPlacement", StampPlacement.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampPlacement"), StampPlacement.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<StampPlacement>> postToReflectStampPlacementRelationForStampPlacementAsync(StampPlacement data) {
+        return MethodInvocation.<StampPlacement, StampPlacement >postAsync(this, links, "reflectStampPlacement", StampPlacement.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampPlacement"), StampPlacement.class, null, data), "application/vnd.docuware.platform.stampplacement+xml", "application/vnd.docuware.platform.stampplacement+xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "ReflectStampPlacement" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<StampPlacement>> postToReflectStampPlacementRelationForStampPlacementAsync(StampPlacement data, CancellationToken ct) {
-        return MethodInvocation.<StampPlacement, StampPlacement >postAsync(this, links, "reflectStampPlacement", StampPlacement.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampPlacement"), StampPlacement.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<StampPlacement>> postToReflectStampPlacementRelationForStampPlacementAsync(StampPlacement data, CancellationToken ct) {
+        return MethodInvocation.<StampPlacement, StampPlacement >postAsync(this, links, "reflectStampPlacement", StampPlacement.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampPlacement"), StampPlacement.class, null, data), "application/vnd.docuware.platform.stampplacement+xml", "application/vnd.docuware.platform.stampplacement+xml", ct);
     }
 
     /**
@@ -187,21 +188,21 @@ private HttpClientProxy proxy;//test
     * Calls the HTTP post Method on the link for the relation "ReflectDialogQuery".
     */
     public DialogExpression postToReflectDialogQueryRelationForDialogExpression(DialogExpression data) {
-        return MethodInvocation.<DialogExpression,DialogExpression>post(this, links, "reflectDialogQuery", DialogExpression.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DialogExpression"), DialogExpression.class, null, data));
+        return MethodInvocation.<DialogExpression, DialogExpression> post(this, links, "reflectDialogQuery", DialogExpression.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DialogExpression"), DialogExpression.class, null, data), "application/vnd.docuware.platform.dialogexpression+xml", "application/vnd.docuware.platform.dialogexpression+xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "ReflectDialogQuery" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DialogExpression>> postToReflectDialogQueryRelationForDialogExpressionAsync(DialogExpression data) {
-        return MethodInvocation.<DialogExpression, DialogExpression >postAsync(this, links, "reflectDialogQuery", DialogExpression.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DialogExpression"), DialogExpression.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<DialogExpression>> postToReflectDialogQueryRelationForDialogExpressionAsync(DialogExpression data) {
+        return MethodInvocation.<DialogExpression, DialogExpression >postAsync(this, links, "reflectDialogQuery", DialogExpression.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DialogExpression"), DialogExpression.class, null, data), "application/vnd.docuware.platform.dialogexpression+xml", "application/vnd.docuware.platform.dialogexpression+xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "ReflectDialogQuery" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DialogExpression>> postToReflectDialogQueryRelationForDialogExpressionAsync(DialogExpression data, CancellationToken ct) {
-        return MethodInvocation.<DialogExpression, DialogExpression >postAsync(this, links, "reflectDialogQuery", DialogExpression.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DialogExpression"), DialogExpression.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<DialogExpression>> postToReflectDialogQueryRelationForDialogExpressionAsync(DialogExpression data, CancellationToken ct) {
+        return MethodInvocation.<DialogExpression, DialogExpression >postAsync(this, links, "reflectDialogQuery", DialogExpression.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DialogExpression"), DialogExpression.class, null, data), "application/vnd.docuware.platform.dialogexpression+xml", "application/vnd.docuware.platform.dialogexpression+xml", ct);
     }
 
     /**
@@ -223,14 +224,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "QueryString" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromQueryStringRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromQueryStringRelationAsync() {
         return MethodInvocation.<InputStream>getAsync(this, links, "queryString", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "QueryString" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromQueryStringRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromQueryStringRelationAsync(CancellationToken ct) {
         return MethodInvocation.<InputStream>getAsync(this, links, "queryString", InputStream.class, ct);
     }
 

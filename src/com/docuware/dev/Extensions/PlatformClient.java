@@ -9,12 +9,18 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.filter.ClientFilter;
+import com.sun.jersey.api.client.filter.LoggingFilter;
 import com.sun.jersey.client.apache.ApacheHttpClient;
 import com.sun.jersey.client.apache.ApacheHttpClientHandler;
 import com.sun.jersey.client.apache.config.ApacheHttpClientConfig;
 import com.sun.jersey.client.apache.config.DefaultApacheHttpClientConfig;
 import com.sun.jersey.multipart.impl.MultiPartWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.URI;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.core.HttpHeaders;
 import org.apache.commons.httpclient.NTCredentials;
 import org.apache.http.auth.AuthScope;
@@ -84,11 +90,6 @@ public class PlatformClient {
             public ClientResponse handle(ClientRequest cr) throws ClientHandlerException {
                cr.getHeaders().add(HttpHeaders.USER_AGENT, System.getProperty("java.specification.name").replace("Specification", "").trim().replace(" ", "+")+"/"+System.getProperty("java.version"));
                cr.getHeaders().add(HttpHeaders.USER_AGENT, PackageInfo.name+"/"+PackageInfo.version);
-               for(String s: cr.getHeaders().keySet()) {
-                   for(Object o: cr.getHeaders().get(s)) {
-                       System.out.println(s + ": " + o);
-                   }
-               }
                 return getNext().handle(cr);
             }
         });

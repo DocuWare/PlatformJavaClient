@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -89,7 +90,6 @@ public class StampBase
         return userName;
     }
 
-    /**Full user name of the person that has set the stamp.*/
     public void setUserName(String value) {
         this.userName = value;
     }

@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 import java.io.InputStream;
 import com.docuware.dev.schema._public.services.platform.FormFieldValues;
@@ -158,12 +159,12 @@ private HttpClientProxy proxy;//test
         this.name = value;
     }
 
-    /**The name of the stamp.*/
+    /**The display name of the stamp.*/
     public String getDisplayName() {
         return displayName;
     }
 
-    /**The name of the stamp.*/
+    /**The display name of the stamp.*/
     public void setDisplayName(String value) {
         this.displayName = value;
     }
@@ -365,36 +366,36 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "AsBitmap" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromAsBitmapRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromAsBitmapRelationAsync() {
         return MethodInvocation.<InputStream>getAsync(this, links, "asBitmap", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "AsBitmap" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromAsBitmapRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromAsBitmapRelationAsync(CancellationToken ct) {
         return MethodInvocation.<InputStream>getAsync(this, links, "asBitmap", InputStream.class, ct);
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "AsBitmap".
     */
-    public String postToAsBitmapRelationForString(FormFieldValues data) {
-        return MethodInvocation.<String,FormFieldValues>post(this, links, "asBitmap", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampFormFields"), FormFieldValues.class, null, data));
+    public InputStream postToAsBitmapRelationForInputStream(FormFieldValues data) {
+        return MethodInvocation.<InputStream, FormFieldValues> post(this, links, "asBitmap", InputStream.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampFormFields"), FormFieldValues.class, null, data), "application/vnd.docuware.platform.formfieldvalues+xml", "application/xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "AsBitmap" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToAsBitmapRelationForStringAsync(FormFieldValues data) {
-        return MethodInvocation.<String, FormFieldValues >postAsync(this, links, "asBitmap", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampFormFields"), FormFieldValues.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToAsBitmapRelationForInputStreamAsync(FormFieldValues data) {
+        return MethodInvocation.<InputStream, FormFieldValues >postAsync(this, links, "asBitmap", InputStream.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampFormFields"), FormFieldValues.class, null, data), "application/vnd.docuware.platform.formfieldvalues+xml", "application/xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "AsBitmap" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToAsBitmapRelationForStringAsync(FormFieldValues data, CancellationToken ct) {
-        return MethodInvocation.<String, FormFieldValues >postAsync(this, links, "asBitmap", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampFormFields"), FormFieldValues.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToAsBitmapRelationForInputStreamAsync(FormFieldValues data, CancellationToken ct) {
+        return MethodInvocation.<InputStream, FormFieldValues >postAsync(this, links, "asBitmap", InputStream.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampFormFields"), FormFieldValues.class, null, data), "application/vnd.docuware.platform.formfieldvalues+xml", "application/xml", ct);
     }
 
     /**
@@ -416,36 +417,36 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "AsSvg" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromAsSvgRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromAsSvgRelationAsync() {
         return MethodInvocation.<InputStream>getAsync(this, links, "asSvg", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "AsSvg" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromAsSvgRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromAsSvgRelationAsync(CancellationToken ct) {
         return MethodInvocation.<InputStream>getAsync(this, links, "asSvg", InputStream.class, ct);
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "AsSvg".
     */
-    public String postToAsSvgRelationForString(FormFieldValues data) {
-        return MethodInvocation.<String,FormFieldValues>post(this, links, "asSvg", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampFormFields"), FormFieldValues.class, null, data));
+    public InputStream postToAsSvgRelationForInputStream(FormFieldValues data) {
+        return MethodInvocation.<InputStream, FormFieldValues> post(this, links, "asSvg", InputStream.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampFormFields"), FormFieldValues.class, null, data), "application/vnd.docuware.platform.formfieldvalues+xml", "application/xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "AsSvg" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToAsSvgRelationForStringAsync(FormFieldValues data) {
-        return MethodInvocation.<String, FormFieldValues >postAsync(this, links, "asSvg", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampFormFields"), FormFieldValues.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToAsSvgRelationForInputStreamAsync(FormFieldValues data) {
+        return MethodInvocation.<InputStream, FormFieldValues >postAsync(this, links, "asSvg", InputStream.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampFormFields"), FormFieldValues.class, null, data), "application/vnd.docuware.platform.formfieldvalues+xml", "application/xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "AsSvg" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToAsSvgRelationForStringAsync(FormFieldValues data, CancellationToken ct) {
-        return MethodInvocation.<String, FormFieldValues >postAsync(this, links, "asSvg", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampFormFields"), FormFieldValues.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToAsSvgRelationForInputStreamAsync(FormFieldValues data, CancellationToken ct) {
+        return MethodInvocation.<InputStream, FormFieldValues >postAsync(this, links, "asSvg", InputStream.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampFormFields"), FormFieldValues.class, null, data), "application/vnd.docuware.platform.formfieldvalues+xml", "application/xml", ct);
     }
 
 

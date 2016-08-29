@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -34,7 +35,7 @@ public class LogMessage  {
     protected String machine;
     @XmlAttribute(name = "TimeStamp", required = true)
     @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar timeStamp;
+    protected GregorianCalendar timeStamp;
     @XmlAttribute(name = "User")
     protected String user;
     @XmlAttribute(name = "Level")
@@ -76,11 +77,11 @@ public class LogMessage  {
         this.machine = value;
     }
 
-    public XMLGregorianCalendar getTimeStamp() {
+    public GregorianCalendar getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(XMLGregorianCalendar value) {
+    public void setTimeStamp(GregorianCalendar value) {
         this.timeStamp = value;
     }
 

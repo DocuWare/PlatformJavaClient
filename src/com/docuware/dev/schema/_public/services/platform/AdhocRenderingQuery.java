@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -33,7 +34,6 @@ public class AdhocRenderingQuery  {
         return size;
     }
 
-    /**Gets or sets the size in pixels of the rendering canvas.*/
     public void setSize(DWSize value) {
         this.size = value;
     }
@@ -47,7 +47,6 @@ public class AdhocRenderingQuery  {
         }
     }
 
-    /**Gets or sets page number to be rendered.*/
     public void setPage(Integer value) {
         this.page = value;
     }
@@ -61,7 +60,6 @@ public class AdhocRenderingQuery  {
         }
     }
 
-    /**Gets or sets the resolution of the rendered bitmap.*/
     public void setDpi(Float value) {
         this.dpi = value;
     }

@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -30,7 +31,7 @@ public class LogMessageGroup  {
     protected int count;
     @XmlAttribute(name = "TimeStamp", required = true)
     @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar timeStamp;
+    protected GregorianCalendar timeStamp;
 
     /**Something which identifies a group of log messages.*/
     public String getGroup() {
@@ -62,11 +63,11 @@ public class LogMessageGroup  {
         this.count = value;
     }
 
-    public XMLGregorianCalendar getTimeStamp() {
+    public GregorianCalendar getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(XMLGregorianCalendar value) {
+    public void setTimeStamp(GregorianCalendar value) {
         this.timeStamp = value;
     }
 

@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 
 import java.util.ArrayList;
@@ -66,7 +67,6 @@ public class BatchUpdateProcessData  {
         return breakOnError;
     }
 
-    /**If this attribute is set to true then the update is stopped on the first document which failes to be updated.*/
     public void setBreakOnError(boolean value) {
         this.breakOnError = value;
     }

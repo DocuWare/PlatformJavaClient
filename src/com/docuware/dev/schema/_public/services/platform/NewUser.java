@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -38,12 +39,12 @@ public class NewUser  {
         this.name = value;
     }
 
-    /**The Name of the user.*/
+    /**The Database Name of the user.*/
     public String getDbName() {
         return dbName;
     }
 
-    /**The Name of the user.*/
+    /**The Database Name of the user.*/
     public void setDbName(String value) {
         this.dbName = value;
     }

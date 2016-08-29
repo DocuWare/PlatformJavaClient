@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 import com.docuware.dev.schema._public.services.platform.SelectListResult;
 import com.docuware.dev.schema._public.services.platform.SelectListExpression;
@@ -71,7 +72,6 @@ private HttpClientProxy proxy;//test
         return label;
     }
 
-    /**The label used to represent the form field when the stamp is set on the client.*/
     public void setLabel(String value) {
         this.label = value;
     }
@@ -128,12 +128,12 @@ private HttpClientProxy proxy;//test
         this.mask = value;
     }
 
-    /**Mask(regular expression) for limiting the input options for the form field.*/
+    /**Error message to display if the input does not match the mask definition.*/
     public String getMaskErrorText() {
         return maskErrorText;
     }
 
-    /**Mask(regular expression) for limiting the input options for the form field.*/
+    /**Error message to display if the input does not match the mask definition.*/
     public void setMaskErrorText(String value) {
         this.maskErrorText = value;
     }
@@ -244,14 +244,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "SelectListValues" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<SelectListResult>> getSelectListResultFromSelectListValuesRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<SelectListResult>> getSelectListResultFromSelectListValuesRelationAsync() {
         return MethodInvocation.<SelectListResult>getAsync(this, links, "selectListValues", SelectListResult.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "SelectListValues" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<SelectListResult>> getSelectListResultFromSelectListValuesRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<SelectListResult>> getSelectListResultFromSelectListValuesRelationAsync(CancellationToken ct) {
         return MethodInvocation.<SelectListResult>getAsync(this, links, "selectListValues", SelectListResult.class, ct);
     }
 
@@ -259,21 +259,21 @@ private HttpClientProxy proxy;//test
     * Calls the HTTP post Method on the link for the relation "SelectListValues".
     */
     public SelectListResult postToSelectListValuesRelationForSelectListResult(SelectListExpression data) {
-        return MethodInvocation.<SelectListResult,SelectListExpression>post(this, links, "selectListValues", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data));
+        return MethodInvocation.<SelectListResult, SelectListExpression> post(this, links, "selectListValues", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data), "application/vnd.docuware.platform.selectlistexpression+xml", "application/vnd.docuware.platform.selectlistresult+xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "SelectListValues" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<SelectListResult>> postToSelectListValuesRelationForSelectListResultAsync(SelectListExpression data) {
-        return MethodInvocation.<SelectListResult, SelectListExpression >postAsync(this, links, "selectListValues", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<SelectListResult>> postToSelectListValuesRelationForSelectListResultAsync(SelectListExpression data) {
+        return MethodInvocation.<SelectListResult, SelectListExpression >postAsync(this, links, "selectListValues", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data), "application/vnd.docuware.platform.selectlistexpression+xml", "application/vnd.docuware.platform.selectlistresult+xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "SelectListValues" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<SelectListResult>> postToSelectListValuesRelationForSelectListResultAsync(SelectListExpression data, CancellationToken ct) {
-        return MethodInvocation.<SelectListResult, SelectListExpression >postAsync(this, links, "selectListValues", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<SelectListResult>> postToSelectListValuesRelationForSelectListResultAsync(SelectListExpression data, CancellationToken ct) {
+        return MethodInvocation.<SelectListResult, SelectListExpression >postAsync(this, links, "selectListValues", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data), "application/vnd.docuware.platform.selectlistexpression+xml", "application/vnd.docuware.platform.selectlistresult+xml", ct);
     }
 
     /**
@@ -295,14 +295,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "SimpleSelectList" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<SelectListResult>> getSelectListResultFromSimpleSelectListRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<SelectListResult>> getSelectListResultFromSimpleSelectListRelationAsync() {
         return MethodInvocation.<SelectListResult>getAsync(this, links, "simpleSelectList", SelectListResult.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "SimpleSelectList" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<SelectListResult>> getSelectListResultFromSimpleSelectListRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<SelectListResult>> getSelectListResultFromSimpleSelectListRelationAsync(CancellationToken ct) {
         return MethodInvocation.<SelectListResult>getAsync(this, links, "simpleSelectList", SelectListResult.class, ct);
     }
 
@@ -310,21 +310,21 @@ private HttpClientProxy proxy;//test
     * Calls the HTTP post Method on the link for the relation "SimpleSelectList".
     */
     public SelectListResult postToSimpleSelectListRelationForSelectListResult(SelectListExpression data) {
-        return MethodInvocation.<SelectListResult,SelectListExpression>post(this, links, "simpleSelectList", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data));
+        return MethodInvocation.<SelectListResult, SelectListExpression> post(this, links, "simpleSelectList", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data), "application/vnd.docuware.platform.selectlistexpression+xml", "application/vnd.docuware.platform.selectlistresult+xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "SimpleSelectList" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<SelectListResult>> postToSimpleSelectListRelationForSelectListResultAsync(SelectListExpression data) {
-        return MethodInvocation.<SelectListResult, SelectListExpression >postAsync(this, links, "simpleSelectList", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<SelectListResult>> postToSimpleSelectListRelationForSelectListResultAsync(SelectListExpression data) {
+        return MethodInvocation.<SelectListResult, SelectListExpression >postAsync(this, links, "simpleSelectList", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data), "application/vnd.docuware.platform.selectlistexpression+xml", "application/vnd.docuware.platform.selectlistresult+xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "SimpleSelectList" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<SelectListResult>> postToSimpleSelectListRelationForSelectListResultAsync(SelectListExpression data, CancellationToken ct) {
-        return MethodInvocation.<SelectListResult, SelectListExpression >postAsync(this, links, "simpleSelectList", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<SelectListResult>> postToSimpleSelectListRelationForSelectListResultAsync(SelectListExpression data, CancellationToken ct) {
+        return MethodInvocation.<SelectListResult, SelectListExpression >postAsync(this, links, "simpleSelectList", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data), "application/vnd.docuware.platform.selectlistexpression+xml", "application/vnd.docuware.platform.selectlistresult+xml", ct);
     }
 
 

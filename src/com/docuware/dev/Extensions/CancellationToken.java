@@ -12,8 +12,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author Patrick
+ * This class represents a cancellation token. This token is used to get an easy way to cancel a future. Therefore you just call
+ * the Method and give it a CancellationToken. If you want to cancel the future you then just cancel your token. 
+ * A CancellationToken is created by a CancellationTokenSource.
  */
 public class CancellationToken {
     

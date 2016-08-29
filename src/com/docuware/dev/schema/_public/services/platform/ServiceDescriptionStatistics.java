@@ -4,8 +4,10 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
+import java.io.InputStream;
 import com.docuware.dev.schema._public.services.platform.CFSStatisticGeneral;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
@@ -124,22 +126,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "Cfs".
     */
-    public String postToCfsRelationForString(CFSStatisticGeneral data) {
-        return MethodInvocation.<String,CFSStatisticGeneral>post(this, links, "cfs", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "CFSStatistic"), CFSStatisticGeneral.class, null, data));
+    public InputStream postToCfsRelationForInputStream(CFSStatisticGeneral data) {
+        return MethodInvocation.<InputStream, CFSStatisticGeneral> post(this, links, "cfs", InputStream.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "CFSStatistic"), CFSStatisticGeneral.class, null, data), "application/xml", "application/xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "Cfs" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToCfsRelationForStringAsync(CFSStatisticGeneral data) {
-        return MethodInvocation.<String, CFSStatisticGeneral >postAsync(this, links, "cfs", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "CFSStatistic"), CFSStatisticGeneral.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToCfsRelationForInputStreamAsync(CFSStatisticGeneral data) {
+        return MethodInvocation.<InputStream, CFSStatisticGeneral >postAsync(this, links, "cfs", InputStream.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "CFSStatistic"), CFSStatisticGeneral.class, null, data), "application/xml", "application/xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "Cfs" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToCfsRelationForStringAsync(CFSStatisticGeneral data, CancellationToken ct) {
-        return MethodInvocation.<String, CFSStatisticGeneral >postAsync(this, links, "cfs", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "CFSStatistic"), CFSStatisticGeneral.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToCfsRelationForInputStreamAsync(CFSStatisticGeneral data, CancellationToken ct) {
+        return MethodInvocation.<InputStream, CFSStatisticGeneral >postAsync(this, links, "cfs", InputStream.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "CFSStatistic"), CFSStatisticGeneral.class, null, data), "application/xml", "application/xml", ct);
     }
 
 

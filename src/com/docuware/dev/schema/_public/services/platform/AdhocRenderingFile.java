@@ -4,9 +4,11 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 import com.docuware.dev.schema._public.services.platform.AdhocRenderingFile;
+import java.io.InputStream;
 import com.docuware.dev.schema._public.services.platform.AdhocRenderingQuery;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
@@ -47,7 +49,6 @@ private HttpClientProxy proxy;//test
         return metaData;
     }
 
-    /**Gets the meta data for the file. This usually contains the entries from the user dictionary of a PDF file or the meta data settings from a MS word file.*/
     public void setMetaData(KeyValuePairs value) {
         this.metaData = value;
     }
@@ -185,14 +186,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Self" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<AdhocRenderingFile>> getAdhocRenderingFileFromSelfRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<AdhocRenderingFile>> getAdhocRenderingFileFromSelfRelationAsync() {
         return MethodInvocation.<AdhocRenderingFile>getAsync(this, links, "self", AdhocRenderingFile.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Self" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<AdhocRenderingFile>> getAdhocRenderingFileFromSelfRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<AdhocRenderingFile>> getAdhocRenderingFileFromSelfRelationAsync(CancellationToken ct) {
         return MethodInvocation.<AdhocRenderingFile>getAsync(this, links, "self", AdhocRenderingFile.class, ct);
     }
 
@@ -208,22 +209,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "Rendering".
     */
-    public String postToRenderingRelationForString(AdhocRenderingQuery data) {
-        return MethodInvocation.<String,AdhocRenderingQuery>post(this, links, "rendering", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "AdhocRenderingQuery"), AdhocRenderingQuery.class, null, data));
+    public InputStream postToRenderingRelationForInputStream(AdhocRenderingQuery data) {
+        return MethodInvocation.<InputStream, AdhocRenderingQuery> post(this, links, "rendering", InputStream.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "AdhocRenderingQuery"), AdhocRenderingQuery.class, null, data), "application/vnd.docuware.platform.adhocrenderingquery+xml", "application/xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "Rendering" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToRenderingRelationForStringAsync(AdhocRenderingQuery data) {
-        return MethodInvocation.<String, AdhocRenderingQuery >postAsync(this, links, "rendering", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "AdhocRenderingQuery"), AdhocRenderingQuery.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToRenderingRelationForInputStreamAsync(AdhocRenderingQuery data) {
+        return MethodInvocation.<InputStream, AdhocRenderingQuery >postAsync(this, links, "rendering", InputStream.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "AdhocRenderingQuery"), AdhocRenderingQuery.class, null, data), "application/vnd.docuware.platform.adhocrenderingquery+xml", "application/xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "Rendering" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToRenderingRelationForStringAsync(AdhocRenderingQuery data, CancellationToken ct) {
-        return MethodInvocation.<String, AdhocRenderingQuery >postAsync(this, links, "rendering", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "AdhocRenderingQuery"), AdhocRenderingQuery.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToRenderingRelationForInputStreamAsync(AdhocRenderingQuery data, CancellationToken ct) {
+        return MethodInvocation.<InputStream, AdhocRenderingQuery >postAsync(this, links, "rendering", InputStream.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "AdhocRenderingQuery"), AdhocRenderingQuery.class, null, data), "application/vnd.docuware.platform.adhocrenderingquery+xml", "application/xml", ct);
     }
 
 

@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -31,7 +32,6 @@ public class ExportSettings  {
         }
     }
 
-    /**Gets or sets a value indicating whether the document's versions has to be exported.*/
     public void setExportHistory(Boolean value) {
         this.exportHistory = value;
     }
@@ -45,7 +45,6 @@ public class ExportSettings  {
         }
     }
 
-    /**Gets or sets a value indicating whether the document's textshot has to be exported.*/
     public void setExportTextshots(Boolean value) {
         this.exportTextshots = value;
     }

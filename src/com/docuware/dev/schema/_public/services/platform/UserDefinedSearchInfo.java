@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -31,7 +32,6 @@ public class UserDefinedSearchInfo  {
         return dialogExpression;
     }
 
-    /**Gets or sets the conditions which are used for creating user defined search based on result list.*/
     @Dolphin
     public void setDialogExpression(DialogExpression value) {
         this.dialogExpression = value;

@@ -4,7 +4,8 @@ package com.docuware.dev._public.intellix;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 
 import java.math.BigDecimal;
@@ -59,7 +60,7 @@ public class Candidate  {
     protected int length;
     @XmlElements({
         @XmlElement(name = "Decimal", type = BigDecimal.class),
-        @XmlElement(name = "Date", type = XMLGregorianCalendar.class),
+        @XmlElement(name = "Date", type = GregorianCalendar.class),
         @XmlElement(name = "Text", type = String.class)
     })
     protected Object decimalOrDateOrText;

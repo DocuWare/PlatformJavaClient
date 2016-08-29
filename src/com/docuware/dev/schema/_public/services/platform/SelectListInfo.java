@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 import com.docuware.dev.schema._public.services.platform.SelectListValues;
 import com.docuware.dev.schema._public.services.platform.SelectListValuesQuery;
@@ -169,14 +170,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Values" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<SelectListValues>> getSelectListValuesFromValuesRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<SelectListValues>> getSelectListValuesFromValuesRelationAsync() {
         return MethodInvocation.<SelectListValues>getAsync(this, links, "values", SelectListValues.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Values" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<SelectListValues>> getSelectListValuesFromValuesRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<SelectListValues>> getSelectListValuesFromValuesRelationAsync(CancellationToken ct) {
         return MethodInvocation.<SelectListValues>getAsync(this, links, "values", SelectListValues.class, ct);
     }
 
@@ -184,21 +185,21 @@ private HttpClientProxy proxy;//test
     * Calls the HTTP post Method on the link for the relation "Values".
     */
     public SelectListValues postToValuesRelationForSelectListValues(SelectListValuesQuery data) {
-        return MethodInvocation.<SelectListValues,SelectListValuesQuery>post(this, links, "values", SelectListValues.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListValuesQuery"), SelectListValuesQuery.class, null, data));
+        return MethodInvocation.<SelectListValues, SelectListValuesQuery> post(this, links, "values", SelectListValues.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListValuesQuery"), SelectListValuesQuery.class, null, data), "application/vnd.docuware.platform.selectlistinfoquery+xml", "application/xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "Values" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<SelectListValues>> postToValuesRelationForSelectListValuesAsync(SelectListValuesQuery data) {
-        return MethodInvocation.<SelectListValues, SelectListValuesQuery >postAsync(this, links, "values", SelectListValues.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListValuesQuery"), SelectListValuesQuery.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<SelectListValues>> postToValuesRelationForSelectListValuesAsync(SelectListValuesQuery data) {
+        return MethodInvocation.<SelectListValues, SelectListValuesQuery >postAsync(this, links, "values", SelectListValues.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListValuesQuery"), SelectListValuesQuery.class, null, data), "application/vnd.docuware.platform.selectlistinfoquery+xml", "application/xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "Values" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<SelectListValues>> postToValuesRelationForSelectListValuesAsync(SelectListValuesQuery data, CancellationToken ct) {
-        return MethodInvocation.<SelectListValues, SelectListValuesQuery >postAsync(this, links, "values", SelectListValues.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListValuesQuery"), SelectListValuesQuery.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<SelectListValues>> postToValuesRelationForSelectListValuesAsync(SelectListValuesQuery data, CancellationToken ct) {
+        return MethodInvocation.<SelectListValues, SelectListValuesQuery >postAsync(this, links, "values", SelectListValues.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListValuesQuery"), SelectListValuesQuery.class, null, data), "application/vnd.docuware.platform.selectlistinfoquery+xml", "application/xml", ct);
     }
 
 

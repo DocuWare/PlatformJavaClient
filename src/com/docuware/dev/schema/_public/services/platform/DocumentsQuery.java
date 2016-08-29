@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 import com.docuware.dev.schema._public.services.platform.DocumentsQueryResult;
 import com.docuware.dev.schema._public.services.platform.DialogExpression;
@@ -56,7 +57,6 @@ private HttpClientProxy proxy;//test
         return forceRefresh;
     }
 
-    /**Determine if result list is retrieved from the cache when ForceRefresh is set to false (default) or always a new one is executed when ForceRefresh is set to true.*/
     @Dolphin
     public void setForceRefresh(Boolean value) {
         this.forceRefresh = value;
@@ -67,7 +67,6 @@ private HttpClientProxy proxy;//test
         return expression;
     }
 
-    /**Gets or sets the query expression.*/
     public void setExpression(String value) {
         this.expression = value;
     }
@@ -77,7 +76,6 @@ private HttpClientProxy proxy;//test
         return fields;
     }
 
-    /**Gets or sets the fields which are returned by this query.*/
     public void setFields(FieldsList value) {
         this.fields = value;
     }
@@ -87,7 +85,6 @@ private HttpClientProxy proxy;//test
         return sortOrder;
     }
 
-    /**Gets or sets the fields which are returned by this query.*/
     public void setSortOrder(SortedFieldsList value) {
         this.sortOrder = value;
     }
@@ -100,7 +97,7 @@ private HttpClientProxy proxy;//test
         this.links = value;
     }
 
-    /**Gets or sets the fields which are returned by this query.*/
+    /**Specifies whether the default system/additional fields should be returned.*/
     public boolean isExcludeSystemFields() {
         if (excludeSystemFields == null) {
             return false;
@@ -109,7 +106,7 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**Gets or sets the fields which are returned by this query.*/
+    /**Specifies whether the default system/additional fields should be returned.*/
     public void setExcludeSystemFields(Boolean value) {
         this.excludeSystemFields = value;
     }
@@ -220,14 +217,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Result" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> getDocumentsQueryResultFromResultRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryResult>> getDocumentsQueryResultFromResultRelationAsync() {
         return MethodInvocation.<DocumentsQueryResult>getAsync(this, links, "result", DocumentsQueryResult.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Result" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> getDocumentsQueryResultFromResultRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryResult>> getDocumentsQueryResultFromResultRelationAsync(CancellationToken ct) {
         return MethodInvocation.<DocumentsQueryResult>getAsync(this, links, "result", DocumentsQueryResult.class, ct);
     }
 
@@ -244,21 +241,21 @@ private HttpClientProxy proxy;//test
     * Calls the HTTP post Method on the link for the relation "DialogExpression".
     */
     public DocumentsQueryResult postToDialogExpressionRelationForDocumentsQueryResult(DialogExpression data) {
-        return MethodInvocation.<DocumentsQueryResult,DialogExpression>post(this, links, "dialogExpression", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DialogExpression"), DialogExpression.class, null, data));
+        return MethodInvocation.<DocumentsQueryResult, DialogExpression> post(this, links, "dialogExpression", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DialogExpression"), DialogExpression.class, null, data), "application/vnd.docuware.platform.dialogexpression+xml", "application/vnd.docuware.platform.documents+xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "DialogExpression" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> postToDialogExpressionRelationForDocumentsQueryResultAsync(DialogExpression data) {
-        return MethodInvocation.<DocumentsQueryResult, DialogExpression >postAsync(this, links, "dialogExpression", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DialogExpression"), DialogExpression.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryResult>> postToDialogExpressionRelationForDocumentsQueryResultAsync(DialogExpression data) {
+        return MethodInvocation.<DocumentsQueryResult, DialogExpression >postAsync(this, links, "dialogExpression", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DialogExpression"), DialogExpression.class, null, data), "application/vnd.docuware.platform.dialogexpression+xml", "application/vnd.docuware.platform.documents+xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "DialogExpression" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> postToDialogExpressionRelationForDocumentsQueryResultAsync(DialogExpression data, CancellationToken ct) {
-        return MethodInvocation.<DocumentsQueryResult, DialogExpression >postAsync(this, links, "dialogExpression", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DialogExpression"), DialogExpression.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryResult>> postToDialogExpressionRelationForDocumentsQueryResultAsync(DialogExpression data, CancellationToken ct) {
+        return MethodInvocation.<DocumentsQueryResult, DialogExpression >postAsync(this, links, "dialogExpression", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DialogExpression"), DialogExpression.class, null, data), "application/vnd.docuware.platform.dialogexpression+xml", "application/vnd.docuware.platform.documents+xml", ct);
     }
 
     /**
@@ -280,14 +277,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "TableResult" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentsQueryTableResult>> getDocumentsQueryTableResultFromTableResultRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryTableResult>> getDocumentsQueryTableResultFromTableResultRelationAsync() {
         return MethodInvocation.<DocumentsQueryTableResult>getAsync(this, links, "tableResult", DocumentsQueryTableResult.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "TableResult" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentsQueryTableResult>> getDocumentsQueryTableResultFromTableResultRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryTableResult>> getDocumentsQueryTableResultFromTableResultRelationAsync(CancellationToken ct) {
         return MethodInvocation.<DocumentsQueryTableResult>getAsync(this, links, "tableResult", DocumentsQueryTableResult.class, ct);
     }
 
@@ -304,21 +301,21 @@ private HttpClientProxy proxy;//test
     * Calls the HTTP post Method on the link for the relation "TableDialogExpression".
     */
     public DocumentsQueryTableResult postToTableDialogExpressionRelationForDocumentsQueryTableResult(DialogExpression data) {
-        return MethodInvocation.<DocumentsQueryTableResult,DialogExpression>post(this, links, "tableDialogExpression", DocumentsQueryTableResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DialogExpression"), DialogExpression.class, null, data));
+        return MethodInvocation.<DocumentsQueryTableResult, DialogExpression> post(this, links, "tableDialogExpression", DocumentsQueryTableResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DialogExpression"), DialogExpression.class, null, data), "application/vnd.docuware.platform.dialogexpression+xml", "application/vnd.docuware.platform.documentstable+xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "TableDialogExpression" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentsQueryTableResult>> postToTableDialogExpressionRelationForDocumentsQueryTableResultAsync(DialogExpression data) {
-        return MethodInvocation.<DocumentsQueryTableResult, DialogExpression >postAsync(this, links, "tableDialogExpression", DocumentsQueryTableResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DialogExpression"), DialogExpression.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryTableResult>> postToTableDialogExpressionRelationForDocumentsQueryTableResultAsync(DialogExpression data) {
+        return MethodInvocation.<DocumentsQueryTableResult, DialogExpression >postAsync(this, links, "tableDialogExpression", DocumentsQueryTableResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DialogExpression"), DialogExpression.class, null, data), "application/vnd.docuware.platform.dialogexpression+xml", "application/vnd.docuware.platform.documentstable+xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "TableDialogExpression" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentsQueryTableResult>> postToTableDialogExpressionRelationForDocumentsQueryTableResultAsync(DialogExpression data, CancellationToken ct) {
-        return MethodInvocation.<DocumentsQueryTableResult, DialogExpression >postAsync(this, links, "tableDialogExpression", DocumentsQueryTableResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DialogExpression"), DialogExpression.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryTableResult>> postToTableDialogExpressionRelationForDocumentsQueryTableResultAsync(DialogExpression data, CancellationToken ct) {
+        return MethodInvocation.<DocumentsQueryTableResult, DialogExpression >postAsync(this, links, "tableDialogExpression", DocumentsQueryTableResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DialogExpression"), DialogExpression.class, null, data), "application/vnd.docuware.platform.dialogexpression+xml", "application/vnd.docuware.platform.documentstable+xml", ct);
     }
 
     /**
@@ -334,21 +331,21 @@ private HttpClientProxy proxy;//test
     * Calls the HTTP post Method on the link for the relation "BatchUpdate".
     */
     public BatchUpdateIndexFieldsResult postToBatchUpdateRelationForBatchUpdateIndexFieldsResult(BatchUpdateProcess data) {
-        return MethodInvocation.<BatchUpdateIndexFieldsResult,BatchUpdateProcess>post(this, links, "batchUpdate", BatchUpdateIndexFieldsResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "BatchUpdateProcess"), BatchUpdateProcess.class, null, data));
+        return MethodInvocation.<BatchUpdateIndexFieldsResult, BatchUpdateProcess> post(this, links, "batchUpdate", BatchUpdateIndexFieldsResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "BatchUpdateProcess"), BatchUpdateProcess.class, null, data), "application/vnd.docuware.platform.batchupdateprocess+xml", "application/vnd.docuware.platform.batchupdateindexfieldsresult+xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "BatchUpdate" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>> postToBatchUpdateRelationForBatchUpdateIndexFieldsResultAsync(BatchUpdateProcess data) {
-        return MethodInvocation.<BatchUpdateIndexFieldsResult, BatchUpdateProcess >postAsync(this, links, "batchUpdate", BatchUpdateIndexFieldsResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "BatchUpdateProcess"), BatchUpdateProcess.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>> postToBatchUpdateRelationForBatchUpdateIndexFieldsResultAsync(BatchUpdateProcess data) {
+        return MethodInvocation.<BatchUpdateIndexFieldsResult, BatchUpdateProcess >postAsync(this, links, "batchUpdate", BatchUpdateIndexFieldsResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "BatchUpdateProcess"), BatchUpdateProcess.class, null, data), "application/vnd.docuware.platform.batchupdateprocess+xml", "application/vnd.docuware.platform.batchupdateindexfieldsresult+xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "BatchUpdate" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>> postToBatchUpdateRelationForBatchUpdateIndexFieldsResultAsync(BatchUpdateProcess data, CancellationToken ct) {
-        return MethodInvocation.<BatchUpdateIndexFieldsResult, BatchUpdateProcess >postAsync(this, links, "batchUpdate", BatchUpdateIndexFieldsResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "BatchUpdateProcess"), BatchUpdateProcess.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>> postToBatchUpdateRelationForBatchUpdateIndexFieldsResultAsync(BatchUpdateProcess data, CancellationToken ct) {
+        return MethodInvocation.<BatchUpdateIndexFieldsResult, BatchUpdateProcess >postAsync(this, links, "batchUpdate", BatchUpdateIndexFieldsResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "BatchUpdateProcess"), BatchUpdateProcess.class, null, data), "application/vnd.docuware.platform.batchupdateprocess+xml", "application/vnd.docuware.platform.batchupdateindexfieldsresult+xml", ct);
     }
 
 

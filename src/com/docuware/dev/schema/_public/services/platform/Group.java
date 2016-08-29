@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 import com.docuware.dev.schema._public.services.platform.Group;
 import com.docuware.dev.schema._public.services.platform.Users;
@@ -167,14 +168,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Self" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<Group>> getGroupFromSelfRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<Group>> getGroupFromSelfRelationAsync() {
         return MethodInvocation.<Group>getAsync(this, links, "self", Group.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Self" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<Group>> getGroupFromSelfRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Group>> getGroupFromSelfRelationAsync(CancellationToken ct) {
         return MethodInvocation.<Group>getAsync(this, links, "self", Group.class, ct);
     }
 
@@ -197,14 +198,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Users" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<Users>> getUsersFromUsersRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<Users>> getUsersFromUsersRelationAsync() {
         return MethodInvocation.<Users>getAsync(this, links, "users", Users.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Users" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<Users>> getUsersFromUsersRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Users>> getUsersFromUsersRelationAsync(CancellationToken ct) {
         return MethodInvocation.<Users>getAsync(this, links, "users", Users.class, ct);
     }
 

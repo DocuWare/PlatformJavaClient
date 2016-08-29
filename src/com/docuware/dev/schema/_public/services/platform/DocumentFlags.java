@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -45,7 +46,6 @@ public class DocumentFlags  {
         }
     }
 
-    /**Readonly flag. It will be overriden if set.*/
     public void setIsCold(Boolean value) {
         this.isCold = value;
     }
@@ -59,7 +59,6 @@ public class DocumentFlags  {
         }
     }
 
-    /**Readonly flag. It will be overriden if set.*/
     public void setIsDBRecord(Boolean value) {
         this.isDBRecord = value;
     }
@@ -73,7 +72,6 @@ public class DocumentFlags  {
         }
     }
 
-    /**Readonly flag. It will be overriden if set.*/
     public void setIsCheckedOut(Boolean value) {
         this.isCheckedOut = value;
     }
@@ -87,7 +85,6 @@ public class DocumentFlags  {
         }
     }
 
-    /**Readonly flag. It will be overriden if set.*/
     public void setIsCopyRightProtected(Boolean value) {
         this.isCopyRightProtected = value;
     }
@@ -101,7 +98,6 @@ public class DocumentFlags  {
         }
     }
 
-    /**Readonly flag. It will be overriden if set.*/
     public void setIsVoiceAvailable(Boolean value) {
         this.isVoiceAvailable = value;
     }
@@ -115,7 +111,6 @@ public class DocumentFlags  {
         }
     }
 
-    /**Readonly flag. It will be overriden if set.*/
     public void setHasAppendedDocuments(Boolean value) {
         this.hasAppendedDocuments = value;
     }
@@ -129,7 +124,6 @@ public class DocumentFlags  {
         }
     }
 
-    /**Readonly flag. It will be overriden if set.*/
     public void setIsProtected(Boolean value) {
         this.isProtected = value;
     }
@@ -143,7 +137,6 @@ public class DocumentFlags  {
         }
     }
 
-    /**Readonly flag. It will be overriden if set.*/
     public void setIsDeleted(Boolean value) {
         this.isDeleted = value;
     }

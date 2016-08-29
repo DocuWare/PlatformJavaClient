@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 
 import java.util.ArrayList;
@@ -42,7 +43,6 @@ public class ImportResultEntry  {
         return errorMessage;
     }
 
-    /**Gets or sets the error message if the import operation fails.*/
     public void setErrorMessage(String value) {
         this.errorMessage = value;
     }
@@ -52,7 +52,6 @@ public class ImportResultEntry  {
         return status;
     }
 
-    /**Gets or sets the status of the document.*/
     public void setStatus(ImportEntryStatus value) {
         this.status = value;
     }

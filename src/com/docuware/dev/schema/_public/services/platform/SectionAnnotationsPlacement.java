@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -43,7 +44,6 @@ public class SectionAnnotationsPlacement  {
         return sectionNumber;
     }
 
-    /**Number of the section to set annotations on.*/
     @Eagle
     public void setSectionNumber(int value) {
         this.sectionNumber = value;
@@ -55,7 +55,6 @@ public class SectionAnnotationsPlacement  {
         return pageNumber;
     }
 
-    /**Number of the page to set annotations on.*/
     @Eagle
     public void setPageNumber(int value) {
         this.pageNumber = value;

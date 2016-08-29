@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 import com.docuware.dev.schema._public.services.platform.UploadedFileChunk;
 
@@ -174,14 +175,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Next" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<UploadedFileChunk>> getUploadedFileChunkFromNextRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<UploadedFileChunk>> getUploadedFileChunkFromNextRelationAsync() {
         return MethodInvocation.<UploadedFileChunk>getAsync(this, links, "next", UploadedFileChunk.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Next" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<UploadedFileChunk>> getUploadedFileChunkFromNextRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<UploadedFileChunk>> getUploadedFileChunkFromNextRelationAsync(CancellationToken ct) {
         return MethodInvocation.<UploadedFileChunk>getAsync(this, links, "next", UploadedFileChunk.class, ct);
     }
 

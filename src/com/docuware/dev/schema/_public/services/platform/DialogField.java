@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 import com.docuware.dev.schema._public.services.platform.SelectListResult;
 import com.docuware.dev.schema._public.services.platform.SelectListExpression;
@@ -98,12 +99,12 @@ private HttpClientProxy proxy;//test
         this.mask = value;
     }
 
-    /**Mask(regular expression) for limiting the input options for the field.*/
+    /**Error message to display if the input does not match the mask definition.*/
     public String getMaskErrorText() {
         return maskErrorText;
     }
 
-    /**Mask(regular expression) for limiting the input options for the field.*/
+    /**Error message to display if the input does not match the mask definition.*/
     public void setMaskErrorText(String value) {
         this.maskErrorText = value;
     }
@@ -128,7 +129,7 @@ private HttpClientProxy proxy;//test
         return this.prefillValue;
     }
 
-    /**The default value of the field(s). If DynamicPrefillValue is not empty this property should be ignored.*/
+    /**Dynamic (CurrentDate, CurrentDatetime, etc.) default value of the field(s).If this element is not empty PrefilValue shoud be ignored.*/
     @Eagle
     public List<DynamicValueType> getDynamicPrefillValue() {
         if (dynamicPrefillValue == null) {
@@ -224,7 +225,6 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**Determines whether the field can be empty, considering NotEmpty in Field settings and Field may be empty Right*/
     public void setNotEmpty(Boolean value) {
         this.notEmpty = value;
     }
@@ -480,14 +480,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "SimpleSelectList" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<SelectListResult>> getSelectListResultFromSimpleSelectListRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<SelectListResult>> getSelectListResultFromSimpleSelectListRelationAsync() {
         return MethodInvocation.<SelectListResult>getAsync(this, links, "simpleSelectList", SelectListResult.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "SimpleSelectList" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<SelectListResult>> getSelectListResultFromSimpleSelectListRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<SelectListResult>> getSelectListResultFromSimpleSelectListRelationAsync(CancellationToken ct) {
         return MethodInvocation.<SelectListResult>getAsync(this, links, "simpleSelectList", SelectListResult.class, ct);
     }
 
@@ -495,21 +495,21 @@ private HttpClientProxy proxy;//test
     * Calls the HTTP post Method on the link for the relation "SimpleSelectList".
     */
     public SelectListResult postToSimpleSelectListRelationForSelectListResult(SelectListExpression data) {
-        return MethodInvocation.<SelectListResult,SelectListExpression>post(this, links, "simpleSelectList", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data));
+        return MethodInvocation.<SelectListResult, SelectListExpression> post(this, links, "simpleSelectList", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data), "application/vnd.docuware.platform.selectlistexpression+xml", "application/vnd.docuware.platform.selectlistresult+xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "SimpleSelectList" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<SelectListResult>> postToSimpleSelectListRelationForSelectListResultAsync(SelectListExpression data) {
-        return MethodInvocation.<SelectListResult, SelectListExpression >postAsync(this, links, "simpleSelectList", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<SelectListResult>> postToSimpleSelectListRelationForSelectListResultAsync(SelectListExpression data) {
+        return MethodInvocation.<SelectListResult, SelectListExpression >postAsync(this, links, "simpleSelectList", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data), "application/vnd.docuware.platform.selectlistexpression+xml", "application/vnd.docuware.platform.selectlistresult+xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "SimpleSelectList" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<SelectListResult>> postToSimpleSelectListRelationForSelectListResultAsync(SelectListExpression data, CancellationToken ct) {
-        return MethodInvocation.<SelectListResult, SelectListExpression >postAsync(this, links, "simpleSelectList", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<SelectListResult>> postToSimpleSelectListRelationForSelectListResultAsync(SelectListExpression data, CancellationToken ct) {
+        return MethodInvocation.<SelectListResult, SelectListExpression >postAsync(this, links, "simpleSelectList", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data), "application/vnd.docuware.platform.selectlistexpression+xml", "application/vnd.docuware.platform.selectlistresult+xml", ct);
     }
 
 

@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 import com.docuware.dev.schema._public.services.platform.Pages;
 
@@ -147,14 +148,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "NextBlock" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<Pages>> getPagesFromNextBlockRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<Pages>> getPagesFromNextBlockRelationAsync() {
         return MethodInvocation.<Pages>getAsync(this, links, "nextBlock", Pages.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "NextBlock" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<Pages>> getPagesFromNextBlockRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Pages>> getPagesFromNextBlockRelationAsync(CancellationToken ct) {
         return MethodInvocation.<Pages>getAsync(this, links, "nextBlock", Pages.class, ct);
     }
 

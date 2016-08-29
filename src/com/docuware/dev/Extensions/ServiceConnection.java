@@ -22,6 +22,9 @@ import com.docuware.dev.schema._public.services.platform.Organization;
 import com.docuware.dev.schema._public.services.platform.Organizations;
 import com.docuware.dev.schema._public.services.platform.Pages;
 import com.docuware.dev.schema._public.services.platform.Rights;
+import com.docuware.dev.schema._public.services.platform.SelectListInfo;
+import com.docuware.dev.schema._public.services.platform.SequenceRequest;
+import com.docuware.dev.schema._public.services.platform.SequenceResult;
 import com.docuware.dev.schema._public.services.platform.ServiceDescription;
 import com.docuware.dev.schema._public.services.platform.SuggestionFields;
 import com.docuware.dev.schema._public.services.platform.UpdateIndexFieldsInfo;
@@ -49,6 +52,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.xml.bind.JAXBElement;
 import org.apache.http.auth.Credentials;
 import org.apache.http.auth.NTCredentials;
+import org.apache.http.auth.UsernamePasswordCredentials;
 
 
 /*
@@ -113,7 +117,7 @@ public class ServiceConnection {
      * Disconnects the Instance
      * @return  A Future, which disconnects the ServiceConnection
      */
-    public Future disconnectAsync() {
+    public CompletableFuture disconnectAsync() {
         return CompletableFuture.runAsync(() -> {
             MethodInvocation.getAsync(serviceDescription, serviceDescription.getLinks(), "logout", null);
         });
@@ -180,6 +184,7 @@ public class ServiceConnection {
             throw new RuntimeException(e.getLocalizedMessage());
         }
     }
+    
     /**
      * Creates a connection for the specified service URI
      * 
@@ -227,7 +232,7 @@ public class ServiceConnection {
      * @param orgName   the name of your Docuware organization
      * @return  a Future creating the ServiceConnection instance connected with the platform
      */
-    public static Future<ServiceConnection> createAsync(String serviceUri, String userName, String password, String orgName) {
+    public static CompletableFuture<ServiceConnection> createAsync(String serviceUri, String userName, String password, String orgName) {
         MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
         formData.add("UserName", userName);
         formData.add("Password", password);
@@ -248,7 +253,7 @@ public class ServiceConnection {
      * If this parameter is set to null then the process name and version of you application is used as user agent string. If you do not want to submit any user agent, you must set this parameter to an empty array
      * @return  A future which is creating a proxy which handles further requests.
      */
-    static public Future<ServiceConnection> createAsync(String serviceUri, String userName, String password, String organization, DWProductTypes licenseType, ApacheHttpClientHandler httpClientHandler,
+    static public CompletableFuture<ServiceConnection> createAsync(String serviceUri, String userName, String password, String organization, DWProductTypes licenseType, ApacheHttpClientHandler httpClientHandler,
             String[] userAgent) {
         MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
         formData.add("UserName", userName);
@@ -265,14 +270,14 @@ public class ServiceConnection {
      * @param serviceConnectionData [necessary] The service connection data
      * @return A future which is creating a proxy which handles further requests.
      */
-    static public Future<ServiceConnection> createAsync(String serviceUri, String userName, String password, ServiceConnectionLoginData serviceConnectionData) {
+    static public CompletableFuture<ServiceConnection> createAsync(String serviceUri, String userName, String password, ServiceConnectionLoginData serviceConnectionData) {
         MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
         formData.add("UserName", userName);
         formData.add("Password", password);
         return createAsync(serviceUri, formData, serviceConnectionData);
     }
 
-    static private Future<ServiceConnection> createAsync(String serviceUri, MultivaluedMap<String, String> formData, ServiceConnectionLoginData serviceConnectionData) {
+    static private CompletableFuture<ServiceConnection> createAsync(String serviceUri, MultivaluedMap<String, String> formData, ServiceConnectionLoginData serviceConnectionData) {
         serviceConnectionData.AddLoginFormData(formData);
         return createAsync(formData, serviceUri, "login", serviceConnectionData.getTransport());
     }
@@ -291,7 +296,7 @@ public class ServiceConnection {
      * If this parameter is set to null then the process name and version of you application is used as user agent string. If you do not want to submit any user agent, you must set this parameter to an empty array.
      * @return  A future which is creating a proxy which handles further requests.
      */
-    static public Future<ServiceConnection> createTrustedAsync(String serviceUri, String impersonatedUser, String trustedUser, String password, String organization, DWProductTypes licenseType, ApacheHttpClientHandler httpClientHandler,
+    static public CompletableFuture<ServiceConnection> createTrustedAsync(String serviceUri, String impersonatedUser, String trustedUser, String password, String organization, DWProductTypes licenseType, ApacheHttpClientHandler httpClientHandler,
             String[] userAgent) {
         MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
         formData.add("ImpersonatedUser", impersonatedUser);
@@ -310,7 +315,7 @@ public class ServiceConnection {
      * @param serviceConnectionData necessary] The service connection data
      * @return A future which is creating a proxy which handles further requests.
      */
-    static public Future<ServiceConnection> createTrustedAsync(String serviceUri, String impersonatedUser, String trustedUser, String password, ServiceConnectionLoginData serviceConnectionData) {
+    static public CompletableFuture<ServiceConnection> createTrustedAsync(String serviceUri, String impersonatedUser, String trustedUser, String password, ServiceConnectionLoginData serviceConnectionData) {
         MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
         formData.add("ImpersonatedUser", impersonatedUser);
         formData.add("UserName", trustedUser);
@@ -318,7 +323,7 @@ public class ServiceConnection {
         return createTrustedAsync(serviceUri, formData, serviceConnectionData);
     }
 
-    static private Future<ServiceConnection> createTrustedAsync(String serviceUri, MultivaluedMap<String, String> formData, ServiceConnectionLoginData scld) {
+    static private CompletableFuture<ServiceConnection> createTrustedAsync(String serviceUri, MultivaluedMap<String, String> formData, ServiceConnectionLoginData scld) {
         scld.AddLoginFormData(formData);
         return createAsync(formData, serviceUri, "trustedLogin", scld.getTransport());
     }
@@ -334,7 +339,7 @@ public class ServiceConnection {
      * If this parameter is set to null then the process name and version of you application is used as user agent string. If you do not want to submit any user agent, you must set this parameter to an empty array.
      * @return  A future which is creating a proxy which handles further requests.
      */
-    static public Future<ServiceConnection> createAsync(String serviceUri, String token, DWProductTypes licenseType, ApacheHttpClientHandler httpClientHandler,
+    static public CompletableFuture<ServiceConnection> createAsync(String serviceUri, String token, DWProductTypes licenseType, ApacheHttpClientHandler httpClientHandler,
             String[] userAgent) {
         return createAsync(serviceUri, token, ServiceConnectionTokenLoginData.Create(licenseType, httpClientHandler, userAgent));
     }
@@ -347,7 +352,7 @@ public class ServiceConnection {
      * @param serviceConnectionTokenLoginData   [necessary] The service connection token login data
      * @return  A future which is creating a proxy which handles further requests.
      */
-    static public Future<ServiceConnection> createAsync(String serviceUri, String token, ServiceConnectionTokenLoginData serviceConnectionTokenLoginData) {
+    static public CompletableFuture<ServiceConnection> createAsync(String serviceUri, String token, ServiceConnectionTokenLoginData serviceConnectionTokenLoginData) {
         MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
         formData.add("Token", token);
         serviceConnectionTokenLoginData.AddLoginFormData(formData);
@@ -363,7 +368,7 @@ public class ServiceConnection {
      * If this parameter is set to null then the process name and version of you application is used as user agent string. If you do not want to submit any user agent, you must set this parameter to an empty array.
      * @return  A future which is creating a proxy which handles further requests.
      */
-    static public Future<ServiceConnection> createAsyncNoConnection(String serviceUri, ApacheHttpClientHandler httpClientHandler, String[] userAgent) {
+    static public CompletableFuture<ServiceConnection> createAsyncNoConnection(String serviceUri, ApacheHttpClientHandler httpClientHandler, String[] userAgent) {
         ServiceConnectionTransportData sctd = new ServiceConnectionTransportData();
         sctd.setUserAgent(userAgent);
         sctd.setHttpClientHandler(httpClientHandler);
@@ -377,7 +382,7 @@ public class ServiceConnection {
      * @param serviceConnectionTransportData    [necessary] The service connection transport data
      * @return  A future which is creating a proxy which handles further requests.
      */
-    static private Future<ServiceConnection> createAsyncNoConnection(String serviceUri, ServiceConnectionTransportData serviceConnectionTransportData) {
+    static private CompletableFuture<ServiceConnection> createAsyncNoConnection(String serviceUri, ServiceConnectionTransportData serviceConnectionTransportData) {
         return CompletableFuture.<ServiceConnection>supplyAsync(() -> {
             client = new PlatformClient(serviceUri, serviceConnectionTransportData);
             LinkResolver resolver = client.getLinkResolver();
@@ -398,20 +403,20 @@ public class ServiceConnection {
         return new ServiceConnection(serviceDescription);
     }
 
-    private static Future<ServiceConnection> createAsync(MultivaluedMap<String, String> formData, String uri, String rel, ServiceConnectionTransportData sclbd) {
+    private static CompletableFuture<ServiceConnection> createAsync(MultivaluedMap<String, String> formData, String uri, String rel, ServiceConnectionTransportData sclbd) {
         return CompletableFuture.<ServiceConnection>supplyAsync(() -> {
             return create(formData, uri, rel, sclbd);
         });
     }
     
-    static public Future<ServiceConnection> createWithWindowsAuthenticationAsync(String serviceUri, String userName, String password, String domain, String organization, DWProductTypes licenseType, ApacheHttpClientHandler httpClientHandler,
+    static public CompletableFuture<ServiceConnection> createWithWindowsAuthenticationAsync(String serviceUri, String userName, String password, String domain, String organization, DWProductTypes licenseType, ApacheHttpClientHandler httpClientHandler,
             String[] userAgent)
         {
             NTCredentials c= new NTCredentials(userName, password, System.getenv("COMPUTERNAME"), domain);
             return createWithWindowsAuthenticationAsync(serviceUri,c,  ServiceConnectionLoginData.Create(organization, licenseType, httpClientHandler, userAgent));
         }
     
-    static public Future<ServiceConnection> createWithWindowsAuthenticationAsync(String serviceUri, Credentials credentials, ServiceConnectionLoginData serviceConnectionLoginData)
+    static public CompletableFuture<ServiceConnection> createWithWindowsAuthenticationAsync(String serviceUri, Credentials credentials, ServiceConnectionLoginData serviceConnectionLoginData)
         {
             ServiceConnectionTransportData transport = serviceConnectionLoginData.getTransport();
             MultivaluedMap<String, String> m = new MultivaluedMapImpl();
@@ -467,7 +472,7 @@ public class ServiceConnection {
      * Gets the organizations asynchronous
      * @return  The list of available organizations
      */
-    public Future<DeserializedHttpResponseGen<Organizations>> getOrganizationsAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<Organizations>> getOrganizationsAsync() {
         return serviceDescription.getOrganizationsFromOrganizationsRelationAsync();
     }
 
@@ -529,7 +534,7 @@ public class ServiceConnection {
      * @param url   The URL
      * @return  A task which creates a URL with an authenticated user information inside
      */
-    public Future<DeserializedHttpResponseGen<String>> createPermanentUrlAsync(String url) {
+    public CompletableFuture<DeserializedHttpResponseGen<String>> createPermanentUrlAsync(String url) {
         HashMap<String, String> parameters = new HashMap<>();
         parameters.put("url", url);
         return CompletableFuture.<DeserializedHttpResponseGen<String>>supplyAsync(() -> {
@@ -568,7 +573,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled when it didn't start
      * @return A future performing the action
      */
-    public Future<DeserializedHttpResponseGen<Document>> putToProcessDocumentActionForDocumentAsync(String fileCabinetId, int docId, DocumentActionInfo data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> putToProcessDocumentActionForDocumentAsync(String fileCabinetId, int docId, DocumentActionInfo data, CancellationToken ct) {
         class Param {
 
             String fileCabinetId;
@@ -581,7 +586,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(fileCabinetId, docId);
         URI uri = buildUri(parameters, "processDocumentAction");
-        Future<DeserializedHttpResponseGen<Document>> fut = LinkResolver.<Document, DocumentActionInfo>putAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Document.class, DocumentActionInfo.class, "DocumentActionInfo", data);
+        CompletableFuture<DeserializedHttpResponseGen<Document>> fut = LinkResolver.<Document, DocumentActionInfo>putAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Document.class, DocumentActionInfo.class, "DocumentActionInfo", data);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -592,12 +597,17 @@ public class ServiceConnection {
      * @param data  [necessary] The DocumentActionInfo
      * @return  A future performing the action
      */
-    public Future<DeserializedHttpResponseGen<Document>> putToProcessDocumentActionForDocumentAsync(String fileCabinetId, int docId, DocumentActionInfo data) {
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> putToProcessDocumentActionForDocumentAsync(String fileCabinetId, int docId, DocumentActionInfo data) {
         return putToProcessDocumentActionForDocumentAsync(fileCabinetId, docId, data, null);
     }
 
-
-    /*  public Future<DeserializedHttpResponseGen<SequenceResult>> postToRetrieveSequenceElementForSequenceResultAsync(String fileCabinetId, SequenceRequest data)
+    /**
+     * @param fileCabinetId [necessary] The Id of the FileCabinet in which the Document is located
+     * @param data  [necessary] The data to post
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled when it didn't begin to run
+     * @return A future performing the action
+     */
+     public CompletableFuture<DeserializedHttpResponseGen<SequenceResult>> postToRetrieveSequenceElementForSequenceResultAsync(String fileCabinetId, SequenceRequest data, CancellationToken ct)
      {
      class Param {
      String fileCabinetId;
@@ -606,20 +616,21 @@ public class ServiceConnection {
      }
      }
      Param parameters = new Param(fileCabinetId);
-     URI uri;
-     try {
-     uri =new URI(
-     this.getServiceDescription().getProxy().getBaseAddress().getScheme() +"://" +
-     this.getServiceDescription().getProxy().getBaseAddress().getHost()  +
-     this.createTemplateUri("retrieveSequenceElement", parameters));
-     } catch (URISyntaxException ex) {throw new RuntimeException(ex.getCause());   }
-     return CompletableFuture.<DeserializedHttpResponseGen<SequenceResult>>supplyAsync(()->
-     {  WebResource web= this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-     JAXBElement jax = new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SequenceRequest"), SequenceRequest.class, null, data);
-     ClientResponse resp= web.type("application/xml").accept("application/xml").post(ClientResponse.class, jax);
-     return new DeserializedHttpResponseGen<SequenceResult>(resp, resp.getEntity(SequenceResult.class));
-     });      
-     }*/
+     URI uri = buildUri(parameters, "retrieveSequenceElement");
+     CompletableFuture<DeserializedHttpResponseGen<SequenceResult>> fut =  LinkResolver.<SequenceResult, SequenceRequest>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", SequenceResult.class, SequenceRequest.class, "SequenceRequest", data);   
+     if(ct!=null) ct.addFuture(fut);
+     return fut;
+     }
+     
+     /**
+     * @param fileCabinetId [necessary] The Id of the FileCabinet in which the Document is located
+     * @param data  [necessary] The data to post
+     * @return A future performing the action
+     */
+    public CompletableFuture<DeserializedHttpResponseGen<SequenceResult>> postToRetrieveSequenceElementForSequenceResultAsync(String fileCabinetId, SequenceRequest data) {
+        return postToRetrieveSequenceElementForSequenceResultAsync(fileCabinetId, data, null);
+    }
+     
     
     /**
      * @param data  [necessary] the data to post
@@ -627,7 +638,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled when it didn't start
      * @return  A future performing the action
      */
-    public Future<DeserializedHttpResponseGen<String>> postToCreatePermanentUrlForStringAsync(MultivaluedMap data, Boolean clientSideChecksum, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<String>> postToCreatePermanentUrlForStringAsync(MultivaluedMap data, Boolean clientSideChecksum, CancellationToken ct) {
         class Param {
 
             Boolean clientSideChecksum;
@@ -638,7 +649,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(clientSideChecksum);
         URI uri = buildUri(parameters, "createPermanentUrl");
-        Future<DeserializedHttpResponseGen<String>> fut= CompletableFuture.<DeserializedHttpResponseGen<String>>supplyAsync(() -> {
+        CompletableFuture<DeserializedHttpResponseGen<String>> fut= CompletableFuture.<DeserializedHttpResponseGen<String>>supplyAsync(() -> {
             WebResource web = this.getServiceDescription().getProxy().getHttpClient().resource(uri);
             ClientResponse resp = web.type("application/x-www-form-urlencoded").accept("text/plain").post(ClientResponse.class, data);
             if (resp.getStatus() < 200 || resp.getStatus() > 399) {
@@ -657,7 +668,7 @@ public class ServiceConnection {
      * @param clientSideChecksum    [necessary] A Checksum
      * @return  A future performing the action
      */
-    public Future<DeserializedHttpResponseGen<String>> postToCreatePermanentUrlForStringAsync(MultivaluedMap data, Boolean clientSideChecksum) {
+    public CompletableFuture<DeserializedHttpResponseGen<String>> postToCreatePermanentUrlForStringAsync(MultivaluedMap data, Boolean clientSideChecksum) {
         return postToCreatePermanentUrlForStringAsync(data, clientSideChecksum, null);
     }
     
@@ -668,7 +679,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled when it didn't start
      * @return  A Future performing the Task and returning the Dialog
      */ 
-    public Future<DeserializedHttpResponseGen<Dialog>> getFromDialogForDialogAsync(String id, String fileCabinetId, DialogTypes[] dialogType, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Dialog>> getFromDialogForDialogAsync(String id, String fileCabinetId, DialogTypes[] dialogType, CancellationToken ct) {
         class Param {
 
             String id;
@@ -683,7 +694,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId, dialogType);
         URI uri = buildUri(parameters, "dialog");
-        Future<DeserializedHttpResponseGen<Dialog>> fut= LinkResolver.<Dialog>getAsync(this.getServiceDescription(), uri, "application/xml", Dialog.class);
+        CompletableFuture<DeserializedHttpResponseGen<Dialog>> fut= LinkResolver.<Dialog>getAsync(this.getServiceDescription(), uri, "application/xml", Dialog.class);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -694,7 +705,7 @@ public class ServiceConnection {
      * @param dialogType    [optional/ can be filled with null]
      * @return  A Future performing the Task and returning the Dialog
      */ 
-    public Future<DeserializedHttpResponseGen<Dialog>> getFromDialogForDialogAsync(String id, String fileCabinetId, DialogTypes[] dialogType) {
+    public CompletableFuture<DeserializedHttpResponseGen<Dialog>> getFromDialogForDialogAsync(String id, String fileCabinetId, DialogTypes[] dialogType) {
         return getFromDialogForDialogAsync(id, fileCabinetId, dialogType, null);
     }
 
@@ -707,7 +718,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled when it didn't start
      * @return  A Future performing the Task and returning the Result
      */
-    public Future<DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>> postToBatchDialogUpdateFieldsForBatchUpdateIndexFieldsResultAsync(String fileCabinetId, String id, BatchUpdateProcess data, String[] fields, String[] sortOrder, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>> postToBatchDialogUpdateFieldsForBatchUpdateIndexFieldsResultAsync(String fileCabinetId, String id, BatchUpdateProcess data, String[] fields, String[] sortOrder, CancellationToken ct) {
         class Param {
 
             String id;
@@ -724,7 +735,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(fileCabinetId, id, fields, sortOrder);
         URI uri = buildUri(parameters, "batchDialogUpdateFields");
-        Future<DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>> fut = LinkResolver.<BatchUpdateIndexFieldsResult, BatchUpdateProcess>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", BatchUpdateIndexFieldsResult.class, BatchUpdateProcess.class, "BatchUpdateProcess", data);
+        CompletableFuture<DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>> fut = LinkResolver.<BatchUpdateIndexFieldsResult, BatchUpdateProcess>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", BatchUpdateIndexFieldsResult.class, BatchUpdateProcess.class, "BatchUpdateProcess", data);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -737,7 +748,7 @@ public class ServiceConnection {
      * @param sortOrder [optional/ can be filled with null] 
      * @return  A Future performing the Task and returning the Result
      */
-    public Future<DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>> postToBatchDialogUpdateFieldsForBatchUpdateIndexFieldsResultAsync(String fileCabinetId, String id, BatchUpdateProcess data, String[] fields, String[] sortOrder) {
+    public CompletableFuture<DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>> postToBatchDialogUpdateFieldsForBatchUpdateIndexFieldsResultAsync(String fileCabinetId, String id, BatchUpdateProcess data, String[] fields, String[] sortOrder) {
         return postToBatchDialogUpdateFieldsForBatchUpdateIndexFieldsResultAsync(fileCabinetId, id, data, fields, sortOrder, null);
     }
 
@@ -747,7 +758,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled when it didn't start
      * @return  A Future performing the Task
      */
-    public Future<DeserializedHttpResponseGen<String>> deleteFromDocumentDeleteForStringAsync(int id, String fileCabinetId, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<String>> deleteFromDocumentDeleteForStringAsync(int id, String fileCabinetId, CancellationToken ct) {
         class Param {
 
             int id;
@@ -760,7 +771,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri = buildUri(parameters, "documentDelete");
-        Future<DeserializedHttpResponseGen<String>> fut= LinkResolver.deleteAsync(this.getServiceDescription(), uri, "text/plain");
+        CompletableFuture<DeserializedHttpResponseGen<String>> fut= LinkResolver.deleteAsync(this.getServiceDescription(), uri, "text/plain");
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -770,7 +781,7 @@ public class ServiceConnection {
      * @param fileCabinetId [necessary] The Id of the Filecabinet containing the Document
      * @return  A Future performing the Task
      */
-    public Future<DeserializedHttpResponseGen<String>> deleteFromDocumentDeleteForStringAsync(int id, String fileCabinetId) {
+    public CompletableFuture<DeserializedHttpResponseGen<String>> deleteFromDocumentDeleteForStringAsync(int id, String fileCabinetId) {
         return deleteFromDocumentDeleteForStringAsync(id, fileCabinetId, null);
     }
     
@@ -780,7 +791,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
      * @return  A Future performing the Task and returning the Document
      */
-    public Future<DeserializedHttpResponseGen<Document>> getFromDocumentForDocumentAsync(int id, String fileCabinetId, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> getFromDocumentForDocumentAsync(int id, String fileCabinetId, CancellationToken ct) {
         class Param {
 
             int id;
@@ -793,7 +804,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri = buildUri(parameters, "document");
-        Future<DeserializedHttpResponseGen<Document>> fut= LinkResolver.<Document>getAsync(this.getServiceDescription(), uri, "application/xml", Document.class);
+        CompletableFuture<DeserializedHttpResponseGen<Document>> fut= LinkResolver.<Document>getAsync(this.getServiceDescription(), uri, "application/xml", Document.class);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -803,7 +814,7 @@ public class ServiceConnection {
      * @param fileCabinetId [necessary] The Id of the Filecabinet containing the Document
      * @return  A Future performing the Task and returning the Document
      */
-    public Future<DeserializedHttpResponseGen<Document>> getFromDocumentForDocumentAsync(int id, String fileCabinetId) {
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> getFromDocumentForDocumentAsync(int id, String fileCabinetId) {
         return getFromDocumentForDocumentAsync(id, fileCabinetId, null);
     }
 
@@ -814,7 +825,7 @@ public class ServiceConnection {
      * @param data  [necessary] The data to post
      * @return   A Future performing the Task and returning the Document
      */
-    public Future<DeserializedHttpResponseGen<Document>> postToDocumentAppendFilesForDocumentAsync(int id, String fileCabinetId, MultiPart data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> postToDocumentAppendFilesForDocumentAsync(int id, String fileCabinetId, MultiPart data, CancellationToken ct) {
         class Param {
 
             int id;
@@ -827,7 +838,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri = buildUri(parameters, "documentAppendFiles");
-        Future<DeserializedHttpResponseGen<Document>> fut =  LinkResolver.<Document>postMultiPartAsync(this.getServiceDescription(), uri, "application/xml", Document.class, data);
+        CompletableFuture<DeserializedHttpResponseGen<Document>> fut =  LinkResolver.<Document>postMultiPartAsync(this.getServiceDescription(), uri, "application/xml", Document.class, data);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -838,7 +849,7 @@ public class ServiceConnection {
      * @param data  [necessary] The data to post
      * @return   A Future performing the Task and returning the Document
      */
-    public Future<DeserializedHttpResponseGen<Document>> postToDocumentAppendFilesForDocumentAsync(int id, String fileCabinetId, MultiPart data) {
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> postToDocumentAppendFilesForDocumentAsync(int id, String fileCabinetId, MultiPart data) {
         return postToDocumentAppendFilesForDocumentAsync( id,  fileCabinetId, data, null);
     }
 
@@ -855,7 +866,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
      * @return  A Future performing the Task and returning the DocumentsQueryResult
      */
-    public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> getFromDocumentsForDocumentsQueryResultAsync(String fileCabinetId, String q, String[] fields, String[] sortOrder, Integer start, Integer msStart, Integer count, String format, Boolean includeSuggestions, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryResult>> getFromDocumentsForDocumentsQueryResultAsync(String fileCabinetId, String q, String[] fields, String[] sortOrder, Integer start, Integer msStart, Integer count, String format, Boolean includeSuggestions, CancellationToken ct) {
         class Param {
 
             String fileCabinetId;
@@ -883,7 +894,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(fileCabinetId, q, fields, sortOrder, start, msStart, count, format, includeSuggestions);
         URI uri = buildUri(parameters, "documents");
-        Future<DeserializedHttpResponseGen<DocumentsQueryResult>> fut= LinkResolver.<DocumentsQueryResult>getAsync(this.getServiceDescription(), uri, "application/xml", DocumentsQueryResult.class);
+        CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryResult>> fut= LinkResolver.<DocumentsQueryResult>getAsync(this.getServiceDescription(), uri, "application/xml", DocumentsQueryResult.class);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -900,7 +911,7 @@ public class ServiceConnection {
      * @param start [optional/ can be filled with null]
      * @return  A Future performing the Task and returning the DocumentsQueryResult
      */
-    public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> getFromDocumentsForDocumentsQueryResultAsync(String fileCabinetId, String q, String[] fields, String[] sortOrder, Integer start, Integer msStart, Integer count, String format, Boolean includeSuggestions) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryResult>> getFromDocumentsForDocumentsQueryResultAsync(String fileCabinetId, String q, String[] fields, String[] sortOrder, Integer start, Integer msStart, Integer count, String format, Boolean includeSuggestions) {
         return getFromDocumentsForDocumentsQueryResultAsync(fileCabinetId, q, fields, sortOrder, start, msStart, count, format, includeSuggestions, null);
     }
 
@@ -915,7 +926,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
      * @return  A Future performing the Task and returning the uploaded Document
      */
-    public Future<DeserializedHttpResponseGen<Document>> postToUploadDocumentForDocumentAsync(String fileCabinetId, Document data, Boolean processTextshot, Boolean imageProcessing, String redirect, String storeDialogId, Boolean checkFileNameForCheckinInfo, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> postToUploadDocumentForDocumentAsync(String fileCabinetId, Document data, Boolean processTextshot, Boolean imageProcessing, String redirect, String storeDialogId, Boolean checkFileNameForCheckinInfo, CancellationToken ct) {
         class Param {
 
             String fileCabinetId;
@@ -937,7 +948,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(fileCabinetId, processTextshot, imageProcessing, redirect, storeDialogId, checkFileNameForCheckinInfo);
         URI uri = buildUri(parameters, "uploadDocument");
-        Future<DeserializedHttpResponseGen<Document>> fut=  LinkResolver.<Document, Document>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Document.class, Document.class, "Document", data);
+        CompletableFuture<DeserializedHttpResponseGen<Document>> fut=  LinkResolver.<Document, Document>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Document.class, Document.class, "Document", data);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -952,7 +963,7 @@ public class ServiceConnection {
      * @param checkFileNameForCheckinInfo   [optional/ can be filled with null] 
      * @return  A Future performing the Task and returning the uploaded Document
      */
-    public Future<DeserializedHttpResponseGen<Document>> postToUploadDocumentForDocumentAsync(String fileCabinetId, Document data, Boolean processTextshot, Boolean imageProcessing, String redirect, String storeDialogId, Boolean checkFileNameForCheckinInfo) {
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> postToUploadDocumentForDocumentAsync(String fileCabinetId, Document data, Boolean processTextshot, Boolean imageProcessing, String redirect, String storeDialogId, Boolean checkFileNameForCheckinInfo) {
         return postToUploadDocumentForDocumentAsync(fileCabinetId, data, processTextshot, imageProcessing, redirect, storeDialogId, checkFileNameForCheckinInfo, null);
     }
     
@@ -967,7 +978,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
      * @return  A Future performing the Task and returning the uploaded Document
      */
-    public Future<DeserializedHttpResponseGen<Document>> postToUploadDocumentForDocumentAsync(String fileCabinetId, InputStream data, Boolean processTextshot, Boolean imageProcessing, String redirect, String storeDialogId, Boolean checkFileNameForCheckinInfo, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> postToUploadDocumentForDocumentAsync(String fileCabinetId, InputStream data, Boolean processTextshot, Boolean imageProcessing, String redirect, String storeDialogId, Boolean checkFileNameForCheckinInfo, CancellationToken ct) {
         class Param {
 
             String fileCabinetId;
@@ -989,7 +1000,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(fileCabinetId, processTextshot, imageProcessing, redirect, storeDialogId, checkFileNameForCheckinInfo);
         URI uri = buildUri(parameters, "uploadDocument");
-        Future<DeserializedHttpResponseGen<Document>> fut = LinkResolver.<Document>postAsync(this.getServiceDescription(), uri, "*/*", "application/xml", Document.class, data);
+        CompletableFuture<DeserializedHttpResponseGen<Document>> fut = LinkResolver.<Document>postAsync(this.getServiceDescription(), uri, "*/*", "application/xml", Document.class, data);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -1004,7 +1015,7 @@ public class ServiceConnection {
      * @param checkFileNameForCheckinInfo   [optional/ can be filled with null] 
      * @return  A Future performing the Task and returning the uploaded Document
      */
-    public Future<DeserializedHttpResponseGen<Document>> postToUploadDocumentForDocumentAsync(String fileCabinetId, InputStream data, Boolean processTextshot, Boolean imageProcessing, String redirect, String storeDialogId, Boolean checkFileNameForCheckinInfo) {
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> postToUploadDocumentForDocumentAsync(String fileCabinetId, InputStream data, Boolean processTextshot, Boolean imageProcessing, String redirect, String storeDialogId, Boolean checkFileNameForCheckinInfo) {
         return postToUploadDocumentForDocumentAsync(fileCabinetId, data, processTextshot, imageProcessing, redirect, storeDialogId, checkFileNameForCheckinInfo, null);
     }
     
@@ -1014,7 +1025,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
      * @return  A Future performing the Task and returning the DocumentIndexFields
      */
-    public Future<DeserializedHttpResponseGen<DocumentIndexFields>> getFromDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentIndexFields>> getFromDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, CancellationToken ct) {
         class Param {
 
             int id;
@@ -1027,7 +1038,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri = buildUri(parameters, "documentIndexFields");
-        Future<DeserializedHttpResponseGen<DocumentIndexFields>> fut = LinkResolver.<DocumentIndexFields>getAsync(this.getServiceDescription(), uri, "application/xml", DocumentIndexFields.class);
+        CompletableFuture<DeserializedHttpResponseGen<DocumentIndexFields>> fut = LinkResolver.<DocumentIndexFields>getAsync(this.getServiceDescription(), uri, "application/xml", DocumentIndexFields.class);
         if(ct!=null)ct.addFuture(fut);
         return fut;
     }
@@ -1037,7 +1048,7 @@ public class ServiceConnection {
      * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
      * @return  A Future performing the Task and returning the DocumentIndexFields
      */
-    public Future<DeserializedHttpResponseGen<DocumentIndexFields>> getFromDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentIndexFields>> getFromDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId) {
         return getFromDocumentIndexFieldsForDocumentIndexFieldsAsync(id, fileCabinetId, null);
     }
 
@@ -1048,7 +1059,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
      * @return  A Future performing the Task and returning the uploaded DocumentIndexFields
      */
-    public Future<DeserializedHttpResponseGen<DocumentIndexFields>> putToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, DocumentIndexFields data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentIndexFields>> putToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, DocumentIndexFields data, CancellationToken ct) {
         class Param {
 
             int id;
@@ -1061,7 +1072,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri = buildUri(parameters, "documentIndexFields");
-        Future<DeserializedHttpResponseGen<DocumentIndexFields>> fut = LinkResolver.<DocumentIndexFields, DocumentIndexFields>putAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", DocumentIndexFields.class, DocumentIndexFields.class, "DocumentIndexFields", data);
+        CompletableFuture<DeserializedHttpResponseGen<DocumentIndexFields>> fut = LinkResolver.<DocumentIndexFields, DocumentIndexFields>putAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", DocumentIndexFields.class, DocumentIndexFields.class, "DocumentIndexFields", data);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -1072,7 +1083,7 @@ public class ServiceConnection {
      * @param data  [necessary] The DocumentIndexFields to append to the Document
      * @return  A Future performing the Task and returning the uploaded DocumentIndexFields
      */
-    public Future<DeserializedHttpResponseGen<DocumentIndexFields>> putToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, DocumentIndexFields data) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentIndexFields>> putToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, DocumentIndexFields data) {
         return putToDocumentIndexFieldsForDocumentIndexFieldsAsync(id, fileCabinetId, data, null);
     }
 
@@ -1083,7 +1094,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
      * @return  A Future performing the Task and returning the DocumentIndexFields
      */
-    public Future<DeserializedHttpResponseGen<DocumentIndexFields>> putToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, UpdateIndexFieldsInfo data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentIndexFields>> putToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, UpdateIndexFieldsInfo data, CancellationToken ct) {
         class Param {
 
             int id;
@@ -1096,7 +1107,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri = buildUri(parameters, "documentIndexFields");
-        Future<DeserializedHttpResponseGen<DocumentIndexFields>> fut = LinkResolver.<DocumentIndexFields, UpdateIndexFieldsInfo>putAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", DocumentIndexFields.class, UpdateIndexFieldsInfo.class, "UpdateIndexFieldsInfo", data);
+        CompletableFuture<DeserializedHttpResponseGen<DocumentIndexFields>> fut = LinkResolver.<DocumentIndexFields, UpdateIndexFieldsInfo>putAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", DocumentIndexFields.class, UpdateIndexFieldsInfo.class, "UpdateIndexFieldsInfo", data);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -1107,7 +1118,7 @@ public class ServiceConnection {
      * @param data  [necessary] The UpdateIndexFieldsInfo to append to the Document
      * @return  A Future performing the Task and returning the DocumentIndexFields
      */
-    public Future<DeserializedHttpResponseGen<DocumentIndexFields>> putToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, UpdateIndexFieldsInfo data) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentIndexFields>> putToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, UpdateIndexFieldsInfo data) {
         return putToDocumentIndexFieldsForDocumentIndexFieldsAsync(id, fileCabinetId, data, null);
     }
 
@@ -1118,7 +1129,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
      * @return  A Future performing the Task and returning the DocumentIndexFields
      */
-    public Future<DeserializedHttpResponseGen<DocumentIndexFields>> postToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, DocumentIndexFields data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentIndexFields>> postToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, DocumentIndexFields data, CancellationToken ct) {
         class Param {
 
             int id;
@@ -1131,7 +1142,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri  = buildUri(parameters, "documentIndexFields");
-        Future<DeserializedHttpResponseGen<DocumentIndexFields>> fut =  LinkResolver.<DocumentIndexFields, DocumentIndexFields>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", DocumentIndexFields.class, DocumentIndexFields.class, "DocumentIndexFields", data);
+        CompletableFuture<DeserializedHttpResponseGen<DocumentIndexFields>> fut =  LinkResolver.<DocumentIndexFields, DocumentIndexFields>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", DocumentIndexFields.class, DocumentIndexFields.class, "DocumentIndexFields", data);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -1142,7 +1153,7 @@ public class ServiceConnection {
      * @param data  [necessary] The DocumentIndexFields
      * @return  A Future performing the Task and returning the DocumentIndexFields
      */
-    public Future<DeserializedHttpResponseGen<DocumentIndexFields>> postToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, DocumentIndexFields data) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentIndexFields>> postToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, DocumentIndexFields data) {
         return postToDocumentIndexFieldsForDocumentIndexFieldsAsync(id, fileCabinetId, data, null);
     }
 
@@ -1153,7 +1164,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
      * @return  A Future performing the Task and returning the DocumentIndexFields
      */
-    public Future<DeserializedHttpResponseGen<DocumentIndexFields>> postToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, UpdateIndexFieldsInfo data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentIndexFields>> postToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, UpdateIndexFieldsInfo data, CancellationToken ct) {
         class Param {
 
             int id;
@@ -1166,7 +1177,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri = buildUri(parameters, "documentIndexFields");
-        Future<DeserializedHttpResponseGen<DocumentIndexFields>> fut = LinkResolver.<DocumentIndexFields, UpdateIndexFieldsInfo>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", DocumentIndexFields.class, UpdateIndexFieldsInfo.class, "UpdateIndexFieldsInfo", data);
+        CompletableFuture<DeserializedHttpResponseGen<DocumentIndexFields>> fut = LinkResolver.<DocumentIndexFields, UpdateIndexFieldsInfo>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", DocumentIndexFields.class, UpdateIndexFieldsInfo.class, "UpdateIndexFieldsInfo", data);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -1177,7 +1188,7 @@ public class ServiceConnection {
      * @param data  [necessary] The DocumentIndexFields
      * @return  A Future performing the Task and returning the DocumentIndexFields
      */
-    public Future<DeserializedHttpResponseGen<DocumentIndexFields>> postToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, UpdateIndexFieldsInfo data) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentIndexFields>> postToDocumentIndexFieldsForDocumentIndexFieldsAsync(int id, String fileCabinetId, UpdateIndexFieldsInfo data) {
         return postToDocumentIndexFieldsForDocumentIndexFieldsAsync(id,  fileCabinetId, data, null);
     }
     
@@ -1188,7 +1199,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
      * @return  A Future performing the Task and returning the SuggestionsFields
      */
-    public Future<DeserializedHttpResponseGen<SuggestionFields>> getFromIntellixSuggestionsForSuggestionFieldsAsync(int id, String fileCabinetId, Boolean normalizeCoordinates, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<SuggestionFields>> getFromIntellixSuggestionsForSuggestionFieldsAsync(int id, String fileCabinetId, Boolean normalizeCoordinates, CancellationToken ct) {
         class Param {
 
             int id;
@@ -1204,7 +1215,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId, normalizeCoordinates);
         URI uri = buildUri(parameters, "intellixSuggestions");
-        Future<DeserializedHttpResponseGen<SuggestionFields>> fut = LinkResolver.<SuggestionFields>getAsync(this.getServiceDescription(), uri, "application/xml", SuggestionFields.class);
+        CompletableFuture<DeserializedHttpResponseGen<SuggestionFields>> fut = LinkResolver.<SuggestionFields>getAsync(this.getServiceDescription(), uri, "application/xml", SuggestionFields.class);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -1215,7 +1226,7 @@ public class ServiceConnection {
      * @param normalizeCoordinates  [optional/ can be filled with null]
      * @return  A Future performing the Task and returning the SuggestionsFields
      */
-    public Future<DeserializedHttpResponseGen<SuggestionFields>> getFromIntellixSuggestionsForSuggestionFieldsAsync(int id, String fileCabinetId, Boolean normalizeCoordinates) {
+    public CompletableFuture<DeserializedHttpResponseGen<SuggestionFields>> getFromIntellixSuggestionsForSuggestionFieldsAsync(int id, String fileCabinetId, Boolean normalizeCoordinates) {
         return getFromIntellixSuggestionsForSuggestionFieldsAsync(id, fileCabinetId, normalizeCoordinates, null);
     }
     
@@ -1231,7 +1242,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
      * @return  A Future performing the Task and returning the Document as InputStream
      */
-    public Future<DeserializedHttpResponseGen<InputStream>> getFromDocumentsFileDownloadForStreamAsync(int id, String fileCabinetId, FileDownloadType targetFileType, Boolean keepAnnotations, Boolean downloadFile, Boolean autoPrint, int[] layers, int[] append, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getFromDocumentsFileDownloadForStreamAsync(int id, String fileCabinetId, FileDownloadType targetFileType, Boolean keepAnnotations, Boolean downloadFile, Boolean autoPrint, int[] layers, int[] append, CancellationToken ct) {
         class Param {
 
             int id;
@@ -1257,7 +1268,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId, targetFileType, keepAnnotations, downloadFile, autoPrint, layers, append);
         URI uri = buildUri(parameters, "documentsFileDownload");
-        Future<DeserializedHttpResponseGen<InputStream>> fut = LinkResolver.<InputStream>getAsync(this.getServiceDescription(), uri, "*/*", InputStream.class);
+        CompletableFuture<DeserializedHttpResponseGen<InputStream>> fut = LinkResolver.<InputStream>getAsync(this.getServiceDescription(), uri, "*/*", InputStream.class);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -1273,7 +1284,7 @@ public class ServiceConnection {
      * @param append    [optional/ can be filled with null]
      * @return  A Future performing the Task and returning the Document as InputStream
      */
-    public Future<DeserializedHttpResponseGen<InputStream>> getFromDocumentsFileDownloadForStreamAsync(int id, String fileCabinetId, FileDownloadType targetFileType, Boolean keepAnnotations, Boolean downloadFile, Boolean autoPrint, int[] layers, int[] append) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getFromDocumentsFileDownloadForStreamAsync(int id, String fileCabinetId, FileDownloadType targetFileType, Boolean keepAnnotations, Boolean downloadFile, Boolean autoPrint, int[] layers, int[] append) {
         return getFromDocumentsFileDownloadForStreamAsync(id, fileCabinetId, targetFileType, keepAnnotations, downloadFile, autoPrint, layers, append ,null);
     }
     
@@ -1284,7 +1295,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
      * @return  A Future performing the Task and returning the uploaded Rights
      */
-    public Future<DeserializedHttpResponseGen<Rights>> postToDocumentRightsForRightsAsync(int id, String fileCabinetId, Rights data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Rights>> postToDocumentRightsForRightsAsync(int id, String fileCabinetId, Rights data, CancellationToken ct) {
         class Param {
 
             int id;
@@ -1297,7 +1308,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri = buildUri(parameters, "documentRights");
-        Future<DeserializedHttpResponseGen<Rights>> fut= LinkResolver.<Rights, Rights>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Rights.class, Rights.class, "Rights", data);
+        CompletableFuture<DeserializedHttpResponseGen<Rights>> fut= LinkResolver.<Rights, Rights>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Rights.class, Rights.class, "Rights", data);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -1308,7 +1319,7 @@ public class ServiceConnection {
      * @param data  [necessary] The rights to be posted
      * @return  A Future performing the Task and returning the uploaded Rights
      */
-    public Future<DeserializedHttpResponseGen<Rights>> postToDocumentRightsForRightsAsync(int id, String fileCabinetId, Rights data) {
+    public CompletableFuture<DeserializedHttpResponseGen<Rights>> postToDocumentRightsForRightsAsync(int id, String fileCabinetId, Rights data) {
         return postToDocumentRightsForRightsAsync(id, fileCabinetId, data, null);
     }
    
@@ -1318,7 +1329,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
      * @return  A Future performing the Task and returning DocumentLinks
      */
-    public Future<DeserializedHttpResponseGen<DocumentLinks>> getFromDocumentDocumentLinksForDocumentLinksAsync(int id, String fileCabinetId, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentLinks>> getFromDocumentDocumentLinksForDocumentLinksAsync(int id, String fileCabinetId, CancellationToken ct) {
         class Param {
 
             int id;
@@ -1331,7 +1342,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri  = buildUri(parameters, "documentDocumentLinks");
-        Future<DeserializedHttpResponseGen<DocumentLinks>> fut = LinkResolver.<DocumentLinks>getAsync(this.getServiceDescription(), uri, "application/xml", DocumentLinks.class);
+        CompletableFuture<DeserializedHttpResponseGen<DocumentLinks>> fut = LinkResolver.<DocumentLinks>getAsync(this.getServiceDescription(), uri, "application/xml", DocumentLinks.class);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -1341,7 +1352,7 @@ public class ServiceConnection {
      * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
      * @return  A Future performing the Task and returning DocumentLinks
      */
-    public Future<DeserializedHttpResponseGen<DocumentLinks>> getFromDocumentDocumentLinksForDocumentLinksAsync(int id, String fileCabinetId) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentLinks>> getFromDocumentDocumentLinksForDocumentLinksAsync(int id, String fileCabinetId) {
         return getFromDocumentDocumentLinksForDocumentLinksAsync(id,  fileCabinetId, null);
     }
 
@@ -1352,7 +1363,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
      * @return  A Future performing the Task and returning an Inputstream
      */
-    public Future<DeserializedHttpResponseGen<InputStream>> postToCheckoutForStreamAsync(int id, String fileCabinetId, CheckOutToFileSystemInfo data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToCheckoutForStreamAsync(int id, String fileCabinetId, CheckOutToFileSystemInfo data, CancellationToken ct) {
         class Param {
 
             int id;
@@ -1365,7 +1376,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri = buildUri(parameters, "checkout");
-        Future<DeserializedHttpResponseGen<InputStream>> fut = LinkResolver.<InputStream, CheckOutToFileSystemInfo>postAsync(this.getServiceDescription(), uri, "application/xml", "*/*", InputStream.class, CheckOutToFileSystemInfo.class, "CheckOutToFileSystemInfo", data);
+        CompletableFuture<DeserializedHttpResponseGen<InputStream>> fut = LinkResolver.<InputStream, CheckOutToFileSystemInfo>postAsync(this.getServiceDescription(), uri, "application/xml", "*/*", InputStream.class, CheckOutToFileSystemInfo.class, "CheckOutToFileSystemInfo", data);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -1376,7 +1387,7 @@ public class ServiceConnection {
      * @param data  [necessary] The data
      * @return  A Future performing the Task and returning an Inputstream
      */
-    public Future<DeserializedHttpResponseGen<InputStream>> postToCheckoutForStreamAsync(int id, String fileCabinetId, CheckOutToFileSystemInfo data) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToCheckoutForStreamAsync(int id, String fileCabinetId, CheckOutToFileSystemInfo data) {
         return postToCheckoutForStreamAsync(id, fileCabinetId, data, null);
     }
     
@@ -1387,7 +1398,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
      * @return  A Future performing the Task and returning the CheckOutResult
      */
-    public Future<DeserializedHttpResponseGen<CheckOutResult>> postToCheckoutDocumentForCheckOutResultAsync(int id, String fileCabinetId, CheckOutToFileSystemInfo data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<CheckOutResult>> postToCheckoutDocumentForCheckOutResultAsync(int id, String fileCabinetId, CheckOutToFileSystemInfo data, CancellationToken ct) {
         class Param {
 
             int id;
@@ -1400,7 +1411,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri = buildUri(parameters, "checkoutDocument");
-        Future<DeserializedHttpResponseGen<CheckOutResult>> fut= LinkResolver.<CheckOutResult, CheckOutToFileSystemInfo>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", CheckOutResult.class, CheckOutToFileSystemInfo.class, "CheckOutToFileSystemInfo", data);
+        CompletableFuture<DeserializedHttpResponseGen<CheckOutResult>> fut= LinkResolver.<CheckOutResult, CheckOutToFileSystemInfo>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", CheckOutResult.class, CheckOutToFileSystemInfo.class, "CheckOutToFileSystemInfo", data);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -1411,7 +1422,7 @@ public class ServiceConnection {
      * @param data  [necessary] The CheckOutTOFileSysteInfo data
      * @return  A Future performing the Task and returning the CheckOutResult
      */
-    public Future<DeserializedHttpResponseGen<CheckOutResult>> postToCheckoutDocumentForCheckOutResultAsync(int id, String fileCabinetId, CheckOutToFileSystemInfo data) {
+    public CompletableFuture<DeserializedHttpResponseGen<CheckOutResult>> postToCheckoutDocumentForCheckOutResultAsync(int id, String fileCabinetId, CheckOutToFileSystemInfo data) {
         return postToCheckoutDocumentForCheckOutResultAsync(id, fileCabinetId, data, null);
     }
 
@@ -1422,7 +1433,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
      * @return  A Future performing the Task and returning checkin Document
      */
-    public Future<DeserializedHttpResponseGen<Document>> postToCheckinForDocumentAsync(int id, String fileCabinetId, MultiPart data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> postToCheckinForDocumentAsync(int id, String fileCabinetId, MultiPart data, CancellationToken ct) {
         class Param {
 
             int id;
@@ -1435,7 +1446,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri= buildUri(parameters, "checkin");
-        Future<DeserializedHttpResponseGen<Document>> fut = LinkResolver.<Document>postMultiPartAsync(this.getServiceDescription(), uri, "application/xml", Document.class, data);
+        CompletableFuture<DeserializedHttpResponseGen<Document>> fut = LinkResolver.<Document>postMultiPartAsync(this.getServiceDescription(), uri, "application/xml", Document.class, data);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -1446,7 +1457,7 @@ public class ServiceConnection {
      * @param data  [necessary] The data to checkin
      * @return  A Future performing the Task and returning checkin Document
      */
-    public Future<DeserializedHttpResponseGen<Document>> postToCheckinForDocumentAsync(int id, String fileCabinetId, MultiPart data) {
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> postToCheckinForDocumentAsync(int id, String fileCabinetId, MultiPart data) {
         return postToCheckinForDocumentAsync(id, fileCabinetId, data, null);
     }
     
@@ -1456,7 +1467,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
      * @return  A Future performing the Task and returning the DocumentAnnotations
      */
-    public Future<DeserializedHttpResponseGen<DocumentAnnotations>> getFromDocumentAnnotationsForDocumentAnnotationsAsync(int id, String fileCabinetId, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentAnnotations>> getFromDocumentAnnotationsForDocumentAnnotationsAsync(int id, String fileCabinetId, CancellationToken ct) {
         class Param {
 
             int id;
@@ -1469,7 +1480,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri = buildUri(parameters, "documentAnnotations");
-        Future<DeserializedHttpResponseGen<DocumentAnnotations>> fut = LinkResolver.<DocumentAnnotations>getAsync(this.getServiceDescription(), uri, "application/xml", DocumentAnnotations.class);
+        CompletableFuture<DeserializedHttpResponseGen<DocumentAnnotations>> fut = LinkResolver.<DocumentAnnotations>getAsync(this.getServiceDescription(), uri, "application/xml", DocumentAnnotations.class);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -1479,7 +1490,7 @@ public class ServiceConnection {
      * @param fileCabinetId [necessary] The id of the Filecabinet containing the Document
      * @return  A Future performing the Task and returning the DocumentAnnotations
      */
-    public Future<DeserializedHttpResponseGen<DocumentAnnotations>> getFromDocumentAnnotationsForDocumentAnnotationsAsync(int id, String fileCabinetId) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentAnnotations>> getFromDocumentAnnotationsForDocumentAnnotationsAsync(int id, String fileCabinetId) {
         return getFromDocumentAnnotationsForDocumentAnnotationsAsync(id, fileCabinetId, null);
     }
 
@@ -1490,7 +1501,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
      * @return  A Future performing the Task and returning the DocumentAnnotations
      */
-    public Future<DeserializedHttpResponseGen<DocumentAnnotations>> postToDocumentAnnotationsForDocumentAnnotationsAsync(int id, String fileCabinetId, DocumentAnnotationsPlacement data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentAnnotations>> postToDocumentAnnotationsForDocumentAnnotationsAsync(int id, String fileCabinetId, DocumentAnnotationsPlacement data, CancellationToken ct) {
         class Param {
 
             int id;
@@ -1503,7 +1514,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri = buildUri(parameters, "documentAnnotations");
-        Future<DeserializedHttpResponseGen<DocumentAnnotations>> fut = LinkResolver.<DocumentAnnotations, DocumentAnnotationsPlacement>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", DocumentAnnotations.class, DocumentAnnotationsPlacement.class, "DocumentAnnotationsPlacement", data);
+        CompletableFuture<DeserializedHttpResponseGen<DocumentAnnotations>> fut = LinkResolver.<DocumentAnnotations, DocumentAnnotationsPlacement>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", DocumentAnnotations.class, DocumentAnnotationsPlacement.class, "DocumentAnnotationsPlacement", data);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -1514,7 +1525,7 @@ public class ServiceConnection {
      * @param data  [necessary] The DocumentAnnotationsPlacement data to post
      * @return  A Future performing the Task and returning the DocumentAnnotations
      */
-    public Future<DeserializedHttpResponseGen<DocumentAnnotations>> postToDocumentAnnotationsForDocumentAnnotationsAsync(int id, String fileCabinetId, DocumentAnnotationsPlacement data) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentAnnotations>> postToDocumentAnnotationsForDocumentAnnotationsAsync(int id, String fileCabinetId, DocumentAnnotationsPlacement data) {
         return postToDocumentAnnotationsForDocumentAnnotationsAsync(id, fileCabinetId, data, null);
     }
 
@@ -1523,7 +1534,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
      * @return  A Future performing the Task and returning the FileCabinet
      */
-    public Future<DeserializedHttpResponseGen<FileCabinet>> getFromFileCabinetForFileCabinetAsync(String fileCabinetId, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<FileCabinet>> getFromFileCabinetForFileCabinetAsync(String fileCabinetId, CancellationToken ct) {
         class Param {
 
             String fileCabinetId;
@@ -1534,7 +1545,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(fileCabinetId);
         URI uri  = buildUri(parameters, "fileCabinet");
-        Future<DeserializedHttpResponseGen<FileCabinet>> fut = LinkResolver.<FileCabinet>getAsync(this.getServiceDescription(), uri, "application/xml", FileCabinet.class);
+        CompletableFuture<DeserializedHttpResponseGen<FileCabinet>> fut = LinkResolver.<FileCabinet>getAsync(this.getServiceDescription(), uri, "application/xml", FileCabinet.class);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -1543,7 +1554,7 @@ public class ServiceConnection {
      * @param fileCabinetId [necessary] The id of the Filecabinet to get
      * @return  A Future performing the Task and returning the FileCabinet
      */
-    public Future<DeserializedHttpResponseGen<FileCabinet>> getFromFileCabinetForFileCabinetAsync(String fileCabinetId) {
+    public CompletableFuture<DeserializedHttpResponseGen<FileCabinet>> getFromFileCabinetForFileCabinetAsync(String fileCabinetId) {
         return getFromFileCabinetForFileCabinetAsync(fileCabinetId, null);
     }
 
@@ -1558,7 +1569,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
      * @return  A Future performing the Task and returning the Pages
      */
-    public Future<DeserializedHttpResponseGen<Pages>> getFromPagesBlockForPagesAsync(String id, String fileCabinetId, Integer start, Integer count, Boolean embedThumbnailData, String thumbnailSize, Boolean thumbnailsOnly, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Pages>> getFromPagesBlockForPagesAsync(String id, String fileCabinetId, Integer start, Integer count, Boolean embedThumbnailData, String thumbnailSize, Boolean thumbnailsOnly, CancellationToken ct) {
         class Param {
 
             String id;
@@ -1582,7 +1593,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId, start, count, embedThumbnailData, thumbnailSize, thumbnailsOnly);
         URI uri= buildUri(parameters, "pagesBlock");
-        Future<DeserializedHttpResponseGen<Pages>> fut = LinkResolver.<Pages>getAsync(this.getServiceDescription(), uri, "application/xml", Pages.class);
+        CompletableFuture<DeserializedHttpResponseGen<Pages>> fut = LinkResolver.<Pages>getAsync(this.getServiceDescription(), uri, "application/xml", Pages.class);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -1597,7 +1608,7 @@ public class ServiceConnection {
      * @param thumbnailSize [optional/ can be filled with null]
      * @return  A Future performing the Task and returning the Pages
      */
-    public Future<DeserializedHttpResponseGen<Pages>> getFromPagesBlockForPagesAsync(String id, String fileCabinetId, Integer start, Integer count, Boolean embedThumbnailData, String thumbnailSize, Boolean thumbnailsOnly) {
+    public CompletableFuture<DeserializedHttpResponseGen<Pages>> getFromPagesBlockForPagesAsync(String id, String fileCabinetId, Integer start, Integer count, Boolean embedThumbnailData, String thumbnailSize, Boolean thumbnailsOnly) {
         return getFromPagesBlockForPagesAsync(id, fileCabinetId, start, count, embedThumbnailData, thumbnailSize, thumbnailsOnly, null);
     }
 
@@ -1608,7 +1619,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
      * @return  A Future performing the Task and returning the Annotation
      */
-    public Future<DeserializedHttpResponseGen<Annotation>> getFromAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Annotation>> getFromAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, CancellationToken ct) {
         class Param {
 
             String id;
@@ -1623,7 +1634,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId, page);
         URI uri = buildUri(parameters, "annotation");
-        Future<DeserializedHttpResponseGen<Annotation>> fut = LinkResolver.<Annotation>getAsync(this.getServiceDescription(), uri, "application/xml", Annotation.class);
+        CompletableFuture<DeserializedHttpResponseGen<Annotation>> fut = LinkResolver.<Annotation>getAsync(this.getServiceDescription(), uri, "application/xml", Annotation.class);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -1634,7 +1645,7 @@ public class ServiceConnection {
      * @param page  [necessary] The number of the page
      * @return  A Future performing the Task and returning the Annotation
      */
-    public Future<DeserializedHttpResponseGen<Annotation>> getFromAnnotationForAnnotationAsync(String id, String fileCabinetId, int page) {
+    public CompletableFuture<DeserializedHttpResponseGen<Annotation>> getFromAnnotationForAnnotationAsync(String id, String fileCabinetId, int page) {
         return getFromAnnotationForAnnotationAsync(id, fileCabinetId, page, null);
     }
     
@@ -1646,7 +1657,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
      * @return  A Future performing the Task and returning the Annotation
      */
-    public Future<DeserializedHttpResponseGen<Annotation>> putToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, Annotation data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Annotation>> putToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, Annotation data, CancellationToken ct) {
         class Param {
 
             String id;
@@ -1661,7 +1672,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId, page);
         URI uri = buildUri(parameters, "annotation");
-        Future<DeserializedHttpResponseGen<Annotation>> fut = LinkResolver.<Annotation, Annotation>putAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Annotation.class, Annotation.class, "Annotation", data);
+        CompletableFuture<DeserializedHttpResponseGen<Annotation>> fut = LinkResolver.<Annotation, Annotation>putAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Annotation.class, Annotation.class, "Annotation", data);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -1673,7 +1684,7 @@ public class ServiceConnection {
      * @param data  [necessary] The Annotation data to put
      * @return  A Future performing the Task and returning the Annotation
      */
-    public Future<DeserializedHttpResponseGen<Annotation>> putToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, Annotation data) {
+    public CompletableFuture<DeserializedHttpResponseGen<Annotation>> putToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, Annotation data) {
         return putToAnnotationForAnnotationAsync(id, fileCabinetId, page, data, null);
     }
 
@@ -1685,7 +1696,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
      * @return  A Future performing the Task and returning the Annotation
      */
-    public Future<DeserializedHttpResponseGen<Annotation>> putToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, AnnotationsPlacement data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Annotation>> putToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, AnnotationsPlacement data, CancellationToken ct) {
         class Param {
 
             String id;
@@ -1700,7 +1711,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId, page);
         URI uri = buildUri(parameters, "annotation");
-        Future<DeserializedHttpResponseGen<Annotation>> fut  = LinkResolver.<Annotation, AnnotationsPlacement>putAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Annotation.class, AnnotationsPlacement.class, "AnnotationsPlacement", data);
+        CompletableFuture<DeserializedHttpResponseGen<Annotation>> fut  = LinkResolver.<Annotation, AnnotationsPlacement>putAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Annotation.class, AnnotationsPlacement.class, "AnnotationsPlacement", data);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -1712,7 +1723,7 @@ public class ServiceConnection {
      * @param data  [necessary] The AnnotationPlacement data to put
      * @return  A Future performing the Task and returning the Annotation
      */
-    public Future<DeserializedHttpResponseGen<Annotation>> putToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, AnnotationsPlacement data) {
+    public CompletableFuture<DeserializedHttpResponseGen<Annotation>> putToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, AnnotationsPlacement data) {
         return putToAnnotationForAnnotationAsync(id, fileCabinetId, page, data, null);
     }
 
@@ -1724,7 +1735,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
      * @return  A Future performing the Task and returning the Annotation
      */
-    public Future<DeserializedHttpResponseGen<Annotation>> postToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, Annotation data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Annotation>> postToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, Annotation data, CancellationToken ct) {
         class Param {
 
             String id;
@@ -1739,7 +1750,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId, page);
         URI uri = buildUri(parameters, "annotation");
-        Future<DeserializedHttpResponseGen<Annotation>> fut= LinkResolver.<Annotation, Annotation>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Annotation.class, Annotation.class, "Annotation", data);
+        CompletableFuture<DeserializedHttpResponseGen<Annotation>> fut= LinkResolver.<Annotation, Annotation>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Annotation.class, Annotation.class, "Annotation", data);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -1751,7 +1762,7 @@ public class ServiceConnection {
      * @param data  [necessary] The Annotation data to post
      * @return  A Future performing the Task and returning the Annotation
      */
-    public Future<DeserializedHttpResponseGen<Annotation>> postToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, Annotation data) {
+    public CompletableFuture<DeserializedHttpResponseGen<Annotation>> postToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, Annotation data) {
         return postToAnnotationForAnnotationAsync(id, fileCabinetId, page, data, null);
     }
     
@@ -1763,7 +1774,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
      * @return  A Future performing the Task and returning the Annotation
      */
-    public Future<DeserializedHttpResponseGen<Annotation>> postToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, AnnotationsPlacement data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Annotation>> postToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, AnnotationsPlacement data, CancellationToken ct) {
         class Param {
 
             String id;
@@ -1778,7 +1789,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId, page);
         URI uri = buildUri(parameters, "annotation");
-        Future<DeserializedHttpResponseGen<Annotation>> fut = LinkResolver.<Annotation, AnnotationsPlacement>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Annotation.class, AnnotationsPlacement.class, "AnnotationsPlaement", data);
+        CompletableFuture<DeserializedHttpResponseGen<Annotation>> fut = LinkResolver.<Annotation, AnnotationsPlacement>postAsync(this.getServiceDescription(), uri, "application/xml", "application/xml", Annotation.class, AnnotationsPlacement.class, "AnnotationsPlaement", data);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -1790,7 +1801,7 @@ public class ServiceConnection {
      * @param data  [necessary] The AnnotationPlacement data to post
      * @return  A Future performing the Task and returning the Annotation
      */
-    public Future<DeserializedHttpResponseGen<Annotation>> postToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, AnnotationsPlacement data) {
+    public CompletableFuture<DeserializedHttpResponseGen<Annotation>> postToAnnotationForAnnotationAsync(String id, String fileCabinetId, int page, AnnotationsPlacement data) {
         return postToAnnotationForAnnotationAsync(id, fileCabinetId, page, data, null);
     }
 
@@ -1801,7 +1812,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
      * @return  A Future performing the Task and returning the JAXBElement
      */
-    Future<DeserializedHttpResponseGen<JAXBElement>> getFromClientSetupDataForXElementAsync(String orgId, String baseAddress, String clientSetupVersion, CancellationToken ct) {
+    CompletableFuture<DeserializedHttpResponseGen<JAXBElement>> getFromClientSetupDataForXElementAsync(String orgId, String baseAddress, String clientSetupVersion, CancellationToken ct) {
         class Param {
 
             String orgId;
@@ -1816,7 +1827,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(orgId, baseAddress, clientSetupVersion);
         URI uri = buildUri(parameters, "clientSetupData");
-        Future<DeserializedHttpResponseGen<JAXBElement>> fut=  LinkResolver.<JAXBElement>getAsync(this.getServiceDescription(), uri, "*/*", JAXBElement.class);
+        CompletableFuture<DeserializedHttpResponseGen<JAXBElement>> fut=  LinkResolver.<JAXBElement>getAsync(this.getServiceDescription(), uri, "*/*", JAXBElement.class);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -1827,7 +1838,7 @@ public class ServiceConnection {
      * @param clientSetupVersion    [optional/ can be replaced with null] The version of the clientSetup
      * @return  A Future performing the Task and returning the JAXBElement
      */
-    Future<DeserializedHttpResponseGen<JAXBElement>> getFromClientSetupDataForXElementAsync(String orgId, String baseAddress, String clientSetupVersion) {
+    CompletableFuture<DeserializedHttpResponseGen<JAXBElement>> getFromClientSetupDataForXElementAsync(String orgId, String baseAddress, String clientSetupVersion) {
         return getFromClientSetupDataForXElementAsync(orgId, baseAddress, clientSetupVersion, null);
     }
     
@@ -1837,7 +1848,7 @@ public class ServiceConnection {
      * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
      * @return  A Future performing the Task
      */
-    public Future<DeserializedHttpResponseGen<String>> postToValidateUserForStringAsync(String id, UserValidation data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<String>> postToValidateUserForStringAsync(String id, UserValidation data, CancellationToken ct) {
         class Param {
 
             String id;
@@ -1848,7 +1859,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id);
         URI uri = buildUri(parameters, "validateUser");
-        Future<DeserializedHttpResponseGen<String>> fut = LinkResolver.<String, UserValidation>postAsync(this.getServiceDescription(), uri, "application/xml", "text/plain", String.class, UserValidation.class, "UserValidation", data);
+        CompletableFuture<DeserializedHttpResponseGen<String>> fut = LinkResolver.<String, UserValidation>postAsync(this.getServiceDescription(), uri, "application/xml", "text/plain", String.class, UserValidation.class, "UserValidation", data);
         if(ct!=null) ct.addFuture(fut);
         return fut;
     }
@@ -1858,7 +1869,7 @@ public class ServiceConnection {
      * @param data  [necessary] The UserValidation data
      * @return  A Future performing the Task
      */
-    public Future<DeserializedHttpResponseGen<String>> postToValidateUserForStringAsync(String id, UserValidation data) {
+    public CompletableFuture<DeserializedHttpResponseGen<String>> postToValidateUserForStringAsync(String id, UserValidation data) {
         return postToValidateUserForStringAsync(id, data, null);
     }
 
@@ -1870,7 +1881,7 @@ public class ServiceConnection {
      * @param fileToCheckin [necessary] The file to check in
      * @return  A future performing the checkin and returning the document
      */
-    public Future<DeserializedHttpResponseGen<Document>> easyCheckInFromFileSystemAsync(java.io.File fileToCheckin) {
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> easyCheckInFromFileSystemAsync(java.io.File fileToCheckin) {
         return EasyCheckoutCheckinExtensionsBase.easyCheckInFromFileSystemAsync(this, FileWrapper.toFileInfoWrapper(fileToCheckin));
     }
 
@@ -1883,11 +1894,17 @@ public class ServiceConnection {
      * @param checkInParams [necessary] The check in parameters
      * @return  A future performing the checkin and returning the document
      */
-    public Future<DeserializedHttpResponseGen<Document>> easyCheckInFromFileSystemAsync(java.io.File fileToCheckin, CheckInActionParameters checkInParams) {
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> easyCheckInFromFileSystemAsync(java.io.File fileToCheckin, CheckInActionParameters checkInParams) {
         return EasyCheckoutCheckinExtensionsBase.easyCheckInFromFileSystemAsync(this, FileWrapper.toFileInfoWrapper(fileToCheckin), checkInParams);
     }
 
-    /*   public Future<DeserializedHttpResponseGen<SelectListInfo>> GetFromSelectListForSelectListInfoAsync(String id, String selectListId)
+    /**
+     * @param id    [necessary] The id
+     * @param selectListId  [necessary] The id of the selectList
+     * @param ct    [necessary] A cancellationToken through which the Future can be easily cancelled before it starts running
+     * @return  A Future performing the Task and returning the requested information
+     */
+     public CompletableFuture<DeserializedHttpResponseGen<SelectListInfo>> getFromSelectListForSelectListInfoAsync(String id, String selectListId, CancellationToken ct)
      {
      class Param{
      String id;
@@ -1898,20 +1915,21 @@ public class ServiceConnection {
      }
      }
      Param parameters = new Param(id, selectListId);
-     URI uri;
-     try {
-     uri = new URI(
-     this.getServiceDescription().getProxy().getBaseAddress().getScheme() +"://" +
-     this.getServiceDescription().getProxy().getBaseAddress().getHost()  +
-     this.createTemplateUri("selectList", parameters));
-     } catch (URISyntaxException ex) {throw new RuntimeException(ex.getCause());
+     URI uri = buildUri(parameters, "selectList");
+     CompletableFuture<DeserializedHttpResponseGen<SelectListInfo>> fut = LinkResolver.<SelectListInfo>getAsync(this.getServiceDescription(), uri, "application/xml", SelectListInfo.class);
+     if(ct!=null) ct.addFuture(fut);
+     return fut;
      }
-     return CompletableFuture.<DeserializedHttpResponseGen<SelectListInfo>>supplyAsync(()->
-     {  WebResource web= this.getServiceDescription().getProxy().getHttpClient().resource(uri);
-     ClientResponse resp= web.accept("application/xml").get(ClientResponse.class);
-     return new DeserializedHttpResponseGen<SelectListInfo>(resp, resp.getEntity(SelectListInfo.class));
-     });
-     }*/
+     
+     /**
+     * @param id    [necessary] The id
+     * @param selectListId  [necessary] The id of the selectList
+     * @return  A Future performing the Task and returning the requested information
+     */
+     public CompletableFuture<DeserializedHttpResponseGen<SelectListInfo>> getFromSelectListForSelectListInfoAsync(String id, String selectListId) {
+         return getFromSelectListForSelectListInfoAsync(id, selectListId, null);
+     }
+
     
     private URI buildUri(Object parameters, String template) {
         try {

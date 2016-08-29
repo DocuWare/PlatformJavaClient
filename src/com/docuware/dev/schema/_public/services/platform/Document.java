@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 import com.docuware.dev.schema._public.services.platform.Document;
 import java.io.InputStream;
@@ -26,6 +27,7 @@ import com.docuware.dev.schema._public.services.platform.DocumentActionInfo;
 import com.docuware.dev.schema._public.services.platform.DocumentApplicationProperties;
 import com.docuware.dev.schema._public.services.platform.DocumentLinks;
 import com.docuware.dev.schema._public.services.platform.ResultListQuery;
+import com.docuware.dev.schema._public.services.platform.CheckOutResult;
 import com.docuware.dev.schema._public.services.platform.CheckOutToFileSystemInfo;
 import com.docuware.dev.schema._public.services.platform.ExportSettings;
 import com.docuware.dev.schema._public.services.platform.DocumentAnnotations;
@@ -101,10 +103,10 @@ private HttpClientProxy proxy;//test
     protected String title;
     @XmlAttribute(name = "LastModified")
     @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar lastModified;
+    protected GregorianCalendar lastModified;
     @XmlAttribute(name = "CreatedAt")
     @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar createdAt;
+    protected GregorianCalendar createdAt;
     @XmlAttribute(name = "FileSize")
     protected Long fileSize;
     @XmlAttribute(name = "SectionCount")
@@ -230,7 +232,7 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**Contains true if all pages are known so PageCount contains exact number the pages in section. If the value is set to false there are more pagesm but at least the number set in PageCount*/
+    /**The number of pages of this section, if known. If it is unknown, this value is -1.*/
     public void setHaveMoreTotalPages(Boolean value) {
         this.haveMoreTotalPages = value;
     }
@@ -265,7 +267,6 @@ private HttpClientProxy proxy;//test
         this.hasXmlDigitalSignatures = value;
     }
 
-    /**The number of pages of this section, if known. If it is unknown, this value is -1.*/
     public int getTotalPages() {
         if (totalPages == null) {
             return  0;
@@ -274,7 +275,6 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**The number of pages of this section, if known. If it is unknown, this value is -1.*/
     public void setTotalPages(Integer value) {
         this.totalPages = value;
     }
@@ -304,22 +304,22 @@ private HttpClientProxy proxy;//test
     }
 
     /**Contains last modification date of the document*/
-    public XMLGregorianCalendar getLastModified() {
+    public GregorianCalendar getLastModified() {
         return lastModified;
     }
 
     /**Contains last modification date of the document*/
-    public void setLastModified(XMLGregorianCalendar value) {
+    public void setLastModified(GregorianCalendar value) {
         this.lastModified = value;
     }
 
     /**Contains creation date of the document*/
-    public XMLGregorianCalendar getCreatedAt() {
+    public GregorianCalendar getCreatedAt() {
         return createdAt;
     }
 
     /**Contains creation date of the document*/
-    public void setCreatedAt(XMLGregorianCalendar value) {
+    public void setCreatedAt(GregorianCalendar value) {
         this.createdAt = value;
     }
 
@@ -365,7 +365,7 @@ private HttpClientProxy proxy;//test
         this.intellixTrust = value;
     }
 
-    /**Version of a document*/
+    /**Version management status of the document*/
     public VersionManagementStatus getVersionStatus() {
         if (versionStatus == null) {
             return VersionManagementStatus.DISABLE;
@@ -374,7 +374,7 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**Version of a document*/
+    /**Version management status of the document*/
     public void setVersionStatus(VersionManagementStatus value) {
         this.versionStatus = value;
     }
@@ -487,9 +487,9 @@ private HttpClientProxy proxy;//test
 	* Appends one or more new sections to the specified document asynchronously
 	*
 	* @param file	The file
-	* @return	A future which uploads the document and returns the uploaded document's metadata.
+	* @return	A CompletableFuture which uploads the document and returns the uploaded document's metadata.
 	*/
-    public Future<DeserializedHttpResponseGen<Document>> addDocumentSectionAsync(java.io.File... file) {
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> addDocumentSectionAsync(java.io.File... file) {
 	return FileCabinetExtensionsBase.addDocumentSectionsAsync(this, FileWrapper.toFileInfoWrapper(file));
     }
 
@@ -498,9 +498,9 @@ private HttpClientProxy proxy;//test
 	* Appends one section to the specified document asynchronously
 	*
 	* @param file	The file
-	* @return	A future which uploads the document and returns the uploaded section's metadata.
+	* @return	A CompletableFuture which uploads the document and returns the uploaded section's metadata.
 	*/
-    public Future<DeserializedHttpResponseGen<Section>> uploadSectionAsync(java.io.File file) {
+    public CompletableFuture<DeserializedHttpResponseGen<Section>> uploadSectionAsync(java.io.File file) {
 	return FileCabinetExtensionsBase.uploadSectionAsync(this, FileWrapper.toFileInfoWrapper(file));
     }
 
@@ -578,36 +578,36 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Self" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<Document>> getDocumentFromSelfRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> getDocumentFromSelfRelationAsync() {
         return MethodInvocation.<Document>getAsync(this, links, "self", Document.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Self" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<Document>> getDocumentFromSelfRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> getDocumentFromSelfRelationAsync(CancellationToken ct) {
         return MethodInvocation.<Document>getAsync(this, links, "self", Document.class, ct);
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "Self".
     */
-    public Document postToSelfRelationForDocument(InputStream data, String bodyContentType) {
-        return MethodInvocation.<Document, InputStream>post(this, links, "self", Document.class, data, bodyContentType);
-    }
-
-    /**
-    * Calls the HTTP post Method on the link for the relation "Self" asynchronously.
-    */
-    public Future<DeserializedHttpResponseGen<Document>> postToSelfRelationForDocumentAsync(InputStream data, String bodyContentType) { 
-        return MethodInvocation.<Document, InputStream>postAsync(this, links, "self", Document.class, data, bodyContentType);
+    public Document postToSelfRelationForDocument(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<Document, InputStream>post(this, links, "self", Document.class, data, bodyContentType, "application/vnd.docuware.platform.document+xml");
 }
 
     /**
     * Calls the HTTP post Method on the link for the relation "Self" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<Document>> postToSelfRelationForDocumentAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
-        return MethodInvocation.<Document, InputStream>postAsync(this, links, "self", Document.class, data, bodyContentType, ct);
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> postToSelfRelationForDocumentAsync(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<Document, InputStream>postAsync(this, links, "self", Document.class, data, bodyContentType, "application/vnd.docuware.platform.document+xml");
+}
+
+    /**
+    * Calls the HTTP post Method on the link for the relation "Self" asynchronously.
+    */
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> postToSelfRelationForDocumentAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
+        return MethodInvocation.<Document, InputStream>postAsync(this, links, "self", Document.class, data, bodyContentType, "application/vnd.docuware.platform.document+xml", ct);
 }
 
     /**
@@ -620,14 +620,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Delete Method on the link for the relation "Self" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> deleteSelfRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<String>> deleteSelfRelationAsync() {
         return MethodInvocation.deleteAsync(this, links, "self");
     }
 
     /**
     * Calls the HTTP Delete Method on the link for the relation "Self" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> deleteSelfRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<String>> deleteSelfRelationAsync(CancellationToken ct) {
         return MethodInvocation.deleteAsync(this, links, "self", ct);
     }
 
@@ -644,21 +644,21 @@ private HttpClientProxy proxy;//test
     * Calls the HTTP put Method on the link for the relation "ContentDivideOperation".
     */
     public DocumentsQueryResult putToContentDivideOperationRelationForDocumentsQueryResult(ContentDivideOperationInfo data) {
-        return MethodInvocation.<DocumentsQueryResult,ContentDivideOperationInfo>put(this, links, "contentDivideOperation", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "ContentDivideOperationInfo"), ContentDivideOperationInfo.class, null, data));
+        return MethodInvocation.<DocumentsQueryResult, ContentDivideOperationInfo> put(this, links, "contentDivideOperation", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "ContentDivideOperationInfo"), ContentDivideOperationInfo.class, null, data), "application/vnd.docuware.platform.contentdivideoperationinfo+xml", "application/vnd.docuware.platform.documents+xml");
     }
 
     /**
     * Calls the HTTP put Method on the link for the relation "ContentDivideOperation" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> putToContentDivideOperationRelationForDocumentsQueryResultAsync(ContentDivideOperationInfo data) {
-        return MethodInvocation.<DocumentsQueryResult, ContentDivideOperationInfo >putAsync(this, links, "contentDivideOperation", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "ContentDivideOperationInfo"), ContentDivideOperationInfo.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryResult>> putToContentDivideOperationRelationForDocumentsQueryResultAsync(ContentDivideOperationInfo data) {
+        return MethodInvocation.<DocumentsQueryResult, ContentDivideOperationInfo >putAsync(this, links, "contentDivideOperation", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "ContentDivideOperationInfo"), ContentDivideOperationInfo.class, null, data), "application/vnd.docuware.platform.contentdivideoperationinfo+xml", "application/vnd.docuware.platform.documents+xml");
     }
 
     /**
     * Calls the HTTP put Method on the link for the relation "ContentDivideOperation" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> putToContentDivideOperationRelationForDocumentsQueryResultAsync(ContentDivideOperationInfo data, CancellationToken ct) {
-        return MethodInvocation.<DocumentsQueryResult, ContentDivideOperationInfo >putAsync(this, links, "contentDivideOperation", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "ContentDivideOperationInfo"), ContentDivideOperationInfo.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryResult>> putToContentDivideOperationRelationForDocumentsQueryResultAsync(ContentDivideOperationInfo data, CancellationToken ct) {
+        return MethodInvocation.<DocumentsQueryResult, ContentDivideOperationInfo >putAsync(this, links, "contentDivideOperation", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "ContentDivideOperationInfo"), ContentDivideOperationInfo.class, null, data), "application/vnd.docuware.platform.contentdivideoperationinfo+xml", "application/vnd.docuware.platform.documents+xml", ct);
     }
 
     /**
@@ -674,21 +674,21 @@ private HttpClientProxy proxy;//test
     * Calls the HTTP put Method on the link for the relation "ClippedDocuments".
     */
     public Document putToClippedDocumentsRelationForDocument(IntegerList data) {
-        return MethodInvocation.<Document,IntegerList>put(this, links, "clippedDocuments", Document.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "IntegerList"), IntegerList.class, null, data));
+        return MethodInvocation.<Document, IntegerList> put(this, links, "clippedDocuments", Document.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "IntegerList"), IntegerList.class, null, data), "application/vnd.docuware.platform.integerlist+xml", "application/vnd.docuware.platform.document+xml");
     }
 
     /**
     * Calls the HTTP put Method on the link for the relation "ClippedDocuments" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<Document>> putToClippedDocumentsRelationForDocumentAsync(IntegerList data) {
-        return MethodInvocation.<Document, IntegerList >putAsync(this, links, "clippedDocuments", Document.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "IntegerList"), IntegerList.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> putToClippedDocumentsRelationForDocumentAsync(IntegerList data) {
+        return MethodInvocation.<Document, IntegerList >putAsync(this, links, "clippedDocuments", Document.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "IntegerList"), IntegerList.class, null, data), "application/vnd.docuware.platform.integerlist+xml", "application/vnd.docuware.platform.document+xml");
     }
 
     /**
     * Calls the HTTP put Method on the link for the relation "ClippedDocuments" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<Document>> putToClippedDocumentsRelationForDocumentAsync(IntegerList data, CancellationToken ct) {
-        return MethodInvocation.<Document, IntegerList >putAsync(this, links, "clippedDocuments", Document.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "IntegerList"), IntegerList.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> putToClippedDocumentsRelationForDocumentAsync(IntegerList data, CancellationToken ct) {
+        return MethodInvocation.<Document, IntegerList >putAsync(this, links, "clippedDocuments", Document.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "IntegerList"), IntegerList.class, null, data), "application/vnd.docuware.platform.integerlist+xml", "application/vnd.docuware.platform.document+xml", ct);
     }
 
     /**
@@ -703,22 +703,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP put Method on the link for the relation "Unclip".
     */
-    public DocumentsQueryResult putToUnclipRelationForDocumentsQueryResult(InputStream data, String bodyContentType) {
-        return MethodInvocation.<DocumentsQueryResult, InputStream>put(this, links, "unclip", DocumentsQueryResult.class, data, bodyContentType);
-    }
-
-    /**
-    * Calls the HTTP put Method on the link for the relation "Unclip" asynchronously.
-    */
-    public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> putToUnclipRelationForDocumentsQueryResultAsync(InputStream data, String bodyContentType) { 
-        return MethodInvocation.<DocumentsQueryResult, InputStream>putAsync(this, links, "unclip", DocumentsQueryResult.class, data, bodyContentType);
+    public DocumentsQueryResult putToUnclipRelationForDocumentsQueryResult(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<DocumentsQueryResult, InputStream>put(this, links, "unclip", DocumentsQueryResult.class, data, bodyContentType, "application/vnd.docuware.platform.documents+xml");
 }
 
     /**
     * Calls the HTTP put Method on the link for the relation "Unclip" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> putToUnclipRelationForDocumentsQueryResultAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
-        return MethodInvocation.<DocumentsQueryResult, InputStream>putAsync(this, links, "unclip", DocumentsQueryResult.class, data, bodyContentType, ct);
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryResult>> putToUnclipRelationForDocumentsQueryResultAsync(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<DocumentsQueryResult, InputStream>putAsync(this, links, "unclip", DocumentsQueryResult.class, data, bodyContentType, "application/vnd.docuware.platform.documents+xml");
+}
+
+    /**
+    * Calls the HTTP put Method on the link for the relation "Unclip" asynchronously.
+    */
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryResult>> putToUnclipRelationForDocumentsQueryResultAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
+        return MethodInvocation.<DocumentsQueryResult, InputStream>putAsync(this, links, "unclip", DocumentsQueryResult.class, data, bodyContentType, "application/vnd.docuware.platform.documents+xml", ct);
 }
 
     /**
@@ -740,14 +740,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Positions" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentWordSearchResult>> getDocumentWordSearchResultFromPositionsRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentWordSearchResult>> getDocumentWordSearchResultFromPositionsRelationAsync() {
         return MethodInvocation.<DocumentWordSearchResult>getAsync(this, links, "positions", DocumentWordSearchResult.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Positions" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentWordSearchResult>> getDocumentWordSearchResultFromPositionsRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentWordSearchResult>> getDocumentWordSearchResultFromPositionsRelationAsync(CancellationToken ct) {
         return MethodInvocation.<DocumentWordSearchResult>getAsync(this, links, "positions", DocumentWordSearchResult.class, ct);
     }
 
@@ -755,21 +755,21 @@ private HttpClientProxy proxy;//test
     * Calls the HTTP post Method on the link for the relation "Positions".
     */
     public DocumentWordSearchResult postToPositionsRelationForDocumentWordSearchResult(SearchPositionQuery data) {
-        return MethodInvocation.<DocumentWordSearchResult,SearchPositionQuery>post(this, links, "positions", DocumentWordSearchResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SearchPositionQuery"), SearchPositionQuery.class, null, data));
+        return MethodInvocation.<DocumentWordSearchResult, SearchPositionQuery> post(this, links, "positions", DocumentWordSearchResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SearchPositionQuery"), SearchPositionQuery.class, null, data), "application/vnd.docuware.platform.searchpositionquery+xml", "application/vnd.docuware.platform.section.documentwordsearchresult+xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "Positions" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentWordSearchResult>> postToPositionsRelationForDocumentWordSearchResultAsync(SearchPositionQuery data) {
-        return MethodInvocation.<DocumentWordSearchResult, SearchPositionQuery >postAsync(this, links, "positions", DocumentWordSearchResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SearchPositionQuery"), SearchPositionQuery.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentWordSearchResult>> postToPositionsRelationForDocumentWordSearchResultAsync(SearchPositionQuery data) {
+        return MethodInvocation.<DocumentWordSearchResult, SearchPositionQuery >postAsync(this, links, "positions", DocumentWordSearchResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SearchPositionQuery"), SearchPositionQuery.class, null, data), "application/vnd.docuware.platform.searchpositionquery+xml", "application/vnd.docuware.platform.section.documentwordsearchresult+xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "Positions" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentWordSearchResult>> postToPositionsRelationForDocumentWordSearchResultAsync(SearchPositionQuery data, CancellationToken ct) {
-        return MethodInvocation.<DocumentWordSearchResult, SearchPositionQuery >postAsync(this, links, "positions", DocumentWordSearchResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SearchPositionQuery"), SearchPositionQuery.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentWordSearchResult>> postToPositionsRelationForDocumentWordSearchResultAsync(SearchPositionQuery data, CancellationToken ct) {
+        return MethodInvocation.<DocumentWordSearchResult, SearchPositionQuery >postAsync(this, links, "positions", DocumentWordSearchResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SearchPositionQuery"), SearchPositionQuery.class, null, data), "application/vnd.docuware.platform.searchpositionquery+xml", "application/vnd.docuware.platform.section.documentwordsearchresult+xml", ct);
     }
 
     /**
@@ -785,21 +785,21 @@ private HttpClientProxy proxy;//test
     * Calls the HTTP post Method on the link for the relation "Lock".
     */
     public String postToLockRelationForString(LockInfo data) {
-        return MethodInvocation.<String,LockInfo>post(this, links, "lock", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "LockInfo"), LockInfo.class, null, data));
+        return MethodInvocation.<String, LockInfo> post(this, links, "lock", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "LockInfo"), LockInfo.class, null, data), "application/xml", "text/plain");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "Lock" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToLockRelationForStringAsync(LockInfo data) {
-        return MethodInvocation.<String, LockInfo >postAsync(this, links, "lock", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "LockInfo"), LockInfo.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<String>> postToLockRelationForStringAsync(LockInfo data) {
+        return MethodInvocation.<String, LockInfo >postAsync(this, links, "lock", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "LockInfo"), LockInfo.class, null, data), "application/xml", "text/plain");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "Lock" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToLockRelationForStringAsync(LockInfo data, CancellationToken ct) {
-        return MethodInvocation.<String, LockInfo >postAsync(this, links, "lock", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "LockInfo"), LockInfo.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<String>> postToLockRelationForStringAsync(LockInfo data, CancellationToken ct) {
+        return MethodInvocation.<String, LockInfo >postAsync(this, links, "lock", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "LockInfo"), LockInfo.class, null, data), "application/xml", "text/plain", ct);
     }
 
     /**
@@ -812,14 +812,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Delete Method on the link for the relation "Lock" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> deleteLockRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<String>> deleteLockRelationAsync() {
         return MethodInvocation.deleteAsync(this, links, "lock");
     }
 
     /**
     * Calls the HTTP Delete Method on the link for the relation "Lock" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> deleteLockRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<String>> deleteLockRelationAsync(CancellationToken ct) {
         return MethodInvocation.deleteAsync(this, links, "lock", ct);
     }
 
@@ -842,14 +842,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Thumbnail" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromThumbnailRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromThumbnailRelationAsync() {
         return MethodInvocation.<InputStream>getAsync(this, links, "thumbnail", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Thumbnail" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromThumbnailRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromThumbnailRelationAsync(CancellationToken ct) {
         return MethodInvocation.<InputStream>getAsync(this, links, "thumbnail", InputStream.class, ct);
     }
 
@@ -872,14 +872,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "DeepZoomImage" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromDeepZoomImageRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromDeepZoomImageRelationAsync() {
         return MethodInvocation.<InputStream>getAsync(this, links, "deepZoomImage", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "DeepZoomImage" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromDeepZoomImageRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromDeepZoomImageRelationAsync(CancellationToken ct) {
         return MethodInvocation.<InputStream>getAsync(this, links, "deepZoomImage", InputStream.class, ct);
     }
 
@@ -902,14 +902,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "DeepZoomImageWithAnnotation" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromDeepZoomImageWithAnnotationRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromDeepZoomImageWithAnnotationRelationAsync() {
         return MethodInvocation.<InputStream>getAsync(this, links, "deepZoomImageWithAnnotation", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "DeepZoomImageWithAnnotation" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromDeepZoomImageWithAnnotationRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromDeepZoomImageWithAnnotationRelationAsync(CancellationToken ct) {
         return MethodInvocation.<InputStream>getAsync(this, links, "deepZoomImageWithAnnotation", InputStream.class, ct);
     }
 
@@ -932,14 +932,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "ResultListIcon" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromResultListIconRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromResultListIconRelationAsync() {
         return MethodInvocation.<InputStream>getAsync(this, links, "resultListIcon", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "ResultListIcon" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromResultListIconRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromResultListIconRelationAsync(CancellationToken ct) {
         return MethodInvocation.<InputStream>getAsync(this, links, "resultListIcon", InputStream.class, ct);
     }
 
@@ -962,14 +962,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Fields" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentIndexFields>> getDocumentIndexFieldsFromFieldsRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentIndexFields>> getDocumentIndexFieldsFromFieldsRelationAsync() {
         return MethodInvocation.<DocumentIndexFields>getAsync(this, links, "fields", DocumentIndexFields.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Fields" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentIndexFields>> getDocumentIndexFieldsFromFieldsRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentIndexFields>> getDocumentIndexFieldsFromFieldsRelationAsync(CancellationToken ct) {
         return MethodInvocation.<DocumentIndexFields>getAsync(this, links, "fields", DocumentIndexFields.class, ct);
     }
 
@@ -977,42 +977,42 @@ private HttpClientProxy proxy;//test
     * Calls the HTTP put Method on the link for the relation "Fields".
     */
     public DocumentIndexFields putToFieldsRelationForDocumentIndexFields(DocumentIndexFields data) {
-        return MethodInvocation.<DocumentIndexFields,DocumentIndexFields>put(this, links, "fields", DocumentIndexFields.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentIndexFields"), DocumentIndexFields.class, null, data));
+        return MethodInvocation.<DocumentIndexFields, DocumentIndexFields> put(this, links, "fields", DocumentIndexFields.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentIndexFields"), DocumentIndexFields.class, null, data), "application/vnd.docuware.platform.documentfields+xml", "application/vnd.docuware.platform.documentfields+xml");
     }
 
     /**
     * Calls the HTTP put Method on the link for the relation "Fields" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentIndexFields>> putToFieldsRelationForDocumentIndexFieldsAsync(DocumentIndexFields data) {
-        return MethodInvocation.<DocumentIndexFields, DocumentIndexFields >putAsync(this, links, "fields", DocumentIndexFields.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentIndexFields"), DocumentIndexFields.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentIndexFields>> putToFieldsRelationForDocumentIndexFieldsAsync(DocumentIndexFields data) {
+        return MethodInvocation.<DocumentIndexFields, DocumentIndexFields >putAsync(this, links, "fields", DocumentIndexFields.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentIndexFields"), DocumentIndexFields.class, null, data), "application/vnd.docuware.platform.documentfields+xml", "application/vnd.docuware.platform.documentfields+xml");
     }
 
     /**
     * Calls the HTTP put Method on the link for the relation "Fields" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentIndexFields>> putToFieldsRelationForDocumentIndexFieldsAsync(DocumentIndexFields data, CancellationToken ct) {
-        return MethodInvocation.<DocumentIndexFields, DocumentIndexFields >putAsync(this, links, "fields", DocumentIndexFields.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentIndexFields"), DocumentIndexFields.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentIndexFields>> putToFieldsRelationForDocumentIndexFieldsAsync(DocumentIndexFields data, CancellationToken ct) {
+        return MethodInvocation.<DocumentIndexFields, DocumentIndexFields >putAsync(this, links, "fields", DocumentIndexFields.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentIndexFields"), DocumentIndexFields.class, null, data), "application/vnd.docuware.platform.documentfields+xml", "application/vnd.docuware.platform.documentfields+xml", ct);
     }
 
     /**
     * Calls the HTTP put Method on the link for the relation "Fields".
     */
     public DocumentIndexFields putToFieldsRelationForDocumentIndexFields(UpdateIndexFieldsInfo data) {
-        return MethodInvocation.<DocumentIndexFields,UpdateIndexFieldsInfo>put(this, links, "fields", DocumentIndexFields.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "UpdateIndexFieldsInfo"), UpdateIndexFieldsInfo.class, null, data));
+        return MethodInvocation.<DocumentIndexFields, UpdateIndexFieldsInfo> put(this, links, "fields", DocumentIndexFields.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "UpdateIndexFieldsInfo"), UpdateIndexFieldsInfo.class, null, data), "application/vnd.docuware.platform.documentfieldsinfo+xml", "application/vnd.docuware.platform.documentfields+xml");
     }
 
     /**
     * Calls the HTTP put Method on the link for the relation "Fields" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentIndexFields>> putToFieldsRelationForDocumentIndexFieldsAsync(UpdateIndexFieldsInfo data) {
-        return MethodInvocation.<DocumentIndexFields, UpdateIndexFieldsInfo >putAsync(this, links, "fields", DocumentIndexFields.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "UpdateIndexFieldsInfo"), UpdateIndexFieldsInfo.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentIndexFields>> putToFieldsRelationForDocumentIndexFieldsAsync(UpdateIndexFieldsInfo data) {
+        return MethodInvocation.<DocumentIndexFields, UpdateIndexFieldsInfo >putAsync(this, links, "fields", DocumentIndexFields.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "UpdateIndexFieldsInfo"), UpdateIndexFieldsInfo.class, null, data), "application/vnd.docuware.platform.documentfieldsinfo+xml", "application/vnd.docuware.platform.documentfields+xml");
     }
 
     /**
     * Calls the HTTP put Method on the link for the relation "Fields" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentIndexFields>> putToFieldsRelationForDocumentIndexFieldsAsync(UpdateIndexFieldsInfo data, CancellationToken ct) {
-        return MethodInvocation.<DocumentIndexFields, UpdateIndexFieldsInfo >putAsync(this, links, "fields", DocumentIndexFields.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "UpdateIndexFieldsInfo"), UpdateIndexFieldsInfo.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentIndexFields>> putToFieldsRelationForDocumentIndexFieldsAsync(UpdateIndexFieldsInfo data, CancellationToken ct) {
+        return MethodInvocation.<DocumentIndexFields, UpdateIndexFieldsInfo >putAsync(this, links, "fields", DocumentIndexFields.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "UpdateIndexFieldsInfo"), UpdateIndexFieldsInfo.class, null, data), "application/vnd.docuware.platform.documentfieldsinfo+xml", "application/vnd.docuware.platform.documentfields+xml", ct);
     }
 
     /**
@@ -1034,14 +1034,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Suggestions" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<SuggestionFields>> getSuggestionFieldsFromSuggestionsRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<SuggestionFields>> getSuggestionFieldsFromSuggestionsRelationAsync() {
         return MethodInvocation.<SuggestionFields>getAsync(this, links, "suggestions", SuggestionFields.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Suggestions" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<SuggestionFields>> getSuggestionFieldsFromSuggestionsRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<SuggestionFields>> getSuggestionFieldsFromSuggestionsRelationAsync(CancellationToken ct) {
         return MethodInvocation.<SuggestionFields>getAsync(this, links, "suggestions", SuggestionFields.class, ct);
     }
 
@@ -1064,36 +1064,36 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Sections" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<Sections>> getSectionsFromSectionsRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<Sections>> getSectionsFromSectionsRelationAsync() {
         return MethodInvocation.<Sections>getAsync(this, links, "sections", Sections.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Sections" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<Sections>> getSectionsFromSectionsRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Sections>> getSectionsFromSectionsRelationAsync(CancellationToken ct) {
         return MethodInvocation.<Sections>getAsync(this, links, "sections", Sections.class, ct);
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "Sections".
     */
-    public Section postToSectionsRelationForSection(InputStream data, String bodyContentType) {
-        return MethodInvocation.<Section, InputStream>post(this, links, "sections", Section.class, data, bodyContentType);
-    }
-
-    /**
-    * Calls the HTTP post Method on the link for the relation "Sections" asynchronously.
-    */
-    public Future<DeserializedHttpResponseGen<Section>> postToSectionsRelationForSectionAsync(InputStream data, String bodyContentType) { 
-        return MethodInvocation.<Section, InputStream>postAsync(this, links, "sections", Section.class, data, bodyContentType);
+    public Section postToSectionsRelationForSection(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<Section, InputStream>post(this, links, "sections", Section.class, data, bodyContentType, "application/vnd.docuware.platform.section+xml");
 }
 
     /**
     * Calls the HTTP post Method on the link for the relation "Sections" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<Section>> postToSectionsRelationForSectionAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
-        return MethodInvocation.<Section, InputStream>postAsync(this, links, "sections", Section.class, data, bodyContentType, ct);
+    public CompletableFuture<DeserializedHttpResponseGen<Section>> postToSectionsRelationForSectionAsync(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<Section, InputStream>postAsync(this, links, "sections", Section.class, data, bodyContentType, "application/vnd.docuware.platform.section+xml");
+}
+
+    /**
+    * Calls the HTTP post Method on the link for the relation "Sections" asynchronously.
+    */
+    public CompletableFuture<DeserializedHttpResponseGen<Section>> postToSectionsRelationForSectionAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
+        return MethodInvocation.<Section, InputStream>postAsync(this, links, "sections", Section.class, data, bodyContentType, "application/vnd.docuware.platform.section+xml", ct);
 }
 
     /**
@@ -1115,36 +1115,36 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Content" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromContentRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromContentRelationAsync() {
         return MethodInvocation.<InputStream>getAsync(this, links, "content", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Content" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromContentRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromContentRelationAsync(CancellationToken ct) {
         return MethodInvocation.<InputStream>getAsync(this, links, "content", InputStream.class, ct);
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "Content".
     */
-    public String postToContentRelationForString(IntegerList data) {
-        return MethodInvocation.<String,IntegerList>post(this, links, "content", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "IntegerList"), IntegerList.class, null, data));
+    public InputStream postToContentRelationForInputStream(IntegerList data) {
+        return MethodInvocation.<InputStream, IntegerList> post(this, links, "content", InputStream.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "IntegerList"), IntegerList.class, null, data), "application/vnd.docuware.platform.integerlist+xml", "application/xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "Content" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToContentRelationForStringAsync(IntegerList data) {
-        return MethodInvocation.<String, IntegerList >postAsync(this, links, "content", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "IntegerList"), IntegerList.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToContentRelationForInputStreamAsync(IntegerList data) {
+        return MethodInvocation.<InputStream, IntegerList >postAsync(this, links, "content", InputStream.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "IntegerList"), IntegerList.class, null, data), "application/vnd.docuware.platform.integerlist+xml", "application/xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "Content" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToContentRelationForStringAsync(IntegerList data, CancellationToken ct) {
-        return MethodInvocation.<String, IntegerList >postAsync(this, links, "content", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "IntegerList"), IntegerList.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToContentRelationForInputStreamAsync(IntegerList data, CancellationToken ct) {
+        return MethodInvocation.<InputStream, IntegerList >postAsync(this, links, "content", InputStream.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "IntegerList"), IntegerList.class, null, data), "application/vnd.docuware.platform.integerlist+xml", "application/xml", ct);
     }
 
     /**
@@ -1166,36 +1166,36 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "FileDownload" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromFileDownloadRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromFileDownloadRelationAsync() {
         return MethodInvocation.<InputStream>getAsync(this, links, "fileDownload", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "FileDownload" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromFileDownloadRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromFileDownloadRelationAsync(CancellationToken ct) {
         return MethodInvocation.<InputStream>getAsync(this, links, "fileDownload", InputStream.class, ct);
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "FileDownload".
     */
-    public String postToFileDownloadRelationForString(FileDownload data) {
-        return MethodInvocation.<String,FileDownload>post(this, links, "fileDownload", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "FileDownload"), FileDownload.class, null, data));
+    public InputStream postToFileDownloadRelationForInputStream(FileDownload data) {
+        return MethodInvocation.<InputStream, FileDownload> post(this, links, "fileDownload", InputStream.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "FileDownload"), FileDownload.class, null, data), "application/xml", "application/xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "FileDownload" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToFileDownloadRelationForStringAsync(FileDownload data) {
-        return MethodInvocation.<String, FileDownload >postAsync(this, links, "fileDownload", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "FileDownload"), FileDownload.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToFileDownloadRelationForInputStreamAsync(FileDownload data) {
+        return MethodInvocation.<InputStream, FileDownload >postAsync(this, links, "fileDownload", InputStream.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "FileDownload"), FileDownload.class, null, data), "application/xml", "application/xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "FileDownload" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToFileDownloadRelationForStringAsync(FileDownload data, CancellationToken ct) {
-        return MethodInvocation.<String, FileDownload >postAsync(this, links, "fileDownload", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "FileDownload"), FileDownload.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToFileDownloadRelationForInputStreamAsync(FileDownload data, CancellationToken ct) {
+        return MethodInvocation.<InputStream, FileDownload >postAsync(this, links, "fileDownload", InputStream.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "FileDownload"), FileDownload.class, null, data), "application/xml", "application/xml", ct);
     }
 
     /**
@@ -1217,36 +1217,36 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "TextAnnotation" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromTextAnnotationRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromTextAnnotationRelationAsync() {
         return MethodInvocation.<InputStream>getAsync(this, links, "textAnnotation", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "TextAnnotation" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromTextAnnotationRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromTextAnnotationRelationAsync(CancellationToken ct) {
         return MethodInvocation.<InputStream>getAsync(this, links, "textAnnotation", InputStream.class, ct);
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "TextAnnotation".
     */
-    public String postToTextAnnotationRelationForString(InputStream data, String bodyContentType) {
-        return MethodInvocation.<String, InputStream>post(this, links, "textAnnotation", String.class, data, bodyContentType);
-    }
-
-    /**
-    * Calls the HTTP post Method on the link for the relation "TextAnnotation" asynchronously.
-    */
-    public Future<DeserializedHttpResponseGen<String>> postToTextAnnotationRelationForStringAsync(InputStream data, String bodyContentType) { 
-        return MethodInvocation.<String, InputStream>postAsync(this, links, "textAnnotation", String.class, data, bodyContentType);
+    public InputStream postToTextAnnotationRelationForInputStream(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<InputStream, InputStream>post(this, links, "textAnnotation", InputStream.class, data, bodyContentType, "application/xml");
 }
 
     /**
     * Calls the HTTP post Method on the link for the relation "TextAnnotation" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToTextAnnotationRelationForStringAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
-        return MethodInvocation.<String, InputStream>postAsync(this, links, "textAnnotation", String.class, data, bodyContentType, ct);
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToTextAnnotationRelationForInputStreamAsync(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<InputStream, InputStream>postAsync(this, links, "textAnnotation", InputStream.class, data, bodyContentType, "application/xml");
+}
+
+    /**
+    * Calls the HTTP post Method on the link for the relation "TextAnnotation" asynchronously.
+    */
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToTextAnnotationRelationForInputStreamAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
+        return MethodInvocation.<InputStream, InputStream>postAsync(this, links, "textAnnotation", InputStream.class, data, bodyContentType, "application/xml", ct);
 }
 
     /**
@@ -1268,14 +1268,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "ChecksumStatus" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromChecksumStatusRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromChecksumStatusRelationAsync() {
         return MethodInvocation.<InputStream>getAsync(this, links, "checksumStatus", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "ChecksumStatus" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromChecksumStatusRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromChecksumStatusRelationAsync(CancellationToken ct) {
         return MethodInvocation.<InputStream>getAsync(this, links, "checksumStatus", InputStream.class, ct);
     }
 
@@ -1298,14 +1298,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "XmlDSigContent" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromXmlDSigContentRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromXmlDSigContentRelationAsync() {
         return MethodInvocation.<InputStream>getAsync(this, links, "xmlDSigContent", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "XmlDSigContent" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromXmlDSigContentRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromXmlDSigContentRelationAsync(CancellationToken ct) {
         return MethodInvocation.<InputStream>getAsync(this, links, "xmlDSigContent", InputStream.class, ct);
     }
 
@@ -1321,22 +1321,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "Rights".
     */
-    public Section postToRightsRelationForSection(InputStream data, String bodyContentType) {
-        return MethodInvocation.<Section, InputStream>post(this, links, "rights", Section.class, data, bodyContentType);
-    }
-
-    /**
-    * Calls the HTTP post Method on the link for the relation "Rights" asynchronously.
-    */
-    public Future<DeserializedHttpResponseGen<Section>> postToRightsRelationForSectionAsync(InputStream data, String bodyContentType) { 
-        return MethodInvocation.<Section, InputStream>postAsync(this, links, "rights", Section.class, data, bodyContentType);
+    public Section postToRightsRelationForSection(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<Section, InputStream>post(this, links, "rights", Section.class, data, bodyContentType, "application/vnd.docuware.platform.section+xml");
 }
 
     /**
     * Calls the HTTP post Method on the link for the relation "Rights" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<Section>> postToRightsRelationForSectionAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
-        return MethodInvocation.<Section, InputStream>postAsync(this, links, "rights", Section.class, data, bodyContentType, ct);
+    public CompletableFuture<DeserializedHttpResponseGen<Section>> postToRightsRelationForSectionAsync(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<Section, InputStream>postAsync(this, links, "rights", Section.class, data, bodyContentType, "application/vnd.docuware.platform.section+xml");
+}
+
+    /**
+    * Calls the HTTP post Method on the link for the relation "Rights" asynchronously.
+    */
+    public CompletableFuture<DeserializedHttpResponseGen<Section>> postToRightsRelationForSectionAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
+        return MethodInvocation.<Section, InputStream>postAsync(this, links, "rights", Section.class, data, bodyContentType, "application/vnd.docuware.platform.section+xml", ct);
 }
 
     /**
@@ -1352,21 +1352,21 @@ private HttpClientProxy proxy;//test
     * Calls the HTTP put Method on the link for the relation "ProcessDocumentAction".
     */
     public Document putToProcessDocumentActionRelationForDocument(DocumentActionInfo data) {
-        return MethodInvocation.<Document,DocumentActionInfo>put(this, links, "processDocumentAction", Document.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentActionInfo"), DocumentActionInfo.class, null, data));
+        return MethodInvocation.<Document, DocumentActionInfo> put(this, links, "processDocumentAction", Document.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentActionInfo"), DocumentActionInfo.class, null, data), "application/xml", "application/vnd.docuware.platform.document+xml");
     }
 
     /**
     * Calls the HTTP put Method on the link for the relation "ProcessDocumentAction" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<Document>> putToProcessDocumentActionRelationForDocumentAsync(DocumentActionInfo data) {
-        return MethodInvocation.<Document, DocumentActionInfo >putAsync(this, links, "processDocumentAction", Document.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentActionInfo"), DocumentActionInfo.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> putToProcessDocumentActionRelationForDocumentAsync(DocumentActionInfo data) {
+        return MethodInvocation.<Document, DocumentActionInfo >putAsync(this, links, "processDocumentAction", Document.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentActionInfo"), DocumentActionInfo.class, null, data), "application/xml", "application/vnd.docuware.platform.document+xml");
     }
 
     /**
     * Calls the HTTP put Method on the link for the relation "ProcessDocumentAction" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<Document>> putToProcessDocumentActionRelationForDocumentAsync(DocumentActionInfo data, CancellationToken ct) {
-        return MethodInvocation.<Document, DocumentActionInfo >putAsync(this, links, "processDocumentAction", Document.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentActionInfo"), DocumentActionInfo.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> putToProcessDocumentActionRelationForDocumentAsync(DocumentActionInfo data, CancellationToken ct) {
+        return MethodInvocation.<Document, DocumentActionInfo >putAsync(this, links, "processDocumentAction", Document.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentActionInfo"), DocumentActionInfo.class, null, data), "application/xml", "application/vnd.docuware.platform.document+xml", ct);
     }
 
     /**
@@ -1388,14 +1388,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "AppProperties" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentApplicationProperties>> getDocumentApplicationPropertiesFromAppPropertiesRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentApplicationProperties>> getDocumentApplicationPropertiesFromAppPropertiesRelationAsync() {
         return MethodInvocation.<DocumentApplicationProperties>getAsync(this, links, "appProperties", DocumentApplicationProperties.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "AppProperties" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentApplicationProperties>> getDocumentApplicationPropertiesFromAppPropertiesRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentApplicationProperties>> getDocumentApplicationPropertiesFromAppPropertiesRelationAsync(CancellationToken ct) {
         return MethodInvocation.<DocumentApplicationProperties>getAsync(this, links, "appProperties", DocumentApplicationProperties.class, ct);
     }
 
@@ -1403,21 +1403,21 @@ private HttpClientProxy proxy;//test
     * Calls the HTTP post Method on the link for the relation "AppProperties".
     */
     public DocumentApplicationProperties postToAppPropertiesRelationForDocumentApplicationProperties(DocumentApplicationProperties data) {
-        return MethodInvocation.<DocumentApplicationProperties,DocumentApplicationProperties>post(this, links, "appProperties", DocumentApplicationProperties.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentApplicationProperties"), DocumentApplicationProperties.class, null, data));
+        return MethodInvocation.<DocumentApplicationProperties, DocumentApplicationProperties> post(this, links, "appProperties", DocumentApplicationProperties.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentApplicationProperties"), DocumentApplicationProperties.class, null, data), "application/vnd.docuware.platform.documentapplicationproperties+xml", "application/vnd.docuware.platform.documentapplicationproperties+xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "AppProperties" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentApplicationProperties>> postToAppPropertiesRelationForDocumentApplicationPropertiesAsync(DocumentApplicationProperties data) {
-        return MethodInvocation.<DocumentApplicationProperties, DocumentApplicationProperties >postAsync(this, links, "appProperties", DocumentApplicationProperties.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentApplicationProperties"), DocumentApplicationProperties.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentApplicationProperties>> postToAppPropertiesRelationForDocumentApplicationPropertiesAsync(DocumentApplicationProperties data) {
+        return MethodInvocation.<DocumentApplicationProperties, DocumentApplicationProperties >postAsync(this, links, "appProperties", DocumentApplicationProperties.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentApplicationProperties"), DocumentApplicationProperties.class, null, data), "application/vnd.docuware.platform.documentapplicationproperties+xml", "application/vnd.docuware.platform.documentapplicationproperties+xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "AppProperties" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentApplicationProperties>> postToAppPropertiesRelationForDocumentApplicationPropertiesAsync(DocumentApplicationProperties data, CancellationToken ct) {
-        return MethodInvocation.<DocumentApplicationProperties, DocumentApplicationProperties >postAsync(this, links, "appProperties", DocumentApplicationProperties.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentApplicationProperties"), DocumentApplicationProperties.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentApplicationProperties>> postToAppPropertiesRelationForDocumentApplicationPropertiesAsync(DocumentApplicationProperties data, CancellationToken ct) {
+        return MethodInvocation.<DocumentApplicationProperties, DocumentApplicationProperties >postAsync(this, links, "appProperties", DocumentApplicationProperties.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentApplicationProperties"), DocumentApplicationProperties.class, null, data), "application/vnd.docuware.platform.documentapplicationproperties+xml", "application/vnd.docuware.platform.documentapplicationproperties+xml", ct);
     }
 
     /**
@@ -1439,14 +1439,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "DocumentLinks" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentLinks>> getDocumentLinksFromDocumentLinksRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentLinks>> getDocumentLinksFromDocumentLinksRelationAsync() {
         return MethodInvocation.<DocumentLinks>getAsync(this, links, "documentLinks", DocumentLinks.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "DocumentLinks" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentLinks>> getDocumentLinksFromDocumentLinksRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentLinks>> getDocumentLinksFromDocumentLinksRelationAsync(CancellationToken ct) {
         return MethodInvocation.<DocumentLinks>getAsync(this, links, "documentLinks", DocumentLinks.class, ct);
     }
 
@@ -1469,14 +1469,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "LatestVersion" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<Document>> getDocumentFromLatestVersionRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> getDocumentFromLatestVersionRelationAsync() {
         return MethodInvocation.<Document>getAsync(this, links, "latestVersion", Document.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "LatestVersion" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<Document>> getDocumentFromLatestVersionRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> getDocumentFromLatestVersionRelationAsync(CancellationToken ct) {
         return MethodInvocation.<Document>getAsync(this, links, "latestVersion", Document.class, ct);
     }
 
@@ -1499,14 +1499,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "VersionHistory" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> getDocumentsQueryResultFromVersionHistoryRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryResult>> getDocumentsQueryResultFromVersionHistoryRelationAsync() {
         return MethodInvocation.<DocumentsQueryResult>getAsync(this, links, "versionHistory", DocumentsQueryResult.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "VersionHistory" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> getDocumentsQueryResultFromVersionHistoryRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryResult>> getDocumentsQueryResultFromVersionHistoryRelationAsync(CancellationToken ct) {
         return MethodInvocation.<DocumentsQueryResult>getAsync(this, links, "versionHistory", DocumentsQueryResult.class, ct);
     }
 
@@ -1514,21 +1514,21 @@ private HttpClientProxy proxy;//test
     * Calls the HTTP post Method on the link for the relation "VersionHistory".
     */
     public DocumentsQueryResult postToVersionHistoryRelationForDocumentsQueryResult(ResultListQuery data) {
-        return MethodInvocation.<DocumentsQueryResult,ResultListQuery>post(this, links, "versionHistory", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "ResultListQuery"), ResultListQuery.class, null, data));
+        return MethodInvocation.<DocumentsQueryResult, ResultListQuery> post(this, links, "versionHistory", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "ResultListQuery"), ResultListQuery.class, null, data), "application/vnd.docuware.platform.resultlistquery+xml", "application/vnd.docuware.platform.documents+xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "VersionHistory" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> postToVersionHistoryRelationForDocumentsQueryResultAsync(ResultListQuery data) {
-        return MethodInvocation.<DocumentsQueryResult, ResultListQuery >postAsync(this, links, "versionHistory", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "ResultListQuery"), ResultListQuery.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryResult>> postToVersionHistoryRelationForDocumentsQueryResultAsync(ResultListQuery data) {
+        return MethodInvocation.<DocumentsQueryResult, ResultListQuery >postAsync(this, links, "versionHistory", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "ResultListQuery"), ResultListQuery.class, null, data), "application/vnd.docuware.platform.resultlistquery+xml", "application/vnd.docuware.platform.documents+xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "VersionHistory" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentsQueryResult>> postToVersionHistoryRelationForDocumentsQueryResultAsync(ResultListQuery data, CancellationToken ct) {
-        return MethodInvocation.<DocumentsQueryResult, ResultListQuery >postAsync(this, links, "versionHistory", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "ResultListQuery"), ResultListQuery.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryResult>> postToVersionHistoryRelationForDocumentsQueryResultAsync(ResultListQuery data, CancellationToken ct) {
+        return MethodInvocation.<DocumentsQueryResult, ResultListQuery >postAsync(this, links, "versionHistory", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "ResultListQuery"), ResultListQuery.class, null, data), "application/vnd.docuware.platform.resultlistquery+xml", "application/vnd.docuware.platform.documents+xml", ct);
     }
 
     /**
@@ -1552,22 +1552,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "CheckoutDocument".
     */
-    public String postToCheckoutDocumentRelationForString(CheckOutToFileSystemInfo data) {
-        return MethodInvocation.<String,CheckOutToFileSystemInfo>post(this, links, "checkoutDocument", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "CheckOutToFileSystemInfo"), CheckOutToFileSystemInfo.class, null, data));
+    public CheckOutResult postToCheckoutDocumentRelationForCheckOutResult(CheckOutToFileSystemInfo data) {
+        return MethodInvocation.<CheckOutResult, CheckOutToFileSystemInfo> post(this, links, "checkoutDocument", CheckOutResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "CheckOutToFileSystemInfo"), CheckOutToFileSystemInfo.class, null, data), "application/xml", "application/xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "CheckoutDocument" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToCheckoutDocumentRelationForStringAsync(CheckOutToFileSystemInfo data) {
-        return MethodInvocation.<String, CheckOutToFileSystemInfo >postAsync(this, links, "checkoutDocument", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "CheckOutToFileSystemInfo"), CheckOutToFileSystemInfo.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<CheckOutResult>> postToCheckoutDocumentRelationForCheckOutResultAsync(CheckOutToFileSystemInfo data) {
+        return MethodInvocation.<CheckOutResult, CheckOutToFileSystemInfo >postAsync(this, links, "checkoutDocument", CheckOutResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "CheckOutToFileSystemInfo"), CheckOutToFileSystemInfo.class, null, data), "application/xml", "application/xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "CheckoutDocument" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToCheckoutDocumentRelationForStringAsync(CheckOutToFileSystemInfo data, CancellationToken ct) {
-        return MethodInvocation.<String, CheckOutToFileSystemInfo >postAsync(this, links, "checkoutDocument", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "CheckOutToFileSystemInfo"), CheckOutToFileSystemInfo.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<CheckOutResult>> postToCheckoutDocumentRelationForCheckOutResultAsync(CheckOutToFileSystemInfo data, CancellationToken ct) {
+        return MethodInvocation.<CheckOutResult, CheckOutToFileSystemInfo >postAsync(this, links, "checkoutDocument", CheckOutResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "CheckOutToFileSystemInfo"), CheckOutToFileSystemInfo.class, null, data), "application/xml", "application/xml", ct);
     }
 
     /**
@@ -1582,22 +1582,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "CheckoutToFileSystem".
     */
-    public String postToCheckoutToFileSystemRelationForString(CheckOutToFileSystemInfo data) {
-        return MethodInvocation.<String,CheckOutToFileSystemInfo>post(this, links, "checkoutToFileSystem", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "CheckOutToFileSystemInfo"), CheckOutToFileSystemInfo.class, null, data));
+    public InputStream postToCheckoutToFileSystemRelationForInputStream(CheckOutToFileSystemInfo data) {
+        return MethodInvocation.<InputStream, CheckOutToFileSystemInfo> post(this, links, "checkoutToFileSystem", InputStream.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "CheckOutToFileSystemInfo"), CheckOutToFileSystemInfo.class, null, data), "application/xml", "application/xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "CheckoutToFileSystem" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToCheckoutToFileSystemRelationForStringAsync(CheckOutToFileSystemInfo data) {
-        return MethodInvocation.<String, CheckOutToFileSystemInfo >postAsync(this, links, "checkoutToFileSystem", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "CheckOutToFileSystemInfo"), CheckOutToFileSystemInfo.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToCheckoutToFileSystemRelationForInputStreamAsync(CheckOutToFileSystemInfo data) {
+        return MethodInvocation.<InputStream, CheckOutToFileSystemInfo >postAsync(this, links, "checkoutToFileSystem", InputStream.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "CheckOutToFileSystemInfo"), CheckOutToFileSystemInfo.class, null, data), "application/xml", "application/xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "CheckoutToFileSystem" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToCheckoutToFileSystemRelationForStringAsync(CheckOutToFileSystemInfo data, CancellationToken ct) {
-        return MethodInvocation.<String, CheckOutToFileSystemInfo >postAsync(this, links, "checkoutToFileSystem", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "CheckOutToFileSystemInfo"), CheckOutToFileSystemInfo.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToCheckoutToFileSystemRelationForInputStreamAsync(CheckOutToFileSystemInfo data, CancellationToken ct) {
+        return MethodInvocation.<InputStream, CheckOutToFileSystemInfo >postAsync(this, links, "checkoutToFileSystem", InputStream.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "CheckOutToFileSystemInfo"), CheckOutToFileSystemInfo.class, null, data), "application/xml", "application/xml", ct);
     }
 
     /**
@@ -1612,22 +1612,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "CheckInFromFileSystem".
     */
-    public Document postToCheckInFromFileSystemRelationForDocument(InputStream data, String bodyContentType) {
-        return MethodInvocation.<Document, InputStream>post(this, links, "checkInFromFileSystem", Document.class, data, bodyContentType);
-    }
-
-    /**
-    * Calls the HTTP post Method on the link for the relation "CheckInFromFileSystem" asynchronously.
-    */
-    public Future<DeserializedHttpResponseGen<Document>> postToCheckInFromFileSystemRelationForDocumentAsync(InputStream data, String bodyContentType) { 
-        return MethodInvocation.<Document, InputStream>postAsync(this, links, "checkInFromFileSystem", Document.class, data, bodyContentType);
+    public Document postToCheckInFromFileSystemRelationForDocument(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<Document, InputStream>post(this, links, "checkInFromFileSystem", Document.class, data, bodyContentType, "application/vnd.docuware.platform.document+xml");
 }
 
     /**
     * Calls the HTTP post Method on the link for the relation "CheckInFromFileSystem" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<Document>> postToCheckInFromFileSystemRelationForDocumentAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
-        return MethodInvocation.<Document, InputStream>postAsync(this, links, "checkInFromFileSystem", Document.class, data, bodyContentType, ct);
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> postToCheckInFromFileSystemRelationForDocumentAsync(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<Document, InputStream>postAsync(this, links, "checkInFromFileSystem", Document.class, data, bodyContentType, "application/vnd.docuware.platform.document+xml");
+}
+
+    /**
+    * Calls the HTTP post Method on the link for the relation "CheckInFromFileSystem" asynchronously.
+    */
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> postToCheckInFromFileSystemRelationForDocumentAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
+        return MethodInvocation.<Document, InputStream>postAsync(this, links, "checkInFromFileSystem", Document.class, data, bodyContentType, "application/vnd.docuware.platform.document+xml", ct);
 }
 
     /**
@@ -1642,22 +1642,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "DownloadAsArchive".
     */
-    public String postToDownloadAsArchiveRelationForString(ExportSettings data) {
-        return MethodInvocation.<String,ExportSettings>post(this, links, "downloadAsArchive", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "ExportSettings"), ExportSettings.class, null, data));
+    public InputStream postToDownloadAsArchiveRelationForInputStream(ExportSettings data) {
+        return MethodInvocation.<InputStream, ExportSettings> post(this, links, "downloadAsArchive", InputStream.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "ExportSettings"), ExportSettings.class, null, data), "application/vnd.docuware.platform.exportsettings+xml", "application/xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "DownloadAsArchive" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToDownloadAsArchiveRelationForStringAsync(ExportSettings data) {
-        return MethodInvocation.<String, ExportSettings >postAsync(this, links, "downloadAsArchive", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "ExportSettings"), ExportSettings.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToDownloadAsArchiveRelationForInputStreamAsync(ExportSettings data) {
+        return MethodInvocation.<InputStream, ExportSettings >postAsync(this, links, "downloadAsArchive", InputStream.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "ExportSettings"), ExportSettings.class, null, data), "application/vnd.docuware.platform.exportsettings+xml", "application/xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "DownloadAsArchive" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToDownloadAsArchiveRelationForStringAsync(ExportSettings data, CancellationToken ct) {
-        return MethodInvocation.<String, ExportSettings >postAsync(this, links, "downloadAsArchive", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "ExportSettings"), ExportSettings.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToDownloadAsArchiveRelationForInputStreamAsync(ExportSettings data, CancellationToken ct) {
+        return MethodInvocation.<InputStream, ExportSettings >postAsync(this, links, "downloadAsArchive", InputStream.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "ExportSettings"), ExportSettings.class, null, data), "application/vnd.docuware.platform.exportsettings+xml", "application/xml", ct);
     }
 
     /**
@@ -1679,14 +1679,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Annotation" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentAnnotations>> getDocumentAnnotationsFromAnnotationRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentAnnotations>> getDocumentAnnotationsFromAnnotationRelationAsync() {
         return MethodInvocation.<DocumentAnnotations>getAsync(this, links, "annotation", DocumentAnnotations.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Annotation" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentAnnotations>> getDocumentAnnotationsFromAnnotationRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentAnnotations>> getDocumentAnnotationsFromAnnotationRelationAsync(CancellationToken ct) {
         return MethodInvocation.<DocumentAnnotations>getAsync(this, links, "annotation", DocumentAnnotations.class, ct);
     }
 
@@ -1694,21 +1694,21 @@ private HttpClientProxy proxy;//test
     * Calls the HTTP post Method on the link for the relation "Annotation".
     */
     public DocumentAnnotations postToAnnotationRelationForDocumentAnnotations(DocumentAnnotationsPlacement data) {
-        return MethodInvocation.<DocumentAnnotations,DocumentAnnotationsPlacement>post(this, links, "annotation", DocumentAnnotations.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentAnnotationsPlacement"), DocumentAnnotationsPlacement.class, null, data));
+        return MethodInvocation.<DocumentAnnotations, DocumentAnnotationsPlacement> post(this, links, "annotation", DocumentAnnotations.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentAnnotationsPlacement"), DocumentAnnotationsPlacement.class, null, data), "application/vnd.docuware.platform.documentannotationsplacement+xml", "application/vnd.docuware.platform.documentannotations+xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "Annotation" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentAnnotations>> postToAnnotationRelationForDocumentAnnotationsAsync(DocumentAnnotationsPlacement data) {
-        return MethodInvocation.<DocumentAnnotations, DocumentAnnotationsPlacement >postAsync(this, links, "annotation", DocumentAnnotations.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentAnnotationsPlacement"), DocumentAnnotationsPlacement.class, null, data));
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentAnnotations>> postToAnnotationRelationForDocumentAnnotationsAsync(DocumentAnnotationsPlacement data) {
+        return MethodInvocation.<DocumentAnnotations, DocumentAnnotationsPlacement >postAsync(this, links, "annotation", DocumentAnnotations.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentAnnotationsPlacement"), DocumentAnnotationsPlacement.class, null, data), "application/vnd.docuware.platform.documentannotationsplacement+xml", "application/vnd.docuware.platform.documentannotations+xml");
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "Annotation" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<DocumentAnnotations>> postToAnnotationRelationForDocumentAnnotationsAsync(DocumentAnnotationsPlacement data, CancellationToken ct) {
-        return MethodInvocation.<DocumentAnnotations, DocumentAnnotationsPlacement >postAsync(this, links, "annotation", DocumentAnnotations.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentAnnotationsPlacement"), DocumentAnnotationsPlacement.class, null, data), ct);
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentAnnotations>> postToAnnotationRelationForDocumentAnnotationsAsync(DocumentAnnotationsPlacement data, CancellationToken ct) {
+        return MethodInvocation.<DocumentAnnotations, DocumentAnnotationsPlacement >postAsync(this, links, "annotation", DocumentAnnotations.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentAnnotationsPlacement"), DocumentAnnotationsPlacement.class, null, data), "application/vnd.docuware.platform.documentannotationsplacement+xml", "application/vnd.docuware.platform.documentannotations+xml", ct);
     }
 
 

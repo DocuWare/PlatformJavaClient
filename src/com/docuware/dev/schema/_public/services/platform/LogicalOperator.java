@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -27,7 +28,6 @@ public class LogicalOperator  {
         return defaultOperator;
     }
 
-    /**If the option cannot be set in the dialog, the value defined here is always used for the search query*/
     public void setDefaultOperator(DialogExpressionOperation value) {
         this.defaultOperator = value;
     }
@@ -37,7 +37,6 @@ public class LogicalOperator  {
         return show;
     }
 
-    /**If this option is enabled, the option can be set in the search dialog, and users can select either the AND or OR logical operator for their search query*/
     public void setShow(boolean value) {
         this.show = value;
     }

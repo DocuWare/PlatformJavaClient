@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 import com.docuware.dev.schema._public.services.platform.Organizations;
 import java.io.InputStream;
@@ -210,14 +211,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Organizations" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<Organizations>> getOrganizationsFromOrganizationsRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<Organizations>> getOrganizationsFromOrganizationsRelationAsync() {
         return MethodInvocation.<Organizations>getAsync(this, links, "organizations", Organizations.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Organizations" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<Organizations>> getOrganizationsFromOrganizationsRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Organizations>> getOrganizationsFromOrganizationsRelationAsync(CancellationToken ct) {
         return MethodInvocation.<Organizations>getAsync(this, links, "organizations", Organizations.class, ct);
     }
 
@@ -240,36 +241,36 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Login" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromLoginRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromLoginRelationAsync() {
         return MethodInvocation.<InputStream>getAsync(this, links, "login", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Login" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromLoginRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromLoginRelationAsync(CancellationToken ct) {
         return MethodInvocation.<InputStream>getAsync(this, links, "login", InputStream.class, ct);
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "Login".
     */
-    public String postToLoginRelationForString(InputStream data, String bodyContentType) {
-        return MethodInvocation.<String, InputStream>post(this, links, "login", String.class, data, bodyContentType);
-    }
-
-    /**
-    * Calls the HTTP post Method on the link for the relation "Login" asynchronously.
-    */
-    public Future<DeserializedHttpResponseGen<String>> postToLoginRelationForStringAsync(InputStream data, String bodyContentType) { 
-        return MethodInvocation.<String, InputStream>postAsync(this, links, "login", String.class, data, bodyContentType);
+    public InputStream postToLoginRelationForInputStream(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<InputStream, InputStream>post(this, links, "login", InputStream.class, data, bodyContentType, "application/xml");
 }
 
     /**
     * Calls the HTTP post Method on the link for the relation "Login" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToLoginRelationForStringAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
-        return MethodInvocation.<String, InputStream>postAsync(this, links, "login", String.class, data, bodyContentType, ct);
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToLoginRelationForInputStreamAsync(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<InputStream, InputStream>postAsync(this, links, "login", InputStream.class, data, bodyContentType, "application/xml");
+}
+
+    /**
+    * Calls the HTTP post Method on the link for the relation "Login" asynchronously.
+    */
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToLoginRelationForInputStreamAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
+        return MethodInvocation.<InputStream, InputStream>postAsync(this, links, "login", InputStream.class, data, bodyContentType, "application/xml", ct);
 }
 
     /**
@@ -291,36 +292,36 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "GuestLogin" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromGuestLoginRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromGuestLoginRelationAsync() {
         return MethodInvocation.<InputStream>getAsync(this, links, "guestLogin", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "GuestLogin" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromGuestLoginRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromGuestLoginRelationAsync(CancellationToken ct) {
         return MethodInvocation.<InputStream>getAsync(this, links, "guestLogin", InputStream.class, ct);
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "GuestLogin".
     */
-    public String postToGuestLoginRelationForString(InputStream data, String bodyContentType) {
-        return MethodInvocation.<String, InputStream>post(this, links, "guestLogin", String.class, data, bodyContentType);
-    }
-
-    /**
-    * Calls the HTTP post Method on the link for the relation "GuestLogin" asynchronously.
-    */
-    public Future<DeserializedHttpResponseGen<String>> postToGuestLoginRelationForStringAsync(InputStream data, String bodyContentType) { 
-        return MethodInvocation.<String, InputStream>postAsync(this, links, "guestLogin", String.class, data, bodyContentType);
+    public InputStream postToGuestLoginRelationForInputStream(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<InputStream, InputStream>post(this, links, "guestLogin", InputStream.class, data, bodyContentType, "application/xml");
 }
 
     /**
     * Calls the HTTP post Method on the link for the relation "GuestLogin" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToGuestLoginRelationForStringAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
-        return MethodInvocation.<String, InputStream>postAsync(this, links, "guestLogin", String.class, data, bodyContentType, ct);
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToGuestLoginRelationForInputStreamAsync(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<InputStream, InputStream>postAsync(this, links, "guestLogin", InputStream.class, data, bodyContentType, "application/xml");
+}
+
+    /**
+    * Calls the HTTP post Method on the link for the relation "GuestLogin" asynchronously.
+    */
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToGuestLoginRelationForInputStreamAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
+        return MethodInvocation.<InputStream, InputStream>postAsync(this, links, "guestLogin", InputStream.class, data, bodyContentType, "application/xml", ct);
 }
 
     /**
@@ -342,36 +343,36 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "WindowsLogin" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromWindowsLoginRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromWindowsLoginRelationAsync() {
         return MethodInvocation.<InputStream>getAsync(this, links, "windowsLogin", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "WindowsLogin" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromWindowsLoginRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromWindowsLoginRelationAsync(CancellationToken ct) {
         return MethodInvocation.<InputStream>getAsync(this, links, "windowsLogin", InputStream.class, ct);
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "WindowsLogin".
     */
-    public String postToWindowsLoginRelationForString(InputStream data, String bodyContentType) {
-        return MethodInvocation.<String, InputStream>post(this, links, "windowsLogin", String.class, data, bodyContentType);
-    }
-
-    /**
-    * Calls the HTTP post Method on the link for the relation "WindowsLogin" asynchronously.
-    */
-    public Future<DeserializedHttpResponseGen<String>> postToWindowsLoginRelationForStringAsync(InputStream data, String bodyContentType) { 
-        return MethodInvocation.<String, InputStream>postAsync(this, links, "windowsLogin", String.class, data, bodyContentType);
+    public String postToWindowsLoginRelationForString(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<String, InputStream>post(this, links, "windowsLogin", String.class, data, bodyContentType, "text/plain");
 }
 
     /**
     * Calls the HTTP post Method on the link for the relation "WindowsLogin" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToWindowsLoginRelationForStringAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
-        return MethodInvocation.<String, InputStream>postAsync(this, links, "windowsLogin", String.class, data, bodyContentType, ct);
+    public CompletableFuture<DeserializedHttpResponseGen<String>> postToWindowsLoginRelationForStringAsync(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<String, InputStream>postAsync(this, links, "windowsLogin", String.class, data, bodyContentType, "text/plain");
+}
+
+    /**
+    * Calls the HTTP post Method on the link for the relation "WindowsLogin" asynchronously.
+    */
+    public CompletableFuture<DeserializedHttpResponseGen<String>> postToWindowsLoginRelationForStringAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
+        return MethodInvocation.<String, InputStream>postAsync(this, links, "windowsLogin", String.class, data, bodyContentType, "text/plain", ct);
 }
 
     /**
@@ -393,36 +394,36 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "ChangePassword" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromChangePasswordRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromChangePasswordRelationAsync() {
         return MethodInvocation.<InputStream>getAsync(this, links, "changePassword", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "ChangePassword" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromChangePasswordRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromChangePasswordRelationAsync(CancellationToken ct) {
         return MethodInvocation.<InputStream>getAsync(this, links, "changePassword", InputStream.class, ct);
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "ChangePassword".
     */
-    public String postToChangePasswordRelationForString(InputStream data, String bodyContentType) {
-        return MethodInvocation.<String, InputStream>post(this, links, "changePassword", String.class, data, bodyContentType);
-    }
-
-    /**
-    * Calls the HTTP post Method on the link for the relation "ChangePassword" asynchronously.
-    */
-    public Future<DeserializedHttpResponseGen<String>> postToChangePasswordRelationForStringAsync(InputStream data, String bodyContentType) { 
-        return MethodInvocation.<String, InputStream>postAsync(this, links, "changePassword", String.class, data, bodyContentType);
+    public InputStream postToChangePasswordRelationForInputStream(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<InputStream, InputStream>post(this, links, "changePassword", InputStream.class, data, bodyContentType, "application/xml");
 }
 
     /**
     * Calls the HTTP post Method on the link for the relation "ChangePassword" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToChangePasswordRelationForStringAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
-        return MethodInvocation.<String, InputStream>postAsync(this, links, "changePassword", String.class, data, bodyContentType, ct);
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToChangePasswordRelationForInputStreamAsync(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<InputStream, InputStream>postAsync(this, links, "changePassword", InputStream.class, data, bodyContentType, "application/xml");
+}
+
+    /**
+    * Calls the HTTP post Method on the link for the relation "ChangePassword" asynchronously.
+    */
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToChangePasswordRelationForInputStreamAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
+        return MethodInvocation.<InputStream, InputStream>postAsync(this, links, "changePassword", InputStream.class, data, bodyContentType, "application/xml", ct);
 }
 
     /**
@@ -444,36 +445,36 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "ResetPassword" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromResetPasswordRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromResetPasswordRelationAsync() {
         return MethodInvocation.<InputStream>getAsync(this, links, "resetPassword", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "ResetPassword" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromResetPasswordRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromResetPasswordRelationAsync(CancellationToken ct) {
         return MethodInvocation.<InputStream>getAsync(this, links, "resetPassword", InputStream.class, ct);
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "ResetPassword".
     */
-    public String postToResetPasswordRelationForString(InputStream data, String bodyContentType) {
-        return MethodInvocation.<String, InputStream>post(this, links, "resetPassword", String.class, data, bodyContentType);
-    }
-
-    /**
-    * Calls the HTTP post Method on the link for the relation "ResetPassword" asynchronously.
-    */
-    public Future<DeserializedHttpResponseGen<String>> postToResetPasswordRelationForStringAsync(InputStream data, String bodyContentType) { 
-        return MethodInvocation.<String, InputStream>postAsync(this, links, "resetPassword", String.class, data, bodyContentType);
+    public InputStream postToResetPasswordRelationForInputStream(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<InputStream, InputStream>post(this, links, "resetPassword", InputStream.class, data, bodyContentType, "application/xml");
 }
 
     /**
     * Calls the HTTP post Method on the link for the relation "ResetPassword" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToResetPasswordRelationForStringAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
-        return MethodInvocation.<String, InputStream>postAsync(this, links, "resetPassword", String.class, data, bodyContentType, ct);
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToResetPasswordRelationForInputStreamAsync(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<InputStream, InputStream>postAsync(this, links, "resetPassword", InputStream.class, data, bodyContentType, "application/xml");
+}
+
+    /**
+    * Calls the HTTP post Method on the link for the relation "ResetPassword" asynchronously.
+    */
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToResetPasswordRelationForInputStreamAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
+        return MethodInvocation.<InputStream, InputStream>postAsync(this, links, "resetPassword", InputStream.class, data, bodyContentType, "application/xml", ct);
 }
 
     /**
@@ -495,36 +496,36 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "TokenLogin" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromTokenLoginRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromTokenLoginRelationAsync() {
         return MethodInvocation.<InputStream>getAsync(this, links, "tokenLogin", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "TokenLogin" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromTokenLoginRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromTokenLoginRelationAsync(CancellationToken ct) {
         return MethodInvocation.<InputStream>getAsync(this, links, "tokenLogin", InputStream.class, ct);
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "TokenLogin".
     */
-    public String postToTokenLoginRelationForString(InputStream data, String bodyContentType) {
-        return MethodInvocation.<String, InputStream>post(this, links, "tokenLogin", String.class, data, bodyContentType);
-    }
-
-    /**
-    * Calls the HTTP post Method on the link for the relation "TokenLogin" asynchronously.
-    */
-    public Future<DeserializedHttpResponseGen<String>> postToTokenLoginRelationForStringAsync(InputStream data, String bodyContentType) { 
-        return MethodInvocation.<String, InputStream>postAsync(this, links, "tokenLogin", String.class, data, bodyContentType);
+    public InputStream postToTokenLoginRelationForInputStream(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<InputStream, InputStream>post(this, links, "tokenLogin", InputStream.class, data, bodyContentType, "application/xml");
 }
 
     /**
     * Calls the HTTP post Method on the link for the relation "TokenLogin" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToTokenLoginRelationForStringAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
-        return MethodInvocation.<String, InputStream>postAsync(this, links, "tokenLogin", String.class, data, bodyContentType, ct);
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToTokenLoginRelationForInputStreamAsync(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<InputStream, InputStream>postAsync(this, links, "tokenLogin", InputStream.class, data, bodyContentType, "application/xml");
+}
+
+    /**
+    * Calls the HTTP post Method on the link for the relation "TokenLogin" asynchronously.
+    */
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToTokenLoginRelationForInputStreamAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
+        return MethodInvocation.<InputStream, InputStream>postAsync(this, links, "tokenLogin", InputStream.class, data, bodyContentType, "application/xml", ct);
 }
 
     /**
@@ -546,36 +547,36 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "TrustedLogin" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromTrustedLoginRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromTrustedLoginRelationAsync() {
         return MethodInvocation.<InputStream>getAsync(this, links, "trustedLogin", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "TrustedLogin" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromTrustedLoginRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromTrustedLoginRelationAsync(CancellationToken ct) {
         return MethodInvocation.<InputStream>getAsync(this, links, "trustedLogin", InputStream.class, ct);
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "TrustedLogin".
     */
-    public String postToTrustedLoginRelationForString(InputStream data, String bodyContentType) {
-        return MethodInvocation.<String, InputStream>post(this, links, "trustedLogin", String.class, data, bodyContentType);
-    }
-
-    /**
-    * Calls the HTTP post Method on the link for the relation "TrustedLogin" asynchronously.
-    */
-    public Future<DeserializedHttpResponseGen<String>> postToTrustedLoginRelationForStringAsync(InputStream data, String bodyContentType) { 
-        return MethodInvocation.<String, InputStream>postAsync(this, links, "trustedLogin", String.class, data, bodyContentType);
+    public InputStream postToTrustedLoginRelationForInputStream(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<InputStream, InputStream>post(this, links, "trustedLogin", InputStream.class, data, bodyContentType, "application/xml");
 }
 
     /**
     * Calls the HTTP post Method on the link for the relation "TrustedLogin" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<String>> postToTrustedLoginRelationForStringAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
-        return MethodInvocation.<String, InputStream>postAsync(this, links, "trustedLogin", String.class, data, bodyContentType, ct);
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToTrustedLoginRelationForInputStreamAsync(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<InputStream, InputStream>postAsync(this, links, "trustedLogin", InputStream.class, data, bodyContentType, "application/xml");
+}
+
+    /**
+    * Calls the HTTP post Method on the link for the relation "TrustedLogin" asynchronously.
+    */
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToTrustedLoginRelationForInputStreamAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
+        return MethodInvocation.<InputStream, InputStream>postAsync(this, links, "trustedLogin", InputStream.class, data, bodyContentType, "application/xml", ct);
 }
 
     /**
@@ -597,14 +598,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Logout" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromLogoutRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromLogoutRelationAsync() {
         return MethodInvocation.<InputStream>getAsync(this, links, "logout", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Logout" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromLogoutRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromLogoutRelationAsync(CancellationToken ct) {
         return MethodInvocation.<InputStream>getAsync(this, links, "logout", InputStream.class, ct);
     }
 
@@ -627,14 +628,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Disconnect" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromDisconnectRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromDisconnectRelationAsync() {
         return MethodInvocation.<InputStream>getAsync(this, links, "disconnect", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Disconnect" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromDisconnectRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromDisconnectRelationAsync(CancellationToken ct) {
         return MethodInvocation.<InputStream>getAsync(this, links, "disconnect", InputStream.class, ct);
     }
 
@@ -657,14 +658,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "LoginCookie" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromLoginCookieRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromLoginCookieRelationAsync() {
         return MethodInvocation.<InputStream>getAsync(this, links, "loginCookie", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "LoginCookie" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromLoginCookieRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromLoginCookieRelationAsync(CancellationToken ct) {
         return MethodInvocation.<InputStream>getAsync(this, links, "loginCookie", InputStream.class, ct);
     }
 
@@ -687,14 +688,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "UriTemplates" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<UriTemplateDescriptions>> getUriTemplateDescriptionsFromUriTemplatesRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<UriTemplateDescriptions>> getUriTemplateDescriptionsFromUriTemplatesRelationAsync() {
         return MethodInvocation.<UriTemplateDescriptions>getAsync(this, links, "uriTemplates", UriTemplateDescriptions.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "UriTemplates" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<UriTemplateDescriptions>> getUriTemplateDescriptionsFromUriTemplatesRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<UriTemplateDescriptions>> getUriTemplateDescriptionsFromUriTemplatesRelationAsync(CancellationToken ct) {
         return MethodInvocation.<UriTemplateDescriptions>getAsync(this, links, "uriTemplates", UriTemplateDescriptions.class, ct);
     }
 
@@ -717,36 +718,36 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "AdhocRendering" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<AdhocRenderingFiles>> getAdhocRenderingFilesFromAdhocRenderingRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<AdhocRenderingFiles>> getAdhocRenderingFilesFromAdhocRenderingRelationAsync() {
         return MethodInvocation.<AdhocRenderingFiles>getAsync(this, links, "adhocRendering", AdhocRenderingFiles.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "AdhocRendering" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<AdhocRenderingFiles>> getAdhocRenderingFilesFromAdhocRenderingRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<AdhocRenderingFiles>> getAdhocRenderingFilesFromAdhocRenderingRelationAsync(CancellationToken ct) {
         return MethodInvocation.<AdhocRenderingFiles>getAsync(this, links, "adhocRendering", AdhocRenderingFiles.class, ct);
     }
 
     /**
     * Calls the HTTP post Method on the link for the relation "AdhocRendering".
     */
-    public AdhocRenderingFile postToAdhocRenderingRelationForAdhocRenderingFile(InputStream data, String bodyContentType) {
-        return MethodInvocation.<AdhocRenderingFile, InputStream>post(this, links, "adhocRendering", AdhocRenderingFile.class, data, bodyContentType);
-    }
-
-    /**
-    * Calls the HTTP post Method on the link for the relation "AdhocRendering" asynchronously.
-    */
-    public Future<DeserializedHttpResponseGen<AdhocRenderingFile>> postToAdhocRenderingRelationForAdhocRenderingFileAsync(InputStream data, String bodyContentType) { 
-        return MethodInvocation.<AdhocRenderingFile, InputStream>postAsync(this, links, "adhocRendering", AdhocRenderingFile.class, data, bodyContentType);
+    public AdhocRenderingFile postToAdhocRenderingRelationForAdhocRenderingFile(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<AdhocRenderingFile, InputStream>post(this, links, "adhocRendering", AdhocRenderingFile.class, data, bodyContentType, "application/vnd.docuware.platform.adhocrenderingfile+xml");
 }
 
     /**
     * Calls the HTTP post Method on the link for the relation "AdhocRendering" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<AdhocRenderingFile>> postToAdhocRenderingRelationForAdhocRenderingFileAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
-        return MethodInvocation.<AdhocRenderingFile, InputStream>postAsync(this, links, "adhocRendering", AdhocRenderingFile.class, data, bodyContentType, ct);
+    public CompletableFuture<DeserializedHttpResponseGen<AdhocRenderingFile>> postToAdhocRenderingRelationForAdhocRenderingFileAsync(InputStream data, String bodyContentType) { 
+        return MethodInvocation.<AdhocRenderingFile, InputStream>postAsync(this, links, "adhocRendering", AdhocRenderingFile.class, data, bodyContentType, "application/vnd.docuware.platform.adhocrenderingfile+xml");
+}
+
+    /**
+    * Calls the HTTP post Method on the link for the relation "AdhocRendering" asynchronously.
+    */
+    public CompletableFuture<DeserializedHttpResponseGen<AdhocRenderingFile>> postToAdhocRenderingRelationForAdhocRenderingFileAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
+        return MethodInvocation.<AdhocRenderingFile, InputStream>postAsync(this, links, "adhocRendering", AdhocRenderingFile.class, data, bodyContentType, "application/vnd.docuware.platform.adhocrenderingfile+xml", ct);
 }
 
     /**
@@ -768,14 +769,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "RootSchema" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromRootSchemaRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromRootSchemaRelationAsync() {
         return MethodInvocation.<InputStream>getAsync(this, links, "rootSchema", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "RootSchema" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromRootSchemaRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromRootSchemaRelationAsync(CancellationToken ct) {
         return MethodInvocation.<InputStream>getAsync(this, links, "rootSchema", InputStream.class, ct);
     }
 
@@ -798,14 +799,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Log" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<LogMessages>> getLogMessagesFromLogRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<LogMessages>> getLogMessagesFromLogRelationAsync() {
         return MethodInvocation.<LogMessages>getAsync(this, links, "log", LogMessages.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Log" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<LogMessages>> getLogMessagesFromLogRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<LogMessages>> getLogMessagesFromLogRelationAsync(CancellationToken ct) {
         return MethodInvocation.<LogMessages>getAsync(this, links, "log", LogMessages.class, ct);
     }
 
@@ -828,14 +829,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "PermanentUrl" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromPermanentUrlRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromPermanentUrlRelationAsync() {
         return MethodInvocation.<InputStream>getAsync(this, links, "permanentUrl", InputStream.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "PermanentUrl" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<InputStream>> getInputStreamFromPermanentUrlRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromPermanentUrlRelationAsync(CancellationToken ct) {
         return MethodInvocation.<InputStream>getAsync(this, links, "permanentUrl", InputStream.class, ct);
     }
 

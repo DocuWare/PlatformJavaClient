@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -36,7 +37,6 @@ public class SynchronizationSettings  implements IStringContent {
         return fieldMappings;
     }
 
-    /**Gets or sets field mappings.*/
     public void setFieldMappings(FieldMappings value) {
         this.fieldMappings = value;
     }
@@ -50,7 +50,6 @@ public class SynchronizationSettings  implements IStringContent {
         }
     }
 
-    /**Gets or sets a value indicating whether the document' system fields to be replaced.*/
     public void setSynchronizationOperation(SynchronizationOperation value) {
         this.synchronizationOperation = value;
     }
@@ -78,7 +77,6 @@ public class SynchronizationSettings  implements IStringContent {
         }
     }
 
-    /**Gets or sets a value indicating whether the document' system fields to be replaced.*/
     public void setPreserveSystemFields(Boolean value) {
         this.preserveSystemFields = value;
     }

@@ -4,7 +4,8 @@ package com.docuware.dev.schema._public.services.platform;
 
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 import com.docuware.dev.schema._public.services.platform.Notifications;
 
@@ -60,7 +61,6 @@ private HttpClientProxy proxy;//test
         }
     }
 
-    /**Gets or sets the notifications timeout im milliseconds. A positive value lets the server wait for notifications for the specified amount of time. A value of 0 means that the server should respond immediately. A value of -1 indicates that the server should define the timeout.*/
     public void setTimeout(Integer value) {
         this.timeout = value;
     }
@@ -114,14 +114,14 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Self" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<Notifications>> getNotificationsFromSelfRelationAsync() {
+    public CompletableFuture<DeserializedHttpResponseGen<Notifications>> getNotificationsFromSelfRelationAsync() {
         return MethodInvocation.<Notifications>getAsync(this, links, "self", Notifications.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Self" asynchronously.
     */
-    public Future<DeserializedHttpResponseGen<Notifications>> getNotificationsFromSelfRelationAsync(CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Notifications>> getNotificationsFromSelfRelationAsync(CancellationToken ct) {
         return MethodInvocation.<Notifications>getAsync(this, links, "self", Notifications.class, ct);
     }
 
