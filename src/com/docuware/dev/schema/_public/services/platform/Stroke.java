@@ -28,6 +28,11 @@ public class Stroke  {
     @XmlAttribute(name = "_do_not_use", required = true)
     protected boolean doNotUse;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setPoint(ArrayList<AnnotationPoint> value) {
+        point=value;
+    }
+
     /**Sequence of points that define a PloyLine.*/
     public List<AnnotationPoint> getPoint() {
         if (point == null) {

@@ -38,63 +38,63 @@ public class Extensions {
     static public DocumentIndexField create(String fieldName, String value) {
         DocumentIndexField d = new DocumentIndexField();
         d.setFieldName(fieldName);
-        d.setIntOrDecimalOrString(value);
+        d.setItem(value);
         return d;
     }
 
     public static DocumentIndexField create(String fieldName, GregorianCalendar value) {
         DocumentIndexField d = new DocumentIndexField();
         d.setFieldName(fieldName);
-        d.setIntOrDecimalOrString(value);
+        d.setItem(value);
         return d;
     }
 
     public static DocumentIndexField create(String fieldName, double value) {
         DocumentIndexField d = new DocumentIndexField();
         d.setFieldName(fieldName);
-        d.setIntOrDecimalOrString(value);
+        d.setItem(value);
         return d;
     }
 
     public static DocumentIndexField create(String fieldName, int value) {
         DocumentIndexField d = new DocumentIndexField();
         d.setFieldName(fieldName);
-        d.setIntOrDecimalOrString(value);
+        d.setItem(value);
         return d;
     }
 
     public static DocumentIndexField create(String fieldName, DocumentIndexFieldKeywords value) {
         DocumentIndexField d = new DocumentIndexField();
         d.setFieldName(fieldName);
-        d.setIntOrDecimalOrString(value);
+        d.setItem(value);
         return d;
     }
 
     public static DocumentIndexField createDate(String fieldName, GregorianCalendar value) {
         DocumentIndexField d = new DocumentIndexField();
         d.setFieldName(fieldName);
-        d.setIntOrDecimalOrString(value);
+        d.setItem(value);
         return d;
     }
 
     public static DocumentIndexField createDate(String fieldName, double value) {
         DocumentIndexField d = new DocumentIndexField();
         d.setFieldName(fieldName);
-        d.setIntOrDecimalOrString(value);
+        d.setItem(value);
         return d;
     }
 
     public static DocumentIndexField createDate(String fieldName, DocumentIndexFieldKeywords value) {
         DocumentIndexField d = new DocumentIndexField();
         d.setFieldName(fieldName);
-        d.setIntOrDecimalOrString(value);
+        d.setItem(value);
         return d;
     }
 
     public static DocumentIndexField createDate(String fieldName, int value) {
         DocumentIndexField d = new DocumentIndexField();
         d.setFieldName(fieldName);
-        d.setIntOrDecimalOrString(value);
+        d.setItem(value);
         return d;
     }
 
@@ -105,13 +105,13 @@ public class Extensions {
     public static String documentIndexFieldToString(DocumentIndexField dif) {
         StringBuilder sb = new StringBuilder(dif.getFieldName());
         sb.append(" (")
-                .append(dif.getIntOrDecimalOrString() != null ? dif.getIntOrDecimalOrString().getClass().getSimpleName() : "null")
+                .append(dif.getItem() != null ? dif.getItem().getClass().getSimpleName() : "null")
                 .append("): ");
 
         if (dif.isIsNull()) {
             sb.append("null");
         } else {
-            sb.append(dif.getIntOrDecimalOrString());
+            sb.append(dif.getItem());
         }
 
         return sb.toString();

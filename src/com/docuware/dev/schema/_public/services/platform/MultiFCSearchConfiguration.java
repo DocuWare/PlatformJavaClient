@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "MultiFCSearchConfiguration", propOrder = {
     "fcIds"
 })
+@CompareIgnore
 public class MultiFCSearchConfiguration  {
 
     @XmlElement(name = "FcIds")
@@ -33,6 +34,11 @@ public class MultiFCSearchConfiguration  {
     protected String searchDialogFCID;
     @XmlAttribute(name = "Id")
     protected String id;
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setFcIds(ArrayList<String> value) {
+        fcIds=value;
+    }
 
     @Eagle
     public List<String> getFcIds() {

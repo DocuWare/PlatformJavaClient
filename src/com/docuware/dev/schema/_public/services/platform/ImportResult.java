@@ -31,6 +31,11 @@ private HttpClientProxy proxy;//test
     @XmlElement(name = "FileChunk")
     protected UploadedFileChunk fileChunk;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setResults(ArrayList<ImportResultEntry> value) {
+        results=value;
+    }
+
     /**A list with the sequence value of the documents that are not imported.*/
     public List<ImportResultEntry> getResults() {
         if (results == null) {
@@ -55,6 +60,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The proxy
 	*/
+    @Extension
     public HttpClientProxy getProxy() {
 	return this.proxy;
     }
@@ -65,6 +71,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @param proxy	The new proxy
 	*/
+    @Extension
     public void setProxy(HttpClientProxy proxy) {
 	this.proxy = proxy;
     if ((fileChunk != null)) {

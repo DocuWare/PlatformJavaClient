@@ -36,11 +36,21 @@ public class UriInvocation  {
     @XmlSchemaType(name = "anySimpleType")
     protected String verb;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setAcceptedType(ArrayList<TypeReference> value) {
+        acceptedType=value;
+    }
+
     public List<TypeReference> getAcceptedType() {
         if (acceptedType == null) {
             acceptedType = new ArrayList<TypeReference>();
         }
         return this.acceptedType;
+    }
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setProducedType(ArrayList<TypeReference> value) {
+        producedType=value;
     }
 
     public List<TypeReference> getProducedType() {

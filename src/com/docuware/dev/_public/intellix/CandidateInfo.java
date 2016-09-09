@@ -36,6 +36,11 @@ public class CandidateInfo  {
         this.type = value;
     }
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setCandidates(ArrayList<Candidate> value) {
+        candidates=value;
+    }
+
     public List<Candidate> getCandidates() {
         if (candidates == null) {
             candidates = new ArrayList<Candidate>();

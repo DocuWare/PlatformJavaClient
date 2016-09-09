@@ -11,7 +11,7 @@ import com.sun.jersey.client.apache.ApacheHttpClientHandler;
  *
  * @author Patrick
  */
-public class ServiceConnectionTransportData {
+class ServiceConnectionTransportData {
       
     private String[] UserAgent;
 

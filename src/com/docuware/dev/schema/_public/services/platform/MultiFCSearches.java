@@ -21,12 +21,18 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "MultiFCSearches", propOrder = {
     "configurations"
 })
+@CompareIgnore
 public class MultiFCSearches  {
 
     @XmlElement(name = "Configurations")
     protected List<MultiFCSearchConfiguration> configurations;
     @XmlAttribute(name = "_ignore_me")
     protected Boolean ignoreMe;
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setConfigurations(ArrayList<MultiFCSearchConfiguration> value) {
+        configurations=value;
+    }
 
     @Eagle
     public List<MultiFCSearchConfiguration> getConfigurations() {

@@ -450,7 +450,7 @@ public class EasyFileUploadExtensionsBase {
 
     private static CompletableFuture<DeserializedHttpResponseGen<Section>> EasyReplaceFileResultAsync(String link, HttpClientProxy httpClientProxy, Section section, IFileUploadInfo file) {
         return CompletableFuture.<DeserializedHttpResponseGen<Section>>supplyAsync(() -> {
-            try (InputStream stream = file.createStream()) {
+            try (InputStream stream = file.createInputStream()) {
                 WebResource web = httpClientProxy.getHttpClient().getClient().resource(GenerateFullUrl(link, httpClientProxy));
                 ClientResponse resp = web
                         .header(HttpHeaders.CONTENT_TYPE, file.getContentType())

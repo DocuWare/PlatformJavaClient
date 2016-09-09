@@ -21,7 +21,7 @@ import com.docuware.dev.settings.common.KeyValuePairs;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "PageContent", propOrder = {
-    "textZoneOrPictureZoneOrTableZone",
+    "items",
     "barCodes",
     "metadata",
     "candidates"
@@ -34,7 +34,7 @@ public class PageContent  {
         @XmlElement(name = "TableZone", type = TableZone.class),
         @XmlElement(name = "rulerline", type = Rulerline.class)
     })
-    protected List<RectangleBase> textZoneOrPictureZoneOrTableZone;
+    protected List<RectangleBase> items;
     @XmlElement(name = "BarCodes")
     protected List<BarCodeZone> barCodes;
     protected KeyValuePairs metadata;
@@ -61,11 +61,21 @@ public class PageContent  {
     @XmlAttribute(name = "VerticalDpi", required = true)
     protected double verticalDpi;
 
-    public List<RectangleBase> getTextZoneOrPictureZoneOrTableZone() {
-        if (textZoneOrPictureZoneOrTableZone == null) {
-            textZoneOrPictureZoneOrTableZone = new ArrayList<RectangleBase>();
+    /**ArrayList is required for the XML-Marshalling */
+    public void setItems(ArrayList<RectangleBase> value) {
+        items=value;
+    }
+
+    public List<RectangleBase> getItems() {
+        if (items == null) {
+            items = new ArrayList<RectangleBase>();
         }
-        return this.textZoneOrPictureZoneOrTableZone;
+        return this.items;
+    }
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setBarCodes(ArrayList<BarCodeZone> value) {
+        barCodes=value;
     }
 
     public List<BarCodeZone> getBarCodes() {
@@ -81,6 +91,11 @@ public class PageContent  {
 
     public void setMetadata(KeyValuePairs value) {
         this.metadata = value;
+    }
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setCandidates(ArrayList<CandidateInfo> value) {
+        candidates=value;
     }
 
     public List<CandidateInfo> getCandidates() {

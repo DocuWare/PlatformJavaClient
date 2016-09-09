@@ -21,12 +21,18 @@ import javax.xml.bind.annotation.XmlType;
 "proxy",
     "item"
 })
+@CompareIgnore
 public class SubstitutionLists  implements IHttpClientProxy {
 private HttpClientProxy proxy;//test
 
 
     @XmlElement(name = "Item")
     protected List<SubstitutionList> item;
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setItem(ArrayList<SubstitutionList> value) {
+        item=value;
+    }
 
     public List<SubstitutionList> getItem() {
         if (item == null) {
@@ -41,6 +47,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The proxy
 	*/
+    @Extension
     public HttpClientProxy getProxy() {
 	return this.proxy;
     }
@@ -51,6 +58,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @param proxy	The new proxy
 	*/
+    @Extension
     public void setProxy(HttpClientProxy proxy) {
 	this.proxy = proxy;
 	if(this.item!=null) { 

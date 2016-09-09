@@ -28,6 +28,11 @@ private HttpClientProxy proxy;//test
     @XmlElement(name = "SelectLists")
     protected List<SelectListInfo> selectLists;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setSelectLists(ArrayList<SelectListInfo> value) {
+        selectLists=value;
+    }
+
     /**List of select lists information.*/
     public List<SelectListInfo> getSelectLists() {
         if (selectLists == null) {
@@ -42,6 +47,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The proxy
 	*/
+    @Extension
     public HttpClientProxy getProxy() {
 	return this.proxy;
     }
@@ -52,6 +58,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @param proxy	The new proxy
 	*/
+    @Extension
     public void setProxy(HttpClientProxy proxy) {
 	this.proxy = proxy;
 	if(this.selectLists!=null) {

@@ -33,6 +33,11 @@ public abstract class FileDownloadBase  {
     @XmlAttribute(name = "KeepAnnotations")
     protected Boolean keepAnnotations;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setLayers(ArrayList<Integer> value) {
+        layers=value;
+    }
+
     /**Specifies the annotation layers to be included in the output file.*/
     @Dolphin
     public List<Integer> getLayers() {

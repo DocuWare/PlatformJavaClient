@@ -55,6 +55,7 @@ public class SortedField  {
 	* @param sortDirection	The sort direction
 	* @return	The sort order
 	*/
+    @Extension
     public static SortedField create(String fieldName,SortDirection sortDirection) {
 	return Extensions.create(fieldName, sortDirection);
     }
@@ -66,6 +67,7 @@ public class SortedField  {
 	* @param fieldName	Name of the Field
 	* @return	The sort order
 	*/
+    @Extension
     public static SortedField create(String fieldName) {
 	return Extensions.create(fieldName);
     }

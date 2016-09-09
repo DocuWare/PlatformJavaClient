@@ -117,6 +117,11 @@ private HttpClientProxy proxy;//test
         @XmlElement(name = "Document")
         protected List<Document> document;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setDocument(ArrayList<Document> value) {
+        document=value;
+    }
+
     /**Gets information for the transfered documents (document id, new index entries, etc.). If the new index entries are empty then the original entries from the source document are used.*/
     @Eagle
         public List<Document> getDocument() {
@@ -134,6 +139,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The proxy
 	*/
+    @Extension
     public HttpClientProxy getProxy() {
 	return this.proxy;
     }
@@ -144,6 +150,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @param proxy	The new proxy
 	*/
+    @Extension
     public void setProxy(HttpClientProxy proxy) {
 	this.proxy = proxy;
 	if(this.documents!=null) {  

@@ -30,6 +30,11 @@ public class ImportResultEntry  {
     @XmlAttribute(name = "Status", required = true)
     protected ImportEntryStatus status;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setEntryVersions(ArrayList<ImportEntryVersion> value) {
+        entryVersions=value;
+    }
+
     /**A list with the sequence value of the documents that are not imported.*/
     public List<ImportEntryVersion> getEntryVersions() {
         if (entryVersions == null) {

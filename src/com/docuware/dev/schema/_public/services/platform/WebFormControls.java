@@ -25,6 +25,11 @@ public class WebFormControls  {
     @XmlElement(name = "WebFormControl", required = true)
     protected List<WebFormControl> webFormControl;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setWebFormControl(ArrayList<WebFormControl> value) {
+        webFormControl=value;
+    }
+
     public List<WebFormControl> getWebFormControl() {
         if (webFormControl == null) {
             webFormControl = new ArrayList<WebFormControl>();

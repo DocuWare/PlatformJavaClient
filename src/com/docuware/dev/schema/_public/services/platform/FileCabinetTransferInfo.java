@@ -32,6 +32,11 @@ public class FileCabinetTransferInfo  {
     @XmlAttribute(name = "FillIntellix")
     protected Boolean fillIntellix;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setSourceDocId(ArrayList<Integer> value) {
+        sourceDocId=value;
+    }
+
     /**Contains the identifiers of the documents to be copied/moved.*/
     public List<Integer> getSourceDocId() {
         if (sourceDocId == null) {

@@ -25,6 +25,11 @@ public class FormTemplates  {
     @XmlElement(name = "Template", required = true)
     protected List<FormTemplate> template;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setTemplate(ArrayList<FormTemplate> value) {
+        template=value;
+    }
+
     public List<FormTemplate> getTemplate() {
         if (template == null) {
             template = new ArrayList<FormTemplate>();

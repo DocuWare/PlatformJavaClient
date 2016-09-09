@@ -12,7 +12,7 @@ import com.sun.jersey.client.apache.ApacheHttpClientHandler;
  *
  * @author Patrick
  */
-public class ServiceConnectionTokenLoginData extends ServiceConnectionLicenseBoundData {
+class ServiceConnectionTokenLoginData extends ServiceConnectionLicenseBoundData {
 
     static ServiceConnectionTokenLoginData Create(DWProductTypes licenseType, ApacheHttpClientHandler httpClientHandler, String[] userAgent) {
         ServiceConnectionTokenLoginData sctld = new ServiceConnectionTokenLoginData();

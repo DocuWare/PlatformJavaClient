@@ -30,6 +30,11 @@ public class LinkRelation  {
     @XmlAttribute(name = "IntroducedIn")
     protected String introducedIn;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setInvoke(ArrayList<LinkInvoke> value) {
+        invoke=value;
+    }
+
     public List<LinkInvoke> getInvoke() {
         if (invoke == null) {
             invoke = new ArrayList<LinkInvoke>();

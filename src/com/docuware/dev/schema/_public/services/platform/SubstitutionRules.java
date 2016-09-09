@@ -20,10 +20,16 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "SubstitutionRules", propOrder = {
     "item"
 })
+@CompareIgnore
 public class SubstitutionRules  {
 
     @XmlElement(name = "Item")
     protected List<SubstitutionRule> item;
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setItem(ArrayList<SubstitutionRule> value) {
+        item=value;
+    }
 
     public List<SubstitutionRule> getItem() {
         if (item == null) {

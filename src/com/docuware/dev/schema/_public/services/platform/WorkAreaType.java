@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlType(name = "WorkAreaType")
 @XmlEnum
+@CompareIgnore
 public enum WorkAreaType {
 
     @XmlEnumValue("None")

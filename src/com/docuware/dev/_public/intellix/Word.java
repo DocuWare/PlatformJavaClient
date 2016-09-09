@@ -19,6 +19,10 @@ import javax.xml.bind.annotation.XmlType;
 public class Word
     extends SimpleWord
  {
+private boolean boldSpecified;//test
+
+private boolean fontSizeSpecified;//test
+
 
     @XmlAttribute(name = "bold")
     protected Boolean bold;
@@ -39,6 +43,26 @@ public class Word
 
     public void setFontSize(Integer value) {
         this.fontSize = value;
+    }
+
+    @Extension
+    public boolean isBoldSpecified() {
+	return boldSpecified;
+    }
+
+    @Extension
+    public void setBoldSpecified(boolean boldSpecified) {
+	this.boldSpecified = boldSpecified;
+    }
+
+    @Extension
+    public boolean isFontSizeSpecified() {
+	return fontSizeSpecified;
+    }
+
+    @Extension
+    public void setFontSizeSpecified(boolean fontSizeSpecified) {
+	this.fontSizeSpecified = fontSizeSpecified;
     }
 
 

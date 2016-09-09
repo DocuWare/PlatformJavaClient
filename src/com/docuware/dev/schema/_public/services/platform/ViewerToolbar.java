@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "ViewerToolbar", propOrder = {
     "controls"
 })
+@CompareIgnore
 public class ViewerToolbar  {
 
     @XmlElement(name = "Controls")
@@ -73,6 +74,11 @@ public class ViewerToolbar  {
 
         @XmlElement(name = "ToolbarControl")
         protected List<ViewerToolbarControl> toolbarControl;
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setToolbarControl(ArrayList<ViewerToolbarControl> value) {
+        toolbarControl=value;
+    }
 
         public List<ViewerToolbarControl> getToolbarControl() {
             if (toolbarControl == null) {

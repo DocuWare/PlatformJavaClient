@@ -28,6 +28,11 @@ private HttpClientProxy proxy;//test
     @XmlElement(name = "Section")
     protected List<Section> section;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setSection(ArrayList<Section> value) {
+        section=value;
+    }
+
     /**Specific section of a document*/
     public List<Section> getSection() {
         if (section == null) {
@@ -42,6 +47,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The proxy
 	*/
+    @Extension
     public HttpClientProxy getProxy() { 
 	return this.proxy; 
     }
@@ -52,6 +58,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @param proxy	The new proxy
 	*/
+    @Extension
     public void setProxy(HttpClientProxy proxy) {
 	this.proxy = proxy; 
 	if(this.section != null) { 

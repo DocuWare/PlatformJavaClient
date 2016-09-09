@@ -25,6 +25,11 @@ public class FieldMappings  {
     @XmlElement(name = "Mapping")
     protected List<FieldMapping> mapping;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setMapping(ArrayList<FieldMapping> value) {
+        mapping=value;
+    }
+
     /**Gets or sets field mappings.*/
     public List<FieldMapping> getMapping() {
         if (mapping == null) {

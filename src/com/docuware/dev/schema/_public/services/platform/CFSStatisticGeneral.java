@@ -35,6 +35,11 @@ public class CFSStatisticGeneral  {
     @XmlSchemaType(name = "dateTime")
     protected GregorianCalendar createdAt;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setStatisticSpecific(ArrayList<CFSStatisticSpecific> value) {
+        statisticSpecific=value;
+    }
+
     public List<CFSStatisticSpecific> getStatisticSpecific() {
         if (statisticSpecific == null) {
             statisticSpecific = new ArrayList<CFSStatisticSpecific>();

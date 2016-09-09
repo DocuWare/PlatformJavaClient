@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "BasketAreaPreferences")
+@CompareIgnore
 public class BasketAreaPreferences
     extends ContentAreaPreferences
  {

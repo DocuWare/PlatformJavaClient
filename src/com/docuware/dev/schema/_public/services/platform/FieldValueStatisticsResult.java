@@ -25,6 +25,11 @@ public class FieldValueStatisticsResult  {
     @XmlElement(name = "Item")
     protected List<FieldValueStatistics> item;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setItem(ArrayList<FieldValueStatistics> value) {
+        item=value;
+    }
+
     public List<FieldValueStatistics> getItem() {
         if (item == null) {
             item = new ArrayList<FieldValueStatistics>();

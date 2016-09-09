@@ -38,6 +38,11 @@ public class AppendActionDocuments  {
         this.sourceCabinetId = value;
     }
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setDocuments(ArrayList<Integer> value) {
+        documents=value;
+    }
+
     /**Ids of the documents to be attached*/
     public List<Integer> getDocuments() {
         if (documents == null) {

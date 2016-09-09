@@ -107,6 +107,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The proxy
 	*/
+    @Extension
     public HttpClientProxy getProxy() {
 	return this.proxy;
     }
@@ -117,6 +118,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @param proxy	The new proxy
 	*/
+    @Extension
     public void setProxy(HttpClientProxy proxy) {
 	this.proxy = proxy;
     }
@@ -127,6 +129,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The base URI of the specified relations instance.
 	*/
+    @Extension
     public URI getBaseUri() {
 	return RelationsWithProxyExtensions.getBaseUri(this);
     }
@@ -138,6 +141,7 @@ private HttpClientProxy proxy;//test
 	* @param relationName	Name of the relation
 	* @return	The link, if it exists; null otherwise.
 	*/
+    @Extension
     public Link getLink(String relationName) {
 	return RelationExtension.getLink(this, relationName);
     }
@@ -149,6 +153,7 @@ private HttpClientProxy proxy;//test
 	* @param relationName	Name of the relation
 	* @return	The link, if it exists; null otherwise.
 	*/
+    @Extension
     public String getRelationUri(String relationName) {
 	return RelationExtension.getRelationUri(this, relationName);
     }
@@ -161,6 +166,7 @@ private HttpClientProxy proxy;//test
 	* @return	The link, if it exists.
 	* @throws	RuntimeException: The specified Link is not found
 	*/
+    @Extension
     public String getRelationUriOrThrow(String relationName) {
 	return RelationExtension.getRelationUriOrThrow(this, relationName);
     }
@@ -172,6 +178,7 @@ private HttpClientProxy proxy;//test
 	* @param relationName	Name of the relation
 	* @return	 True, if the specified link exists; otherwise, False.
 	*/
+    @Extension
     public boolean hasRelationUri(String relationName) {
 	return RelationExtension.hasRelationUri(this, relationName);
     }
@@ -373,7 +380,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "WebSettings" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<WebSettings>> postToWebSettingsRelationForWebSettingsAsync(WebSettings data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<WebSettings>> postToWebSettingsRelationForWebSettingsAsync(CancellationToken ct, WebSettings data) {
         return MethodInvocation.<WebSettings, WebSettings >postAsync(this, links, "webSettings", WebSettings.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "WebSettings"), WebSettings.class, null, data), "application/vnd.docuware.platform.websettings+xml", "application/vnd.docuware.platform.websettings+xml", ct);
     }
 
@@ -433,7 +440,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "LoginToken" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<String>> postToLoginTokenRelationForStringAsync(TokenDescription data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<String>> postToLoginTokenRelationForStringAsync(CancellationToken ct, TokenDescription data) {
         return MethodInvocation.<String, TokenDescription >postAsync(this, links, "loginToken", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "TokenDescription"), TokenDescription.class, null, data), "application/vnd.docuware.platform.tokendescription+xml", "text/plain", ct);
     }
 
@@ -484,7 +491,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "Dialogs" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<DialogInfos>> postToDialogsRelationForDialogInfosAsync(RequestDialogQuery data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<DialogInfos>> postToDialogsRelationForDialogInfosAsync(CancellationToken ct, RequestDialogQuery data) {
         return MethodInvocation.<DialogInfos, RequestDialogQuery >postAsync(this, links, "dialogs", DialogInfos.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "RequestDialogQuery"), RequestDialogQuery.class, null, data), "application/vnd.docuware.platform.requestdialogquery+xml", "application/vnd.docuware.platform.dialogs+xml", ct);
     }
 
@@ -535,7 +542,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "UserInfo" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<User>> postToUserInfoRelationForUserAsync(User data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<User>> postToUserInfoRelationForUserAsync(CancellationToken ct, User data) {
         return MethodInvocation.<User, User >postAsync(this, links, "userInfo", User.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "User"), User.class, null, data), "application/vnd.docuware.platform.user+xml", "application/vnd.docuware.platform.user+xml", ct);
     }
 
@@ -556,7 +563,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "UserInfo" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<User>> postToUserInfoRelationForUserAsync(NewUser data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<User>> postToUserInfoRelationForUserAsync(CancellationToken ct, NewUser data) {
         return MethodInvocation.<User, NewUser >postAsync(this, links, "userInfo", User.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "NewUser"), NewUser.class, null, data), "application/vnd.docuware.platform.createorganizationuser+xml", "application/vnd.docuware.platform.user+xml", ct);
     }
 

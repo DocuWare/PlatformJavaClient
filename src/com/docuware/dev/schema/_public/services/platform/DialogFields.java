@@ -28,6 +28,11 @@ private HttpClientProxy proxy;//test
     @XmlElement(name = "Field")
     protected List<DialogField> field;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setField(ArrayList<DialogField> value) {
+        field=value;
+    }
+
     /**List of dialog fields.*/
     public List<DialogField> getField() {
         if (field == null) {
@@ -42,6 +47,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The proxy
 	*/
+    @Extension
     public HttpClientProxy getProxy() {
 	return this.proxy;
     }
@@ -52,6 +58,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @param proxy	The new proxy
 	*/
+    @Extension
     public void setProxy(HttpClientProxy proxy) {
 	this.proxy = proxy;
 	if(this.field!=null) { 

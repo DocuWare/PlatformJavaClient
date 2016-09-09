@@ -21,7 +21,7 @@ import com.docuware.dev.settings.interop.DWProductTypes;
 public class LoginInfo  {
 
     @XmlAttribute(name = "PasswordExpireNotification")
-    protected Duration passwordExpireNotification;
+    protected String passwordExpireNotification;
     @XmlAttribute(name = "BookedLicense", required = true)
     protected DWProductTypes bookedLicense;
 
@@ -30,7 +30,7 @@ public class LoginInfo  {
           [ws][-]{ d | [d.]hh:mm[:ss[.ff]] }[ws]
           Elements in square brackets ([ and ]) are optional. One selection from the list of alternatives enclosed in braces ({ and }) and separated by vertical bars (|) is required.
           For more details check http://msdn.microsoft.com/en-us/library/se73z7b9.aspx*/
-    public Duration getPasswordExpireNotification() {
+    public String getPasswordExpireNotification() {
         return passwordExpireNotification;
     }
 
@@ -39,7 +39,7 @@ public class LoginInfo  {
           [ws][-]{ d | [d.]hh:mm[:ss[.ff]] }[ws]
           Elements in square brackets ([ and ]) are optional. One selection from the list of alternatives enclosed in braces ({ and }) and separated by vertical bars (|) is required.
           For more details check http://msdn.microsoft.com/en-us/library/se73z7b9.aspx*/
-    public void setPasswordExpireNotification(Duration value) {
+    public void setPasswordExpireNotification(String value) {
         this.passwordExpireNotification = value;
     }
 

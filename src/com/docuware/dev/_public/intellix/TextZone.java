@@ -35,6 +35,11 @@ public class TextZone
     @XmlSchemaType(name = "language")
     protected String lang;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setLn(ArrayList<Line> value) {
+        ln=value;
+    }
+
     /**Contains a single text line.*/
     public List<Line> getLn() {
         if (ln == null) {

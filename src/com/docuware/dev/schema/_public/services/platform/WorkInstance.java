@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "WorkInstance")
+@CompareIgnore
 public class WorkInstance  {
 
     @XmlAttribute(name = "ID")

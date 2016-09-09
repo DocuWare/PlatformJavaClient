@@ -61,7 +61,6 @@ import org.apache.http.auth.UsernamePasswordCredentials;
  * and open the template in the editor.
  */
 /**
- *
  * @author Patrick
  */
 public class ServiceConnection {
@@ -69,6 +68,10 @@ public class ServiceConnection {
     private final ServiceDescription serviceDescription;
     private static PlatformClient client;
 
+    /**
+     * @deprecated 
+     * @param serviceDescription 
+     */
     ServiceConnection(ServiceDescription serviceDescription) {
         this.serviceDescription = serviceDescription;
     }
@@ -85,8 +88,8 @@ public class ServiceConnection {
      * Gets the Proxy
      * @return  The Proxy
      */
-    public HttpClientProxy getProxy() {
-        return serviceDescription.getProxy();
+    HttpClientProxy getProxy() {
+        return  serviceDescription.getProxy();
     }
     
     /**
@@ -538,7 +541,7 @@ public class ServiceConnection {
         HashMap<String, String> parameters = new HashMap<>();
         parameters.put("url", url);
         return CompletableFuture.<DeserializedHttpResponseGen<String>>supplyAsync(() -> {
-            WebResource web = serviceDescription.getProxy().getHttpClient().resource(serviceDescription.getPermanentUrlRelationLink());
+            WebResource web =  this.getServiceDescription().getProxy().getHttpClient().resource(serviceDescription.getPermanentUrlRelationLink());
             ClientResponse resp = web.type(MediaType.APPLICATION_XML).accept(MediaType.APPLICATION_XML).post(ClientResponse.class, parameters);
             if (resp.getStatus() < 200 || resp.getStatus() > 399) {
                 HttpClientRequestException e = HttpClientRequestException.create(resp);

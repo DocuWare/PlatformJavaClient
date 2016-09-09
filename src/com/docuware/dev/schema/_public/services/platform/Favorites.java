@@ -23,6 +23,7 @@ import javax.xml.bind.annotation.XmlType;
     "treeViews",
     "multiFCSearches"
 })
+@CompareIgnore
 public class Favorites  {
 
     @XmlElement(name = "Baskets", required = true)

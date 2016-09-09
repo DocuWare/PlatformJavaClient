@@ -25,6 +25,11 @@ public class SuggestionFields  {
     @XmlElement(name = "Field")
     protected List<SuggestionField> field;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setField(ArrayList<SuggestionField> value) {
+        field=value;
+    }
+
     public List<SuggestionField> getField() {
         if (field == null) {
             field = new ArrayList<SuggestionField>();

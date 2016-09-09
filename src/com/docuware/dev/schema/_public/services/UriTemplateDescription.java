@@ -42,11 +42,21 @@ public class UriTemplateDescription  {
     @XmlSchemaType(name = "anyURI")
     protected String furtherReading;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setParameter(ArrayList<UriTemplateParameter> value) {
+        parameter=value;
+    }
+
     public List<UriTemplateParameter> getParameter() {
         if (parameter == null) {
             parameter = new ArrayList<UriTemplateParameter>();
         }
         return this.parameter;
+    }
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setInvoke(ArrayList<UriInvocation> value) {
+        invoke=value;
     }
 
     public List<UriInvocation> getInvoke() {

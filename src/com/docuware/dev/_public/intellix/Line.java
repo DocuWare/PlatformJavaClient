@@ -20,17 +20,26 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Line", propOrder = {
-    "spOrWd"
+"boldSpecified",
+"fontSizeSpecified",
+"baseLineSpecified",
+    "items"
 })
 public class Line
     extends RectangleBase
  {
+private boolean boldSpecified;//test
+
+private boolean fontSizeSpecified;//test
+
+private boolean baseLineSpecified;//test
+
 
     @XmlElements({
         @XmlElement(name = "Sp", type = Space.class),
         @XmlElement(name = "Wd", type = Word.class)
     })
-    protected List<Object> spOrWd;
+    protected List<Object> items;
     @XmlAttribute(name = "BaseLine")
     protected Integer baseLine;
     @XmlAttribute(name = "bold")
@@ -38,11 +47,16 @@ public class Line
     @XmlAttribute(name = "fontSize")
     protected Integer fontSize;
 
-    public List<Object> getSpOrWd() {
-        if (spOrWd == null) {
-            spOrWd = new ArrayList<Object>();
+    /**ArrayList is required for the XML-Marshalling */
+    public void setItems(ArrayList<Object> value) {
+        items=value;
+    }
+
+    public List<Object> getItems() {
+        if (items == null) {
+            items = new ArrayList<Object>();
         }
-        return this.spOrWd;
+        return this.items;
     }
 
     public Integer getBaseLine() {
@@ -67,6 +81,36 @@ public class Line
 
     public void setFontSize(Integer value) {
         this.fontSize = value;
+    }
+
+    @Extension
+    public boolean isBaseLineSpecified() {
+	return baseLineSpecified;
+    }
+
+    @Extension
+    public void setBaseLineSpecified(boolean baseLineSpecified) {
+	this.baseLineSpecified = baseLineSpecified;
+    }
+
+    @Extension
+    public boolean isBoldSpecified() {
+	return boldSpecified;
+    }
+
+    @Extension
+    public void setBoldSpecified(boolean boldSpecified) {
+	this.boldSpecified = boldSpecified;
+    }
+
+    @Extension
+    public boolean isFontSizeSpecified() {
+	return fontSizeSpecified;
+    }
+
+    @Extension
+    public void setFontSizeSpecified(boolean fontSizeSpecified) {
+	this.fontSizeSpecified = fontSizeSpecified;
     }
 
 

@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlType;
     "disabled",
     "order"
 })
+@CompareIgnore
 public class FavoriteItems  {
 
     @XmlElement(name = "Disabled")
@@ -28,11 +29,21 @@ public class FavoriteItems  {
     @XmlElement(name = "Order")
     protected List<String> order;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setDisabled(ArrayList<String> value) {
+        disabled=value;
+    }
+
     public List<String> getDisabled() {
         if (disabled == null) {
             disabled = new ArrayList<String>();
         }
         return this.disabled;
+    }
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setOrder(ArrayList<String> value) {
+        order=value;
     }
 
     public List<String> getOrder() {

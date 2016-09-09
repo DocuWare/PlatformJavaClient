@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlType(name = "ToolbarVisibility")
 @XmlEnum
+@CompareIgnore
 public enum ToolbarVisibility {
 
     @XmlEnumValue("Unknown")

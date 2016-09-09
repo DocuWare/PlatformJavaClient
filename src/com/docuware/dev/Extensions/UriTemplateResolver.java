@@ -15,7 +15,7 @@ import java.util.Map;
  *
  * @author Patrick
  */
-class UriTemplateResolver {
+public class UriTemplateResolver {
 
     private static final String _UriReservedSymbols = ":/?#[]@!$&'()*+,;=";
     private static final String _UriUnreservedSymbols = "-._~";

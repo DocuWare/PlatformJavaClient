@@ -21,6 +21,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlType(name = "LogMessageGroup", propOrder = {
     "group"
 })
+@CompareIgnore
 public class LogMessageGroup  {
 
     @XmlElement(name = "Group", required = true)

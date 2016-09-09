@@ -34,6 +34,11 @@ public class BatchUpdateProcessData  {
     @XmlElement(name = "BreakOnError", defaultValue = "true")
     protected boolean breakOnError;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setField(ArrayList<DocumentIndexField> value) {
+        field=value;
+    }
+
     /**The fields which are updated.*/
     public List<DocumentIndexField> getField() {
         if (field == null) {

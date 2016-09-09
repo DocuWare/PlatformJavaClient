@@ -25,6 +25,11 @@ public class SimplePageContent  {
     @XmlElement(name = "W")
     protected List<SimpleWord> w;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setW(ArrayList<SimpleWord> value) {
+        w=value;
+    }
+
     public List<SimpleWord> getW() {
         if (w == null) {
             w = new ArrayList<SimpleWord>();

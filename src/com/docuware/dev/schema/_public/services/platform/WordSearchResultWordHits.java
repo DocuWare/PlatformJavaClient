@@ -25,6 +25,11 @@ public class WordSearchResultWordHits  {
     @XmlElement(name = "Wd")
     protected List<WordSearchResultWordHit> wd;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setWd(ArrayList<WordSearchResultWordHit> value) {
+        wd=value;
+    }
+
     /**Define a a set of words and locations where they are found*/
     public List<WordSearchResultWordHit> getWd() {
         if (wd == null) {

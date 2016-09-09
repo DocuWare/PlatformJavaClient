@@ -29,6 +29,11 @@ public class PointAndShootInfo  {
     @XmlAttribute(name = "PageNumber")
     protected Integer pageNumber;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setBox(ArrayList<DWRectangle> value) {
+        box=value;
+    }
+
     /**The bounding box of the selected content.*/
     public List<DWRectangle> getBox() {
         if (box == null) {

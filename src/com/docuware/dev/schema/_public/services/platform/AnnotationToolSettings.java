@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlType;
     TextAnnotationToolSettings.class,
     SizedAnnotationToolSettings.class
 })
+@CompareIgnore
 public class AnnotationToolSettings  {
 
     @XmlAttribute(name = "Type", required = true)

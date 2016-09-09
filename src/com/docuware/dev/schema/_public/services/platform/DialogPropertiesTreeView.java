@@ -65,6 +65,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The proxy
 	*/
+    @Extension
     public HttpClientProxy getProxy() {
 	return this.proxy;
     }
@@ -75,6 +76,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @param proxy	The new proxy
 	*/
+    @Extension
     public void setProxy(HttpClientProxy proxy) {
 	super.setProxy(proxy);
 	this.proxy = proxy;
@@ -86,6 +88,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The base URI of the specified relations instance.
 	*/
+    @Extension
     public URI getBaseUri() {
 	return RelationsWithProxyExtensions.getBaseUri(this);
     }
@@ -97,6 +100,7 @@ private HttpClientProxy proxy;//test
 	* @param relationName	Name of the relation
 	* @return	The link, if it exists; null otherwise.
 	*/
+    @Extension
     public Link getLink(String relationName) {
 	return RelationExtension.getLink(this, relationName);
     }
@@ -108,6 +112,7 @@ private HttpClientProxy proxy;//test
 	* @param relationName	Name of the relation
 	* @return	The link, if it exists; null otherwise.
 	*/
+    @Extension
     public String getRelationUri(String relationName) {
 	return RelationExtension.getRelationUri(this, relationName);
     }
@@ -120,6 +125,7 @@ private HttpClientProxy proxy;//test
 	* @return	The link, if it exists.
 	* @throws	RuntimeException: The specified Link is not found
 	*/
+    @Extension
     public String getRelationUriOrThrow(String relationName) {
 	return RelationExtension.getRelationUriOrThrow(this, relationName);
     }
@@ -131,6 +137,7 @@ private HttpClientProxy proxy;//test
 	* @param relationName	Name of the relation
 	* @return	 True, if the specified link exists; otherwise, False.
 	*/
+    @Extension
     public boolean hasRelationUri(String relationName) {
 	return RelationExtension.hasRelationUri(this, relationName);
     }

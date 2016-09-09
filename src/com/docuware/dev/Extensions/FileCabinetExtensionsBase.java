@@ -292,7 +292,7 @@ public class FileCabinetExtensionsBase {
                 f.setContentDisposition(fdcd);
                 multipartForm.bodyPart(f);
             } else {
-                InputStream is = files[i].createStream();
+                InputStream is = files[i].createInputStream();
                 byte[] buffer = new byte[1024];
                 try {
                     File temp = File.createTempFile("tempfile" + i, null);
@@ -864,7 +864,7 @@ public class FileCabinetExtensionsBase {
         String contentType = file.getContentType();
         URI l = link;
         try {
-            try (InputStream fs = file.createStream()) {
+            try (InputStream fs = file.createInputStream()) {
 
                 int bytesRead;
                 long length = fs.available();
@@ -952,7 +952,7 @@ public class FileCabinetExtensionsBase {
         return CompletableFuture.<DeserializedHttpResponseGen<T>>supplyAsync(() -> {
             URI l = link;
             try {
-                try (InputStream fs = file.createStream()) {
+                try (InputStream fs = file.createInputStream()) {
                     int bytesRead;
                     int length = fs.available();
                     byte[] buffer = new byte[cs];

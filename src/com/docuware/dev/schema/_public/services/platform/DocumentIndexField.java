@@ -100,6 +100,7 @@ public class DocumentIndexField
 	* @param value	The value
 	* @return	The new Field
 	*/
+    @Extension
     public static DocumentIndexField create(String fieldName,String value) {
 	return Extensions.create(fieldName, value);
     }
@@ -112,6 +113,7 @@ public class DocumentIndexField
 	* @param value	The value
 	* @return	The new Field
 	*/
+    @Extension
     public static DocumentIndexField create(String fieldName,GregorianCalendar value) {
 	return Extensions.create(fieldName, value);
     }
@@ -124,6 +126,7 @@ public class DocumentIndexField
 	* @param value	The value
 	* @return	The new Field
 	*/
+    @Extension
     public static DocumentIndexField create(String fieldName,int value) {
 	return Extensions.create(fieldName, value);
     }
@@ -136,6 +139,7 @@ public class DocumentIndexField
 	* @param value	The value
 	* @return	The new Field
 	*/
+    @Extension
     public static DocumentIndexField create(String fieldName,double value) {
 	return Extensions.create(fieldName, value);
     }
@@ -148,6 +152,7 @@ public class DocumentIndexField
 	* @param value	The value
 	* @return	The new Field
 	*/
+    @Extension
     public static DocumentIndexField create(String fieldName,DocumentIndexFieldKeywords value) {
 	return Extensions.create(fieldName, value);
     }
@@ -160,6 +165,7 @@ public class DocumentIndexField
 	* @param value	The value
 	* @return	The new Field
 	*/
+    @Extension
     public static DocumentIndexField createDate(String fieldName,GregorianCalendar value) {
 	return Extensions.create(fieldName, value);
     }
@@ -172,6 +178,7 @@ public class DocumentIndexField
 	* @param value	The value
 	* @return	The new Field
 	*/
+    @Extension
     public static DocumentIndexField createDate(String fieldName,int value) {
 	return Extensions.create(fieldName, value);
     }
@@ -184,6 +191,7 @@ public class DocumentIndexField
 	* @param value	The value
 	* @return	The new Field
 	*/
+    @Extension
     public static DocumentIndexField createDate(String fieldName,double value) {
 	return Extensions.create(fieldName, value);
     }
@@ -196,6 +204,7 @@ public class DocumentIndexField
 	* @param value	The value
 	* @return	The new Field
 	*/
+    @Extension
     public static DocumentIndexField createDate(String fieldName,DocumentIndexFieldKeywords value) {
 	return Extensions.create(fieldName, value);
     }
@@ -206,6 +215,7 @@ public class DocumentIndexField
 	* 
 	* @return	A String that represents this instance.
 	*/
+    @Extension
     public String toString() {
 	return Extensions.documentIndexFieldToString(this);
     }

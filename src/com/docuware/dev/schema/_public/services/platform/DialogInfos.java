@@ -33,6 +33,11 @@ private HttpClientProxy proxy;//test
     @XmlElement(name = "Links", namespace = "http://dev.docuware.com/schema/public/services", required = true)
     protected Links links;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setDialog(ArrayList<DialogInfo> value) {
+        dialog=value;
+    }
+
     /**List of dialog infos.*/
     public List<DialogInfo> getDialog() {
         if (dialog == null) {
@@ -55,6 +60,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The proxy
 	*/
+    @Extension
     public HttpClientProxy getProxy() {
 	return this.proxy;
     }
@@ -65,6 +71,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @param proxy	The new proxy
 	*/
+    @Extension
     public void setProxy(HttpClientProxy proxy) {
 	this.proxy = proxy;
 	if(this.dialog!=null) {
@@ -80,6 +87,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The base URI of the specified relations instance.
 	*/
+    @Extension
     public URI getBaseUri() {
 	return RelationsWithProxyExtensions.getBaseUri(this);
     }

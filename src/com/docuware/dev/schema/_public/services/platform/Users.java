@@ -28,6 +28,11 @@ private HttpClientProxy proxy;//test
     @XmlElement(name = "User")
     protected List<User> user;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setUser(ArrayList<User> value) {
+        user=value;
+    }
+
     /**Defines a list of users*/
     public List<User> getUser() {
         if (user == null) {
@@ -42,6 +47,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The proxy
 	*/
+    @Extension
     public HttpClientProxy getProxy() {
 	return this.proxy;
     }
@@ -52,6 +58,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @param proxy	The new proxy
 	*/
+    @Extension
     public void setProxy(HttpClientProxy proxy) {
 	this.proxy = proxy;
 	if(this.user!=null) {

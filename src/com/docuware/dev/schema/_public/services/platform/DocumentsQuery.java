@@ -129,6 +129,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The proxy
 	*/
+    @Extension
     public HttpClientProxy getProxy() {
 	return this.proxy;
     }
@@ -139,6 +140,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @param proxy	The new proxy
 	*/
+    @Extension
     public void setProxy(HttpClientProxy proxy) {
 	this.proxy = proxy;
     }
@@ -149,6 +151,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The base URI of the specified relations instance.
 	*/
+    @Extension
     public URI getBaseUri() {
 	return RelationsWithProxyExtensions.getBaseUri(this);
     }
@@ -160,6 +163,7 @@ private HttpClientProxy proxy;//test
 	* @param relationName	Name of the relation
 	* @return	The link, if it exists; null otherwise.
 	*/
+    @Extension
     public Link getLink(String relationName) {
 	return RelationExtension.getLink(this, relationName);
     }
@@ -171,6 +175,7 @@ private HttpClientProxy proxy;//test
 	* @param relationName	Name of the relation
 	* @return	The link, if it exists; null otherwise.
 	*/
+    @Extension
     public String getRelationUri(String relationName) {
 	return RelationExtension.getRelationUri(this, relationName);
     }
@@ -183,6 +188,7 @@ private HttpClientProxy proxy;//test
 	* @return	The link, if it exists.
 	* @throws	RuntimeException: The specified Link is not found
 	*/
+    @Extension
     public String getRelationUriOrThrow(String relationName) {
 	return RelationExtension.getRelationUriOrThrow(this, relationName);
     }
@@ -194,6 +200,7 @@ private HttpClientProxy proxy;//test
 	* @param relationName	Name of the relation
 	* @return	 True, if the specified link exists; otherwise, False.
 	*/
+    @Extension
     public boolean hasRelationUri(String relationName) {
 	return RelationExtension.hasRelationUri(this, relationName);
     }
@@ -254,7 +261,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "DialogExpression" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryResult>> postToDialogExpressionRelationForDocumentsQueryResultAsync(DialogExpression data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryResult>> postToDialogExpressionRelationForDocumentsQueryResultAsync(CancellationToken ct, DialogExpression data) {
         return MethodInvocation.<DocumentsQueryResult, DialogExpression >postAsync(this, links, "dialogExpression", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DialogExpression"), DialogExpression.class, null, data), "application/vnd.docuware.platform.dialogexpression+xml", "application/vnd.docuware.platform.documents+xml", ct);
     }
 
@@ -314,7 +321,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "TableDialogExpression" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryTableResult>> postToTableDialogExpressionRelationForDocumentsQueryTableResultAsync(DialogExpression data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryTableResult>> postToTableDialogExpressionRelationForDocumentsQueryTableResultAsync(CancellationToken ct, DialogExpression data) {
         return MethodInvocation.<DocumentsQueryTableResult, DialogExpression >postAsync(this, links, "tableDialogExpression", DocumentsQueryTableResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DialogExpression"), DialogExpression.class, null, data), "application/vnd.docuware.platform.dialogexpression+xml", "application/vnd.docuware.platform.documentstable+xml", ct);
     }
 
@@ -344,7 +351,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "BatchUpdate" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>> postToBatchUpdateRelationForBatchUpdateIndexFieldsResultAsync(BatchUpdateProcess data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>> postToBatchUpdateRelationForBatchUpdateIndexFieldsResultAsync(CancellationToken ct, BatchUpdateProcess data) {
         return MethodInvocation.<BatchUpdateIndexFieldsResult, BatchUpdateProcess >postAsync(this, links, "batchUpdate", BatchUpdateIndexFieldsResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "BatchUpdateProcess"), BatchUpdateProcess.class, null, data), "application/vnd.docuware.platform.batchupdateprocess+xml", "application/vnd.docuware.platform.batchupdateindexfieldsresult+xml", ct);
     }
 

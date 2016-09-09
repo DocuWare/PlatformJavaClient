@@ -33,12 +33,22 @@ public class ContentDivideOperationInfo  {
     @XmlAttribute(name = "Force")
     protected Boolean force;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setPages(ArrayList<Integer> value) {
+        pages=value;
+    }
+
     /**Collection of pages to be used in the operation*/
     public List<Integer> getPages() {
         if (pages == null) {
             pages = new ArrayList<Integer>();
         }
         return this.pages;
+    }
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setResultNames(ArrayList<String> value) {
+        resultNames=value;
     }
 
     /**Define document names to be used for the result documents. Original document name is not changed*/

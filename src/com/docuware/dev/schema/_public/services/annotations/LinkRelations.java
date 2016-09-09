@@ -28,6 +28,11 @@ public class LinkRelations  {
     @XmlAttribute(name = "IsComplete")
     protected Boolean isComplete;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setRelation(ArrayList<LinkRelation> value) {
+        relation=value;
+    }
+
     public List<LinkRelation> getRelation() {
         if (relation == null) {
             relation = new ArrayList<LinkRelation>();

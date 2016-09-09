@@ -25,6 +25,11 @@ public class Zones  {
     @XmlElement(name = "Zone", required = true)
     protected List<Zone> zone;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setZone(ArrayList<Zone> value) {
+        zone=value;
+    }
+
     public List<Zone> getZone() {
         if (zone == null) {
             zone = new ArrayList<Zone>();

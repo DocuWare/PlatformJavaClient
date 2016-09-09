@@ -19,6 +19,10 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "OutOfOffice")
 public class OutOfOffice  {
+private boolean startDateTimeSpecified;//test
+
+private boolean endDateTimeSpecified;//test
+
 
     @XmlAttribute(name = "IsOutOfOffice", required = true)
     protected boolean isOutOfOffice;
@@ -56,6 +60,26 @@ public class OutOfOffice  {
 
     public void setEndDateTime(GregorianCalendar value) {
         this.endDateTime = value;
+    }
+
+    @Extension
+    public boolean isStartDateTimeSpecified() {
+	return startDateTimeSpecified;
+    }
+
+    @Extension
+    public void setStartDateTimeSpecified(boolean value) {
+	startDateTimeSpecified=value;
+    }
+
+    @Extension
+    public boolean isEndDateTimeSpecified() {
+	return endDateTimeSpecified;
+    }
+
+    @Extension
+    public void setEndDateTimeSpecified(boolean value) {
+	endDateTimeSpecified=value;
     }
 
 

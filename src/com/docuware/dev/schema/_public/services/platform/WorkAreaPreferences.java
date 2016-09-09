@@ -21,12 +21,18 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "WorkAreaPreferences", propOrder = {
     "contentAreas"
 })
+@CompareIgnore
 public class WorkAreaPreferences  {
 
     @XmlElement(name = "ContentAreas")
     protected List<ContentAreaPreferences> contentAreas;
     @XmlAttribute(name = "Name")
     protected String name;
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setContentAreas(ArrayList<ContentAreaPreferences> value) {
+        contentAreas=value;
+    }
 
     public List<ContentAreaPreferences> getContentAreas() {
         if (contentAreas == null) {

@@ -25,6 +25,11 @@ public class DocumentIndexFieldKeywords  {
     @XmlElement(name = "Keyword")
     protected List<String> keyword;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setKeyword(ArrayList<String> value) {
+        keyword=value;
+    }
+
     /**List of keywords*/
     public List<String> getKeyword() {
         if (keyword == null) {

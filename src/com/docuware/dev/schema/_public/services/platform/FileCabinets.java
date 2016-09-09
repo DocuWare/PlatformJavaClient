@@ -28,6 +28,11 @@ private HttpClientProxy proxy;//test
     @XmlElement(name = "FileCabinet")
     protected List<FileCabinet> fileCabinet;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setFileCabinet(ArrayList<FileCabinet> value) {
+        fileCabinet=value;
+    }
+
     /**Lsit of file cabinets or document trays(web baskets).*/
     public List<FileCabinet> getFileCabinet() {
         if (fileCabinet == null) {
@@ -42,6 +47,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The proxy
 	*/
+    @Extension
     public HttpClientProxy getProxy() {
 	return this.proxy;
     }
@@ -52,6 +58,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @param proxy	The new proxy
 	*/
+    @Extension
     public void setProxy(HttpClientProxy proxy) {
 	this.proxy = proxy;
 	if(this.fileCabinet!=null) {   

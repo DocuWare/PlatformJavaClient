@@ -27,6 +27,11 @@ public class Rights  {
     @XmlSchemaType(name = "string")
     protected List<Right> right;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setRight(ArrayList<Right> value) {
+        right=value;
+    }
+
     /**List of rights.*/
     public List<Right> getRight() {
         if (right == null) {

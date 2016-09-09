@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "ApplicationPreferencesHolder", propOrder = {
     "appPrefs"
 })
+@CompareIgnore
 public class ApplicationPreferencesHolder  {
 
     @XmlElement(name = "AppPrefs")

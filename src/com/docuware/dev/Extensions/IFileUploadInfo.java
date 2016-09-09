@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public interface IFileUploadInfo {
   
-    InputStream createStream();
+    InputStream createInputStream();
 
     String getContentType();
     

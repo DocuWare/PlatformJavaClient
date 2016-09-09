@@ -110,6 +110,11 @@ private HttpClientProxy proxy;//test
         @XmlElement(name = "Item")
         protected List<Document> item;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setItem(ArrayList<Document> value) {
+        item=value;
+    }
+
     /**Define a specific document from result*/
         public List<Document> getItem() {
             if (item == null) {
@@ -126,6 +131,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The proxy
 	*/
+    @Extension
     public HttpClientProxy getProxy() {
 	return this.proxy;	
     }
@@ -136,6 +142,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @param proxy	The new proxy
 	*/
+    @Extension
     public void setProxy(HttpClientProxy proxy) {
 	this.proxy = proxy;
 	if(this.items!=null) {  
@@ -151,6 +158,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The base URI of the specified relations instance.
 	*/
+    @Extension
     public URI getBaseUri() {
 	return RelationsWithProxyExtensions.getBaseUri(this);
     }
@@ -162,6 +170,7 @@ private HttpClientProxy proxy;//test
 	* @param relationName	Name of the relation
 	* @return	The link, if it exists; null otherwise.
 	*/
+    @Extension
     public Link getLink(String relationName) {
 	return RelationExtension.getLink(this, relationName);
     }
@@ -173,6 +182,7 @@ private HttpClientProxy proxy;//test
 	* @param relationName	Name of the relation
 	* @return	The link, if it exists; null otherwise.
 	*/
+    @Extension
     public String getRelationUri(String relationName) {
 	return RelationExtension.getRelationUri(this, relationName);
     }
@@ -185,6 +195,7 @@ private HttpClientProxy proxy;//test
 	* @return	The link, if it exists.
 	* @throws	RuntimeException: The specified Link is not found
 	*/
+    @Extension
     public String getRelationUriOrThrow(String relationName) {
 	return RelationExtension.getRelationUriOrThrow(this, relationName);
     }
@@ -196,6 +207,7 @@ private HttpClientProxy proxy;//test
 	* @param relationName	Name of the relation
 	* @return	 True, if the specified link exists; otherwise, False.
 	*/
+    @Extension
     public boolean hasRelationUri(String relationName) {
 	return RelationExtension.hasRelationUri(this, relationName);
     }
@@ -406,7 +418,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "BatchUpdate" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>> postToBatchUpdateRelationForBatchUpdateIndexFieldsResultAsync(BatchUpdateProcessData data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>> postToBatchUpdateRelationForBatchUpdateIndexFieldsResultAsync(CancellationToken ct, BatchUpdateProcessData data) {
         return MethodInvocation.<BatchUpdateIndexFieldsResult, BatchUpdateProcessData >postAsync(this, links, "batchUpdate", BatchUpdateIndexFieldsResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "BatchUpdateProcessData"), BatchUpdateProcessData.class, null, data), "application/vnd.docuware.platform.batchupdateprocessdata+xml", "application/vnd.docuware.platform.batchupdateindexfieldsresult+xml", ct);
     }
 
@@ -436,7 +448,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "CreateUserDefinedSearch" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<Dialog>> postToCreateUserDefinedSearchRelationForDialogAsync(UserDefinedSearchInfo data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Dialog>> postToCreateUserDefinedSearchRelationForDialogAsync(CancellationToken ct, UserDefinedSearchInfo data) {
         return MethodInvocation.<Dialog, UserDefinedSearchInfo >postAsync(this, links, "createUserDefinedSearch", Dialog.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "UserDefinedSearchInfo"), UserDefinedSearchInfo.class, null, data), "application/xml", "application/vnd.docuware.platform.dialog+xml", ct);
     }
 
@@ -466,7 +478,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "ExportDocuments" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToExportDocumentsRelationForInputStreamAsync(ExportSettings data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToExportDocumentsRelationForInputStreamAsync(CancellationToken ct, ExportSettings data) {
         return MethodInvocation.<InputStream, ExportSettings >postAsync(this, links, "exportDocuments", InputStream.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "ExportSettings"), ExportSettings.class, null, data), "application/vnd.docuware.platform.exportsettings+xml", "application/xml", ct);
     }
 

@@ -159,6 +159,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The proxy
 	*/
+    @Extension
     public HttpClientProxy getProxy() {
 	return this.proxy;
     }
@@ -169,6 +170,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @param proxy	The new proxy
 	*/
+    @Extension
     public void setProxy(HttpClientProxy proxy) {
 	this.proxy = proxy;
     }
@@ -179,6 +181,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The base URI of the specified relations instance.
 	*/
+    @Extension
     public URI getBaseUri() {
 	return RelationsWithProxyExtensions.getBaseUri(this);
     }
@@ -190,6 +193,7 @@ private HttpClientProxy proxy;//test
 	* @param relationName	Name of the relation
 	* @return	The link, if it exists; null otherwise.
 	*/
+    @Extension
     public Link getLink(String relationName) {
 	return RelationExtension.getLink(this, relationName);
     }
@@ -201,6 +205,7 @@ private HttpClientProxy proxy;//test
 	* @param relationName	Name of the relation
 	* @return	The link, if it exists; null otherwise.
 	*/
+    @Extension
     public String getRelationUri(String relationName) {
 	return RelationExtension.getRelationUri(this, relationName);
     }
@@ -213,6 +218,7 @@ private HttpClientProxy proxy;//test
 	* @return	The link, if it exists.
 	* @throws	RuntimeException: The specified Link is not found
 	*/
+    @Extension
     public String getRelationUriOrThrow(String relationName) {
 	return RelationExtension.getRelationUriOrThrow(this, relationName);
     }
@@ -224,6 +230,7 @@ private HttpClientProxy proxy;//test
 	* @param relationName	Name of the relation
 	* @return	 True, if the specified link exists; otherwise, False.
 	*/
+    @Extension
     public boolean hasRelationUri(String relationName) {
 	return RelationExtension.hasRelationUri(this, relationName);
     }
@@ -275,7 +282,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "Self" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<User>> postToSelfRelationForUserAsync(User data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<User>> postToSelfRelationForUserAsync(CancellationToken ct, User data) {
         return MethodInvocation.<User, User >postAsync(this, links, "self", User.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "User"), User.class, null, data), "application/vnd.docuware.platform.user+xml", "application/vnd.docuware.platform.user+xml", ct);
     }
 
@@ -356,7 +363,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP put Method on the link for the relation "Groups" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<String>> putToGroupsRelationForStringAsync(AssignmentOperation data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<String>> putToGroupsRelationForStringAsync(CancellationToken ct, AssignmentOperation data) {
         return MethodInvocation.<String, AssignmentOperation >putAsync(this, links, "groups", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "AssignmentOperation"), AssignmentOperation.class, null, data), "application/xml", "text/plain", ct);
     }
 
@@ -407,7 +414,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP put Method on the link for the relation "Roles" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<String>> putToRolesRelationForStringAsync(AssignmentOperation data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<String>> putToRolesRelationForStringAsync(CancellationToken ct, AssignmentOperation data) {
         return MethodInvocation.<String, AssignmentOperation >putAsync(this, links, "roles", String.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "AssignmentOperation"), AssignmentOperation.class, null, data), "application/xml", "text/plain", ct);
     }
 

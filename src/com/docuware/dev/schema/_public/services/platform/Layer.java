@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Layer", propOrder = {
-    "deleteOrTextOrRect"
+    "items"
 })
 public class Layer  {
 
@@ -34,15 +34,20 @@ public class Layer  {
         @XmlElement(name = "BitmapStamp", type = BitmapStampEntry.class),
         @XmlElement(name = "PolyLineStamp", type = PolyLineStampEntry.class)
     })
-    protected List<EntryBase> deleteOrTextOrRect;
+    protected List<EntryBase> items;
     @XmlAttribute(name = "Id", required = true)
     protected int id;
 
-    public List<EntryBase> getDeleteOrTextOrRect() {
-        if (deleteOrTextOrRect == null) {
-            deleteOrTextOrRect = new ArrayList<EntryBase>();
+    /**ArrayList is required for the XML-Marshalling */
+    public void setItems(ArrayList<EntryBase> value) {
+        items=value;
+    }
+
+    public List<EntryBase> getItems() {
+        if (items == null) {
+            items = new ArrayList<EntryBase>();
         }
-        return this.deleteOrTextOrRect;
+        return this.items;
     }
 
     public int getId() {

@@ -25,6 +25,11 @@ public class UriTemplateDescriptions  {
     @XmlElement(name = "Template")
     protected List<UriTemplateDescription> template;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setTemplate(ArrayList<UriTemplateDescription> value) {
+        template=value;
+    }
+
     public List<UriTemplateDescription> getTemplate() {
         if (template == null) {
             template = new ArrayList<UriTemplateDescription>();

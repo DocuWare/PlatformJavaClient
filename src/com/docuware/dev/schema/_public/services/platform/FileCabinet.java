@@ -248,6 +248,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The proxy
 	*/
+    @Extension
     public HttpClientProxy getProxy() {
 	return this.proxy;
     }
@@ -258,6 +259,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @param proxy	The new proxy
 	*/
+    @Extension
     public void setProxy(HttpClientProxy proxy) {
 	this.proxy = proxy;
     }
@@ -270,6 +272,7 @@ private HttpClientProxy proxy;//test
 	* @param importSettings	 The settings used by the import
 	* @return	 The uploaded document's metadata
 	*/
+    @Extension
     public ImportResult chunkImportArchive(java.io.File file,ImportSettings importSettings) {
 	return FileCabinetExtensionsBase.chunkImportArchive(this,importSettings, new DwxArchiveFileUploadInfo(file) ,0);
     }
@@ -282,6 +285,7 @@ private HttpClientProxy proxy;//test
 	* @param synchronizationSettings	 The settings used by the synchronization
 	* @return	 The uploaded document's metadata
 	*/
+    @Extension
     public ImportResult chunkSynchronize(java.io.File file,SynchronizationSettings synchronizationSettings) {
 	return FileCabinetExtensionsBase.chunkSynchronize(this,synchronizationSettings, new DwxArchiveFileUploadInfo(file) ,0);
     }
@@ -294,6 +298,7 @@ private HttpClientProxy proxy;//test
 	* @param chunkSize	 [optional/ set this parameter to 0 if you want to use default value] The size of the chunk in bytes
 	* @return	 The uploaded document's metadata
 	*/
+    @Extension
     public Document chunkUploadDocument(java.io.File file,int chunkSize) {
 	return FileCabinetExtensionsBase.chunkUploadDocument(this, FileWrapper.toFileInfoWrapper(file), chunkSize);
     }
@@ -306,6 +311,7 @@ private HttpClientProxy proxy;//test
 	* @param chunkSize	 [optional/ set this parameter to 0 if you want to use default value] The size of the chunk in bytes
 	* @return	 The uploaded document's metadata
 	*/
+    @Extension
     public Document chunkUploadDocument(java.io.File[] files,int chunkSize) {
 	return FileCabinetExtensionsBase.chunkUploadDocument(this, FileWrapper.toFileInfoWrapper(files), chunkSize);
     }
@@ -319,6 +325,7 @@ private HttpClientProxy proxy;//test
 	* @param chunkSize	 [optional/ set this parameter to 0 if you want to use default value] The size of the chunk in bytes
 	* @return	 The uploaded document's metadata
 	*/
+    @Extension
     public Document chunkUploadDocument(Document document,java.io.File file,int chunkSize) {
 	return FileCabinetExtensionsBase.chunkUploadDocument(this, document, FileWrapper.toFileInfoWrapper(file), chunkSize);
     }
@@ -332,6 +339,7 @@ private HttpClientProxy proxy;//test
 	* @param chunkSize	 [optional/ set this parameter to 0 if you want to use default value] The size of the chunk in bytes
 	* @return	 The uploaded document's metadata
 	*/
+    @Extension
     public Document chunkUploadDocument(Document document,java.io.File[] files,int chunkSize) {
 	return FileCabinetExtensionsBase.chunkUploadDocument(this, document, FileWrapper.toFileInfoWrapper(files), chunkSize);
     }
@@ -344,6 +352,7 @@ private HttpClientProxy proxy;//test
 	* @param file	The file
 	* @return	 The uploaded document's metadata
 	*/
+    @Extension
     public Document uploadDocument(Document document,java.io.File... file) {
 	return FileCabinetExtensionsBase.uploadDocument(this, document, FileWrapper.toFileInfoWrapper(file));
     }
@@ -356,6 +365,7 @@ private HttpClientProxy proxy;//test
 	* @param file	The file
 	* @return	 A CompletableFuture uploads the document and returns the uploaded document's metadata.
 	*/
+    @Extension
     public CompletableFuture<DeserializedHttpResponseGen<Document>> uploadDocumentAsync(Document document,java.io.File... file) {
 	return FileCabinetExtensionsBase.uploadDocumentAsync(this, document, FileWrapper.toFileInfoWrapper(file));
     }
@@ -367,6 +377,7 @@ private HttpClientProxy proxy;//test
 	* @param file	The file
 	* @return	 A CompletableFuture uploads the document and returns the uploaded document's metadata.
 	*/
+    @Extension
     public CompletableFuture<DeserializedHttpResponseGen<Document>> uploadDocumentAsync(java.io.File... file) {
 	return FileCabinetExtensionsBase.uploadDocumentAsync(this, FileWrapper.toFileInfoWrapper(file));
     }
@@ -378,6 +389,7 @@ private HttpClientProxy proxy;//test
 	* @param file	The file
 	* @return	The uploaded document's metadata.
 	*/
+    @Extension
     public Document uploadDocument(java.io.File... file) {
 	return FileCabinetExtensionsBase.uploadDocument(this, FileWrapper.toFileInfoWrapper(file));
     }
@@ -389,6 +401,7 @@ private HttpClientProxy proxy;//test
 	* @param file	The file
 	* @return	The uploaded document's metadata.
 	*/
+    @Extension
     public ImportResult importArchive(java.io.File file) {
 	return FileCabinetExtensionsBase.importArchive(this, null, new DwxArchiveFileUploadInfo(file));
     }
@@ -401,6 +414,7 @@ private HttpClientProxy proxy;//test
 	* @param importSettings	The settings of the import
 	* @return	The uploaded document's metadata.
 	*/
+    @Extension
     public ImportResult importArchive(java.io.File file,ImportSettings importSettings) {
 	return FileCabinetExtensionsBase.importArchive(this, importSettings, new DwxArchiveFileUploadInfo(file));
     }
@@ -413,6 +427,7 @@ private HttpClientProxy proxy;//test
 	* @param synchronizationSettings	The settings of the import
 	* @return	The uploaded document's metadata.
 	*/
+    @Extension
     public ImportResult synchronize(java.io.File file,SynchronizationSettings synchronizationSettings) {
 	return FileCabinetExtensionsBase.synchronize(this, synchronizationSettings, new DwxArchiveFileUploadInfo(file));
     }
@@ -423,6 +438,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The base URI of the specified relations instance.
 	*/
+    @Extension
     public URI getBaseUri() {
 	return RelationsWithProxyExtensions.getBaseUri(this);
     }
@@ -434,6 +450,7 @@ private HttpClientProxy proxy;//test
 	* @param relationName	Name of the relation
 	* @return	The link, if it exists; null otherwise.
 	*/
+    @Extension
     public Link getLink(String relationName) {
 	return RelationExtension.getLink(this, relationName);
     }
@@ -445,6 +462,7 @@ private HttpClientProxy proxy;//test
 	* @param relationName	Name of the relation
 	* @return	The link, if it exists; null otherwise.
 	*/
+    @Extension
     public String getRelationUri(String relationName) {
 	return RelationExtension.getRelationUri(this, relationName);
     }
@@ -457,6 +475,7 @@ private HttpClientProxy proxy;//test
 	* @return	The link, if it exists.
 	* @throws	RuntimeException: The specified Link is not found
 	*/
+    @Extension
     public String getRelationUriOrThrow(String relationName) {
 	return RelationExtension.getRelationUriOrThrow(this, relationName);
     }
@@ -468,6 +487,7 @@ private HttpClientProxy proxy;//test
 	* @param relationName	Name of the relation
 	* @return	 True, if the specified link exists; otherwise, False.
 	*/
+    @Extension
     public boolean hasRelationUri(String relationName) {
 	return RelationExtension.hasRelationUri(this, relationName);
     }
@@ -519,7 +539,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "Documents" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<Document>> postToDocumentsRelationForDocumentAsync(Document data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> postToDocumentsRelationForDocumentAsync(CancellationToken ct, Document data) {
         return MethodInvocation.<Document, Document >postAsync(this, links, "documents", Document.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "Document"), Document.class, null, data), "application/vnd.docuware.platform.document+xml", "application/vnd.docuware.platform.document+xml", ct);
     }
 
@@ -579,7 +599,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP put Method on the link for the relation "ContentMergeOperation" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<Document>> putToContentMergeOperationRelationForDocumentAsync(ContentMergeOperationInfo data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> putToContentMergeOperationRelationForDocumentAsync(CancellationToken ct, ContentMergeOperationInfo data) {
         return MethodInvocation.<Document, ContentMergeOperationInfo >putAsync(this, links, "contentMergeOperation", Document.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "ContentMergeOperationInfo"), ContentMergeOperationInfo.class, null, data), "application/vnd.docuware.platform.contentmergeoperationinfo+xml", "application/vnd.docuware.platform.document+xml", ct);
     }
 
@@ -595,21 +615,21 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "AdvancedDocumentUpload".
     */
-    public Document postToAdvancedDocumentUploadRelationForDocument(InputStream data, String bodyContentType) { 
+    public Document postToAdvancedDocumentUploadRelationForDocument(String bodyContentType, InputStream data) { 
         return MethodInvocation.<Document, InputStream>post(this, links, "advancedDocumentUpload", Document.class, data, bodyContentType, "application/vnd.docuware.platform.document+xml");
 }
 
     /**
     * Calls the HTTP post Method on the link for the relation "AdvancedDocumentUpload" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<Document>> postToAdvancedDocumentUploadRelationForDocumentAsync(InputStream data, String bodyContentType) { 
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> postToAdvancedDocumentUploadRelationForDocumentAsync(String bodyContentType, InputStream data) { 
         return MethodInvocation.<Document, InputStream>postAsync(this, links, "advancedDocumentUpload", Document.class, data, bodyContentType, "application/vnd.docuware.platform.document+xml");
 }
 
     /**
     * Calls the HTTP post Method on the link for the relation "AdvancedDocumentUpload" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<Document>> postToAdvancedDocumentUploadRelationForDocumentAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> postToAdvancedDocumentUploadRelationForDocumentAsync(CancellationToken ct, String bodyContentType, InputStream data) { 
         return MethodInvocation.<Document, InputStream>postAsync(this, links, "advancedDocumentUpload", Document.class, data, bodyContentType, "application/vnd.docuware.platform.document+xml", ct);
 }
 
@@ -639,7 +659,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "ImportDocuments" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<ImportResult>> postToImportDocumentsRelationForImportResultAsync(ImportSettings data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<ImportResult>> postToImportDocumentsRelationForImportResultAsync(CancellationToken ct, ImportSettings data) {
         return MethodInvocation.<ImportResult, ImportSettings >postAsync(this, links, "importDocuments", ImportResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "ImportSettings"), ImportSettings.class, null, data), "application/vnd.docuware.platform.importsettings+xml", "application/vnd.docuware.platform.importresult+xml", ct);
     }
 
@@ -660,7 +680,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "ImportDocuments" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<ImportResult>> postToImportDocumentsRelationForImportResultAsync(SynchronizationSettings data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<ImportResult>> postToImportDocumentsRelationForImportResultAsync(CancellationToken ct, SynchronizationSettings data) {
         return MethodInvocation.<ImportResult, SynchronizationSettings >postAsync(this, links, "importDocuments", ImportResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SynchronizationSettings"), SynchronizationSettings.class, null, data), "application/vnd.docuware.platform.synchronizationsettings+xml", "application/vnd.docuware.platform.importresult+xml", ct);
     }
 
@@ -676,21 +696,21 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "UnprocessedDocumentUpload".
     */
-    public Document postToUnprocessedDocumentUploadRelationForDocument(InputStream data, String bodyContentType) { 
+    public Document postToUnprocessedDocumentUploadRelationForDocument(String bodyContentType, InputStream data) { 
         return MethodInvocation.<Document, InputStream>post(this, links, "unprocessedDocumentUpload", Document.class, data, bodyContentType, "application/vnd.docuware.platform.document+xml");
 }
 
     /**
     * Calls the HTTP post Method on the link for the relation "UnprocessedDocumentUpload" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<Document>> postToUnprocessedDocumentUploadRelationForDocumentAsync(InputStream data, String bodyContentType) { 
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> postToUnprocessedDocumentUploadRelationForDocumentAsync(String bodyContentType, InputStream data) { 
         return MethodInvocation.<Document, InputStream>postAsync(this, links, "unprocessedDocumentUpload", Document.class, data, bodyContentType, "application/vnd.docuware.platform.document+xml");
 }
 
     /**
     * Calls the HTTP post Method on the link for the relation "UnprocessedDocumentUpload" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<Document>> postToUnprocessedDocumentUploadRelationForDocumentAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> postToUnprocessedDocumentUploadRelationForDocumentAsync(CancellationToken ct, String bodyContentType, InputStream data) { 
         return MethodInvocation.<Document, InputStream>postAsync(this, links, "unprocessedDocumentUpload", Document.class, data, bodyContentType, "application/vnd.docuware.platform.document+xml", ct);
 }
 
@@ -1011,7 +1031,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "Notifications" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<Notifications>> postToNotificationsRelationForNotificationsAsync(Notifications data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Notifications>> postToNotificationsRelationForNotificationsAsync(CancellationToken ct, Notifications data) {
         return MethodInvocation.<Notifications, Notifications >postAsync(this, links, "notifications", Notifications.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "Notifications"), Notifications.class, null, data), "application/vnd.docuware.platform.notifications+xml", "application/vnd.docuware.platform.notifications+xml", ct);
     }
 
@@ -1041,7 +1061,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "Transfer" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryResult>> postToTransferRelationForDocumentsQueryResultAsync(FileCabinetTransferInfo data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryResult>> postToTransferRelationForDocumentsQueryResultAsync(CancellationToken ct, FileCabinetTransferInfo data) {
         return MethodInvocation.<DocumentsQueryResult, FileCabinetTransferInfo >postAsync(this, links, "transfer", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "FileCabinetTransferInfo"), FileCabinetTransferInfo.class, null, data), "application/vnd.docuware.platform.filecabinettransferinfo+xml", "application/vnd.docuware.platform.documents+xml", ct);
     }
 
@@ -1062,7 +1082,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "Transfer" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryResult>> postToTransferRelationForDocumentsQueryResultAsync(DocumentsTransferInfo data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryResult>> postToTransferRelationForDocumentsQueryResultAsync(CancellationToken ct, DocumentsTransferInfo data) {
         return MethodInvocation.<DocumentsQueryResult, DocumentsTransferInfo >postAsync(this, links, "transfer", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentsTransferInfo"), DocumentsTransferInfo.class, null, data), "application/vnd.docuware.platform.documentstransferinfo+xml", "application/vnd.docuware.platform.documents+xml", ct);
     }
 
@@ -1122,7 +1142,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "BatchUpdate" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>> postToBatchUpdateRelationForBatchUpdateIndexFieldsResultAsync(BatchUpdateProcess data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<BatchUpdateIndexFieldsResult>> postToBatchUpdateRelationForBatchUpdateIndexFieldsResultAsync(CancellationToken ct, BatchUpdateProcess data) {
         return MethodInvocation.<BatchUpdateIndexFieldsResult, BatchUpdateProcess >postAsync(this, links, "batchUpdate", BatchUpdateIndexFieldsResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "BatchUpdateProcess"), BatchUpdateProcess.class, null, data), "application/vnd.docuware.platform.batchupdateprocess+xml", "application/vnd.docuware.platform.batchupdateindexfieldsresult+xml", ct);
     }
 
@@ -1152,7 +1172,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "FieldValueStatistics" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<FieldValueStatisticsResult>> postToFieldValueStatisticsRelationForFieldValueStatisticsResultAsync(FieldValueStatisticsExpression data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<FieldValueStatisticsResult>> postToFieldValueStatisticsRelationForFieldValueStatisticsResultAsync(CancellationToken ct, FieldValueStatisticsExpression data) {
         return MethodInvocation.<FieldValueStatisticsResult, FieldValueStatisticsExpression >postAsync(this, links, "fieldValueStatistics", FieldValueStatisticsResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "FieldValueStatisticsExpression"), FieldValueStatisticsExpression.class, null, data), "application/vnd.docuware.platform.fieldvaluestatisticsexpression+xml", "application/vnd.docuware.platform.fieldvaluestatisticsresult+xml", ct);
     }
 
@@ -1168,22 +1188,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "ReplicationData".
     */
-    public InputStream postToReplicationDataRelationForInputStream(InputStream data, String bodyContentType) { 
-        return MethodInvocation.<InputStream, InputStream>post(this, links, "replicationData", InputStream.class, data, bodyContentType, "application/xml");
+    public InputStream postToReplicationDataRelationForInputStream(InputStream data) { 
+        return MethodInvocation.<InputStream, InputStream>post(this, links, "replicationData", InputStream.class, data, "application/octet-stream", "application/xml");
 }
 
     /**
     * Calls the HTTP post Method on the link for the relation "ReplicationData" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToReplicationDataRelationForInputStreamAsync(InputStream data, String bodyContentType) { 
-        return MethodInvocation.<InputStream, InputStream>postAsync(this, links, "replicationData", InputStream.class, data, bodyContentType, "application/xml");
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToReplicationDataRelationForInputStreamAsync(InputStream data) { 
+        return MethodInvocation.<InputStream, InputStream>postAsync(this, links, "replicationData", InputStream.class, data, "application/octet-stream", "application/xml");
 }
 
     /**
     * Calls the HTTP post Method on the link for the relation "ReplicationData" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToReplicationDataRelationForInputStreamAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
-        return MethodInvocation.<InputStream, InputStream>postAsync(this, links, "replicationData", InputStream.class, data, bodyContentType, "application/xml", ct);
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToReplicationDataRelationForInputStreamAsync(CancellationToken ct, InputStream data) { 
+        return MethodInvocation.<InputStream, InputStream>postAsync(this, links, "replicationData", InputStream.class, data, "application/octet-stream", "application/xml", ct);
 }
 
     /**
@@ -1198,22 +1218,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "ReplicationDeleteData".
     */
-    public InputStream postToReplicationDeleteDataRelationForInputStream(InputStream data, String bodyContentType) { 
-        return MethodInvocation.<InputStream, InputStream>post(this, links, "replicationDeleteData", InputStream.class, data, bodyContentType, "application/xml");
+    public InputStream postToReplicationDeleteDataRelationForInputStream(InputStream data) { 
+        return MethodInvocation.<InputStream, InputStream>post(this, links, "replicationDeleteData", InputStream.class, data, "application/octet-stream", "application/xml");
 }
 
     /**
     * Calls the HTTP post Method on the link for the relation "ReplicationDeleteData" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToReplicationDeleteDataRelationForInputStreamAsync(InputStream data, String bodyContentType) { 
-        return MethodInvocation.<InputStream, InputStream>postAsync(this, links, "replicationDeleteData", InputStream.class, data, bodyContentType, "application/xml");
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToReplicationDeleteDataRelationForInputStreamAsync(InputStream data) { 
+        return MethodInvocation.<InputStream, InputStream>postAsync(this, links, "replicationDeleteData", InputStream.class, data, "application/octet-stream", "application/xml");
 }
 
     /**
     * Calls the HTTP post Method on the link for the relation "ReplicationDeleteData" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToReplicationDeleteDataRelationForInputStreamAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
-        return MethodInvocation.<InputStream, InputStream>postAsync(this, links, "replicationDeleteData", InputStream.class, data, bodyContentType, "application/xml", ct);
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToReplicationDeleteDataRelationForInputStreamAsync(CancellationToken ct, InputStream data) { 
+        return MethodInvocation.<InputStream, InputStream>postAsync(this, links, "replicationDeleteData", InputStream.class, data, "application/octet-stream", "application/xml", ct);
 }
 
     /**
@@ -1228,22 +1248,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "SetupReplication".
     */
-    public String postToSetupReplicationRelationForString(InputStream data, String bodyContentType) { 
-        return MethodInvocation.<String, InputStream>post(this, links, "setupReplication", String.class, data, bodyContentType, "text/plain");
+    public String postToSetupReplicationRelationForString(InputStream data) { 
+        return MethodInvocation.<String, InputStream>post(this, links, "setupReplication", String.class, data, "application/octet-stream", "text/plain");
 }
 
     /**
     * Calls the HTTP post Method on the link for the relation "SetupReplication" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<String>> postToSetupReplicationRelationForStringAsync(InputStream data, String bodyContentType) { 
-        return MethodInvocation.<String, InputStream>postAsync(this, links, "setupReplication", String.class, data, bodyContentType, "text/plain");
+    public CompletableFuture<DeserializedHttpResponseGen<String>> postToSetupReplicationRelationForStringAsync(InputStream data) { 
+        return MethodInvocation.<String, InputStream>postAsync(this, links, "setupReplication", String.class, data, "application/octet-stream", "text/plain");
 }
 
     /**
     * Calls the HTTP post Method on the link for the relation "SetupReplication" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<String>> postToSetupReplicationRelationForStringAsync(InputStream data, String bodyContentType, CancellationToken ct) { 
-        return MethodInvocation.<String, InputStream>postAsync(this, links, "setupReplication", String.class, data, bodyContentType, "text/plain", ct);
+    public CompletableFuture<DeserializedHttpResponseGen<String>> postToSetupReplicationRelationForStringAsync(CancellationToken ct, InputStream data) { 
+        return MethodInvocation.<String, InputStream>postAsync(this, links, "setupReplication", String.class, data, "application/octet-stream", "text/plain", ct);
 }
 
     /**
@@ -1272,7 +1292,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "NextSequenceElement" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<SequenceResult>> postToNextSequenceElementRelationForSequenceResultAsync(SequenceRequest data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<SequenceResult>> postToNextSequenceElementRelationForSequenceResultAsync(CancellationToken ct, SequenceRequest data) {
         return MethodInvocation.<SequenceResult, SequenceRequest >postAsync(this, links, "nextSequenceElement", SequenceResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SequenceRequest"), SequenceRequest.class, null, data), "application/vnd.docuware.platform.sequencerequest+xml", "application/vnd.docuware.platform.sequenceresult+xml", ct);
     }
 

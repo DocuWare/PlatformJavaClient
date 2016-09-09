@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SizedAnnotationToolSettings")
+@CompareIgnore
 public class SizedAnnotationToolSettings
     extends AnnotationToolSettings
  {

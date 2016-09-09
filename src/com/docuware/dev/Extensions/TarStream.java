@@ -34,7 +34,7 @@ public class TarStream extends InputStream {
         for (IFileUploadInfo file : files) {
             ByteArrayOutputStream headerStream = new ByteArrayOutputStream();
             ByteArrayOutputStream padStream = new ByteArrayOutputStream();
-            InputStream entryStream = file.createStream();
+            InputStream entryStream = file.createInputStream();
             ByteArrayOutputStream entryOut = new ByteArrayOutputStream();
             byte[] Buffer = new byte[1];
             while (entryStream.available() > 0) {

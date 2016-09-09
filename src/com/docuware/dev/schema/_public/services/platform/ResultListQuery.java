@@ -55,6 +55,11 @@ public class ResultListQuery  {
         this.sortOrder = value;
     }
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setAdditionalResultFields(ArrayList<String> value) {
+        additionalResultFields=value;
+    }
+
     /**Define addition result fields to retrieve*/
     public List<String> getAdditionalResultFields() {
         if (additionalResultFields == null) {

@@ -28,11 +28,21 @@ public class GridTable  {
     @XmlElement(type = Integer.class)
     protected List<Integer> gridRow;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setGridCol(ArrayList<Integer> value) {
+        gridCol=value;
+    }
+
     public List<Integer> getGridCol() {
         if (gridCol == null) {
             gridCol = new ArrayList<Integer>();
         }
         return this.gridCol;
+    }
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setGridRow(ArrayList<Integer> value) {
+        gridRow=value;
     }
 
     public List<Integer> getGridRow() {

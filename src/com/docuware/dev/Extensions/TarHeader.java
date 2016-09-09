@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author Patrick
  */
-class TarHeader {
+public class TarHeader {
 
     static Date epoch = new Date(-3600000);
     public String name;

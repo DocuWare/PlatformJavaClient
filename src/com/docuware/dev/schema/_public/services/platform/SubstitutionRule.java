@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SubstitutionRule")
+@CompareIgnore
 public class SubstitutionRule  {
 
     @XmlAttribute(name = "Name", required = true)

@@ -38,6 +38,11 @@ public class TableZone
         this.gridT = value;
     }
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setCz(ArrayList<CellZone> value) {
+        cz=value;
+    }
+
     public List<CellZone> getCz() {
         if (cz == null) {
             cz = new ArrayList<CellZone>();

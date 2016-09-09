@@ -30,6 +30,11 @@ public class CFSStatisticSpecific  {
     @XmlAttribute(name = "ObjectID", required = true)
     protected String objectID;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setSpecificValue(ArrayList<CFSSpecificValue> value) {
+        specificValue=value;
+    }
+
     public List<CFSSpecificValue> getSpecificValue() {
         if (specificValue == null) {
             specificValue = new ArrayList<CFSSpecificValue>();

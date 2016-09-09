@@ -31,6 +31,11 @@ public class CountResult  {
     @XmlSchemaType(name = "dateTime")
     protected GregorianCalendar timeStamp;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setGroup(ArrayList<CountResultItem> value) {
+        group=value;
+    }
+
     /**Set of count results*/
     public List<CountResultItem> getGroup() {
         if (group == null) {

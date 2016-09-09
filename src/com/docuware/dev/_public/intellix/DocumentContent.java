@@ -40,6 +40,11 @@ public class DocumentContent  {
         this.metadata = value;
     }
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setEmbedded(ArrayList<DocumentContent.Embedded> value) {
+        embedded=value;
+    }
+
     /**For internal use: Embedded data.*/
     public List<DocumentContent.Embedded> getEmbedded() {
         if (embedded == null) {
@@ -85,6 +90,11 @@ public class DocumentContent  {
 
         @XmlElement(name = "Page", required = true)
         protected List<PageContent> page;
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setPage(ArrayList<PageContent> value) {
+        page=value;
+    }
 
         public List<PageContent> getPage() {
             if (page == null) {

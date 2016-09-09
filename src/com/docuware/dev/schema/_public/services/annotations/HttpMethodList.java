@@ -30,6 +30,11 @@ public class HttpMethodList  {
     @XmlAttribute(name = "IsComplete")
     protected Boolean isComplete;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setMethod(ArrayList<HttpMethod> value) {
+        method=value;
+    }
+
     public List<HttpMethod> getMethod() {
         if (method == null) {
             method = new ArrayList<HttpMethod>();

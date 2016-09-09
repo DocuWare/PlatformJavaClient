@@ -39,12 +39,22 @@ public class AdditionalOrganizationInfo  {
     @XmlAttribute(name = "OrganizationType")
     protected String organizationType;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setCompanyNames(ArrayList<String> value) {
+        companyNames=value;
+    }
+
     /**Name of companies included in organization*/
     public List<String> getCompanyNames() {
         if (companyNames == null) {
             companyNames = new ArrayList<String>();
         }
         return this.companyNames;
+    }
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setAddressLines(ArrayList<String> value) {
+        addressLines=value;
     }
 
     /**Addresses of organization*/

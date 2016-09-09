@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlType(name = "LayoutMode")
 @XmlEnum
+@CompareIgnore
 public enum LayoutMode {
 
     @XmlEnumValue("AllInOne")

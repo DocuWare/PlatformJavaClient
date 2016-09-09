@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlType;
     "annotations",
     "toolbars"
 })
+@CompareIgnore
 public class ViewerPreferences  {
 
     @XmlElement(name = "Annotations", required = true)
@@ -97,6 +98,11 @@ public class ViewerPreferences  {
         @XmlElement(name = "AnnotationTool")
         protected List<AnnotationToolSettings> annotationTool;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setAnnotationTool(ArrayList<AnnotationToolSettings> value) {
+        annotationTool=value;
+    }
+
         public List<AnnotationToolSettings> getAnnotationTool() {
             if (annotationTool == null) {
                 annotationTool = new ArrayList<AnnotationToolSettings>();
@@ -115,6 +121,11 @@ public class ViewerPreferences  {
 
         @XmlElement(name = "Toolbar")
         protected List<ViewerToolbar> toolbar;
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setToolbar(ArrayList<ViewerToolbar> value) {
+        toolbar=value;
+    }
 
         public List<ViewerToolbar> getToolbar() {
             if (toolbar == null) {

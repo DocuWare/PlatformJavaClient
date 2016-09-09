@@ -13,7 +13,7 @@ import javax.ws.rs.core.MultivaluedMap;
  *
  * @author Patrick
  */
-public class ServiceConnectionLoginData extends ServiceConnectionLicenseBoundData {
+class ServiceConnectionLoginData extends ServiceConnectionLicenseBoundData {
         
     public String Organization;
 

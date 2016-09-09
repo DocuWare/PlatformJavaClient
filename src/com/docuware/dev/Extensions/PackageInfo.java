@@ -12,7 +12,7 @@ import java.util.Date;
  *
  * @author Patrick
  */
-public class PackageInfo {
+class PackageInfo {
     
     static String version = "1.0";
     static String name = "Docuware+Java.API";

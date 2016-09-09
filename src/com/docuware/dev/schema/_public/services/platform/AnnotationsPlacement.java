@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AnnotationsPlacement", propOrder = {
-    "annotationOrStampPlacement"
+    "items"
 })
 public class AnnotationsPlacement  {
 
@@ -27,14 +27,18 @@ public class AnnotationsPlacement  {
         @XmlElement(name = "Annotation", type = Annotation.class),
         @XmlElement(name = "StampPlacement", type = StampPlacement.class)
     })
-    protected List<Object> annotationOrStampPlacement;
+    protected List<Object> items;
 
-    /**Annotation element. Contains all annotations for a specific page in up to 5 layers*/
-    public List<Object> getAnnotationOrStampPlacement() {
-        if (annotationOrStampPlacement == null) {
-            annotationOrStampPlacement = new ArrayList<Object>();
+    /**ArrayList is required for the XML-Marshalling */
+    public void setItems(ArrayList<Object> value) {
+        items=value;
+    }
+
+    public List<Object> getItems() {
+        if (items == null) {
+            items = new ArrayList<Object>();
         }
-        return this.annotationOrStampPlacement;
+        return this.items;
     }
 
 

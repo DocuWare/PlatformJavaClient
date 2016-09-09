@@ -20,12 +20,18 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "WorkflowAreaPreferences", propOrder = {
     "controllerInstances"
 })
+@CompareIgnore
 public class WorkflowAreaPreferences
     extends ContentAreaPreferences
  {
 
     @XmlElement(name = "ControllerInstances")
     protected List<WorkInstance> controllerInstances;
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setControllerInstances(ArrayList<WorkInstance> value) {
+        controllerInstances=value;
+    }
 
     /**Items assigned to the area like dialogs, Baskets.*/
     public List<WorkInstance> getControllerInstances() {

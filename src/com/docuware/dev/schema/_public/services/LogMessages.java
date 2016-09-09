@@ -21,12 +21,18 @@ import javax.xml.bind.annotation.XmlType;
     "message",
     "links"
 })
+@CompareIgnore
 public class LogMessages  {
 
     @XmlElement(name = "Message")
     protected List<LogMessage> message;
     @XmlElement(name = "Links", required = true)
     protected Links links;
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setMessage(ArrayList<LogMessage> value) {
+        message=value;
+    }
 
     public List<LogMessage> getMessage() {
         if (message == null) {

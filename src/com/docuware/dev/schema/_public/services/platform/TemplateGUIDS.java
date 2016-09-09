@@ -25,6 +25,11 @@ public class TemplateGUIDS  {
     @XmlElement(name = "TemplateGUID", required = true)
     protected List<String> templateGUID;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setTemplateGUID(ArrayList<String> value) {
+        templateGUID=value;
+    }
+
     public List<String> getTemplateGUID() {
         if (templateGUID == null) {
             templateGUID = new ArrayList<String>();

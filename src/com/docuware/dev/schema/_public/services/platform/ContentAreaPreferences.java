@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlType;
     WorkflowAreaPreferences.class,
     BasketAreaPreferences.class
 })
+@CompareIgnore
 public class ContentAreaPreferences  {
 
     @XmlElement(name = "Instances")
@@ -34,6 +35,11 @@ public class ContentAreaPreferences  {
     protected WorkAreaType areaType;
     @XmlAttribute(name = "SelectedInstanceIndex")
     protected Integer selectedInstanceIndex;
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setInstances(ArrayList<WorkInstance> value) {
+        instances=value;
+    }
 
     /**Items assigned to the area like dialogs, Baskets.*/
     public List<WorkInstance> getInstances() {

@@ -31,7 +31,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "line",
     "index",
     "length",
-    "decimalOrDateOrText",
+    "item",
     "foundWithLanguages",
     "correctLanguageTo",
     "impliesCultures"
@@ -63,7 +63,7 @@ public class Candidate  {
         @XmlElement(name = "Date", type = GregorianCalendar.class),
         @XmlElement(name = "Text", type = String.class)
     })
-    protected Object decimalOrDateOrText;
+    protected Object item;
     @XmlElement(name = "FoundWithLanguages")
     protected List<String> foundWithLanguages;
     @XmlElement(name = "CorrectLanguageTo")
@@ -151,12 +151,17 @@ public class Candidate  {
         this.length = value;
     }
 
-    public Object getDecimalOrDateOrText() {
-        return decimalOrDateOrText;
+    public Object getItem() {
+        return item;
     }
 
-    public void setDecimalOrDateOrText(Object value) {
-        this.decimalOrDateOrText = value;
+    public void setItem(Object value) {
+        this.item = value;
+    }
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setFoundWithLanguages(ArrayList<String> value) {
+        foundWithLanguages=value;
     }
 
     public List<String> getFoundWithLanguages() {
@@ -166,11 +171,21 @@ public class Candidate  {
         return this.foundWithLanguages;
     }
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setCorrectLanguageTo(ArrayList<String> value) {
+        correctLanguageTo=value;
+    }
+
     public List<String> getCorrectLanguageTo() {
         if (correctLanguageTo == null) {
             correctLanguageTo = new ArrayList<String>();
         }
         return this.correctLanguageTo;
+    }
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setImpliesCultures(ArrayList<String> value) {
+        impliesCultures=value;
     }
 
     public List<String> getImpliesCultures() {

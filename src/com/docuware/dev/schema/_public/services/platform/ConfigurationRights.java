@@ -27,6 +27,11 @@ public class ConfigurationRights  {
     @XmlSchemaType(name = "string")
     protected List<ConfigurationRight> configurationRight;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setConfigurationRight(ArrayList<ConfigurationRight> value) {
+        configurationRight=value;
+    }
+
     /**List of configuration rights.*/
     public List<ConfigurationRight> getConfigurationRight() {
         if (configurationRight == null) {

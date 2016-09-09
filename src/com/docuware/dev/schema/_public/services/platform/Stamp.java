@@ -29,7 +29,7 @@ import com.docuware.dev.schema._public.services.Links;
     "formField",
     "fields",
     "headFont",
-    "textStampOrStrokeStampOrBitmapStamp",
+    "item",
     "links"
 })
 public class Stamp  implements IRelationsWithProxy {
@@ -47,7 +47,7 @@ private HttpClientProxy proxy;//test
         @XmlElement(name = "StrokeStamp", type = StrokeStamp.class),
         @XmlElement(name = "BitmapStamp", type = BitmapStamp.class)
     })
-    protected Object textStampOrStrokeStampOrBitmapStamp;
+    protected Object item;
     @XmlElement(name = "Links", namespace = "http://dev.docuware.com/schema/public/services", required = true)
     protected Links links;
     @XmlAttribute(name = "PasswordProtected", required = true)
@@ -75,12 +75,22 @@ private HttpClientProxy proxy;//test
     @XmlAttribute(name = "KeepStampActive")
     protected Boolean keepStampActive;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setFormField(ArrayList<StampFormField> value) {
+        formField=value;
+    }
+
     /**List of the stamp form fields.*/
     public List<StampFormField> getFormField() {
         if (formField == null) {
             formField = new ArrayList<StampFormField>();
         }
         return this.formField;
+    }
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setFields(ArrayList<StampField> value) {
+        fields=value;
     }
 
     /**List of the stamp fields.*/
@@ -101,12 +111,12 @@ private HttpClientProxy proxy;//test
         this.headFont = value;
     }
 
-    public Object getTextStampOrStrokeStampOrBitmapStamp() {
-        return textStampOrStrokeStampOrBitmapStamp;
+    public Object getItem() {
+        return item;
     }
 
-    public void setTextStampOrStrokeStampOrBitmapStamp(Object value) {
-        this.textStampOrStrokeStampOrBitmapStamp = value;
+    public void setItem(Object value) {
+        this.item = value;
     }
 
     public Links getLinks() {
@@ -273,6 +283,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The proxy
 	*/
+    @Extension
     public HttpClientProxy getProxy() {
 	return this.proxy;
     }
@@ -283,6 +294,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @param proxy	The new proxy
 	*/
+    @Extension
     public void setProxy(HttpClientProxy proxy) {
 	this.proxy = proxy;
 	if(this.proxy!=null) { 
@@ -298,6 +310,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The base URI of the specified relations instance.
 	*/
+    @Extension
     public URI getBaseUri() { 
 	return RelationsWithProxyExtensions.getBaseUri(this); 
     }
@@ -309,6 +322,7 @@ private HttpClientProxy proxy;//test
 	* @param relationName	Name of the relation
 	* @return	The link, if it exists; null otherwise.
 	*/
+    @Extension
     public Link getLink(String relationName) {
 	return RelationExtension.getLink(this, relationName);
     }
@@ -320,6 +334,7 @@ private HttpClientProxy proxy;//test
 	* @param relationName	Name of the relation
 	* @return	The link, if it exists; null otherwise.
 	*/
+    @Extension
     public String getRelationUri(String relationName) {
 	return RelationExtension.getRelationUri(this, relationName);
     }
@@ -332,6 +347,7 @@ private HttpClientProxy proxy;//test
 	* @return	The link, if it exists.
 	* @throws	RuntimeException: The specified Link is not found
 	*/
+    @Extension
     public String getRelationUriOrThrow(String relationName) {
 	return RelationExtension.getRelationUriOrThrow(this, relationName);
     }
@@ -343,6 +359,7 @@ private HttpClientProxy proxy;//test
 	* @param relationName	Name of the relation
 	* @return	 True, if the specified link exists; otherwise, False.
 	*/
+    @Extension
     public boolean hasRelationUri(String relationName) {
 	return RelationExtension.hasRelationUri(this, relationName);
     }
@@ -394,7 +411,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "AsBitmap" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToAsBitmapRelationForInputStreamAsync(FormFieldValues data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToAsBitmapRelationForInputStreamAsync(CancellationToken ct, FormFieldValues data) {
         return MethodInvocation.<InputStream, FormFieldValues >postAsync(this, links, "asBitmap", InputStream.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampFormFields"), FormFieldValues.class, null, data), "application/vnd.docuware.platform.formfieldvalues+xml", "application/xml", ct);
     }
 
@@ -445,7 +462,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "AsSvg" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToAsSvgRelationForInputStreamAsync(FormFieldValues data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> postToAsSvgRelationForInputStreamAsync(CancellationToken ct, FormFieldValues data) {
         return MethodInvocation.<InputStream, FormFieldValues >postAsync(this, links, "asSvg", InputStream.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "StampFormFields"), FormFieldValues.class, null, data), "application/vnd.docuware.platform.formfieldvalues+xml", "application/xml", ct);
     }
 

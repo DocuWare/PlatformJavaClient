@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlType(name = "ToolbarControlState")
 @XmlEnum
+@CompareIgnore
 public enum ToolbarControlState {
 
     @XmlEnumValue("None")

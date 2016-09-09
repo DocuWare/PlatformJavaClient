@@ -48,7 +48,7 @@ public class FileWrapper implements IFileUploadInfo {
     }
 
     @Override
-    public InputStream createStream() {
+    public InputStream createInputStream() {
         FileInputStream fis = null;
         try {
             fis = new FileInputStream(file);

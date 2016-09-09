@@ -25,6 +25,11 @@ public class WebFormOptions  {
     @XmlElement(name = "WebFormOption", required = true)
     protected List<WebFormOption> webFormOption;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setWebFormOption(ArrayList<WebFormOption> value) {
+        webFormOption=value;
+    }
+
     public List<WebFormOption> getWebFormOption() {
         if (webFormOption == null) {
             webFormOption = new ArrayList<WebFormOption>();

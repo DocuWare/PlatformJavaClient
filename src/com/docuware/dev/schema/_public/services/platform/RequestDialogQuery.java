@@ -27,6 +27,11 @@ public class RequestDialogQuery  {
     @XmlSchemaType(name = "string")
     protected List<DialogTypes> dialogTypes;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setDialogTypes(ArrayList<DialogTypes> value) {
+        dialogTypes=value;
+    }
+
     /**Array of document types.*/
     public List<DialogTypes> getDialogTypes() {
         if (dialogTypes == null) {

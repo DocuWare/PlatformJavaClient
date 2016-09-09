@@ -44,6 +44,11 @@ public class DialogPropertiesResultList
     @XmlAttribute(name = "ShowCheckedOutDocumens")
     protected Boolean showCheckedOutDocumens;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setFunctions(ArrayList<ResultDialogFunction> value) {
+        functions=value;
+    }
+
     /**Functions available for the result list (Print document, Display document, etc.)*/
     public List<ResultDialogFunction> getFunctions() {
         if (functions == null) {

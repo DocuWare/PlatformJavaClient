@@ -9,7 +9,7 @@ package com.docuware.dev.Extensions;
  *
  * @author Patrick
  */
-enum TarEntryType {
+public enum TarEntryType {
 
     File(0),
     OldFile((byte) '0'),

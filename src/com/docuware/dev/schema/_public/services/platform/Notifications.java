@@ -36,6 +36,11 @@ private HttpClientProxy proxy;//test
     @XmlAttribute(name = "Timeout")
     protected Integer timeout;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setNotification(ArrayList<Notification> value) {
+        notification=value;
+    }
+
     /**Collection of notifications.*/
     public List<Notification> getNotification() {
         if (notification == null) {
@@ -71,6 +76,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The proxy
 	*/
+    @Extension
     public HttpClientProxy getProxy() {
 	return this.proxy;
     }
@@ -81,6 +87,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @param proxy	The new proxy
 	*/
+    @Extension
     public void setProxy(HttpClientProxy proxy) {
 	this.proxy = proxy;
     }
@@ -91,6 +98,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The base URI of the specified relations instance.
 	*/
+    @Extension
     public URI getBaseUri() {
 	return RelationsWithProxyExtensions.getBaseUri(this);
     }

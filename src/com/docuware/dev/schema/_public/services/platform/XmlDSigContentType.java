@@ -34,6 +34,11 @@ public class XmlDSigContentType  {
     @XmlAttribute(name = "Warning")
     protected Boolean warning;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setNodes(ArrayList<XmlDSigContentType> value) {
+        nodes=value;
+    }
+
     @Eagle
     public List<XmlDSigContentType> getNodes() {
         if (nodes == null) {

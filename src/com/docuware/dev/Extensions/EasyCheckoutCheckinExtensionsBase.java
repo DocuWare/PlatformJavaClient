@@ -140,7 +140,7 @@ public class EasyCheckoutCheckinExtensionsBase {
             f.setContentDisposition(fdcd);
             multipartForm.bodyPart(f);
         } else {
-            InputStream is = fileToCheckin.createStream();
+            InputStream is = fileToCheckin.createInputStream();
             byte[] buffer = new byte[1024];
             try {
                 File temp = File.createTempFile("tempfile", null);

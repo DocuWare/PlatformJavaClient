@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "FormInfo", propOrder = {
+"publicSpecified",
     "configId",
     "name",
     "fields",
@@ -24,6 +25,8 @@ import javax.xml.bind.annotation.XmlType;
     "submissionOptions"
 })
 public class FormInfo  {
+private boolean publicSpecified;//test
+
 
     @XmlElement(name = "ConfigId", required = true)
     protected String configId;
@@ -92,6 +95,16 @@ public class FormInfo  {
 
     public void setPublic(Boolean value) {
         this._public = value;
+    }
+
+    @Extension
+    public boolean isPublicSpecified() {
+	return publicSpecified;
+    }
+
+    @Extension
+    public void setPublicSpecified(boolean value) {
+	publicSpecified=value;
     }
 
 

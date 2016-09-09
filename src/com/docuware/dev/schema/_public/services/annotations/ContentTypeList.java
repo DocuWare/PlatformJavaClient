@@ -23,7 +23,7 @@ import javax.xml.namespace.QName;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ContentTypeList", propOrder = {
-    "contentTypeOrSchemaTypeOrComplexType"
+    "items"
 })
 public class ContentTypeList  {
 
@@ -32,15 +32,20 @@ public class ContentTypeList  {
         @XmlElement(name = "SchemaType", type = ContentTypeList.SchemaType.class),
         @XmlElement(name = "ComplexType", type = ContentTypeList.ComplexType.class)
     })
-    protected List<Object> contentTypeOrSchemaTypeOrComplexType;
+    protected List<Object> items;
     @XmlAttribute(name = "IntroducedIn")
     protected String introducedIn;
 
-    public List<Object> getContentTypeOrSchemaTypeOrComplexType() {
-        if (contentTypeOrSchemaTypeOrComplexType == null) {
-            contentTypeOrSchemaTypeOrComplexType = new ArrayList<Object>();
+    /**ArrayList is required for the XML-Marshalling */
+    public void setItems(ArrayList<Object> value) {
+        items=value;
+    }
+
+    public List<Object> getItems() {
+        if (items == null) {
+            items = new ArrayList<Object>();
         }
-        return this.contentTypeOrSchemaTypeOrComplexType;
+        return this.items;
     }
 
     public String getIntroducedIn() {

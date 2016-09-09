@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author Patrick
  */
-class TarArchiveFileUploadInfo implements IFileUploadInfo, AutoCloseable {
+public class TarArchiveFileUploadInfo implements IFileUploadInfo, AutoCloseable {
 
     private final IFileUploadInfo[] _files;
     private TarStream _stream;
@@ -28,7 +28,7 @@ class TarArchiveFileUploadInfo implements IFileUploadInfo, AutoCloseable {
     }
 
     @Override
-    public InputStream createStream() {
+    public InputStream createInputStream() {
         if (_stream == null) {
             try {
                 _stream = new TarStream(_files);

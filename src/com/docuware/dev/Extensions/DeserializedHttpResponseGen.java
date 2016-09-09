@@ -55,17 +55,6 @@ public class DeserializedHttpResponseGen<T> implements Closeable {
         }
         return fileName;
     }
-//Content headers are also in the usual headers
-        /// <summary>
-    /// Gets the content headers.
-    /// </summary>
-    /// <value>
-    /// The content headers.
-    /// </value>
-       /* public HttpContentHeaders ContentHeaders()
-     {
-     return responseMessage.; 
-     }*/
 
     /**
      * Gets the response status code

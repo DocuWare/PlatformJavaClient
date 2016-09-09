@@ -16,8 +16,6 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Dolphin{
-    
-    String minimumVersion() default "6.6";
+public @interface Extension {
     
 }

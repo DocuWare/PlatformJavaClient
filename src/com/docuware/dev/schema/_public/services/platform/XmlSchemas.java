@@ -28,6 +28,11 @@ private HttpClientProxy proxy;//test
     @XmlElement(name = "Schema")
     protected List<XmlSchema> schema;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setSchema(ArrayList<XmlSchema> value) {
+        schema=value;
+    }
+
     public List<XmlSchema> getSchema() {
         if (schema == null) {
             schema = new ArrayList<XmlSchema>();
@@ -41,6 +46,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The proxy
 	*/
+    @Extension
     public HttpClientProxy getProxy() {
 	return this.proxy;
     }
@@ -51,6 +57,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @param proxy	The new proxy
 	*/
+    @Extension
     public void setProxy(HttpClientProxy proxy) {
 	this.proxy = proxy;
 	if(this.schema!=null) { 

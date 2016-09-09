@@ -25,6 +25,11 @@ public class FieldsList  {
     @XmlElement(name = "Field")
     protected List<String> field;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setField(ArrayList<String> value) {
+        field=value;
+    }
+
     /**A list of fields*/
     public List<String> getField() {
         if (field == null) {

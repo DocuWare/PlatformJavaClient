@@ -23,6 +23,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "exception",
     "stackTrace"
 })
+@CompareIgnore
 public class LogMessage  {
 
     @XmlElement(name = "Message", required = true)

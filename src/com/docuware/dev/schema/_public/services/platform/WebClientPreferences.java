@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlType;
     "multiFCSearches",
     "localStorage"
 })
+@CompareIgnore
 public class WebClientPreferences
     extends ApplicationPreferences
  {
@@ -44,6 +45,11 @@ public class WebClientPreferences
     protected MultiFCSearches multiFCSearches;
     @XmlElement(name = "LocalStorage", required = true)
     protected String localStorage;
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setWorkAreas(ArrayList<WorkAreaPreferences> value) {
+        workAreas=value;
+    }
 
     public List<WorkAreaPreferences> getWorkAreas() {
         if (workAreas == null) {

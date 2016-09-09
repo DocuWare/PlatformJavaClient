@@ -23,9 +23,9 @@ import javax.xml.namespace.QName;
 
 /**
  *
- * @author weidling
+ * This is the main working class of the client. It resolves links and performs requests through the client
  */
-public class LinkResolver {
+class LinkResolver {
 
     URI baseUri;
     Client client;
@@ -39,8 +39,14 @@ public class LinkResolver {
         this.client = client;
     }
 
+    /**
+     * Gets the link specified through the Relation form the Links of an object
+     * 
+     * @param rel the relation to look for  
+     * @param baseUri   the baseUri
+     * @param links   the links to look in for the relation
+     */
     public static URI getLink(URI baseUri, Links links, String rel) {
-
         for (Link link : links.getLink()) {
             if (rel.equals(link.getRel())) {
                 return baseUri.resolve(link.getHref());
@@ -49,14 +55,51 @@ public class LinkResolver {
         return null;
     }
 
+    /**
+     *Gets the link specified through the Relation form the Links of an object
+     * 
+     * @param rel the relation to look for  
+     * @param links   the links to look in for the relation
+     */
     public URI getLink(Links links, String rel) {
         return LinkResolver.getLink(baseUri, links, rel);
     }
 
+    /**
+     * Gets an absolute Uri from an relative Uri
+     * @param uri   the relative Uri
+     * @return  the absolute Uri
+     */
     public URI getAbsoluteUri(String uri) {
         return baseUri.resolve(uri);
     }
 
+    /*
+    For better understanding this method, as it is the first method interacting with the client, will be explained in depth
+    The method is surrounded by a CompletableFuture, which makes it asynchronous. (Be aware that there are different types
+    of delta-Functions (Supplier, Consumer, Function, BiFunction...) in java, so you have to choose the right function)
+    In the asynchronous method first the specified link is resolved and the ressource get targeted.
+    Next the HttpMethod is performed on this request. It is possible to specify the accept and type field of the field, which
+    sets the affiliated Headerfields in the request. This can be seen in some post/put methods
+    In the Get-Method you specify the representation of the object. This is a ClientRepsonse, which is a Wrapper-class,
+    containing some Header-Information. 
+    Next it is checked, if the request was succesfull. If this is not the case, a HttpClientRequestException is created
+    from the error message and wrapped in a DeserializedHttpResponse
+    If it was successfull, we get the requested object in the requested Representation from the clientResponse and wrap it 
+    with a DeserializedHttpRepsonse
+    
+    Synchronous methods work like this, too, but they don't use CompletableFuture and DeserializedHttpResponses
+    */
+    /**
+     * Send a get-Request asynchronously
+     * 
+     * @param <T>   The generic type of the Method
+     * @param proxy The proxy which is used for communication
+     * @param links The linkns of the object
+     * @param rel   The relation which should be picked from the links
+     * @param expectedType  The expected return type
+     * @return  The future performing the getRequest and returning the Result
+     */
     <T> CompletableFuture<DeserializedHttpResponseGen<T>> getAsync(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType) {
         return CompletableFuture.<DeserializedHttpResponseGen<T>>supplyAsync(() -> {
             WebResource web = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel));
@@ -74,6 +117,16 @@ public class LinkResolver {
         });
     }
 
+    /**
+     * Send a get-Request
+     * 
+     * @param <T>   The generic type of the Method
+     * @param proxy The proxy which is used for communication
+     * @param links The linkns of the object
+     * @param rel   The relation which should be picked from the links
+     * @param expectedType  The expected return type
+     * @return  The future performing the getRequest and returning the Result
+     */
     <T> T get(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType) {
         WebResource web = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel));
         ClientResponse resp = web.get(ClientResponse.class);
@@ -89,6 +142,20 @@ public class LinkResolver {
         }
     }
     
+    /**
+     * Send a post-Request 
+     * 
+     * @param <P>   The generic type of the post-object
+     * @param <T>   The generic type of the Method
+     * @param proxy The proxy which is used for communication
+     * @param links The linkns of the object
+     * @param rel   The relation which should be picked from the links
+     * @param expectedType  The expected return type
+     * @param postData  data to post to the Client
+     * @param type  type-field of the header (specifies, what is send)
+     * @param accept    accept-field of the header (specified, what request is accepted)
+     * @return  The future performing the post-Request and returning the Result
+     */
     <T, P> T post(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, JAXBElement<P> postData, String type, String accept) {
         ClientResponse resp = client.resource(LinkResolver.getLink(baseUri, links, rel)).type(type).accept(accept).post(ClientResponse.class, postData);
         if (resp.getStatus() < 200 || resp.getStatus() > 399) {
@@ -103,6 +170,20 @@ public class LinkResolver {
         }
     }
 
+    /**
+     * Send a post-Request asynchronously
+     * 
+     * @param <P>   The generic type of the post-object
+     * @param <T>   The generic return type of the Method
+     * @param proxy The proxy which is used for communication
+     * @param links The linkns of the object
+     * @param rel   The relation which should be picked from the links
+     * @param expectedType  The expected return type
+     * @param postData  data to post to the Client
+     * @param type  type-field of the header (specifies, what is send)
+     * @param accept    accept-field of the header (specified, what request is accepted)
+     * @return  The future performing the post-Request and returning the Result
+     */
     <T, P> CompletableFuture<DeserializedHttpResponseGen<T>> postAsync(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, JAXBElement<P> postData, String type, String accept) {
         return CompletableFuture.<DeserializedHttpResponseGen<T>>supplyAsync(() -> {
             WebResource web = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel));
@@ -120,6 +201,18 @@ public class LinkResolver {
         });
     }
 
+    /**
+     * Send a post-Request 
+     * 
+     * @param <P>   The generic type of the post-object
+     * @param proxy The proxy which is used for communication
+     * @param links The linkns of the object
+     * @param rel   The relation which should be picked from the links
+     * @param postData  data to post to the Client
+     * @param type  type-field of the header (specifies, what is send)
+     * @param accept    accept-field of the header (specified, what request is accepted)
+     * @return  The future performing the post-Request and returning the Result
+     */
     <P> String post(IHttpClientProxy proxy, Links links, String rel, P postData, String type, String accept) {
         ClientResponse resp = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel)).type(type).accept(accept).post(ClientResponse.class, postData);
         if (resp.getStatus() < 200 || resp.getStatus() > 399) {
@@ -130,6 +223,18 @@ public class LinkResolver {
         }
     }
 
+    /**
+     * Send a post-Request 
+     * 
+     * @param <P>   The generic type of the post-object
+     * @param proxy The proxy which is used for communication
+     * @param links The linkns of the object
+     * @param rel   The relation which should be picked from the links
+     * @param postData  data to post to the Client
+     * @param type  type-field of the header (specifies, what is send)
+     * @param accept    accept-field of the header (specified, what request is accepted)
+     * @return  The future performing the post-Request and returning the Result
+     */
     <P> CompletableFuture<DeserializedHttpResponseGen<String>> postAsync(IHttpClientProxy proxy, Links links, String rel, P postData, String type, String accept) {
         return CompletableFuture.<DeserializedHttpResponseGen<String>>supplyAsync(() -> {
             WebResource web = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel));

@@ -11,13 +11,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- *
+ * This annotation is just for Developers. 
+ * It tells you, if a class should be ignored, when you compare the Java-client with the .Net-Client
  * @author Patrick
  */
-@Target(ElementType.METHOD)
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Dolphin{
-    
-    String minimumVersion() default "6.6";
+public @interface CompareIgnore {
     
 }

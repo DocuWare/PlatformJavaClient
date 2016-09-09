@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ViewerToolbarControl")
+@CompareIgnore
 public class ViewerToolbarControl  {
 
     @XmlAttribute(name = "Type", required = true)

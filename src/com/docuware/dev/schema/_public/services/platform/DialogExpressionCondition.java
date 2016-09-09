@@ -28,6 +28,11 @@ public class DialogExpressionCondition  {
     @XmlAttribute(name = "DBName")
     protected String dbName;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setValue(ArrayList<String> value) {
+        value=value;
+    }
+
     /**Specifies the value or the expression of the dialog field.*/
     public List<String> getValue() {
         if (value == null) {
@@ -53,6 +58,7 @@ public class DialogExpressionCondition  {
 	* @param value	The search value
 	* @return	The codition
 	*/
+    @Extension
     public static DialogExpressionCondition create(String fieldName,String value) {
 	return Extensions.createDia(fieldName, value);
     }
@@ -66,6 +72,7 @@ public class DialogExpressionCondition  {
 	* @param valueTo	The value to
 	* @return	The condition
 	*/
+    @Extension
     public static DialogExpressionCondition create(String fieldName,String valueFrom,String valueTo) {
 	return Extensions.create(fieldName, valueFrom, valueTo);
     }

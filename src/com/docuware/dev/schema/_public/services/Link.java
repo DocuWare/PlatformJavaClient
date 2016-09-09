@@ -57,6 +57,7 @@ public class Link  {
 	*
 	* @return	A String representing this instance.
 	*/
+    @Extension
     public String toString() {
 	return Extensions.linkToString(this);
     }

@@ -25,6 +25,11 @@ public class FileCabinetFields  {
     @XmlElement(name = "Field", required = true)
     protected List<FileCabinetField> field;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setField(ArrayList<FileCabinetField> value) {
+        field=value;
+    }
+
     /**List of file cabinet fields.*/
     public List<FileCabinetField> getField() {
         if (field == null) {

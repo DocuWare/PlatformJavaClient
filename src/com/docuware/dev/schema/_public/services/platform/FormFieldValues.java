@@ -25,6 +25,11 @@ public class FormFieldValues  {
     @XmlElement(name = "Field")
     protected List<FormFieldValue> field;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setField(ArrayList<FormFieldValue> value) {
+        field=value;
+    }
+
     /**Gets or sets the form field values which are applied when placing or rendering the stamp.*/
     public List<FormFieldValue> getField() {
         if (field == null) {

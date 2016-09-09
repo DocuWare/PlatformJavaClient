@@ -27,7 +27,7 @@ public class DwxArchiveFileUploadInfo implements IFileUploadInfo {
     }
 
     @Override
-    public InputStream createStream() {
+    public InputStream createInputStream() {
         try {
             return new FileInputStream(_file);
         } catch (FileNotFoundException ex) {

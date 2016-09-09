@@ -189,7 +189,7 @@ public class HttpClientRequestException extends RuntimeException
          * @param inner The inner exception
          * @return  A future which creates the message
          */
-        public static HttpClientRequestException create(ClientResponse message, Exception inner)
+        static HttpClientRequestException create(ClientResponse message, Exception inner)
         {
             int statusCode = message.getStatus();
             String reasonPhrase = message.getStatusInfo().toString();
@@ -203,7 +203,7 @@ public class HttpClientRequestException extends RuntimeException
          * @param message   The message
          * @return  A future which creates the message
          */
-        public static HttpClientRequestException create(ClientResponse message)
+        static HttpClientRequestException create(ClientResponse message)
         {
             int statusCode = message.getStatus();
             String reasonPhrase = message.getStatusInfo().toString();
@@ -219,7 +219,7 @@ public class HttpClientRequestException extends RuntimeException
          * @param messageText   The message text
          * @return 
          */
-        public static HttpClientRequestException create(ClientResponse message,String messageText)
+        static HttpClientRequestException create(ClientResponse message,String messageText)
         {
             HttpClientRequestException result = new HttpClientRequestException(messageText);
             return result.extractErrorFromResponseAsync(message);

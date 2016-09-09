@@ -67,6 +67,11 @@ public class StampPlacement  {
         this.location = value;
     }
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setField(ArrayList<FormFieldValue> value) {
+        field=value;
+    }
+
     /**The form field values which are applied when placing the stamp.*/
     public List<FormFieldValue> getField() {
         if (field == null) {

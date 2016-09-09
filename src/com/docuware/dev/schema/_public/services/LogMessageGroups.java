@@ -20,10 +20,16 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "LogMessageGroups", propOrder = {
     "message"
 })
+@CompareIgnore
 public class LogMessageGroups  {
 
     @XmlElement(name = "Message")
     protected List<LogMessageGroup> message;
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setMessage(ArrayList<LogMessageGroup> value) {
+        message=value;
+    }
 
     public List<LogMessageGroup> getMessage() {
         if (message == null) {

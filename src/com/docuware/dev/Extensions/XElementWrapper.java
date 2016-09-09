@@ -81,7 +81,7 @@ import javax.xml.stream.XMLStreamWriter;
         /// Converts an object into its XML representation.
         /// </summary>
         /// <param name="writer">The <see cref="T:System.Xml.XmlWriter" /> stream to which the object is serialized.</param>
-        public void WriteXml(XMLStreamWriter writer)
+        public void writeXml(XMLStreamWriter writer)
         {
                 try {
                     if(el!=null) {
@@ -98,7 +98,7 @@ import javax.xml.stream.XMLStreamWriter;
         /// Outputs the wrapped element to the specified <see cref="Stream"/> instance.
         /// </summary>
         /// <param name="stream">The stream.</param>
-        public void Save(OutputStream stream)
+        public void save(OutputStream stream)
         {
            try {
                     if(el!=null) {
@@ -118,7 +118,7 @@ import javax.xml.stream.XMLStreamWriter;
         /// Outputs the wrapped element to the specified <see cref="TextWriter"/> instance.
         /// </summary>
         /// <param name="textWriter">The text writer.</param>
-        public void Save(Writer textWriter)
+        public void save(Writer textWriter)
         {
             try {
                     if(el!=null) {

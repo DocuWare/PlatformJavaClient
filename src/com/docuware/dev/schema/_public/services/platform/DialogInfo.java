@@ -169,6 +169,7 @@ private HttpClientProxy proxy;//test
 	* @return A String representing this instance
 	*/
 	
+    @Extension
     public String toString() {
 	return Extensions.dialogInfoToString(this);
     }
@@ -179,6 +180,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @return	The proxy
 	*/
+    @Extension
     public HttpClientProxy getProxy() {
 	return this.proxy;
     }
@@ -189,6 +191,7 @@ private HttpClientProxy proxy;//test
 	* 
 	* @param proxy	The new proxy
 	*/
+    @Extension
     public void setProxy(HttpClientProxy proxy) {
 	this.proxy = proxy;
     }
@@ -202,6 +205,7 @@ private HttpClientProxy proxy;//test
 	* @param chunkSize	[optional/ set this parameter to 0 if you want to use default value] The size of the chunk in bytes
 	* @return	The uploaded document's metadata
 	*/
+    @Extension
     public Document chunkUploadDocument(Document document,java.io.File file,int chunkSize) {
 	return FileCabinetExtensionsBase.chunkUploadDocument(this, document, FileWrapper.toFileInfoWrapper(file), chunkSize);
     }
@@ -215,6 +219,7 @@ private HttpClientProxy proxy;//test
 	* @param chunkSize	[optional/ set this parameter to 0 if you want to use default value] The size of the chunk in bytes
 	* @return	The uploaded document's metadata
 	*/
+    @Extension
     public Document chunkUploadDocument(Document document,java.io.File[] files,int chunkSize) {
 	return FileCabinetExtensionsBase.chunkUploadDocument(this, document, FileWrapper.toFileInfoWrapper(files), chunkSize);
     }
@@ -227,6 +232,7 @@ private HttpClientProxy proxy;//test
 	* @param file	The file
 	* @return	The uploaded document's metadata
 	*/
+    @Extension
     public Document uploadDocument(Document document,java.io.File... file) {
 	return FileCabinetExtensionsBase.uploadDocument(this, document, FileWrapper.toFileInfoWrapper(file));
     }
@@ -239,15 +245,18 @@ private HttpClientProxy proxy;//test
 	* @param file	The file
 	* @return	A CompletableFuture which uploads the document and returns the uploaded document's metadata.
 	*/
+    @Extension
     public CompletableFuture<DeserializedHttpResponseGen<Document>> uploadDocumentAsync(Document document,java.io.File... file) {
 	return FileCabinetExtensionsBase.uploadDocumentAsync(this, document, FileWrapper.toFileInfoWrapper(file));
     }
+
 
 	/**
 	* Gets the base URI of the specified relations instance.
 	* 
 	* @return	The base URI of the specified relations instance.
 	*/
+    @Extension
     public URI getBaseUri() {
 	return RelationsWithProxyExtensions.getBaseUri(this);
     }
@@ -380,7 +389,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "Count" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<CountResult>> postToCountRelationForCountResultAsync(CountExpression data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<CountResult>> postToCountRelationForCountResultAsync(CancellationToken ct, CountExpression data) {
         return MethodInvocation.<CountResult, CountExpression >postAsync(this, links, "count", CountResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "CountExpression"), CountExpression.class, null, data), "application/vnd.docuware.platform.countexpression+xml", "application/vnd.docuware.platform.countresult+xml", ct);
     }
 
@@ -410,7 +419,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "SelectList" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<SelectListResult>> postToSelectListRelationForSelectListResultAsync(SelectListExpression data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<SelectListResult>> postToSelectListRelationForSelectListResultAsync(CancellationToken ct, SelectListExpression data) {
         return MethodInvocation.<SelectListResult, SelectListExpression >postAsync(this, links, "selectList", SelectListResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SelectListExpression"), SelectListExpression.class, null, data), "application/vnd.docuware.platform.selectlistexpression+xml", "application/vnd.docuware.platform.selectlistresult+xml", ct);
     }
 
@@ -440,7 +449,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "StoreDocument" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<Document>> postToStoreDocumentRelationForDocumentAsync(Document data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> postToStoreDocumentRelationForDocumentAsync(CancellationToken ct, Document data) {
         return MethodInvocation.<Document, Document >postAsync(this, links, "storeDocument", Document.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "Document"), Document.class, null, data), "application/vnd.docuware.platform.document+xml", "application/vnd.docuware.platform.document+xml", ct);
     }
 
@@ -470,7 +479,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "Transfer" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryResult>> postToTransferRelationForDocumentsQueryResultAsync(FileCabinetTransferInfo data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryResult>> postToTransferRelationForDocumentsQueryResultAsync(CancellationToken ct, FileCabinetTransferInfo data) {
         return MethodInvocation.<DocumentsQueryResult, FileCabinetTransferInfo >postAsync(this, links, "transfer", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "FileCabinetTransferInfo"), FileCabinetTransferInfo.class, null, data), "application/vnd.docuware.platform.filecabinettransferinfo+xml", "application/vnd.docuware.platform.documents+xml", ct);
     }
 
@@ -491,7 +500,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "Transfer" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryResult>> postToTransferRelationForDocumentsQueryResultAsync(DocumentsTransferInfo data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<DocumentsQueryResult>> postToTransferRelationForDocumentsQueryResultAsync(CancellationToken ct, DocumentsTransferInfo data) {
         return MethodInvocation.<DocumentsQueryResult, DocumentsTransferInfo >postAsync(this, links, "transfer", DocumentsQueryResult.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "DocumentsTransferInfo"), DocumentsTransferInfo.class, null, data), "application/vnd.docuware.platform.documentstransferinfo+xml", "application/vnd.docuware.platform.documents+xml", ct);
     }
 
@@ -521,7 +530,7 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP post Method on the link for the relation "CreateUserDefinedSearch" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<Dialog>> postToCreateUserDefinedSearchRelationForDialogAsync(UserDefinedSearchInfo data, CancellationToken ct) {
+    public CompletableFuture<DeserializedHttpResponseGen<Dialog>> postToCreateUserDefinedSearchRelationForDialogAsync(CancellationToken ct, UserDefinedSearchInfo data) {
         return MethodInvocation.<Dialog, UserDefinedSearchInfo >postAsync(this, links, "createUserDefinedSearch", Dialog.class, new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "UserDefinedSearchInfo"), UserDefinedSearchInfo.class, null, data), "application/xml", "application/vnd.docuware.platform.dialog+xml", ct);
     }
 

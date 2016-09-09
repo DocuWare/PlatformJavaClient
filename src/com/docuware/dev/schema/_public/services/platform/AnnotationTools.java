@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlType(name = "AnnotationTools")
 @XmlEnum
+@CompareIgnore
 public enum AnnotationTools {
 
     @XmlEnumValue("Line")

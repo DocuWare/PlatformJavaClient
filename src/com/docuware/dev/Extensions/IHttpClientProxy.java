@@ -11,7 +11,7 @@ package com.docuware.dev.Extensions;
  */
 public interface IHttpClientProxy {
 
-    public HttpClientProxy getProxy();
+    HttpClientProxy getProxy();
 
     public void setProxy(HttpClientProxy proxy);
 }

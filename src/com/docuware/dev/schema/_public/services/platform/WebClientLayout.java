@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "WebClientLayout")
+@CompareIgnore
 public class WebClientLayout  {
 
     @XmlAttribute(name = "Mode", required = true)

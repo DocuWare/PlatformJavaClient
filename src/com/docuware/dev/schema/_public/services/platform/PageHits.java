@@ -25,6 +25,11 @@ public class PageHits  {
     @XmlElement(name = "PageHit")
     protected List<WordSearchResultPageHit> pageHit;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setPageHit(ArrayList<WordSearchResultPageHit> value) {
+        pageHit=value;
+    }
+
     /**Define a set pages where of words are found*/
     public List<WordSearchResultPageHit> getPageHit() {
         if (pageHit == null) {

@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TextField", propOrder = {
+"widthSpecified",
     "width"
 })
 @XmlSeeAlso({
@@ -26,6 +27,8 @@ import javax.xml.bind.annotation.XmlType;
 public class TextField
     extends WebFormField
  {
+private boolean widthSpecified;//test
+
 
     @XmlElement(name = "Width")
     protected Integer width;
@@ -36,6 +39,16 @@ public class TextField
 
     public void setWidth(Integer value) {
         this.width = value;
+    }
+
+    @Extension
+    public boolean isWidthSpecified() {
+	return widthSpecified;
+    }
+
+    @Extension
+    public void setWidthSpecified(boolean widthSpecified) {
+	this.widthSpecified = widthSpecified;
     }
 
 

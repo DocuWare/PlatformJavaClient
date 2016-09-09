@@ -27,6 +27,11 @@ public class PolyLineStampEntry
     @XmlElement(name = "Stroke", required = true)
     protected List<Stroke> stroke;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setStroke(ArrayList<Stroke> value) {
+        stroke=value;
+    }
+
     /**Sequence of strokes of sequence of points that define a set of polylines.*/
     public List<Stroke> getStroke() {
         if (stroke == null) {

@@ -17,6 +17,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "WebFormOption")
 public class WebFormOption  {
+private boolean checkedSpecified;//test
+
 
     @XmlAttribute(name = "Label")
     protected String label;
@@ -37,6 +39,16 @@ public class WebFormOption  {
 
     public void setChecked(Boolean value) {
         this.checked = value;
+    }
+
+    @Extension
+    public boolean isCheckedSpecified() {
+	return checkedSpecified;
+    }
+
+    @Extension
+    public void setCheckedSpecified(boolean value) {
+	checkedSpecified=value;
     }
 
 

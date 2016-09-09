@@ -32,6 +32,11 @@ public class SuggestionField  {
     @XmlAttribute(name = "Confidence")
     protected IntellixFieldTrust confidence;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setValue(ArrayList<SuggestionValue> value) {
+        value=value;
+    }
+
     public List<SuggestionValue> getValue() {
         if (value == null) {
             value = new ArrayList<SuggestionValue>();

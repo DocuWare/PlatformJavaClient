@@ -25,6 +25,11 @@ public class DocumentAnnotationsPlacement  {
     @XmlElement(name = "Annotations")
     protected List<SectionAnnotationsPlacement> annotations;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setAnnotations(ArrayList<SectionAnnotationsPlacement> value) {
+        annotations=value;
+    }
+
     /**List of SectionAnnotationsPlacement items.*/
     @Eagle
     public List<SectionAnnotationsPlacement> getAnnotations() {

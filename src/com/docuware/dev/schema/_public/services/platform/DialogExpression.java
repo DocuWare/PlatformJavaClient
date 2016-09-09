@@ -33,12 +33,22 @@ public class DialogExpression
     @XmlAttribute(name = "Operation", required = true)
     protected DialogExpressionOperation operation;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setCondition(ArrayList<DialogExpressionCondition> value) {
+        condition=value;
+    }
+
     /**Gets or sets the conditions which are checked to obtain the search result.*/
     public List<DialogExpressionCondition> getCondition() {
         if (condition == null) {
             condition = new ArrayList<DialogExpressionCondition>();
         }
         return this.condition;
+    }
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setAdditionalCabinets(ArrayList<String> value) {
+        additionalCabinets=value;
     }
 
     /**Gets or sets the additional cabinets to search in.*/

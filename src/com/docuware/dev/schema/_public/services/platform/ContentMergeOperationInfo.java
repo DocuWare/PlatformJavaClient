@@ -30,6 +30,11 @@ public class ContentMergeOperationInfo  {
     @XmlAttribute(name = "Force")
     protected Boolean force;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setDocuments(ArrayList<Integer> value) {
+        documents=value;
+    }
+
     /**Collection of documents to be used in the operation*/
     public List<Integer> getDocuments() {
         if (documents == null) {

@@ -25,6 +25,11 @@ public class SortedFieldsList  {
     @XmlElement(name = "OrderBy")
     protected List<SortedField> orderBy;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setOrderBy(ArrayList<SortedField> value) {
+        orderBy=value;
+    }
+
     /**A list of sorted fields*/
     public List<SortedField> getOrderBy() {
         if (orderBy == null) {

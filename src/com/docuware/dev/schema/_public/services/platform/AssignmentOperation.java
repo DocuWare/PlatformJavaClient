@@ -28,6 +28,11 @@ public class AssignmentOperation  {
     @XmlAttribute(name = "OperationType", required = true)
     protected AssignmentOperationType operationType;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setIds(ArrayList<String> value) {
+        ids=value;
+    }
+
     /**List of ids of the assigned objects.*/
     public List<String> getIds() {
         if (ids == null) {

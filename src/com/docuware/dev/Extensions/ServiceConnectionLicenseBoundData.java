@@ -12,7 +12,7 @@ import javax.ws.rs.core.MultivaluedMap;
  *
  * @author Patrick
  */
-public abstract class ServiceConnectionLicenseBoundData {
+abstract class ServiceConnectionLicenseBoundData {
 
     ServiceConnectionTransportData transport;
 

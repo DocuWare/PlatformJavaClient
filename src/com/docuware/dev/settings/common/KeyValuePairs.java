@@ -25,6 +25,11 @@ public class KeyValuePairs  {
     @XmlElement(name = "Entry")
     protected List<KeyValuePair> entry;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setEntry(ArrayList<KeyValuePair> value) {
+        entry=value;
+    }
+
     /**A key-value pair entry.*/
     public List<KeyValuePair> getEntry() {
         if (entry == null) {

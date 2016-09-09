@@ -93,6 +93,11 @@ public class AttachFileField
         this.showFileInfo = value;
     }
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setAttachFileInfos(ArrayList<AttachFileInfo> value) {
+        attachFileInfos=value;
+    }
+
     public List<AttachFileInfo> getAttachFileInfos() {
         if (attachFileInfos == null) {
             attachFileInfos = new ArrayList<AttachFileInfo>();

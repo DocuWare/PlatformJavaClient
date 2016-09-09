@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "TextAnnotationToolSettings", propOrder = {
     "fontSettings"
 })
+@CompareIgnore
 public class TextAnnotationToolSettings
     extends AnnotationToolSettings
  {

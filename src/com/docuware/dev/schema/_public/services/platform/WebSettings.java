@@ -20,10 +20,16 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "WebSettings", propOrder = {
     "applicationPreferences"
 })
+@CompareIgnore
 public class WebSettings  {
 
     @XmlElement(name = "ApplicationPreferences")
     protected List<ApplicationPreferences> applicationPreferences;
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setApplicationPreferences(ArrayList<ApplicationPreferences> value) {
+        applicationPreferences=value;
+    }
 
     /**Preferences for a specific application.*/
     public List<ApplicationPreferences> getApplicationPreferences() {

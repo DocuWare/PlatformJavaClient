@@ -25,6 +25,11 @@ public class QueryParamatersList  {
     @XmlElement(name = "Parameter")
     protected List<QueryParamater> parameter;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setParameter(ArrayList<QueryParamater> value) {
+        parameter=value;
+    }
+
     public List<QueryParamater> getParameter() {
         if (parameter == null) {
             parameter = new ArrayList<QueryParamater>();

@@ -25,6 +25,11 @@ public class IntegerList  {
     @XmlElement(name = "Int", type = Integer.class)
     protected List<Integer> _int;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setInt(ArrayList<Integer> value) {
+        _int=value;
+    }
+
     /**A list of integers values*/
     public List<Integer> getInt() {
         if (_int == null) {

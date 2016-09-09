@@ -32,7 +32,12 @@ public class TokenDescription  {
     @XmlAttribute(name = "Usage", required = true)
     protected TokenUsage usage;
     @XmlAttribute(name = "Lifetime", required = true)
-    protected Duration lifetime;
+    protected String lifetime;
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setTargetProducts(ArrayList<DWProductTypes> value) {
+        targetProducts=value;
+    }
 
     /**The token can be used multiple times*/
     public List<DWProductTypes> getTargetProducts() {
@@ -56,7 +61,7 @@ public class TokenDescription  {
           [ws][-]{ d | [d.]hh:mm[:ss[.ff]] }[ws]
           Elements in square brackets ([ and ]) are optional. One selection from the list of alternatives enclosed in braces ({ and }) and separated by vertical bars (|) is required.
           For more details check http://msdn.microsoft.com/en-us/library/se73z7b9.aspx*/
-    public Duration getLifetime() {
+    public String getLifetime() {
         return lifetime;
     }
 
@@ -64,7 +69,7 @@ public class TokenDescription  {
           [ws][-]{ d | [d.]hh:mm[:ss[.ff]] }[ws]
           Elements in square brackets ([ and ]) are optional. One selection from the list of alternatives enclosed in braces ({ and }) and separated by vertical bars (|) is required.
           For more details check http://msdn.microsoft.com/en-us/library/se73z7b9.aspx*/
-    public void setLifetime(Duration value) {
+    public void setLifetime(String value) {
         this.lifetime = value;
     }
 

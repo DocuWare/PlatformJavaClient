@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlSeeAlso({
     WebClientPreferences.class
 })
+@CompareIgnore
 public class ApplicationPreferences  {
 
 

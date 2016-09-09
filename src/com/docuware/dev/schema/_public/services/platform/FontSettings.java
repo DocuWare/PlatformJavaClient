@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "FontSettings")
+@CompareIgnore
 public class FontSettings  {
 
     @XmlAttribute(name = "Name", required = true)

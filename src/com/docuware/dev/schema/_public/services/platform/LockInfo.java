@@ -20,7 +20,7 @@ import javax.xml.datatype.Duration;
 public class LockInfo  {
 
     @XmlAttribute(name = "Interval")
-    protected Duration interval;
+    protected String interval;
     @XmlAttribute(name = "Operation")
     protected String operation;
 
@@ -29,7 +29,7 @@ public class LockInfo  {
           [ws][-]{ d | [d.]hh:mm[:ss[.ff]] }[ws]
           Elements in square brackets ([ and ]) are optional. One selection from the list of alternatives enclosed in braces ({ and }) and separated by vertical bars (|) is required.
           For more details check http://msdn.microsoft.com/en-us/library/se73z7b9.aspx*/
-    public Duration getInterval() {
+    public String getInterval() {
         return interval;
     }
 
@@ -38,7 +38,7 @@ public class LockInfo  {
           [ws][-]{ d | [d.]hh:mm[:ss[.ff]] }[ws]
           Elements in square brackets ([ and ]) are optional. One selection from the list of alternatives enclosed in braces ({ and }) and separated by vertical bars (|) is required.
           For more details check http://msdn.microsoft.com/en-us/library/se73z7b9.aspx*/
-    public void setInterval(Duration value) {
+    public void setInterval(String value) {
         this.interval = value;
     }
 

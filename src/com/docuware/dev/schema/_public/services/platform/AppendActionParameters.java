@@ -43,12 +43,22 @@ public class AppendActionParameters
         this.removeSourceDocuments = value;
     }
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setDocumentsInFront(ArrayList<AppendActionDocuments> value) {
+        documentsInFront=value;
+    }
+
     /**Info for the documents to be attached before the target document*/
     public List<AppendActionDocuments> getDocumentsInFront() {
         if (documentsInFront == null) {
             documentsInFront = new ArrayList<AppendActionDocuments>();
         }
         return this.documentsInFront;
+    }
+
+    /**ArrayList is required for the XML-Marshalling */
+    public void setDocumentsAtBack(ArrayList<AppendActionDocuments> value) {
+        documentsAtBack=value;
     }
 
     /**Info for the documents to be attached after the target document*/

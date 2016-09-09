@@ -25,6 +25,11 @@ public class DocumentApplicationProperties  {
     @XmlElement(name = "DocumentApplicationProperty")
     protected List<DocumentApplicationProperty> documentApplicationProperty;
 
+    /**ArrayList is required for the XML-Marshalling */
+    public void setDocumentApplicationProperty(ArrayList<DocumentApplicationProperty> value) {
+        documentApplicationProperty=value;
+    }
+
     /**Define application specific properties. Different applications store specific application here*/
     public List<DocumentApplicationProperty> getDocumentApplicationProperty() {
         if (documentApplicationProperty == null) {
