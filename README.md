@@ -15,7 +15,7 @@ To get started:
 * Or: Start a new Project in your IDE and just copy all files of the PlatformClientProject into it. Overwrite your files if necessary. The project will be named JavaPlatformClient afterwards.
 
 ### Supported DocuWare versions
-This implementation uses the *DocuWare Platform .NET API* of ***DocuWare 6.8***.  
+This implementation uses the *DocuWare Platform .NET API* of ***DocuWare 6.10***.  
 Most of the examples will also run with *DocuWare 6.5* or higher.
 
 ### Known Issues: 
