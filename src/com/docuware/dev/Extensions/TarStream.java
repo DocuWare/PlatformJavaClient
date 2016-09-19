@@ -44,7 +44,7 @@ public class TarStream extends InputStream {
 
             //Creating header of the file
             TarHeader header = new TarHeader();
-            header.lastModifiedTime = file.getLastWriteTimeUtc().after(TarHeader.epoch) == true ? file.getLastWriteTimeUtc() : TarHeader.epoch;
+            header.lastModifiedTime = file.getLastWriteTimeUtc().getTime().after(TarHeader.epoch.getTime()) == true ? file.getLastWriteTimeUtc() : TarHeader.epoch;
             header.name = file.getName();
             header.size = file.getLength();
             header.Write(headerStream);
@@ -61,10 +61,6 @@ public class TarStream extends InputStream {
             streamList.add(padInStream);
         }
         streams = new LinkedList<>(streamList);
-    }
-
-    public boolean canRead() {
-        return true;
     }
 
     @Override

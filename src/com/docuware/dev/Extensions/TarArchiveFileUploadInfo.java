@@ -8,6 +8,8 @@ package com.docuware.dev.Extensions;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
@@ -56,30 +58,8 @@ public class TarArchiveFileUploadInfo implements IFileUploadInfo, AutoCloseable 
     }
 
     @Override
-    public Date getLastWriteTimeUtc() {
-        Date currentTime = new Date();
-        SimpleDateFormat year = new SimpleDateFormat("yyyy");
-        year.setTimeZone(TimeZone.getTimeZone("UTC"));
-        SimpleDateFormat month = new SimpleDateFormat("MM");
-        month.setTimeZone(TimeZone.getTimeZone("UTC"));
-        SimpleDateFormat day = new SimpleDateFormat("dd");
-        day.setTimeZone(TimeZone.getTimeZone("UTC"));
-        SimpleDateFormat hour = new SimpleDateFormat("hh");
-        hour.setTimeZone(TimeZone.getTimeZone("UTC"));
-        SimpleDateFormat min = new SimpleDateFormat("mm");
-        min.setTimeZone(TimeZone.getTimeZone("UTC"));
-        SimpleDateFormat sec = new SimpleDateFormat("ss");
-        sec.setTimeZone(TimeZone.getTimeZone("UTC"));
-        GregorianCalendar d = new GregorianCalendar();
-        d.set(Integer.parseInt(year.format(currentTime)),
-                Integer.parseInt(month.format(currentTime)) - 1,
-                Integer.parseInt(day.format(currentTime)),
-                Integer.parseInt(hour.format(currentTime)),
-                Integer.parseInt(min.format(currentTime)),
-                Integer.parseInt(sec.format(currentTime))
-        );
-        Date e = new Date(d.toInstant().toEpochMilli());
-        return e;
+    public GregorianCalendar getLastWriteTimeUtc() {
+        return GregorianCalendar.from(ZonedDateTime.now(ZoneId.of("UTC")));
     }
 
     @Override

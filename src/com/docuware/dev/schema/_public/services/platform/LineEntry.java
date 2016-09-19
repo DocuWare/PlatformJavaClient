@@ -2,6 +2,7 @@
 
 package com.docuware.dev.schema._public.services.platform;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
 import java.util.concurrent.CompletableFuture;
@@ -63,6 +64,11 @@ public class LineEntry
     /**Define a line with arror.*/
     public void setArrow(Boolean value) {
         this.arrow = value;
+    }
+
+    @Extension
+    public AnnotationRectangle toRectangle() {
+	return Extensions.toRectangle(this);
     }
 
 

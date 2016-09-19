@@ -6,12 +6,14 @@
 package com.docuware.dev.Extensions;
 
 import com.docuware.dev.schema._public.services.Link;
+import com.docuware.dev.schema._public.services.platform.AnnotationRectangle;
 import com.docuware.dev.schema._public.services.platform.DialogExpressionCondition;
 import com.docuware.dev.schema._public.services.platform.DialogInfo;
 import com.docuware.dev.schema._public.services.platform.Document;
 import com.docuware.dev.schema._public.services.platform.DocumentIndexField;
 import com.docuware.dev.schema._public.services.platform.DocumentIndexFieldKeywords;
 import com.docuware.dev.schema._public.services.platform.DocumentIndexFields;
+import com.docuware.dev.schema._public.services.platform.LineEntry;
 import com.docuware.dev.schema._public.services.platform.SortDirection;
 import com.docuware.dev.schema._public.services.platform.SortedField;
 import java.util.GregorianCalendar;
@@ -21,6 +23,7 @@ import java.util.List;
  *
  * @author Patrick
  */
+@CompareIgnore
 public class Extensions {
 
     //intern helper methods
@@ -31,6 +34,15 @@ public class Extensions {
             }
         }
         return null;
+    }
+    
+    static public AnnotationRectangle toRectangle(LineEntry entry) {
+        AnnotationRectangle ar = new AnnotationRectangle();
+        ar.setLeft(Math.min(entry.getFrom().getX(), entry.getTo().getX()));
+        ar.setTop(Math.min(entry.getFrom().getY(), entry.getTo().getY()));
+        ar.setWidth(Math.abs(entry.getTo().getX()-entry.getFrom().getX()));
+        ar.setHeight(Math.abs(entry.getTo().getY()-entry.getFrom().getY()));
+        return ar;
     }
 
     //PlatformServerClientExtensions

@@ -2,11 +2,13 @@
 
 package com.docuware.dev.schema._public.services.platform;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
+import com.sun.jersey.multipart.FormDataBodyPart;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -16,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "SynchronizationSettings", propOrder = {
+@XmlType(name = "SynchronizationSettingss", propOrder = {
     "fieldMappings"
 })
 public class SynchronizationSettings  implements IStringContent {
@@ -91,6 +93,11 @@ public class SynchronizationSettings  implements IStringContent {
 
     public void setImportNotMappedFields(Boolean value) {
         this.importNotMappedFields = value;
+    }
+
+    @Extension
+    public FormDataBodyPart getStringContent() {
+	return FileCabinetExtensionsBase.toStringContent(this);
     }
 
 

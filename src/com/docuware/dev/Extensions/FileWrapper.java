@@ -9,7 +9,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.time.Instant;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * 
@@ -75,9 +80,10 @@ public class FileWrapper implements IFileUploadInfo {
     }
 
     @Override
-    public Date getLastWriteTimeUtc() {
+    public GregorianCalendar getLastWriteTimeUtc() {
         Long t = file.lastModified();
-        Date d = new Date(t);
-        return d;
+        ZonedDateTime zdt = ZonedDateTime.ofInstant(Instant.ofEpochMilli(t), ZoneId.of("UTC"));
+        GregorianCalendar gc  =GregorianCalendar.from(zdt);
+        return gc;
     }
 }

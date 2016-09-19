@@ -32,6 +32,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.text.ParseException;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
@@ -204,37 +207,14 @@ public class FileCabinetExtensionsBase {
 
         FormDataBodyPart stringContentFormData = new FormDataBodyPart();
         if (stringContent != null) {
-            try {
-                if (stringContent instanceof Document) {
-                    stringContentFormData.setFormDataContentDisposition(new FormDataContentDisposition("form-data; name=\"document\"; filename=\"document.xml\""));
-                    JAXBElement<Document> jax = new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "Document"), Document.class, null, (Document) stringContent);
-                    stringContentFormData.setEntity(jax);
-                    stringContentFormData.setMediaType(MediaType.APPLICATION_XML_TYPE);
-                }
-                if (stringContent instanceof SynchronizationSettings) {
-                    stringContentFormData.setFormDataContentDisposition(new FormDataContentDisposition("form-data; name=\"synchronizationSettings\"; filename=\"synchronizationSettings.xml\""));
-                    JAXBElement<SynchronizationSettings> jax = new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SynchronizationSettings"), SynchronizationSettings.class, null, (SynchronizationSettings) stringContent);
-                    stringContentFormData.setEntity(jax);
-                    stringContentFormData.setMediaType(MediaType.APPLICATION_XML_TYPE);
-                }
-                if (stringContent instanceof ImportSettings) {
-                    stringContentFormData.setFormDataContentDisposition(new FormDataContentDisposition("form-data; name=\"importSettings\"; filename=\"importSettings.xml\""));
-                    JAXBElement<ImportSettings> jax = new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "ImportSettings"), ImportSettings.class, null, (ImportSettings) stringContent);
-                    stringContentFormData.setEntity(jax);
-                    stringContentFormData.setMediaType(MediaType.APPLICATION_XML_TYPE);
-                }
-            } catch (Exception e) {
-            }
-
+            stringContentFormData = stringContent.getStringContent();
             multipartForm.bodyPart(stringContentFormData);
         }
-
         addMultipartFiles(multipartForm, file);
-
         return multipartForm;
     }
 
-    static public FormDataBodyPart toStringContent(Document document) throws JAXBException {
+    static public FormDataBodyPart toStringContent(Document document) {
         try {
             FormDataBodyPart stringContentFormData = new FormDataBodyPart();
             stringContentFormData.setFormDataContentDisposition(new FormDataContentDisposition("form-data; name=\"document\"; filename=\"document.xml\""));
@@ -247,11 +227,11 @@ public class FileCabinetExtensionsBase {
         }
     }
 
-    static FormDataBodyPart toStringContent(ImportSettings importSettings) throws JAXBException {
+    public static FormDataBodyPart toStringContent(ImportSettings importSettings)  {
         try {
             FormDataBodyPart stringContentFormData = new FormDataBodyPart();
             stringContentFormData.setFormDataContentDisposition(new FormDataContentDisposition("form-data; name=\"importSettings\"; filename=\"importSettings.xml\""));
-            JAXBElement<ImportSettings> jax = new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "importSettings"), ImportSettings.class, null, importSettings);
+            JAXBElement<ImportSettings> jax = new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "ImportSettings"), ImportSettings.class, null, importSettings);
             stringContentFormData.setEntity(jax);
             stringContentFormData.setMediaType(MediaType.APPLICATION_XML_TYPE);
             return stringContentFormData;
@@ -260,13 +240,13 @@ public class FileCabinetExtensionsBase {
         }
     }
 
-    static FormDataBodyPart toStringContent(SynchronizationSettings synchronizationSettings) throws JAXBException {
+    public static FormDataBodyPart toStringContent(SynchronizationSettings synchronizationSettings)  {
         try {
             FormDataBodyPart stringContentFormData = new FormDataBodyPart();
-            stringContentFormData.setFormDataContentDisposition(new FormDataContentDisposition("form-data; name=\"synchronizationSettings\"; filename=\"synchronizationSettings.xml\""));
-            JAXBElement<SynchronizationSettings> jax = new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "synchronizationSettings"), SynchronizationSettings.class, null, synchronizationSettings);
-            stringContentFormData.setEntity(jax);
-            stringContentFormData.setMediaType(MediaType.APPLICATION_XML_TYPE);
+            stringContentFormData.setFormDataContentDisposition(new FormDataContentDisposition("form-data; filename=\"synchronizationSettings.xml\"; name=\"synchronizationSettings\""));
+            JAXBElement<SynchronizationSettings> jax = new JAXBElement(new QName("http://dev.docuware.com/schema/public/services/platform", "SynchronizationSettings"), SynchronizationSettings.class, null, synchronizationSettings);
+            //stringContentFormData.setEntity(jax);
+            stringContentFormData.setValue(new MediaType("application", "vnd.docuware.platform.synchronizationsettings+xml", null), jax);
             return stringContentFormData;
         } catch (ParseException ex) {
             throw new RuntimeException(ex.getCause());
@@ -280,7 +260,6 @@ public class FileCabinetExtensionsBase {
 
         for (int i = 0; i < files.length; ++i) {
 
-            //TarFileUploadInfo not supported yet
             if (files[i] instanceof FileWrapper) {
                 File file = ((FileWrapper) files[i]).getFile();
                 FileDataBodyPart f = new FileDataBodyPart("content", file);
@@ -365,7 +344,7 @@ public class FileCabinetExtensionsBase {
      * @param chunkSize Size of the chunk
      * @return  The uploaded document's metadata
      */
-    public static CompletableFuture<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(FileCabinet fileCabinet, IFileUploadInfo file, int chunkSize) {
+    static CompletableFuture<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(FileCabinet fileCabinet, IFileUploadInfo file, int chunkSize) {
         return FileCabinetExtensionsBase.<Document>chunkUploadFileAsync(fileCabinet.getDocumentsRelationLink(), ((IRelationsWithProxy) fileCabinet), file, chunkSize, null, Document.class);
     }
     
@@ -376,7 +355,8 @@ public class FileCabinetExtensionsBase {
      * @param file  The file
      * @return  The uploaded document's metadata
      */
-    public static CompletableFuture<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(FileCabinet fileCabinet, IFileUploadInfo file) {
+    @Overloaded
+    static CompletableFuture<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(FileCabinet fileCabinet, IFileUploadInfo file) {
         return chunkUploadDocumentAsync(fileCabinet, file, 0);
     }
 
@@ -399,9 +379,10 @@ public class FileCabinetExtensionsBase {
      * @param file  The file
      * @return  The uploaded document's metadata
      */
-   public static Document chunkUploadDocument(FileCabinet fileCabinet, IFileUploadInfo file) {
+    @Overloaded
+    public static Document chunkUploadDocument(FileCabinet fileCabinet, IFileUploadInfo file) {
        return chunkUploadDocument(fileCabinet, file, 0);
-   }
+    }
 
    /**
      * Uploads the import package asynchronously in chunks
@@ -424,6 +405,7 @@ public class FileCabinetExtensionsBase {
      * @param file  The file
      * @return  Returns the result of the import operation
      */
+    @Overloaded
     public static CompletableFuture<DeserializedHttpResponseGen<ImportResult>> chunkImportArchiveAsync(FileCabinet fileCabinet, ImportSettings importSettings, IFileUploadInfo file) {
         return chunkImportArchiveAsync(fileCabinet, importSettings, file,0);
     }
@@ -438,6 +420,7 @@ public class FileCabinetExtensionsBase {
      * @param chunkSize Size of the chunk
      * @return  Returns the result of the import operation
      */
+    @Overloaded
     public static ImportResult chunkImportArchive(FileCabinet fileCabinet, ImportSettings importSettings, IFileUploadInfo file, int chunkSize) {
         return FileCabinetExtensionsBase.<ImportResult>chunkUploadFile(fileCabinet.getImportDocumentsRelationLink(), ((IRelationsWithProxy) fileCabinet), file, chunkSize, importSettings, ImportResult.class);
     }
@@ -450,6 +433,7 @@ public class FileCabinetExtensionsBase {
      * @param file  The file
      * @return  Returns the result of the import operation
      */
+    @Overloaded
     public static ImportResult chunkImportArchive(FileCabinet fileCabinet, ImportSettings importSettings, IFileUploadInfo file) {
         return chunkImportArchive(fileCabinet, importSettings, file, 0);
     }
@@ -463,11 +447,20 @@ public class FileCabinetExtensionsBase {
      * @param chunkSize Size of the chunk
      * @return  Returns the result of the synchronization operation
      */
-    public static CompletableFuture<DeserializedHttpResponseGen<ImportResult>> chunkSynchronizeAsync(FileCabinet fileCabinet, SynchronizationSettings synchronizationSettings, IFileUploadInfo file, int chunkSize) {
+    static CompletableFuture<DeserializedHttpResponseGen<ImportResult>> chunkSynchronizeAsync(FileCabinet fileCabinet, SynchronizationSettings synchronizationSettings, IFileUploadInfo file, int chunkSize) {
         return FileCabinetExtensionsBase.<ImportResult>chunkUploadFileAsync(fileCabinet.getImportDocumentsRelationLink(), ((IRelationsWithProxy) fileCabinet), file, chunkSize, synchronizationSettings, ImportResult.class);
     }
     
-    public static CompletableFuture<DeserializedHttpResponseGen<ImportResult>> chunkSynchronizeAsync(FileCabinet fileCabinet, SynchronizationSettings synchronizationSettings, IFileUploadInfo file) {
+    /**
+    * Uploads the specified synchronization package asynchronously in chunks
+     * 
+     * @param fileCabinet   The file cabinet
+     * @param synchronizationSettings   The settings of the synchronization
+     * @param file  The file
+     * @return  Returns the result of the synchronization operation
+     */
+    @Overloaded
+    static CompletableFuture<DeserializedHttpResponseGen<ImportResult>> chunkSynchronizeAsync(FileCabinet fileCabinet, SynchronizationSettings synchronizationSettings, IFileUploadInfo file) {
         return chunkSynchronizeAsync(fileCabinet, synchronizationSettings, file, 0);
     }
 
@@ -492,6 +485,7 @@ public class FileCabinetExtensionsBase {
      * @param file  The file
      * @return  Returns the result of the synchronization operation
      */
+    @Overloaded
     public static ImportResult chunkSynchronize(FileCabinet fileCabinet, SynchronizationSettings synchronizationSettings, IFileUploadInfo file) {
         return chunkSynchronize(fileCabinet, synchronizationSettings, file, 0);
     }
@@ -504,7 +498,7 @@ public class FileCabinetExtensionsBase {
      * @param chunkSize Size of the chunk
      * @return  The uploaded document's metadata
      */
-    public static CompletableFuture<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(FileCabinet fileCabinet, IFileUploadInfo[] files, int chunkSize) {
+    static CompletableFuture<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(FileCabinet fileCabinet, IFileUploadInfo[] files, int chunkSize) {
         return FileCabinetExtensionsBase.<Document>chunkUploadFileAsync(fileCabinet.getDocumentsRelationLink(), ((IRelationsWithProxy) fileCabinet), files, chunkSize, null);
     }
     
@@ -515,7 +509,8 @@ public class FileCabinetExtensionsBase {
      * @param files  The files
      * @return  The uploaded document's metadata
      */
-    public static CompletableFuture<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(FileCabinet fileCabinet, IFileUploadInfo[] files) {
+    @Overloaded
+    static CompletableFuture<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(FileCabinet fileCabinet, IFileUploadInfo[] files) {
         return chunkUploadDocumentAsync(fileCabinet, files, 0);
     }
 
@@ -538,6 +533,7 @@ public class FileCabinetExtensionsBase {
      * @param files  The files
      * @return  The uploaded document's metadata
      */
+    @Overloaded
     public static Document chunkUploadDocument(FileCabinet fileCabinet, IFileUploadInfo[] files) {
         return chunkUploadDocument(fileCabinet, files, 0);
     }
@@ -551,7 +547,7 @@ public class FileCabinetExtensionsBase {
      * @param chunkSize Size of the chunk
      * @return  The uploaded document's metadata
      */
-    public static CompletableFuture<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(FileCabinet fileCabinet, Document document, IFileUploadInfo file, int chunkSize) {
+    static CompletableFuture<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(FileCabinet fileCabinet, Document document, IFileUploadInfo file, int chunkSize) {
         return FileCabinetExtensionsBase.<Document>chunkUploadFileAsync(fileCabinet.getDocumentsRelationLink(), ((IRelationsWithProxy) fileCabinet), file, chunkSize, document, Document.class);
     }
     
@@ -563,7 +559,8 @@ public class FileCabinetExtensionsBase {
      * @param file  The file
      * @return  The uploaded document's metadata
      */
-    public static CompletableFuture<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(FileCabinet fileCabinet, Document document, IFileUploadInfo file) {
+    @Overloaded
+    static CompletableFuture<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(FileCabinet fileCabinet, Document document, IFileUploadInfo file) {
         return chunkUploadDocumentAsync(fileCabinet, document, file, 0);
     }
 
@@ -588,6 +585,7 @@ public class FileCabinetExtensionsBase {
      * @param file  The file
      * @return  The uploaded document's metadata
      */
+    @Overloaded
     public static Document chunkUploadDocument(FileCabinet fileCabinet, Document document, IFileUploadInfo file) {
         return chunkUploadDocument(fileCabinet, document, file, 0);
     }
@@ -601,7 +599,7 @@ public class FileCabinetExtensionsBase {
      * @param chunkSize Size of the chunk
      * @return  The uploaded document's metadata
      */
-    public static CompletableFuture<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(FileCabinet fileCabinet, Document document, IFileUploadInfo[] files, int chunkSize) {
+    static CompletableFuture<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(FileCabinet fileCabinet, Document document, IFileUploadInfo[] files, int chunkSize) {
         return FileCabinetExtensionsBase.<Document>chunkUploadFileAsync(fileCabinet.getDocumentsRelationLink(), (IRelationsWithProxy) fileCabinet, files, chunkSize, document);
     }
     
@@ -613,7 +611,8 @@ public class FileCabinetExtensionsBase {
      * @param files  The files
      * @return  The uploaded document's metadata
      */
-    public static CompletableFuture<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(FileCabinet fileCabinet, Document document, IFileUploadInfo[] files) {
+    @Overloaded
+    static CompletableFuture<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(FileCabinet fileCabinet, Document document, IFileUploadInfo[] files) {
         return chunkUploadDocumentAsync(fileCabinet, document, files, 0);
     }
 
@@ -638,6 +637,7 @@ public class FileCabinetExtensionsBase {
      * @param files  The files
      * @return  The uploaded document's metadata
      */
+    @Overloaded
     public static Document chunkUploadDocument(FileCabinet fileCabinet, Document document, IFileUploadInfo[] files) {
         return chunkUploadDocument(fileCabinet, document, files, 0);
     }
@@ -651,7 +651,7 @@ public class FileCabinetExtensionsBase {
      * @param chunkSize Size of the chunk
      * @return  The uploaded document's metadata
      */
-    public static CompletableFuture<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(DialogInfo dialog, Document document, IFileUploadInfo file, int chunkSize) {
+    static CompletableFuture<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(DialogInfo dialog, Document document, IFileUploadInfo file, int chunkSize) {
         return FileCabinetExtensionsBase.<Document>chunkUploadFileAsync(dialog.getStoreDocumentRelationLink(), (IRelationsWithProxy) dialog, file, chunkSize, document, Document.class);
     }
     
@@ -663,7 +663,8 @@ public class FileCabinetExtensionsBase {
      * @param file  The file
      * @return  The uploaded document's metadata
      */
-    public static CompletableFuture<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(DialogInfo dialog, Document document, IFileUploadInfo file) {
+    @Overloaded
+    static CompletableFuture<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(DialogInfo dialog, Document document, IFileUploadInfo file) {
         return chunkUploadDocumentAsync(dialog, document, file, 0);
     }
 
@@ -688,6 +689,7 @@ public class FileCabinetExtensionsBase {
      * @param file  The file
      * @return  The uploaded document's metadata
      */
+    @Overloaded
     public static Document chunkUploadDocument(DialogInfo dialog, Document document, IFileUploadInfo file) {
         return chunkUploadDocument(dialog, document, file, 0);
     }
@@ -701,7 +703,7 @@ public class FileCabinetExtensionsBase {
      * @param chunkSize Size of the chunk
      * @return  The uploaded document's metadata
      */
-    public static CompletableFuture<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(DialogInfo dialog, Document document, IFileUploadInfo[] files, int chunkSize) {
+    static CompletableFuture<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(DialogInfo dialog, Document document, IFileUploadInfo[] files, int chunkSize) {
         return FileCabinetExtensionsBase.<Document>chunkUploadFileAsync(dialog.getStoreDocumentRelationLink(), (IRelationsWithProxy) dialog, files, chunkSize, document);
     }
     
@@ -713,7 +715,8 @@ public class FileCabinetExtensionsBase {
      * @param files  The files
      * @return  The uploaded document's metadata
      */
-    public static CompletableFuture<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(DialogInfo dialog, Document document, IFileUploadInfo[] files) {
+    @Overloaded
+    static CompletableFuture<DeserializedHttpResponseGen<Document>> chunkUploadDocumentAsync(DialogInfo dialog, Document document, IFileUploadInfo[] files) {
         return chunkUploadDocumentAsync(dialog, document, files, 0);
     }
 
@@ -738,6 +741,7 @@ public class FileCabinetExtensionsBase {
      * @param files  The files
      * @return  The uploaded document's metadata
      */
+    @Overloaded
     public static Document chunkUploadDocument(DialogInfo dialog, Document document, IFileUploadInfo[] files) {
         return chunkUploadDocument(dialog, document, files, 0);
     }
@@ -751,7 +755,7 @@ public class FileCabinetExtensionsBase {
      * @param chunkSize Size of the chunk
      * @return  The changed section's metadata
      */
-    public static CompletableFuture<DeserializedHttpResponseGen<Section>> chunkUploadSectionAsync(Section section, IFileUploadInfo file, int chunkSize) {
+    static CompletableFuture<DeserializedHttpResponseGen<Section>> chunkUploadSectionAsync(Section section, IFileUploadInfo file, int chunkSize) {
         return FileCabinetExtensionsBase.<Section>chunkUploadFileAsync(section.getContentRelationLink(), (IRelationsWithProxy) section, file, chunkSize, null, Section.class);
     }
     
@@ -763,7 +767,8 @@ public class FileCabinetExtensionsBase {
      * @param file  The file
      * @return  The changed section's metadata
      */
-    public static CompletableFuture<DeserializedHttpResponseGen<Section>> chunkUploadSectionAsync(Section section, IFileUploadInfo file) {
+    @Overloaded
+    static CompletableFuture<DeserializedHttpResponseGen<Section>> chunkUploadSectionAsync(Section section, IFileUploadInfo file) {
         return chunkUploadSectionAsync(section, file, 0);
     }
 
@@ -788,6 +793,7 @@ public class FileCabinetExtensionsBase {
      * @param file  The file
      * @return  The changed section's metadata
      */
+    @Overloaded
     public static Section chunkUploadSection(Section section, IFileUploadInfo file) {
         return chunkUploadSection(section, file, 0);
     }
@@ -800,7 +806,7 @@ public class FileCabinetExtensionsBase {
      * @param chunkSize Size of the chunk
      * @return  The new section's metadata
      */
-    public static CompletableFuture<DeserializedHttpResponseGen<Section>> chunkAddSectionAsync(Document document, IFileUploadInfo file, int chunkSize) {
+    static CompletableFuture<DeserializedHttpResponseGen<Section>> chunkAddSectionAsync(Document document, IFileUploadInfo file, int chunkSize) {
         return FileCabinetExtensionsBase.<Section>chunkUploadFileAsync(document.getSectionsRelationLink(), ((IRelationsWithProxy) document), file, chunkSize, null, Section.class);
     }
     
@@ -811,7 +817,8 @@ public class FileCabinetExtensionsBase {
      * @param file  The file
      * @return  The new section's metadata
      */
-    public static CompletableFuture<DeserializedHttpResponseGen<Section>> chunkAddSectionAsync(Document document, IFileUploadInfo file) {
+    @Overloaded
+    static CompletableFuture<DeserializedHttpResponseGen<Section>> chunkAddSectionAsync(Document document, IFileUploadInfo file) {
         return chunkAddSectionAsync(document, file, 0);
     }
 
@@ -834,6 +841,7 @@ public class FileCabinetExtensionsBase {
      * @param file  The file
      * @return  The new section's metadata
      */
+    @Overloaded
     public static Section chunkAddSection(Document document, IFileUploadInfo file) {
         return chunkAddSection(document, file, 0);
     }
@@ -870,6 +878,7 @@ public class FileCabinetExtensionsBase {
                 long length = fs.available();
                 byte[] buffer = new byte[cs];
                 boolean addDocumentMetaData = stringContent != null;
+                int i = 0;
                 while ((bytesRead = fs.read(buffer, 0, cs > fs.available() ? fs.available() : cs)) > 0) {
                     if (fs.available() == 0) {
                         byte[] b = new byte[bytesRead];
@@ -904,6 +913,7 @@ public class FileCabinetExtensionsBase {
                              if (resp.getStatus() < 200 || resp.getStatus() > 399) {
                                 HttpClientRequestException e = HttpClientRequestException.create(resp);
                                 throw e;}
+                             
                             doc = resp.getEntity(expectedClass);
                         } else {
                             l = link.equals(l) ? LinkResolver.getLink(proxy.getProxy().getBaseAddress(), proxy.getLinks(), rel) : l;
@@ -1035,12 +1045,6 @@ public class FileCabinetExtensionsBase {
             }
             throw new RuntimeException("Chunk upload was not finished even entire file was uploaded.");
         });
-    }
-
-    class EasyUploadDefaults {
-
-        static final int chunkSize = 3000000;
-        static final int maxSingleFileChunkSize = 2 * chunkSize;
     }
 
 }

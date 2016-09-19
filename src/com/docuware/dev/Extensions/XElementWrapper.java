@@ -14,6 +14,10 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
 
@@ -21,20 +25,30 @@ import javax.xml.stream.XMLStreamWriter;
  *
  * @author Patrick
  */
-    public class XElementWrapper<T>
+    @XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "", propOrder = {
+})
+    public class XElementWrapper
     {
-        JAXBElement<T> el;
+        @XmlAnyElement(lax=true)
+        Object el;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="XElementWrapper"/> class.
         /// </summary>
         public XElementWrapper() { }
+        
+        XElementWrapper(Object o) {
+            el = o;
+        }
+        
+        Object getEl() { return el;}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="XElementWrapper"/> class.
         /// </summary>
         /// <param name="el">The el.</param>
-        public XElementWrapper(JAXBElement<T> el)
+        public XElementWrapper(JAXBElement<?> el)
         {
             this.el = el;
         }
@@ -46,7 +60,7 @@ import javax.xml.stream.XMLStreamWriter;
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static <T> XElementWrapper toXElementWrapper(JAXBElement<T> element)
+        public static  XElementWrapper toXElementWrapper(JAXBElement<?> element)
         {
             return new XElementWrapper(element);
         }
@@ -58,16 +72,18 @@ import javax.xml.stream.XMLStreamWriter;
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static <T> JAXBElement<T> toXElement(XElementWrapper elementWrapper)
+        public static  JAXBElement<?> toXElement(XElementWrapper elementWrapper)
         {
-            return elementWrapper.el;
+            if(elementWrapper.el instanceof JAXBElement) 
+            return (JAXBElement<?>) elementWrapper.el;
+            else throw new RuntimeException("Unknown XML-Schema-Type");
         }
 
         /// <summary>
         /// Generates an object from its XML representation.
         /// </summary>
         /// <param name="reader">The <see cref="T:System.Xml.XmlReader" /> stream from which the object is deserialized.</param>
-        public void readXml(XMLStreamReader reader, Class<T> expectedType)
+        public void readXml(XMLStreamReader reader, Class<?> expectedType)
         {
             try {
                 JAXBContext jc = JAXBContext.newInstance(expectedType);
@@ -83,6 +99,8 @@ import javax.xml.stream.XMLStreamWriter;
         /// <param name="writer">The <see cref="T:System.Xml.XmlWriter" /> stream to which the object is serialized.</param>
         public void writeXml(XMLStreamWriter writer)
         {
+            if(this.el instanceof JAXBElement) {
+                JAXBElement<?> el = (JAXBElement<?>) this.el; 
                 try {
                     if(el!=null) {
                     JAXBContext jc = JAXBContext.newInstance(el.getDeclaredType());
@@ -91,6 +109,8 @@ import javax.xml.stream.XMLStreamWriter;
                 } catch (JAXBException ex) {
                     throw new RuntimeException(ex.getCause());
                 }
+            }
+            else throw new RuntimeException("Unknown XML-Schema-Type");
         }
 
 
@@ -100,7 +120,9 @@ import javax.xml.stream.XMLStreamWriter;
         /// <param name="stream">The stream.</param>
         public void save(OutputStream stream)
         {
-           try {
+            if(this.el instanceof JAXBElement) {
+                JAXBElement<?> el = (JAXBElement<?>) this.el; 
+                try {
                     if(el!=null) {
                     JAXBContext jc = JAXBContext.newInstance(el.getDeclaredType());
                     Marshaller m = jc.createMarshaller();
@@ -108,6 +130,8 @@ import javax.xml.stream.XMLStreamWriter;
                 } catch (JAXBException ex) {
                     throw new RuntimeException(ex.getCause());
                 }
+                }
+            else throw new RuntimeException("Unknown XML-Schema-Type");
             }
             
         
@@ -120,7 +144,9 @@ import javax.xml.stream.XMLStreamWriter;
         /// <param name="textWriter">The text writer.</param>
         public void save(Writer textWriter)
         {
-            try {
+            if(this.el instanceof JAXBElement) {
+                JAXBElement<?> el = (JAXBElement<?>) this.el; 
+                try {
                     if(el!=null) {
                     JAXBContext jc = JAXBContext.newInstance(el.getDeclaredType());
                     Marshaller m = jc.createMarshaller();
@@ -129,5 +155,7 @@ import javax.xml.stream.XMLStreamWriter;
                 } catch (JAXBException ex) {
                     throw new RuntimeException(ex.getCause());
                 }
+            }
+            else throw new RuntimeException("Unknown XML-Schema-Type");
         }
 }

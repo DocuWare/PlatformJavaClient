@@ -2,19 +2,20 @@
 
 package com.docuware.dev.schema._public.services.platform;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
 import com.docuware.dev.schema._public.services.platform.DocumentsQueryTableResult;
-import java.io.InputStream;
 import com.docuware.dev.schema._public.services.platform.BatchUpdateIndexFieldsResult;
 import com.docuware.dev.schema._public.services.platform.BatchUpdateProcessData;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 import com.docuware.dev.schema._public.services.platform.Dialog;
 import com.docuware.dev.schema._public.services.platform.UserDefinedSearchInfo;
+import java.io.InputStream;
 import com.docuware.dev.schema._public.services.platform.ExportSettings;
 
 import java.util.ArrayList;
@@ -370,22 +371,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "Feed".
     */
-    public InputStream getInputStreamFromFeedRelation() {
-        return MethodInvocation.<InputStream>get(this, links, "feed", InputStream.class);
+    public XElementWrapper getXElementWrapperFromFeedRelation() {
+        return MethodInvocation.<XElementWrapper>get(this, links, "feed", XElementWrapper.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Feed" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromFeedRelationAsync() {
-        return MethodInvocation.<InputStream>getAsync(this, links, "feed", InputStream.class);
+    public CompletableFuture<DeserializedHttpResponseGen<XElementWrapper>> getXElementWrapperFromFeedRelationAsync() {
+        return MethodInvocation.<XElementWrapper>getAsync(this, links, "feed", XElementWrapper.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "Feed" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromFeedRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<InputStream>getAsync(this, links, "feed", InputStream.class, ct);
+    public CompletableFuture<DeserializedHttpResponseGen<XElementWrapper>> getXElementWrapperFromFeedRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<XElementWrapper>getAsync(this, links, "feed", XElementWrapper.class, ct);
     }
 
     /**

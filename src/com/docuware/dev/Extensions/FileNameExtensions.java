@@ -5,6 +5,9 @@
  */
 package com.docuware.dev.Extensions;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  *
  * @author Patrick
@@ -76,10 +79,12 @@ public class FileNameExtensions {
      * @param fileCabinetId The file cabinet identifier
      * @param docId The document identifier
      */
-    public static void DecodeCheckoutFileName(String encodedName, String fileName, String fileCabinetId, int docId) {
-        if (!TryDecodeCheckoutFileName(encodedName, fileName, fileCabinetId, docId)) {
+    public static List<Object> DecodeCheckoutFileName(String encodedName) {
+        List<Object> result = TryDecodeCheckoutFileName(encodedName);
+        if (result==null) {
             throw new RuntimeException("The file name cannot be decoded by the checkin/checkout encoding/decoding rules. Did you modify the file name?");
         }
+        return result;
     }
 
      /**
@@ -91,25 +96,22 @@ public class FileNameExtensions {
      * @param docId The document identifier
      * @return True if the file namee could be decoded. If this case the decoded parts of the file name is in the other parameters
      */
-    public static boolean TryDecodeCheckoutFileName(String encodedName, String fileName, String fileCabinetId,
-            int docId) {
+    public static List<Object> TryDecodeCheckoutFileName(String encodedName) {
+        List<Object> result = new LinkedList<>();
         String ext = getExtension(encodedName);
         String encodedFileName = getFileNameWithoutExtension(encodedName) == null ? "" : getFileNameWithoutExtension(encodedName);
         String[] splits = encodedFileName.split("\\+", 3);
         if (splits.length == 3)// && int.TryParse(splits[0], NumberStyles.Any, CultureInfo.InvariantCulture, out docId))
         {
             try {
-                docId = Integer.parseInt(splits[0]);
-                fileCabinetId = splits[1];
-                fileName = splits[2] + ext;
-                return true;
+                result.add(Integer.parseInt(splits[0]));
+                result.add(splits[1]);
+                result.add(splits[2] + ext);
+                return result;
             } catch (Exception e) {
             }
         }
-        fileName = encodedName;
-        fileCabinetId = "";
-        docId = 0;
-        return false;
+        return null;
     }
 
         /// <summary>

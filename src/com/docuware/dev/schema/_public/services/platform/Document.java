@@ -2,11 +2,14 @@
 
 package com.docuware.dev.schema._public.services.platform;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.*;
 import com.docuware.dev.schema._public.services.Link;
+import java.util.function.Consumer;
+import com.sun.jersey.multipart.FormDataBodyPart;
 import com.docuware.dev.schema._public.services.platform.Document;
 import java.io.InputStream;
 import com.docuware.dev.schema._public.services.platform.DocumentsQueryResult;
@@ -398,6 +401,7 @@ private boolean createdAtSpecified;//test
     public static class Preview {
 
         @XmlAnyElement
+    @XmlJavaTypeAdapter(ObjectToXElementWrapperAdapter.class)
         protected XElementWrapper any;
 
         public XElementWrapper getAny() {
@@ -408,6 +412,65 @@ private boolean createdAtSpecified;//test
             this.any = value;
         }
 
+    }
+
+    @Extension
+    public FormDataBodyPart getStringContent() {
+	return FileCabinetExtensionsBase.toStringContent(this);
+    }
+
+
+	/**
+     *  Locks this instance and returns a DocumentLock object which can be used to unlock this document later.
+     * 
+     * @param operation A client identifier associated with lock operation
+     * @param lockIntervalInSeconds 
+     * @return 
+     */
+    @Extension
+    public CompletableFuture<DocumentLock> lockAsync(String operation,int lockIntervalSeconds) {
+	return DocumentLockExtensions.lockAsync(this, operation, lockIntervalSeconds);
+    }
+
+
+	/**
+     *  Locks this instance and returns a DocumentLock object which can be used to unlock this document later.
+     * 
+     * @param operation A client identifier associated with lock operation
+     * @return 
+     */
+	 @Overloaded
+    @Extension
+    public CompletableFuture<DocumentLock> lockAsync(String operation) {
+	return DocumentLockExtensions.lockAsync(this, operation);
+    }
+
+
+	/**
+     * Locks this instance and returns a DocumentLock object which can be used to unlock this document later.
+     * 
+     * @param onError   Action which is called on error
+     * @param operation A client identifier associated with lock operation
+     * @param lockIntervalInSeconds 
+     * @return 
+     */
+    @Extension
+    public CompletableFuture<DocumentLock> lockAsync(Consumer<Throwable> onError,String operation,int lockIntervalSeconds) {
+	return DocumentLockExtensions.lockAsync(this, onError, operation, lockIntervalSeconds);
+    }
+
+
+	/**
+     *  Locks this instance and returns a DocumentLock object which can be used to unlock this document later.
+     * 
+     * @param onError   Action which is called on error
+     * @param operation A client identifier associated with lock operation
+     * @return 
+     */
+	 @Overloaded
+    @Extension
+    public CompletableFuture<DocumentLock> lockAsync(Consumer<Throwable> onError,String operation) {
+	return DocumentLockExtensions.lockAsync(this, onError, operation);
     }
 
     @Extension
@@ -449,7 +512,7 @@ private boolean createdAtSpecified;//test
 	* @return	The documentIndeField
 	*/
     @Extension
-    public DocumentIndexField getDocumentIndexField(String fieldName) {
+    public DocumentIndexField getItem(String fieldName) {
 	return Extensions.getDocumentIndexFieldByNameFromDocument(this, fieldName);
     }
 
@@ -461,7 +524,7 @@ private boolean createdAtSpecified;//test
 	* @param value	The value
 	*/
     @Extension
-    public void setDocumentIndexField(String fieldName,DocumentIndexField value) {
+    public void setItem(String fieldName,DocumentIndexField value) {
 	Extensions.setDocumentIndexFieldByNameFromDocument(this, fieldName, value);
     }
 
@@ -516,7 +579,7 @@ private boolean createdAtSpecified;//test
 	* @return	The modified document
 	*/
     @Extension
-    public Document addDocumentSection(java.io.File... file) {
+    public Document addDocumentSections(java.io.File... file) {
 	return FileCabinetExtensionsBase.addDocumentSections(this, FileWrapper.toFileInfoWrapper(file));
     }
 
@@ -528,7 +591,7 @@ private boolean createdAtSpecified;//test
 	* @return	A CompletableFuture which uploads the document and returns the uploaded document's metadata.
 	*/
     @Extension
-    public CompletableFuture<DeserializedHttpResponseGen<Document>> addDocumentSectionAsync(java.io.File... file) {
+    public CompletableFuture<DeserializedHttpResponseGen<Document>> addDocumentSectionsAsync(java.io.File... file) {
 	return FileCabinetExtensionsBase.addDocumentSectionsAsync(this, FileWrapper.toFileInfoWrapper(file));
     }
 

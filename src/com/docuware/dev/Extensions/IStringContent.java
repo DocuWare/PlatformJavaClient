@@ -5,10 +5,13 @@
  */
 package com.docuware.dev.Extensions;
 
+import com.sun.jersey.multipart.FormDataBodyPart;
+
 /**
  *
  * @author Patrick
  */
 public interface IStringContent {
+    FormDataBodyPart getStringContent();
 
 }

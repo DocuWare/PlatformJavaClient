@@ -1,6 +1,7 @@
 package com.docuware.dev.Extensions;
 
 //import com.docuware.platform.client.gui.StoreDialogForm;
+import com.docuware.dev.Test.bodyWriter;
 import com.docuware.dev.schema._public.services.platform.ServiceDescription;
 import com.sun.jersey.api.client.AsyncWebResource;
 import com.sun.jersey.api.client.ClientHandlerException;
@@ -9,11 +10,15 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.filter.ClientFilter;
+import com.sun.jersey.api.client.filter.LoggingFilter;
 import com.sun.jersey.client.apache.ApacheHttpClient;
 import com.sun.jersey.client.apache.ApacheHttpClientHandler;
 import com.sun.jersey.client.apache.config.ApacheHttpClientConfig;
 import com.sun.jersey.client.apache.config.DefaultApacheHttpClientConfig;
 import com.sun.jersey.multipart.impl.MultiPartWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.net.URI;
 import javax.ws.rs.core.HttpHeaders;
 import org.apache.http.auth.AuthScope;
@@ -110,6 +115,7 @@ class PlatformClient {
                 return getNext().handle(cr);
             }
         });
+        localClient.addFilter(new LoggingFilter(System.out));
         System.setProperty(
                 "com.sun.jersey.impl.client.httpclient.handleCookies", "true");
         System.setProperty("http.protocol.handle-redirects", "true");

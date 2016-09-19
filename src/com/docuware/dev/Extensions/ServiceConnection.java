@@ -486,9 +486,15 @@ public class ServiceConnection {
             url = new URI(client.getLinkResolver().getBaseUri().toString() + "/FileCabinets/" + fileCabinetId);
         } catch (URISyntaxException ex) {
         }
-        FileCabinet fc = client.resource(url).get(FileCabinet.class);
+        ClientResponse resp = client.resource(url).get(ClientResponse.class);
+         if (resp.getStatus() < 200 || resp.getStatus() > 399) {
+            HttpClientRequestException e = HttpClientRequestException.create(resp);
+            throw e;
+         } else {
+        FileCabinet fc = resp.getEntity(FileCabinet.class);
         fc.setProxy(serviceDescription.getProxy());
         return fc;
+         }
     }
 
     /**
@@ -1899,6 +1905,17 @@ public class ServiceConnection {
      */
     public CompletableFuture<DeserializedHttpResponseGen<Document>> easyCheckInFromFileSystemAsync(java.io.File fileToCheckin, CheckInActionParameters checkInParams) {
         return EasyCheckoutCheckinExtensionsBase.easyCheckInFromFileSystemAsync(this, FileWrapper.toFileInfoWrapper(fileToCheckin), checkInParams);
+    }
+    
+    /**
+     * Checks out the specified file and saves it to the file system asynchronously
+     * 
+     * @param fileCabinetId The file cabinet identifier
+     * @param docId The document identifier
+     * @return  A Future producung an instance of EasyCheckoutResult
+     */
+    public CompletableFuture<EasyCheckoutResult> easyCheckOutToFileSystemAsync(String fileCabinetId, int docId) {
+        return EasyCheckoutCheckinExtensionsBase.easyCheckOutToFileSystemAsync(this, fileCabinetId, docId);
     }
 
     /**

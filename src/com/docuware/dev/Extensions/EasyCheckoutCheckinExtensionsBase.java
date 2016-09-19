@@ -12,9 +12,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
@@ -112,11 +112,10 @@ public class EasyCheckoutCheckinExtensionsBase {
             checkInParams = new CheckInActionParameters();
         }
 
-        int docid = 0;
-        String fileCabinetId = "";
-        String originalFileName = "";
-        FileNameExtensions.DecodeCheckoutFileName(fileToCheckin.getName(), originalFileName, fileCabinetId, docid);
-
+        List<Object> result = FileNameExtensions.DecodeCheckoutFileName(fileToCheckin.getName());
+        Integer docid= (Integer) result.get(0);
+        String fileCabinetId = (String) result.get(1);
+        String originalFileName = (String) result.get(2);
         FormDataBodyPart f1 = new FormDataBodyPart();
         try {
             f1.setFormDataContentDisposition(new FormDataContentDisposition("form-data; name=\"params\"; filename=\"params.xml\""));

@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,13 +20,13 @@ import java.util.logging.Logger;
  */
 public class TarHeader {
 
-    static Date epoch = new Date(-3600000);
+    static GregorianCalendar epoch = new GregorianCalendar(1970, 1, 1, 0, 0, 0);
     public String name;
     public long size;
-    public Date lastModifiedTime;
+    public GregorianCalendar lastModifiedTime;
     public TarEntryType EntryType;
 
-    public Date getEpoch() {
+    GregorianCalendar getEpoch() {
         return epoch;
     }
 
@@ -45,11 +46,11 @@ public class TarHeader {
         this.size = size;
     }
 
-    public Date getLastModifiedTime() {
+    public GregorianCalendar getLastModifiedTime() {
         return lastModifiedTime;
     }
 
-    public void setLastModifiedTime(Date last) {
+    public void setLastModifiedTime(GregorianCalendar last) {
         lastModifiedTime = last;
     }
 
@@ -61,7 +62,6 @@ public class TarHeader {
         EntryType = type;
     }
 
-    //TODO Check new version of SharpCompress for supporting file names larger then 100 characters 
     public void Write(OutputStream output) {
         byte[] buffer = new byte[512];
         String interName = this.name;

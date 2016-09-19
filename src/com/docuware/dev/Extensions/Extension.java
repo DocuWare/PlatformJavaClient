@@ -16,6 +16,7 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
+@CompareIgnore
 public @interface Extension {
     
 }

@@ -7,6 +7,7 @@ package com.docuware.dev.Extensions;
 
 import java.io.InputStream;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -22,5 +23,5 @@ public interface IFileUploadInfo {
 
     long getLength();
 
-    Date getLastWriteTimeUtc();
+    GregorianCalendar getLastWriteTimeUtc();
 }

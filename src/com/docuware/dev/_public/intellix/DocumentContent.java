@@ -2,6 +2,7 @@
 
 package com.docuware.dev._public.intellix;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
 import java.util.concurrent.CompletableFuture;
@@ -69,6 +70,7 @@ public class DocumentContent  {
     public static class Embedded {
 
         @XmlAnyElement(lax = true)
+        @XmlJavaTypeAdapter(ObjectToXElementWrapperAdapter.class)
         protected XElementWrapper any;
 
         public XElementWrapper getAny() {
@@ -95,14 +97,12 @@ public class DocumentContent  {
     public void setPage(ArrayList<PageContent> value) {
         page=value;
     }
-
         public List<PageContent> getPage() {
             if (page == null) {
                 page = new ArrayList<PageContent>();
             }
             return this.page;
         }
-
     }
 
 

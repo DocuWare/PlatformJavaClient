@@ -2,6 +2,7 @@
 
 package com.docuware.dev.schema._public.services.platform;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
 import java.util.concurrent.CompletableFuture;
@@ -540,22 +541,22 @@ private HttpClientProxy proxy;//test
     /**
     * Calls the HTTP Get Method on the link for the relation "AnnotationAsXaml".
     */
-    public InputStream getInputStreamFromAnnotationAsXamlRelation() {
-        return MethodInvocation.<InputStream>get(this, links, "annotationAsXaml", InputStream.class);
+    public XElementWrapper getXElementWrapperFromAnnotationAsXamlRelation() {
+        return MethodInvocation.<XElementWrapper>get(this, links, "annotationAsXaml", XElementWrapper.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "AnnotationAsXaml" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromAnnotationAsXamlRelationAsync() {
-        return MethodInvocation.<InputStream>getAsync(this, links, "annotationAsXaml", InputStream.class);
+    public CompletableFuture<DeserializedHttpResponseGen<XElementWrapper>> getXElementWrapperFromAnnotationAsXamlRelationAsync() {
+        return MethodInvocation.<XElementWrapper>getAsync(this, links, "annotationAsXaml", XElementWrapper.class);
     }
 
     /**
     * Calls the HTTP Get Method on the link for the relation "AnnotationAsXaml" asynchronously.
     */
-    public CompletableFuture<DeserializedHttpResponseGen<InputStream>> getInputStreamFromAnnotationAsXamlRelationAsync(CancellationToken ct) {
-        return MethodInvocation.<InputStream>getAsync(this, links, "annotationAsXaml", InputStream.class, ct);
+    public CompletableFuture<DeserializedHttpResponseGen<XElementWrapper>> getXElementWrapperFromAnnotationAsXamlRelationAsync(CancellationToken ct) {
+        return MethodInvocation.<XElementWrapper>getAsync(this, links, "annotationAsXaml", XElementWrapper.class, ct);
     }
 
     /**

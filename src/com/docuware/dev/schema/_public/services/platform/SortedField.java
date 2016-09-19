@@ -2,6 +2,7 @@
 
 package com.docuware.dev.schema._public.services.platform;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
 import java.util.concurrent.CompletableFuture;
@@ -67,6 +68,7 @@ public class SortedField  {
 	* @param fieldName	Name of the Field
 	* @return	The sort order
 	*/
+	@Overloaded
     @Extension
     public static SortedField create(String fieldName) {
 	return Extensions.create(fieldName);

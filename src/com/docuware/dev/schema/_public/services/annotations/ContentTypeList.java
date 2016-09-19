@@ -2,6 +2,7 @@
 
 package com.docuware.dev.schema._public.services.annotations;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
 import java.util.concurrent.CompletableFuture;
@@ -64,6 +65,7 @@ public class ContentTypeList  {
     public static class ComplexType {
 
         @XmlAnyElement(lax = true)
+    @XmlJavaTypeAdapter(ObjectToXElementWrapperAdapter.class)
         protected XElementWrapper any;
         @XmlAttribute(name = "IntroducedIn")
         protected String introducedIn;

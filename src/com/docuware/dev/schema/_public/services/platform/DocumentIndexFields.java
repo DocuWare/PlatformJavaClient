@@ -2,6 +2,7 @@
 
 package com.docuware.dev.schema._public.services.platform;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.net.URI;
 import com.docuware.dev.Extensions.*;
 import java.util.concurrent.CompletableFuture;
@@ -50,7 +51,7 @@ public class DocumentIndexFields  {
 	* @return	the requested field
 	*/
     @Extension
-    public DocumentIndexField getField(String fieldName) {
+    public DocumentIndexField getItem(String fieldName) {
 	return Extensions.getDocumentIndexFieldByNameFromDocumentIndexFields(this, fieldName);
     }
 
@@ -63,7 +64,7 @@ public class DocumentIndexFields  {
 	* @return	the requested field
 	*/
     @Extension
-    public void setField(String fieldName,DocumentIndexField value) {
+    public void setItem(String fieldName,DocumentIndexField value) {
 	Extensions.createOrUpdate(this.getField(), fieldName, value);
     }
 
