@@ -115,7 +115,6 @@ class PlatformClient {
                 return getNext().handle(cr);
             }
         });
-        localClient.addFilter(new LoggingFilter(System.out));
         System.setProperty(
                 "com.sun.jersey.impl.client.httpclient.handleCookies", "true");
         System.setProperty("http.protocol.handle-redirects", "true");
