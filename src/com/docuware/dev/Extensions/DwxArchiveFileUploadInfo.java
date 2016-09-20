@@ -34,7 +34,7 @@ public class DwxArchiveFileUploadInfo implements IFileUploadInfo {
         try {
             return new FileInputStream(_file);
         } catch (FileNotFoundException ex) {
-            throw new RuntimeException("Fil not Found");
+            throw new RuntimeException("File not Found");
         }
     }
 

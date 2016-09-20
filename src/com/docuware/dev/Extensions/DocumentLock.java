@@ -10,6 +10,7 @@ import java.io.Closeable;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -288,7 +289,9 @@ public class DocumentLock implements Closeable {
         if (!this.disposed) {
             try {
                 _close();
-                this.closingTask.wait();
+                 this.closingTask.get();
+            } catch (ExecutionException ex) {
+                Logger.getLogger(DocumentLock.class.getName()).log(Level.SEVERE, null, ex);
             } catch (InterruptedException ex) {
                 Logger.getLogger(DocumentLock.class.getName()).log(Level.SEVERE, null, ex);
             } finally {

@@ -1455,6 +1455,7 @@ public class ServiceConnection {
         }
         Param parameters = new Param(id, fileCabinetId);
         URI uri= buildUri(parameters, "checkin");
+        System.out.println(uri);
         CompletableFuture<DeserializedHttpResponseGen<Document>> fut = LinkResolver.<Document>postMultiPartAsync(this.getServiceDescription(), uri, "application/xml", Document.class, data);
         if(ct!=null) ct.addFuture(fut);
         return fut;

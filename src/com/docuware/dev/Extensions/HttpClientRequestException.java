@@ -139,11 +139,14 @@ public class HttpClientRequestException extends RuntimeException
         HttpClientRequestException extractErrorFromResponseAsync(ClientResponse httpResponseMessage)
         {
             String ct = httpResponseMessage.getHeaders().getFirst("Content-Type");
-            this.error = httpResponseMessage.getEntity(Error.class);
+            if(ct.contains("text/html")) {
+                this.htmlError = httpResponseMessage.getEntity(String.class);
+            } else {
+            this.error = httpResponseMessage.getEntity(Error.class);}
             this.statusCode = httpResponseMessage.getStatus();
             this.reasonPhrase = httpResponseMessage.getStatusInfo().toString();
-            this.method = error.getMethod();
-            this.uri = error.getUri();
+            this.method = error!=null?error.getMethod():null;
+            this.uri = error!=null?error.getUri():null;
             return this;
         }
         

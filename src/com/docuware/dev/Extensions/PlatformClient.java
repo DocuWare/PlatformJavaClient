@@ -1,7 +1,6 @@
 package com.docuware.dev.Extensions;
 
 //import com.docuware.platform.client.gui.StoreDialogForm;
-import com.docuware.dev.Test.bodyWriter;
 import com.docuware.dev.schema._public.services.platform.ServiceDescription;
 import com.sun.jersey.api.client.AsyncWebResource;
 import com.sun.jersey.api.client.ClientHandlerException;
@@ -17,9 +16,12 @@ import com.sun.jersey.client.apache.config.ApacheHttpClientConfig;
 import com.sun.jersey.client.apache.config.DefaultApacheHttpClientConfig;
 import com.sun.jersey.multipart.impl.MultiPartWriter;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URI;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.core.HttpHeaders;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.Credentials;
@@ -35,6 +37,7 @@ class PlatformClient {
     private final ApacheHttpClient client;
     private final LinkResolver linkResolver;
     private final WebResource webResource;
+    Properties config = new Properties();
 
     private final ServiceDescription serviceDescription;
 
@@ -93,7 +96,12 @@ class PlatformClient {
      * @return  the ApacheHttpClient
      */
     public ApacheHttpClient createApacheClient(ServiceConnectionTransportData sctd, String baseUri, ClientConfig cc) {
-        // Initialize the HTTP client               
+        try {
+            config.load(new FileInputStream(new File("src/com/docuware/dev/Extensions/config.properties")));
+        } catch (IOException ex) {
+            Logger.getLogger(PlatformClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            // Initialize the HTTP client
         ApacheHttpClient localClient = ApacheHttpClient.create(cc);
         if (sctd != null) {
             if (sctd.getHttpClientHandler() != null) {
@@ -111,10 +119,13 @@ class PlatformClient {
             @Override
             public ClientResponse handle(ClientRequest cr) throws ClientHandlerException {
                cr.getHeaders().add(HttpHeaders.USER_AGENT, System.getProperty("java.specification.name").replace("Specification", "").trim().replace(" ", "+")+"/"+System.getProperty("java.version"));
-               cr.getHeaders().add(HttpHeaders.USER_AGENT, PackageInfo.name+"/"+PackageInfo.version);
+               cr.getHeaders().add(HttpHeaders.USER_AGENT, config.getProperty("name")+"/"+config.getProperty("version"));
                 return getNext().handle(cr);
             }
         });
+        localClient.setReadTimeout(Integer.parseInt(config.getProperty("PlatformClientRequestTimeout"))*1000);
+        localClient.setConnectTimeout(Integer.parseInt(config.getProperty("PlatformClientRequestTimeout"))*1000);
+      // localClient.addFilter(new LoggingFilter(System.out));
         System.setProperty(
                 "com.sun.jersey.impl.client.httpclient.handleCookies", "true");
         System.setProperty("http.protocol.handle-redirects", "true");

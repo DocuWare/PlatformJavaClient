@@ -110,6 +110,10 @@ public class DeserializedHttpResponseGen<T> implements Closeable {
         this.responseMessage = responseMessage;
         this.result = result;
     }
+    
+    public DeserializedHttpResponseGen(ClientResponse responseMessage) {
+        this.responseMessage = responseMessage;
+    }
 
     /**
      * Initializes a new instance of the {@Link DeserializedHttpResponseGen<T>>}
