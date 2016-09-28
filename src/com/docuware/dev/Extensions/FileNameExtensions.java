@@ -75,9 +75,8 @@ public class FileNameExtensions {
      * Strips the address of a checked out file from its name
      * 
      * @param encodedName   Encoded name of the file
-     * @param fileName  Name of the file
-     * @param fileCabinetId The file cabinet identifier
-     * @param docId The document identifier
+     * @return   a list containing the fileName, the fileCabinetId and the docId in this order
+     * 
      */
     public static List<Object> DecodeCheckoutFileName(String encodedName) {
         List<Object> result = TryDecodeCheckoutFileName(encodedName);
@@ -91,10 +90,7 @@ public class FileNameExtensions {
      * Tries decode the file name of a checkout file
      * 
      * @param encodedName   Name of the encoded
-     * @param fileName  Name of the file
-     * @param fileCabinetId The file cabinet identifier
-     * @param docId The document identifier
-     * @return True if the file namee could be decoded. If this case the decoded parts of the file name is in the other parameters
+     * @return   a list containing the fileName, the fileCabinetId and the docId in this order
      */
     public static List<Object> TryDecodeCheckoutFileName(String encodedName) {
         List<Object> result = new LinkedList<>();

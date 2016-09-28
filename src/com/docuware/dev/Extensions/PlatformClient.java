@@ -41,11 +41,11 @@ class PlatformClient {
 
     private final ServiceDescription serviceDescription;
 
-    public LinkResolver getLinkResolver() {
+    LinkResolver getLinkResolver() {
         return linkResolver;
     }
 
-    public ApacheHttpClient getClient() {
+    ApacheHttpClient getClient() {
         return client;
     }
     
@@ -57,7 +57,7 @@ class PlatformClient {
      * @param c the windows credentials
      * @return  the connected client
      */
-    public ApacheHttpClient createApacheClientWindows(ServiceConnectionTransportData sctd, String baseUri, Credentials c) {
+    ApacheHttpClient createApacheClientWindows(ServiceConnectionTransportData sctd, String baseUri, Credentials c) {
          ClientConfig cc = new DefaultApacheHttpClientConfig();
         cc.getClasses().add(MultiPartWriter.class);
         // turn on cookies support
@@ -78,7 +78,7 @@ class PlatformClient {
      * @param baseUri   the baseUri to connet with
      * @return  the ApacheHttpClient
      */
-    public ApacheHttpClient createApacheClientDefault(ServiceConnectionTransportData sctd, String baseUri) {
+    ApacheHttpClient createApacheClientDefault(ServiceConnectionTransportData sctd, String baseUri) {
          ClientConfig cc = new DefaultApacheHttpClientConfig();
         cc.getClasses().add(MultiPartWriter.class);
         // turn on cookies support
@@ -95,7 +95,7 @@ class PlatformClient {
      * @param cc    the ClientConfig
      * @return  the ApacheHttpClient
      */
-    public ApacheHttpClient createApacheClient(ServiceConnectionTransportData sctd, String baseUri, ClientConfig cc) {
+    ApacheHttpClient createApacheClient(ServiceConnectionTransportData sctd, String baseUri, ClientConfig cc) {
         try {
             config.load(new FileInputStream(new File("src/com/docuware/dev/Extensions/config.properties")));
         } catch (IOException ex) {
@@ -125,7 +125,7 @@ class PlatformClient {
         });
         localClient.setReadTimeout(Integer.parseInt(config.getProperty("PlatformClientRequestTimeout"))*1000);
         localClient.setConnectTimeout(Integer.parseInt(config.getProperty("PlatformClientRequestTimeout"))*1000);
-      // localClient.addFilter(new LoggingFilter(System.out));
+        // localClient.addFilter(new LoggingFilter(System.out));
         System.setProperty(
                 "com.sun.jersey.impl.client.httpclient.handleCookies", "true");
         System.setProperty("http.protocol.handle-redirects", "true");

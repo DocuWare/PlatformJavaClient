@@ -181,7 +181,7 @@ public class EasyFileUploadExtensionsBase {
      * @param synchronizeSettings   The settings of the synchronization
      * @return  Returns the result of the synchronization operation
      */
-    public static ImportResult EasySynchronize(FileCabinet fileCabinet, IFileUploadInfo file, SynchronizationSettings synchronizeSettings) {
+    static ImportResult EasySynchronize(FileCabinet fileCabinet, IFileUploadInfo file, SynchronizationSettings synchronizeSettings) {
         if (file.getLength() > EasyUploadDefaults.maxSingleFileChunkSize) {
             return FileCabinetExtensionsBase.chunkSynchronize(fileCabinet, synchronizeSettings, file, EasyUploadDefaults.chunkSize);
         } else {

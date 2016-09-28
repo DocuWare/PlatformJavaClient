@@ -28,7 +28,6 @@ import javax.xml.namespace.QName;
 class LinkResolver {
 
     URI baseUri;
-    Client client;
 
     public URI getBaseUri() {
         return baseUri;
@@ -36,7 +35,6 @@ class LinkResolver {
 
     public LinkResolver(URI baseUri, Client client) {
         this.baseUri = baseUri;
-        this.client = client;
     }
 
     /**
@@ -159,7 +157,7 @@ class LinkResolver {
      * @return  The future performing the post-Request and returning the Result
      */
     <T, P> T post(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, JAXBElement<P> postData, String type, String accept) {
-        ClientResponse resp = client.resource(LinkResolver.getLink(baseUri, links, rel)).type(type).accept(accept).post(ClientResponse.class, postData);
+        ClientResponse resp = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel)).type(type).accept(accept).post(ClientResponse.class, postData);
         if (resp.getStatus() < 200 || resp.getStatus() > 399) {
             HttpClientRequestException e = HttpClientRequestException.create(resp);
             throw e;
@@ -264,7 +262,8 @@ class LinkResolver {
      * @return  The response object of the post-request
      */
     <T, P> T post(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, P postData, String bodyContentType, String accept) {
-        ClientResponse resp = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel)).type(bodyContentType).accept(accept).post(ClientResponse.class, postData);
+        WebResource web = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel));
+        ClientResponse resp = web.type(bodyContentType).accept(accept).post(ClientResponse.class, postData);
         if (resp.getStatus() < 200 || resp.getStatus() > 399) {
             HttpClientRequestException e = HttpClientRequestException.create(resp);
             throw e;
@@ -553,7 +552,7 @@ class LinkResolver {
      * @return a String representing the response to the put-request
      */
     <P> String put(IHttpClientProxy proxy, Links links, String rel, P postData, String type, String accept) {
-        ClientResponse resp = client.resource(LinkResolver.getLink(baseUri, links, rel)).type(type).accept(accept).put(ClientResponse.class, postData);
+        ClientResponse resp = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel)).type(type).accept(accept).put(ClientResponse.class, postData);
         if (resp.getStatus() < 200 || resp.getStatus() > 399) {
             HttpClientRequestException e = HttpClientRequestException.create(resp);
             throw e;
@@ -604,7 +603,7 @@ class LinkResolver {
      * @return The response object of the put request
      */
     <T, P> T put(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, P postData, String type, String accept) {
-        ClientResponse resp = client.resource(LinkResolver.getLink(baseUri, links, rel)).type(type).accept(accept).put(ClientResponse.class, postData);
+        ClientResponse resp = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel)).type(type).accept(accept).put(ClientResponse.class, postData);
         if (resp.getStatus() < 200 || resp.getStatus() > 399) {
             HttpClientRequestException e = HttpClientRequestException.create(resp);
             throw e;
@@ -662,7 +661,7 @@ class LinkResolver {
      * @return  The response object of the put request
      */
     <T> T put(IHttpClientProxy proxy, Links links, String rel, Class<T> expectedType, InputStream postData) {
-        ClientResponse resp = client.resource(LinkResolver.getLink(baseUri, links, rel)).put(ClientResponse.class, postData);
+        ClientResponse resp = proxy.getProxy().getHttpClient().getClient().resource(LinkResolver.getLink(baseUri, links, rel)).put(ClientResponse.class, postData);
         if (resp.getStatus() < 200 || resp.getStatus() > 399) {
             HttpClientRequestException e = HttpClientRequestException.create(resp);
             throw e;

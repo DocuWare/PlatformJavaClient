@@ -420,7 +420,6 @@ public class FileCabinetExtensionsBase {
      * @param chunkSize Size of the chunk
      * @return  Returns the result of the import operation
      */
-    @Overloaded
     public static ImportResult chunkImportArchive(FileCabinet fileCabinet, ImportSettings importSettings, IFileUploadInfo file, int chunkSize) {
         return FileCabinetExtensionsBase.<ImportResult>chunkUploadFile(fileCabinet.getImportDocumentsRelationLink(), ((IRelationsWithProxy) fileCabinet), file, chunkSize, importSettings, ImportResult.class);
     }

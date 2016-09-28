@@ -158,4 +158,21 @@ import javax.xml.stream.XMLStreamWriter;
             }
             else throw new RuntimeException("Unknown XML-Schema-Type");
         }
+        
+        public void save(XMLStreamWriter textWriter)
+        {
+            if(this.el instanceof JAXBElement) {
+                JAXBElement<?> el = (JAXBElement<?>) this.el; 
+                try {
+                    if(el!=null) {
+                    JAXBContext jc = JAXBContext.newInstance(el.getDeclaredType());
+                    Marshaller m = jc.createMarshaller();
+                    m.marshal(el.getValue(), textWriter);
+                    }
+                } catch (JAXBException ex) {
+                    throw new RuntimeException(ex.getCause());
+                }
+            }
+            else throw new RuntimeException("Unknown XML-Schema-Type");
+        }
 }
