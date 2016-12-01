@@ -1,6 +1,5 @@
 package com.docuware.dev.Extensions;
 
-//import com.docuware.platform.client.gui.StoreDialogForm;
 import com.docuware.dev.schema._public.services.platform.ServiceDescription;
 import com.sun.jersey.api.client.AsyncWebResource;
 import com.sun.jersey.api.client.ClientHandlerException;
@@ -9,7 +8,6 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.filter.ClientFilter;
-import com.sun.jersey.api.client.filter.LoggingFilter;
 import com.sun.jersey.client.apache.ApacheHttpClient;
 import com.sun.jersey.client.apache.ApacheHttpClientHandler;
 import com.sun.jersey.client.apache.config.ApacheHttpClientConfig;
@@ -58,15 +56,14 @@ class PlatformClient {
      * @return  the connected client
      */
     ApacheHttpClient createApacheClientWindows(ServiceConnectionTransportData sctd, String baseUri, Credentials c) {
-         ClientConfig cc = new DefaultApacheHttpClientConfig();
+    	ClientConfig cc = new DefaultApacheHttpClientConfig();
         cc.getClasses().add(MultiPartWriter.class);
         // turn on cookies support
-        cc.getProperties().put(
-                "com.sun.jersey.impl.client.httpclient.handleCookies", true);
+        cc.getProperties().put("com.sun.jersey.impl.client.httpclient.handleCookies", true);
         cc.getProperties().put("http.protocol.handle-redirects", true);
         CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-    //make sure to supply all 4 arguments to the  NTCredentials constructor
-    credentialsProvider.setCredentials(AuthScope.ANY, c);
+        //make sure to supply all 4 arguments to the  NTCredentials constructor
+        credentialsProvider.setCredentials(AuthScope.ANY, c);
         cc.getProperties().put(ApacheHttpClientConfig.PROPERTY_CREDENTIALS_PROVIDER, credentialsProvider);
         return createApacheClient(sctd, baseUri, cc);
     }
@@ -82,8 +79,7 @@ class PlatformClient {
          ClientConfig cc = new DefaultApacheHttpClientConfig();
         cc.getClasses().add(MultiPartWriter.class);
         // turn on cookies support
-        cc.getProperties().put(
-                "com.sun.jersey.impl.client.httpclient.handleCookies", true);
+        cc.getProperties().put("com.sun.jersey.impl.client.httpclient.handleCookies", true);
         cc.getProperties().put("http.protocol.handle-redirects", true);
         return createApacheClient(sctd, baseUri, cc);
     }
@@ -99,9 +95,9 @@ class PlatformClient {
         try {
             config.load(new FileInputStream(new File("src/com/docuware/dev/Extensions/config.properties")));
         } catch (IOException ex) {
-            Logger.getLogger(PlatformClient.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PlatformClient.class.getName()).log(Level.INFO, null, ex);
         }
-            // Initialize the HTTP client
+        // Initialize the HTTP client
         ApacheHttpClient localClient = ApacheHttpClient.create(cc);
         if (sctd != null) {
             if (sctd.getHttpClientHandler() != null) {
@@ -115,7 +111,6 @@ class PlatformClient {
             }
         }
         localClient.addFilter(new ClientFilter() {
-            
             @Override
             public ClientResponse handle(ClientRequest cr) throws ClientHandlerException {
                cr.getHeaders().add(HttpHeaders.USER_AGENT, System.getProperty("java.specification.name").replace("Specification", "").trim().replace(" ", "+")+"/"+System.getProperty("java.version"));
@@ -123,11 +118,19 @@ class PlatformClient {
                 return getNext().handle(cr);
             }
         });
-        localClient.setReadTimeout(Integer.parseInt(config.getProperty("PlatformClientRequestTimeout"))*1000);
-        localClient.setConnectTimeout(Integer.parseInt(config.getProperty("PlatformClientRequestTimeout"))*1000);
+        String platformClientRequestTimeout = null;
+        try {
+        	platformClientRequestTimeout = config.getProperty("PlatformClientRequestTimeout");
+        } catch (Exception ex) {
+            Logger.getLogger(PlatformClient.class.getName()).log(Level.INFO, null, ex);
+        }
+        if(platformClientRequestTimeout == null){
+        	platformClientRequestTimeout = "60";
+        }
+        localClient.setReadTimeout(Integer.parseInt(platformClientRequestTimeout)*1000);
+        localClient.setConnectTimeout(Integer.parseInt(platformClientRequestTimeout)*1000);
         // localClient.addFilter(new LoggingFilter(System.out));
-        System.setProperty(
-                "com.sun.jersey.impl.client.httpclient.handleCookies", "true");
+        System.setProperty("com.sun.jersey.impl.client.httpclient.handleCookies", "true");
         System.setProperty("http.protocol.handle-redirects", "true");
 
         return localClient;
@@ -154,7 +157,6 @@ class PlatformClient {
      */
     private void prepareUserAgent(ApacheHttpClient client, String[] UserAgents) {
         ClientFilter cf = new ClientFilter() {
-
             @Override
             public ClientResponse handle(ClientRequest cr) throws ClientHandlerException {
                 for (String UserAgent : UserAgents) {
@@ -176,7 +178,6 @@ class PlatformClient {
      */
     private void prepareHttpClient(ApacheHttpClient client, String[] AcceptLanguages) {
         ClientFilter cf = new ClientFilter() {
-
             @Override
             public ClientResponse handle(ClientRequest cr) throws ClientHandlerException {
                 for (String AcceptLanguage : AcceptLanguages) {
@@ -195,7 +196,6 @@ class PlatformClient {
      * @param sctd  the login data
      */
     public PlatformClient(String baseURI, ServiceConnectionTransportData sctd) {
-
         client = createApacheClientDefault(sctd, baseURI);
         // The base URI of the DocuWare Platform services
         URI baseUri = URI.create(baseURI);
@@ -215,7 +215,6 @@ class PlatformClient {
      * @param c     the windows credentials
      */
     public PlatformClient(String baseURI, ServiceConnectionTransportData sctd, Credentials c) {
-
         client = createApacheClientWindows(sctd, baseURI,c);
         // The base URI of the DocuWare Platform services
         URI baseUri = URI.create(baseURI);
@@ -233,7 +232,6 @@ class PlatformClient {
      * @param client    the client which should be used for the communication
      */
     public PlatformClient(String baseURI, ApacheHttpClient client) {
-
         this.client = client;
         // The base URI of the DocuWare Platform services
         URI baseUri = URI.create(baseURI);
