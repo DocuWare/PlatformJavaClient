@@ -92,11 +92,22 @@ class PlatformClient {
      * @return  the ApacheHttpClient
      */
     ApacheHttpClient createApacheClient(ServiceConnectionTransportData sctd, String baseUri, ClientConfig cc) {
+        String applicationName = null;
+        String version = null;
+        String platformClientRequestTimeout = null;
+        
         try {
             config.load(new FileInputStream(new File("src/com/docuware/dev/Extensions/config.properties")));
+            platformClientRequestTimeout = config.getProperty("PlatformClientRequestTimeout");
+            applicationName = config.getProperty("name");
+            version = config.getProperty("version");
         } catch (IOException ex) {
-            Logger.getLogger(PlatformClient.class.getName()).log(Level.INFO, null, ex);
+            Logger.getLogger(PlatformClient.class.getName()).log(Level.INFO, "config.properties file not found, default values are applied.", ex);
+            platformClientRequestTimeout = "60";
+            applicationName = "PlatformJavaClient";
+            version = "Hawk";
         }
+        
         // Initialize the HTTP client
         ApacheHttpClient localClient = ApacheHttpClient.create(cc);
         if (sctd != null) {
@@ -114,19 +125,11 @@ class PlatformClient {
             @Override
             public ClientResponse handle(ClientRequest cr) throws ClientHandlerException {
                cr.getHeaders().add(HttpHeaders.USER_AGENT, System.getProperty("java.specification.name").replace("Specification", "").trim().replace(" ", "+")+"/"+System.getProperty("java.version"));
-               cr.getHeaders().add(HttpHeaders.USER_AGENT, config.getProperty("name")+"/"+config.getProperty("version"));
+               cr.getHeaders().add(HttpHeaders.USER_AGENT, applicationName + "/" + version);
                 return getNext().handle(cr);
             }
         });
-        String platformClientRequestTimeout = null;
-        try {
-        	platformClientRequestTimeout = config.getProperty("PlatformClientRequestTimeout");
-        } catch (Exception ex) {
-            Logger.getLogger(PlatformClient.class.getName()).log(Level.INFO, null, ex);
-        }
-        if(platformClientRequestTimeout == null){
-        	platformClientRequestTimeout = "60";
-        }
+        
         localClient.setReadTimeout(Integer.parseInt(platformClientRequestTimeout)*1000);
         localClient.setConnectTimeout(Integer.parseInt(platformClientRequestTimeout)*1000);
         // localClient.addFilter(new LoggingFilter(System.out));
