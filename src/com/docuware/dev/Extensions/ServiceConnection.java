@@ -110,8 +110,8 @@ public class ServiceConnection {
      * Disconnects the Instance
      */
     public void disconnect() {
-        ClientResponse resp = MethodInvocation.get(serviceDescription, serviceDescription.getLinks(), "logout", ClientResponse.class);
-        resp.close();
+        MethodInvocation.get(serviceDescription, serviceDescription.getLinks(), "logout", null);
+        
         client.getClient().getClientHandler().getHttpClient().getHttpConnectionManager().closeIdleConnections(1);
         client.getClient().destroy();
     }
