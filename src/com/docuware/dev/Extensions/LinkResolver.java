@@ -133,7 +133,7 @@ class LinkResolver {
             HttpClientRequestException e = HttpClientRequestException.create(resp);
             throw e;
         } else {
-            if(resp.getStatus()==204) return null;
+            if(resp.getStatus()==204 || Objects.equals("logout", rel)) return null;
             T t = resp.getEntity(expectedType);
             if (t instanceof IHttpClientProxy) {
                 ((IHttpClientProxy) t).setProxy(proxy.getProxy());
