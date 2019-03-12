@@ -38,6 +38,7 @@ private ItemChoiceType itemElementName;//test
         @XmlElement(name = "Decimal", type = BigDecimal.class),
         @XmlElement(name = "String", type = String.class),
         @XmlElement(name = "Keywords", type = DocumentIndexFieldKeywords.class),
+        @XmlElement(name = "Date", type = GregorianCalendar.class),
         @XmlElement(name = "DateTime", type = GregorianCalendar.class)
     })
     protected Object item;

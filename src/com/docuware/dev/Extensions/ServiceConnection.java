@@ -67,6 +67,7 @@ public class ServiceConnection {
 
     private final ServiceDescription serviceDescription;
     private static PlatformClient client;
+    private static String hostId;
 
     /**
      * @deprecated 
@@ -124,6 +125,10 @@ public class ServiceConnection {
         return CompletableFuture.runAsync(() -> {
             MethodInvocation.getAsync(serviceDescription, serviceDescription.getLinks(), "logout", null);
         });
+    }
+
+    public static void SetHostId(String HostId){
+        hostId = HostId;
     }
 
     /**
@@ -396,6 +401,10 @@ public class ServiceConnection {
     }
 
     private static ServiceConnection create(MultivaluedMap<String, String> formData, String baseuri, String rel, ServiceConnectionTransportData sclbd) {
+        if(hostId != null){
+            formData.add("HostId", hostId);
+        }
+        
         client = new PlatformClient(baseuri, sclbd);
         LinkResolver resolver = client.getLinkResolver();
         ServiceDescription serviceDescription = client.getServiceDescription();
