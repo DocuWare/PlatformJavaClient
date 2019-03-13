@@ -13,9 +13,9 @@ import com.sun.jersey.client.apache.ApacheHttpClientHandler;
 import com.sun.jersey.client.apache.config.ApacheHttpClientConfig;
 import com.sun.jersey.client.apache.config.DefaultApacheHttpClientConfig;
 import com.sun.jersey.multipart.impl.MultiPartWriter;
-import java.io.File;
-import java.io.FileInputStream;
+
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -92,11 +92,19 @@ class PlatformClient {
      * @return  the ApacheHttpClient
      */
     ApacheHttpClient createApacheClient(ServiceConnectionTransportData sctd, String baseUri, ClientConfig cc) {
-        try {
-            config.load(new FileInputStream(new File("src/com/docuware/dev/Extensions/config.properties")));
-        } catch (IOException ex) {
-            Logger.getLogger(PlatformClient.class.getName()).log(Level.INFO, null, ex);
-        }
+        final String applicationName;
+        final String version;
+        final String platformClientRequestTimeout;
+
+        // load default properties
+        readConfigFromClasspath("/docuware-config-default.properties");
+        // allow user to override default
+        readConfigFromClasspath("/docuware-config.properties");
+
+        platformClientRequestTimeout = config.getProperty("PlatformClientRequestTimeout", "60");
+        applicationName = config.getProperty("name", "PlatformJavaClient");
+        version = config.getProperty("version", "Hawk");
+
         // Initialize the HTTP client
         ApacheHttpClient localClient = ApacheHttpClient.create(cc);
         if (sctd != null) {
@@ -114,19 +122,11 @@ class PlatformClient {
             @Override
             public ClientResponse handle(ClientRequest cr) throws ClientHandlerException {
                cr.getHeaders().add(HttpHeaders.USER_AGENT, System.getProperty("java.specification.name").replace("Specification", "").trim().replace(" ", "+")+"/"+System.getProperty("java.version"));
-               cr.getHeaders().add(HttpHeaders.USER_AGENT, config.getProperty("name")+"/"+config.getProperty("version"));
+               cr.getHeaders().add(HttpHeaders.USER_AGENT, applicationName + "/" + version);
                 return getNext().handle(cr);
             }
         });
-        String platformClientRequestTimeout = null;
-        try {
-        	platformClientRequestTimeout = config.getProperty("PlatformClientRequestTimeout");
-        } catch (Exception ex) {
-            Logger.getLogger(PlatformClient.class.getName()).log(Level.INFO, null, ex);
-        }
-        if(platformClientRequestTimeout == null){
-        	platformClientRequestTimeout = "60";
-        }
+        
         localClient.setReadTimeout(Integer.parseInt(platformClientRequestTimeout)*1000);
         localClient.setConnectTimeout(Integer.parseInt(platformClientRequestTimeout)*1000);
         // localClient.addFilter(new LoggingFilter(System.out));
@@ -134,6 +134,23 @@ class PlatformClient {
         System.setProperty("http.protocol.handle-redirects", "true");
 
         return localClient;
+    }
+
+    /**
+     * Search on the classpath root if there is a docuware-config-default.properties file and load it info the config field
+     * @param configFileName
+     */
+    private void readConfigFromClasspath(String configFileName) {
+        try {
+            InputStream configStream = getClass().getResourceAsStream(configFileName);
+            if (configStream != null) {
+                config.load(configStream);
+            } else {
+                Logger.getLogger(PlatformClient.class.getName()).log(Level.INFO, configFileName + " file not found on classpath, default values are applied.");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(PlatformClient.class.getName()).log(Level.INFO, configFileName + " could not be read, default values are applied.", ex);
+        }
     }
 
     /**
